@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "MCP 管理器",
-    "description": "在设置里管理外部 MCP 服务器：支持 streamable-http / stdio、Postman 式请求头填写密钥、一键连通性测试，以及真正把工具从模型侧移除的逐工具开关。"
+    "description": "管理用户的MCP Server，按需开关MCP Tools"
   }
 }

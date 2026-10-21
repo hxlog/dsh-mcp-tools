@@ -9,7 +9,7 @@
 
 [English](README.en.md) | 简体中文
 
-在 DeepSeek Harness Web GUI 的**设置**里管理外部 MCP 服务器：添加、粘贴密钥、测试连通性、逐工具开关。被停用的工具**不会注册进模型**，既不占上下文，也无法被误调用。
+管理用户的 MCP Server，按需开关 MCP Tools。被停用的工具**不会注册进模型**，既不占上下文，也无法被误调用。
 
 ![设置中的 MCP 服务器](docs/screenshots/zh/mcp-overview.png)
 

@@ -9,7 +9,7 @@
 
 English | [简体中文](README.md)
 
-A settings panel for external MCP servers, built into the DeepSeek Harness Web GUI. Add a server, paste the key, test the connection, and turn individual tools on or off — the disabled ones **never reach the model**, so they cost no context and cannot be called by mistake.
+Manage your MCP servers and toggle MCP tools on demand, inside the DeepSeek Harness Web GUI. Disabled tools **never reach the model**: no context cost, no accidental calls.
 
 ![MCP servers in Settings](docs/screenshots/en/mcp-overview.png)
 

@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "MCP Manager",
-    "description": "Manage external MCP servers inside Settings: streamable-http or stdio, Postman-style headers for secrets, one-click connectivity test, and per-tool toggles that really remove tools from the model."
+    "description": "Manage your MCP servers and toggle MCP tools on demand."
   }
 }

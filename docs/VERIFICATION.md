@@ -199,3 +199,10 @@ node scripts/browser-login.mjs
 - GitHub：https://github.com/hxlog/dsh-mcp-tools（public，main 分支，v1.0.0 Release）。
 - 生态：向 awesome-dsh-plugin 目录提交条目 PR（data/plugins/hxlog__dsh-mcp-tools.yml，category tools）。
 - npm：`npm publish` 因本机未登录（ENEEDAUTH）未完成；包内容 `npm pack` 校验通过（32 files / 690 KB）。
+
+## 14. Logo 重设计 + 功能描述收敛
+
+- 参照 DSH 内置 / 实验性插件图标规范重做 logo：36×36 viewBox、无外框、蓝色系渐变（#7CB7FF → #3F77D8）、几何图形、圆角与官方图标同族；图形为「一排工具 chip + 开启状态的开关」，对应「按需开关 MCP Tools」。
+- 旧 logo 为 48×48 描边方框 + currentColor「M」，在插件列表中显示为灰色线框，与官方彩色渐变图标不一致，已替换。
+- 插件描述（locale/zh、locale/en、package.json、README）统一为「管理用户的MCP Server，按需开关MCP Tools」/ "Manage your MCP servers and toggle MCP tools on demand."
+- 桌面版 profile（`~/.dsh/profiles/desktop`，github:hxlog/dsh-mcp-tools 安装副本）已同步 icon/locale/package.json 并触发 recompose，刷新插件页即可看到新图标。
