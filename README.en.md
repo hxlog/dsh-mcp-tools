@@ -75,11 +75,11 @@ See it in dark mode:
 
 ## Install
 
-Requires **DeepSeek Harness 0.2.x** with the Web GUI (`dsh web`) and **Node.js ≥ 22.13**.
+Requires **DeepSeek Harness 0.2.x** (Web GUI `dsh web` or DSH Desktop) and **Node.js ≥ 22.13**. Published on npm as [dsh-mcp-tools](https://www.npmjs.com/package/dsh-mcp-tools) `1.0.0`.
 
 ### From the Plugins page (recommended)
 
-1. Open the DSH Web GUI → **Plugins** in the sidebar.
+1. Open DSH Web (or DSH Desktop) → **Plugins** in the sidebar (Desktop: **Settings → Plugins**).
 2. Choose **Install**, enter `dsh-mcp-tools`, and confirm.
 3. Enable the new bundle, then refresh the page once.
 4. Open **Settings → MCP**.
@@ -87,12 +87,13 @@ Requires **DeepSeek Harness 0.2.x** with the Web GUI (`dsh web`) and **Node.js �
 ### From the CLI
 
 ```bash
-dsh plugin --profile web add dsh-mcp-tools
+dsh plugin --profile web add dsh-mcp-tools      # Web
+dsh plugin --profile desktop add dsh-mcp-tools  # Desktop
 ```
 
-Then add `"dsh-mcp-tools"` to `dsh.profile.bundles` in `~/.dsh/profiles/web/package.json` (or enable the bundle on the Plugins page) and refresh. If the section does not appear, restart `dsh web`.
+The command installs from npm and records the bundle in that profile's `dsh.profile.bundles`. If the Plugins page does not show it, enable the bundle once; if the section still does not appear, restart `dsh web`.
 
-> Upgrading the package requires a restart of `dsh web` to load the new host module generation.
+> Upgrading the package requires a restart of `dsh web` (or reopening DSH Desktop) to load the new host module generation.
 
 ---
 

@@ -206,3 +206,16 @@ node scripts/browser-login.mjs
 - 旧 logo 为 48×48 描边方框 + currentColor「M」，在插件列表中显示为灰色线框，与官方彩色渐变图标不一致，已替换。
 - 插件描述（locale/zh、locale/en、package.json、README）统一为「管理用户的MCP Server，按需开关MCP Tools」/ "Manage your MCP servers and toggle MCP tools on demand."
 - 桌面版 profile（`~/.dsh/profiles/desktop`，github:hxlog/dsh-mcp-tools 安装副本）已同步 icon/locale/package.json 并触发 recompose，刷新插件页即可看到新图标。
+
+## 15. npm 发布与安装验证（1.0.0）
+
+发布账号 `xingyuliu`；首个版本 `1.0.0` 已上架（发布过程中因 2FA 产生过一个 `0.0.0-stage` 占位版本，`latest` 已指向 1.0.0）。
+
+| 检查项 | 结果 |
+| --- | --- |
+| registry | `dist-tags.latest = 1.0.0`，`versions = [0.0.0-stage, 1.0.0]` |
+| 包内容 | 32 files / 690 KB；`icon.svg`、`locale/*.json`、`package.json`、`client/client.js`、`lib/*`、README 与仓库 HEAD **逐文件 sha256 一致** |
+| 下载后离线自检 | `npm pack dsh-mcp-tools@1.0.0` → 解包 → `node scripts/smoke.mjs` 9/9 通过 |
+| 全新安装 | 空目录 `npm install dsh-mcp-tools@1.0.0` 成功，无 postinstall 依赖；安装后 smoke 通过 |
+| DSH 安装 | `dsh plugin --profile npmcheck add dsh-mcp-tools` → pnpm 从 registry 安装 1.0.0，profile 的 `dsh.profile.bundles` 自动加入 `dsh-mcp-tools`；测试 profile 已删除 |
+| 插件元数据 | npm 包内 locale：`MCP 管理器 / 管理用户的MCP Server，按需开关MCP Tools`；`icon.svg` 771 B，36×36 蓝色渐变 |

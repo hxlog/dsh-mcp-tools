@@ -77,11 +77,11 @@ dsh-mcp-tools 把这些搬进了 **设置 → MCP**：
 
 ## 安装
 
-需要 **DeepSeek Harness 0.2.x**（Web GUI，`dsh web`）与 **Node.js ≥ 22.13**。
+需要 **DeepSeek Harness 0.2.x**（Web GUI `dsh web` 或 DSH Desktop）与 **Node.js ≥ 22.13**。包已发布到 npm：[dsh-mcp-tools](https://www.npmjs.com/package/dsh-mcp-tools) `1.0.0`。
 
 ### 通过插件页安装（推荐）
 
-1. 打开 DSH Web GUI → 侧边栏 **插件**。
+1. 打开 DSH Web（或 DSH Desktop）→ 侧边栏 **插件**（Desktop 在 **设置 → 插件**）。
 2. 点击安装，填入 `dsh-mcp-tools`，确认。
 3. 启用新 bundle，然后刷新一次页面。
 4. 打开 **设置 → MCP**。
@@ -89,12 +89,13 @@ dsh-mcp-tools 把这些搬进了 **设置 → MCP**：
 ### 通过命令行安装
 
 ```bash
-dsh plugin --profile web add dsh-mcp-tools
+dsh plugin --profile web add dsh-mcp-tools      # Web
+dsh plugin --profile desktop add dsh-mcp-tools  # Desktop
 ```
 
-然后把 `"dsh-mcp-tools"` 加进 `~/.dsh/profiles/web/package.json` 的 `dsh.profile.bundles`（或在插件页启用该 bundle），刷新页面。若分区仍未出现，重启 `dsh web`。
+命令会从 npm 安装并写入该 profile 的 `dsh.profile.bundles`。若插件页未出现，启用一次该 bundle；分区仍未出现就重启 `dsh web`。
 
-> 升级包版本后需要重启 `dsh web`，才会加载新的 host 模块。
+> 升级包版本后需要重启 `dsh web` / 重开 DSH Desktop，才会加载新的 host 模块。
 
 ---
 
