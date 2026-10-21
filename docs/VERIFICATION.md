@@ -232,3 +232,17 @@ npm 页面（1.0.0）暴露的问题与处理：
 | `homepage` 指向 `#readme` | 改为仓库根地址 `https://github.com/hxlog/dsh-mcp-tools`；`repository`/`bugs` 保持指向 GitHub |
 | README 缺少明确的仓库 / npm / Issues 入口 | 徽章下新增一行：GitHub 仓库 · npm · 问题反馈（中英双份） |
 | 用户容易误以为 `npm i dsh-mcp-tools` 即可用 | 安装段落增加醒目提示：这是 DSH 插件，npm 只负责下载，仍需装进 DSH profile |
+
+## 17. npm 1.0.1 发布复核
+
+`dsh-mcp-tools@1.0.1` 通过 npm 浏览器授权流程发布成功（`npm publish` → 浏览器 Authorize → CLI 完成）。
+
+| 检查项 | 结果 |
+| --- | --- |
+| registry | `dist-tags.latest = 1.0.1`，`versions = 0.0.0-stage, 1.0.0, 1.0.1` |
+| 元数据 | `homepage = https://github.com/hxlog/dsh-mcp-tools`；`repository` / `bugs` 指向 GitHub；description 已无结尾句号（页面不再出现 `settings..`） |
+| npm 页面 | 版本 1.0.1；侧栏 Install / Repository / Homepage / Version / License / Issues 齐全；7 张截图均为 jsDelivr CDN；出现「不是普通 npm 依赖库」提示 |
+| 包内容 | 1.0.1 tarball 32 files / 690.8 kB；解包后 `scripts/smoke.mjs` 9/9 通过 |
+| 发布产物 | GitHub Release v1.0.1（含 `dsh-mcp-tools-1.0.1.tgz`） |
+
+已知：`0.0.0-stage` 是 npm staged publishing 留下的占位版本，未 deprecate（需再次 2FA），不影响 `latest` 与安装。
