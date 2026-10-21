@@ -7,7 +7,7 @@ import crypto from 'node:crypto'
 
 const origin = 'http://127.0.0.1:3080'
 const authority = '127.0.0.1:3080'
-const base = '/mcp-manager/api'
+const base = '/mcp-tools/api'
 
 function base64url(buf) { return Buffer.from(buf).toString('base64').replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/u, '') }
 
@@ -40,7 +40,7 @@ async function call(method, route, body, withCookie) {
   return { status: response.status, json: json }
 }
 
-const targets = ['/', '/plugins/dsh-context/client.js', '/plugins/dsh-mcp-workbench/client.js', '/api/plugins', '/plugins', '/manifest.json', '/api/manifest']
+const targets = ['/', '/plugins/dsh-context/client.js', '/plugins/dsh-mcp-tools/client.js', '/api/plugins', '/plugins', '/manifest.json', '/api/manifest']
 for (const route of targets) {
   try {
     const response = await fetch(origin + route, { headers: { cookie: cookie } })

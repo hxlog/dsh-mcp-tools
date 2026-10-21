@@ -54,14 +54,20 @@ check('header editor is key/value rows, not a JSON textarea', () => {
   assert(client.includes('addHeader'), 'add-row action missing')
   assert(!client.includes('fieldHeadersJson'), 'legacy JSON header field still present')
 })
-check('README screenshots exist', () => {
-  const readme = read('README.md')
-  const refs = Array.from(readme.matchAll(/docs\/screenshots\/[^)\s]+\.png/g)).map((m) => m[0])
-  assert(refs.length >= 5, 'expected at least 5 screenshots in README')
-  for (const ref of refs) assert(fs.existsSync(path.join(root, ref)), 'missing ' + ref)
+check('README screenshots exist (zh primary + en)', () => {
+  for (const file of ['README.md', 'README.en.md']) {
+    const refs = Array.from(read(file).matchAll(/docs\/screenshots\/[^)\s]+\.png/g)).map((m) => m[0])
+    assert(refs.length >= 5, 'expected at least 5 screenshots in ' + file)
+    for (const ref of refs) assert(fs.existsSync(path.join(root, ref)), file + ' missing ' + ref)
+  }
+})
+check('Chinese README is the npm/GitHub landing page', () => {
+  const text = read('README.md')
+  assert(text.includes('DeepSeek Harness 最简洁'), 'tagline missing from README.md')
+  assert(text.includes('[English](README.en.md)'), 'language switch missing from README.md')
 })
 check('npm files whitelist contains runtime paths', () => {
-  for (const entry of ['lib', 'client/client.js', 'locale', 'cordis.patch.yml', 'icon.svg', 'README.md', 'LICENSE']) {
+  for (const entry of ['lib', 'client/client.js', 'locale', 'cordis.patch.yml', 'icon.svg', 'README.md', 'README.en.md', 'LICENSE']) {
     assert(pkg.files.includes(entry), 'files missing ' + entry)
   }
 })

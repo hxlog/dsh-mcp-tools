@@ -1,12 +1,12 @@
-# dsh-mcp-workbench · Host ↔ Client API 契约（v1）
+# dsh-mcp-tools · Host ↔ Client API 契约（v1）
 
 > 实现方：host = `lib/*.js`（Node，cordis 插件）；client = `client/client.js`（浏览器 bundle）。
 > 所有接口同源、JSON、走登录 cookie；默认返回 `{ ok: true, ... }`，失败返回 `{ ok: false, error: string }`（HTTP 200/4xx/500 都可能，前端一律按 `ok` 字段判断）。
-> 路由前缀：`/mcp-manager/api`（不得占用 `/api`、`/plugins`）。
+> 路由前缀：`/mcp-tools/api`（不得占用 `/api`、`/plugins`）。
 
 ## 0. 数据模型
 
-### Server（存储在 `$DSH_HOME/dsh-mcp-workbench/state.json`）
+### Server（存储在 `$DSH_HOME/dsh-mcp-tools/state.json`）
 
 ```jsonc
 {
@@ -58,7 +58,7 @@
 
 ## 1. 读取
 
-### GET `/mcp-manager/api/state`
+### GET `/mcp-tools/api/state`
 返回全部服务器与最近事件。
 ```jsonc
 {
@@ -67,25 +67,25 @@
   "servers": [ ServerView ],
   "events": [ { "at": 0, "level": "info", "server": "comein-mcp-all", "message": "已连接 · 95 个工具" } ],
   "registeredTotal": 131,
-  "paths": { "state": "C:\\Users\\…\\.dsh\\dsh-mcp-workbench\\state.json" }
+  "paths": { "state": "C:\\Users\\…\\.dsh\\dsh-mcp-tools\\state.json" }
 }
 ```
 
-### GET `/mcp-manager/api/registered`
+### GET `/mcp-tools/api/registered`
 验证用：当前真正注册进模型的工具清单。
 ```jsonc
 { "ok": true, "total": 131, "tools": ["mcp__comein-mcp-all__document_search", …],
   "byServer": { "srv_xxx": { "name": "comein-mcp-all", "tools": ["mcp__…"] } } }
 ```
 
-### GET `/mcp-manager/api/logs?limit=100`
+### GET `/mcp-tools/api/logs?limit=100`
 ```jsonc
 { "ok": true, "events": [ { "at": 0, "level": "info|warn|error", "server": "name|null", "message": "…" } ] }
 ```
 
 ## 2. 连通性测试
 
-### POST `/mcp-manager/api/servers/test`
+### POST `/mcp-tools/api/servers/test`
 不改变任何状态、不注册工具；临时连接 → initialize → tools/list → 关闭。
 请求二选一：
 ```jsonc
@@ -108,39 +108,39 @@
 
 ## 3. 服务器增删改 / 开关
 
-### POST `/mcp-manager/api/servers/save`
+### POST `/mcp-tools/api/servers/save`
 ```jsonc
 { "server": { "id": "可选，缺省=新建", "name": "…", "transport": "…", "url": "…", "headers": {}, "command": "…", "args": [], "env": {}, "cwd": "", "note": "…", "enabled": true, "toolCallTimeoutMs": 60000 } }
 ```
 → `{ "ok": true, "server": ServerView }`；校验失败 → `{ ok:false, error }`。保存后若 enabled 立即连接并注册工具，否则断开。
 
-### POST `/mcp-manager/api/servers/delete`
+### POST `/mcp-tools/api/servers/delete`
 `{ "id": "srv_xxx" }` → `{ "ok": true }`
 
-### POST `/mcp-manager/api/servers/toggle`
+### POST `/mcp-tools/api/servers/toggle`
 `{ "id": "srv_xxx", "enabled": true|false }` → `{ "ok": true, "server": ServerView }`
 - enabled=false：断开连接并注销该服务器**全部**工具。
 - enabled=true：连接并注册所有 enabled 的工具。
 
-### POST `/mcp-manager/api/servers/refresh`
+### POST `/mcp-tools/api/servers/refresh`
 `{ "id" }` → 重新 tools/list（已连接）或重连（断线时），刷新工具列表与状态 → `{ "ok": true, "server": ServerView }`
 
-### POST `/mcp-manager/api/reload`
+### POST `/mcp-tools/api/reload`
 从磁盘重新读取 state.json 并全量重启连接（自动化/验证用）→ `{ "ok": true, "servers": [ServerView] }`
 
 ## 4. 工具开关
 
-### POST `/mcp-manager/api/tools/toggle`
+### POST `/mcp-tools/api/tools/toggle`
 `{ "id": "srv_xxx", "tool": "document_search", "enabled": false }` → `{ ok:true, server: ServerView }`
 - 立即注册/注销该单个工具（不需要重连）。
 
-### POST `/mcp-manager/api/tools/bulk`
+### POST `/mcp-tools/api/tools/bulk`
 `{ "id": "srv_xxx", "action": "all" | "none" | "invert" }` → `{ ok:true, server: ServerView }`
 - 作用对象 = 当前已发现的工具集合；`invert` 逐工具取反。
 
 ## 5. 导入
 
-### POST `/mcp-manager/api/import`
+### POST `/mcp-tools/api/import`
 `{ "json": "{ \"mcpServers\": { \"comein-mcp-all\": { \"url\": \"https://…\", \"headers\": { \"x-mcp-key\": \"…\" } } } }" }`
 或直接传对象 `{ "json": { "mcpServers": { … } } }`。
 - 兼容 `{ "mcpServers": { name: { transport?, url?, headers?, command?, args?, env?, note? } } }`；缺少 transport 时按有无 url 推断（url→streamable-http，command→stdio）。
@@ -149,7 +149,7 @@
 
 ## 6. 事件与状态
 
-- 事件在 host 内存 ring buffer（最多 300 条），尽量同时写 `$DSH_HOME/dsh-mcp-workbench/logs.jsonl`。
+- 事件在 host 内存 ring buffer（最多 300 条），尽量同时写 `$DSH_HOME/dsh-mcp-tools/logs.jsonl`。
 - 任何开关/连接动作都会产生事件，前端操作后重新 GET `/state` 即可。
 - 客户端轮询：设置页可见时每 5s GET `/state`（仅当页面处于 MCP 分区且 document.visibilityState === "visible"）。
 

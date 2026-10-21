@@ -1,4 +1,4 @@
-/* dsh-mcp-workbench — browser half of the plugin (classic script bundle).
+/* dsh-mcp-tools — browser half of the plugin (classic script bundle).
  *
  * Serves the "MCP" section in Settings (settings.section, id "mcp", order 18).
  * No module syntax on purpose: the DSH web loader evaluates this file as a
@@ -10,7 +10,7 @@
  * version skew can never blank the settings panel.
  */
 window.__ModuleLoader__.load({
-  id: "dsh-mcp-workbench",
+  id: "dsh-mcp-tools",
   factory: (require) => {
     "use strict";
     var module = { exports: {} };
@@ -18,13 +18,13 @@ window.__ModuleLoader__.load({
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 
     var NS = "mcpManager";
-    var API_BASE = "/mcp-manager/api";
+    var API_BASE = "/mcp-tools/api";
     var POLL_INTERVAL_MS = 5000;
     var LOG_LIMIT = 50;
     var SERVER_NAME_RE = /^[A-Za-z0-9_-]{1,32}$/;
     var HTTP_URL_RE = /^https?:\/\//i;
     var CHIP_SCROLL_THRESHOLD = 200;
-    var STYLE_ID = "dsh-mcp-workbench/McpManager.module.css";
+    var STYLE_ID = "dsh-mcp-tools/McpManager.module.css";
 
     var React = require("react");
     var h = React.createElement;
@@ -310,7 +310,7 @@ window.__ModuleLoader__.load({
           return DICT.zh[key] === undefined;
         });
         if (missingEn.length || missingZh.length) {
-          console.warn("[dsh-mcp-workbench] dictionary key mismatch", missingEn, missingZh);
+          console.warn("[dsh-mcp-tools] dictionary key mismatch", missingEn, missingZh);
         }
       } catch (error) {
         /* dictionary parity is a development aid, never fatal */
@@ -1282,12 +1282,12 @@ window.__ModuleLoader__.load({
       if (stylesInjected) return;
       try {
         if (typeof document === "undefined" || !document.head) return;
-        if (document.querySelector('style[data-plugin-css="dsh-mcp-workbench/McpManager.module.css"]')) {
+        if (document.querySelector('style[data-plugin-css="dsh-mcp-tools/McpManager.module.css"]')) {
           stylesInjected = true;
           return;
         }
         var tag = document.createElement("style");
-        tag.dataset.plugin = "dsh-mcp-workbench";
+        tag.dataset.plugin = "dsh-mcp-tools";
         tag.dataset.pluginCss = STYLE_ID;
         tag.textContent = CSS_TEXT;
         document.head.appendChild(tag);
@@ -1719,7 +1719,7 @@ window.__ModuleLoader__.load({
 
       componentDidCatch(error) {
         try {
-          console.error("[dsh-mcp-workbench] section crashed", error);
+          console.error("[dsh-mcp-tools] section crashed", error);
         } catch (ignored) {
           /* logging is best effort */
         }
@@ -3049,7 +3049,7 @@ window.__ModuleLoader__.load({
           else registerDictionaries();
         } catch (error) {
           try {
-            console.warn("[dsh-mcp-workbench] locale registration skipped", error);
+            console.warn("[dsh-mcp-tools] locale registration skipped", error);
           } catch (ignored) {
             /* no console available */
           }
@@ -3082,7 +3082,7 @@ window.__ModuleLoader__.load({
           });
         } catch (error) {
           try {
-            console.error("[dsh-mcp-workbench] failed to register the settings section", error);
+            console.error("[dsh-mcp-tools] failed to register the settings section", error);
           } catch (ignored) {
             /* no console available */
           }

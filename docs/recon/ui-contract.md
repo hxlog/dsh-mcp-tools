@@ -39,7 +39,7 @@
 
 ```jsonc
 {
-  "name": "dsh-mcp-workbench",
+  "name": "dsh-mcp-tools",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -85,7 +85,7 @@
 
 ```js
 window.__ModuleLoader__.load({
-  id: "dsh-mcp-workbench",                     // 必须等于包名
+  id: "dsh-mcp-tools",                     // 必须等于包名
   factory: (require) => {
     var module = { exports: {} };
     var exports = module.exports;
@@ -152,11 +152,11 @@ pnpm add -D @deepseek-ai/dsh-client-ui-primitives@0.2.1-rc.2             @deepse
 
 ```js
 const css = ".mcpM-xxx_root{...}";
-const tagId = "dsh-mcp-workbench/McpManager.module.css";
+const tagId = "dsh-mcp-tools/McpManager.module.css";
 if (typeof document !== "undefined" &&
     document.querySelector('style[data-plugin-css=' + JSON.stringify(tagId) + ']') === null) {
   const tag = document.createElement("style");
-  tag.dataset.plugin = "dsh-mcp-workbench";
+  tag.dataset.plugin = "dsh-mcp-tools";
   tag.dataset.pluginCss = tagId;
   tag.textContent = css;
   document.head.appendChild(tag);

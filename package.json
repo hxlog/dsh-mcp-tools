@@ -1,5 +1,5 @@
 {
-  "name": "dsh-mcp-workbench",
+  "name": "dsh-mcp-tools",
   "version": "1.0.0",
   "type": "module",
   "description": "A minimal, elegant MCP server manager for the DeepSeek Harness Web GUI — add streamable-http/stdio servers, paste secrets as key/value headers, test connectivity, and toggle each tool on or off.",
@@ -27,7 +27,7 @@
     "scripts/selftest.mjs",
     "docs/screenshots",
     "README.md",
-    "README.zh-CN.md",
+    "README.en.md",
     "LICENSE"
   ],
   "dsh": {
@@ -51,13 +51,13 @@
   },
   "license": "MIT",
   "author": "Xingyu Liu <xingyuliu@outlook.sg>",
-  "homepage": "https://github.com/hxlog/dsh-mcp-workbench#readme",
+  "homepage": "https://github.com/hxlog/dsh-mcp-tools#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hxlog/dsh-mcp-workbench.git"
+    "url": "git+https://github.com/hxlog/dsh-mcp-tools.git"
   },
   "bugs": {
-    "url": "https://github.com/hxlog/dsh-mcp-workbench/issues"
+    "url": "https://github.com/hxlog/dsh-mcp-tools/issues"
   },
   "keywords": [
     "dsh",

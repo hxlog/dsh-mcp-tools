@@ -7,7 +7,7 @@ import crypto from 'node:crypto'
 
 const origin = 'http://127.0.0.1:3080'
 const authority = '127.0.0.1:3080'
-const base = '/mcp-manager/api'
+const base = '/mcp-tools/api'
 
 function base64url(buf) { return Buffer.from(buf).toString('base64').replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/u, '') }
 

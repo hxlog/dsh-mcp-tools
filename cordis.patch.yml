@@ -1,6 +1,6 @@
-# dsh-mcp-workbench bundle layer: one host-side row.
+# dsh-mcp-tools bundle layer: one host-side row.
 # The client half (client/client.js) is discovered from this row's package
 # manifest (dsh.client.platform = web) and served by /plugins.
 - insert:
-    - id: mcp-workbench
-      name: dsh-mcp-workbench
+    - id: mcp-tools
+      name: dsh-mcp-tools

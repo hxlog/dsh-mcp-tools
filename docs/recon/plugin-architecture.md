@@ -279,7 +279,7 @@ export interface DshClientManifest {
 ### 2.3 最小目录结构（本插件用）
 
 ```
-dsh-mcp-workbench/
+dsh-mcp-tools/
 ├── package.json
 ├── cordis.patch.yml
 ├── README.md
@@ -373,7 +373,7 @@ function bundleStat(path){ const b = statSync(path); return { mtimeMs, ctimeMs, 
 ```
 
 - **监听的就是该包解析出来的 client bundle 文件本身**（`exports["./client"]` 的 realpath），不是 TS 源码，不是 monorepo 的 dist 目录约定。
-- 因此：**你在 `D:\PythonProjects\dsh-mcp-workbench` 里重跑一次构建脚本把 `client/client.js` 覆盖写 → 3080 页面 0.5s 内自动换新模块**。不需要 `pnpm run dev:web`，不需要 monorepo，不需要重启。
+- 因此：**你在 `D:\PythonProjects\dsh-mcp-tools` 里重跑一次构建脚本把 `client/client.js` 覆盖写 → 3080 页面 0.5s 内自动换新模块**。不需要 `pnpm run dev:web`，不需要 monorepo，不需要重启。
 - 代价：**React 组件状态丢失**（重新执行 bundle、重新挂载 fiber）；连接/会话状态保留。失败不回滚，会在 设置→插件→插件列表 显示错误并可重试。
 - `dsh-web-app\cordis.patch.yml` L214-219 明确：`client-hmr` **always mounted**，在没有重建 watcher 时是 idle 的，所以这条链路在你的 profile 上一定是通的。
 
@@ -412,7 +412,7 @@ function bundleStat(path){ const b = statSync(path); return { mtimeMs, ctimeMs, 
 ```yaml
 - insert:
     - id: mcp-manager
-      name: dsh-mcp-workbench          # 或 "@scope/dsh-mcp-workbench"
+      name: dsh-mcp-tools          # 或 "@scope/dsh-mcp-tools"
       # disabled: true               # 临时整套停用
       # config: {...}                # 该 row 的 cordis Config
 ```
@@ -448,11 +448,11 @@ function bundleStat(path){ const b = statSync(path); return { mtimeMs, ctimeMs, 
 
 ```bash
 # 1) 开发期安装（link 本地目录）
-dsh plugin --profile web add link:D:\PythonProjects\dsh-mcp-workbench
+dsh plugin --profile web add link:D:\PythonProjects\dsh-mcp-tools
 #    或手写 package.json 后： cd %USERPROFILE%\.dsh\profiles\web && pnpm install
 
 # 2) 让 host 侧加载：在 profiles\web\cordis.patch.yml 追加
-#    - insert: [{ id: mcp-manager, name: dsh-mcp-workbench }]
+#    - insert: [{ id: mcp-manager, name: dsh-mcp-tools }]
 
 # 3) 首次启用：刷新 http://127.0.0.1:3080 一次（页面要拿到新 boot graph）
 #    host entry 若首次 import 失败 → 需要重启 dsh web（启动是全有全无，见 §8 坑 1）
@@ -666,7 +666,7 @@ ctx.inject(['layout'], ({ layout }) => { layout.selectPanel(SIDEBAR_PANEL_ID) })
 
 ### 7.1 选型结论
 
-**单包 dual-face：`dsh-mcp-workbench`（host 插件 + client UI 同包）**，理由与排除法：
+**单包 dual-face：`dsh-mcp-tools`（host 插件 + client UI 同包）**，理由与排除法：
 
 | 方案 | 可行性 | 结论 |
 |---|---|---|
@@ -738,9 +738,9 @@ import { StdioClientTransport } from '@modelcontextprotocol/client/stdio'
 ### 7.4 最小可运行骨架文件清单
 
 ```
-D:\PythonProjects\dsh-mcp-workbench\
+D:\PythonProjects\dsh-mcp-tools\
 ├── package.json                 # §7.5
-├── cordis.patch.yml             # - insert: [{ id: mcp-manager, name: dsh-mcp-workbench }]
+├── cordis.patch.yml             # - insert: [{ id: mcp-manager, name: dsh-mcp-tools }]
 ├── icon.svg
 ├── README.md
 ├── locale\zh.json  locale\en.json
@@ -763,7 +763,7 @@ D:\PythonProjects\dsh-mcp-workbench\
 
 ```jsonc
 {
-  "name": "dsh-mcp-workbench",
+  "name": "dsh-mcp-tools",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -804,7 +804,7 @@ D:\PythonProjects\dsh-mcp-workbench\
 ```js
 // scripts/build-client.mjs
 import { build } from 'esbuild'
-const banner = 'window.__ModuleLoader__.load({ id: "dsh-mcp-workbench", factory: (require) => { var module = { exports: {} }; var exports = module.exports;'
+const banner = 'window.__ModuleLoader__.load({ id: "dsh-mcp-tools", factory: (require) => { var module = { exports: {} }; var exports = module.exports;'
 const footer = 'module.exports = { name: "mcp-manager", inject: ["slots", "locale"], apply }; return module.exports; } });'
 const opts = {
   entryPoints: ['src/client/index.tsx'], bundle: true, format: 'cjs', platform: 'browser',

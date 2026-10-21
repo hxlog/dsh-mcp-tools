@@ -12,7 +12,7 @@
 | `<DSH>` | `C:\Users\Xingy\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh` |
 | `<PKG>` | `<DSH>\node_modules\@deepseek-ai`（官方插件包全在此：`lib/*.js` + `lib/types/*.d.ts` + `README.zh.md`） |
 | `<PROFILE>` | `C:\Users\Xingy\.dsh\profiles\web` |
-| `<D>` | `D:\PythonProjects\dsh-mcp-workbench` |
+| `<D>` | `D:\PythonProjects\dsh-mcp-tools` |
 
 当前 web profile 事实（只读核对）：
 - `<PROFILE>\cordis.yml` 是空数组 `[]`，全部由 patch 层组合。
@@ -266,7 +266,7 @@
 ### 8.1 连通性测试（probe，独立于 bridge）
 
 1. 按 config 建 transport（stdio：`StdioClientTransport` + `scrubbedParentEnv()`；http：`StreamableHTTPClientTransport(new URL(url), {requestInit:{headers}})`）；
-2. `new Client({name:'dsh-mcp-workbench-probe', version:'0.0.1'}, {capabilities:{}, versionNegotiation:{mode:'auto'}})` → `await client.connect(transport)` → `await client.listTools()` → 得到工具名清单（tag cloud 数据源）→ `await client.close()`；
+2. `new Client({name:'dsh-mcp-tools-probe', version:'0.0.1'}, {capabilities:{}, versionNegotiation:{mode:'auto'}})` → `await client.connect(transport)` → `await client.listTools()` → 得到工具名清单（tag cloud 数据源）→ `await client.close()`；
 3. 超时按 README 口径：SDK 默认 60s 协商/发现（`mcp-client/README.zh.md:209`）；成功后立刻关传输，**不要留进程**；
 4. stdio 探测会真启动子进程；`failOnStartupError` 只影响 mcp-client，不影响 probe。
 

@@ -7,7 +7,7 @@ import crypto from 'node:crypto'
 
 const origin = 'http://127.0.0.1:3080'
 const authority = '127.0.0.1:3080'
-const base = '/mcp-manager/api'
+const base = '/mcp-tools/api'
 
 function base64url(buf) { return Buffer.from(buf).toString('base64').replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/u, '') }
 
@@ -48,9 +48,9 @@ const bootSource = text.slice(start, end)
 const boot = JSON.parse(bootSource.slice(bootSource.indexOf('=')+1).trim())
 console.log('entries:', boot.entries.length)
 const ids = boot.entries.map(function (entry) { return entry.id })
-console.log('mcp-manager entry:', JSON.stringify(boot.entries.filter(function (entry) { return entry.id === 'dsh-mcp-workbench' })))
+console.log('mcp-manager entry:', JSON.stringify(boot.entries.filter(function (entry) { return entry.id === 'dsh-mcp-tools' })))
 console.log('third-party sample:', JSON.stringify(ids.filter(function (id) { return !id.startsWith('@deepseek-ai/') })))
-const entry = boot.entries.find(function (item) { return item.id === 'dsh-mcp-workbench' })
+const entry = boot.entries.find(function (item) { return item.id === 'dsh-mcp-tools' })
 if (entry) {
   const asset = await fetch(origin + '/' + entry.url, { headers: { cookie: cookie } })
   const body = await asset.text()

@@ -1,8 +1,8 @@
-# 验证报告 · dsh-mcp-workbench
+# 验证报告 · dsh-mcp-tools
 
 验证日期：2026-10-20（Asia/Shanghai）  
 环境：DSH `0.2.1-rc.2`（global npm），web profile `C:/Users/Xingy/.dsh/profiles/web`，GUI `http://127.0.0.1:3080`，运行中的 `dsh web` 进程未重启。  
-插件版本：工作区 `D:/PythonProjects/dsh-mcp-workbench`（通过目录联接装入 profile，源码改动直接生效）。
+插件版本：工作区 `D:/PythonProjects/dsh-mcp-tools`（通过目录联接装入 profile，源码改动直接生效）。
 
 ## 1. 真实 MCP 连通性（不是 mock）
 
@@ -28,7 +28,7 @@
 | 层 | 观测点 | 停用后 | 恢复后 |
 | --- | --- | --- | --- |
 | L1 插件 API | `POST /tools/toggle {enabled:false}` 响应 + `GET /registered` | `enabledToolCount=94`、`registeredToolCount=94`、注册表无该工具 | 95 / 95 |
-| L2 注册表快照 | `~/.dsh/dsh-mcp-workbench/registry.json` | `totalRegistered=94`，`tools` 无 `mcp__comein-mcp-all__document_search` | 95，含该工具 |
+| L2 注册表快照 | `~/.dsh/dsh-mcp-tools/registry.json` | `totalRegistered=94`，`tools` 无 `mcp__comein-mcp-all__document_search` | 95，含该工具 |
 | L3 模型侧（独立子代理） | `Object.keys(tools)` + 直接调用 | comein 工具 94 个、`document_search` 不在 keys 中；调用报错 `tools[target] is not a function`（工具根本没注册，不是调用失败） | 95 个，可调用 |
 
 对照组：同一时刻 `stock_group_list` 仍正常返回业务数据，说明停用的是**单个工具**而不是整条连接。
@@ -75,10 +75,10 @@
 
 ## 6. 安装/加载方式（本次实际使用）
 
-1. `dsh plugin --profile web add file:D:/PythonProjects/dsh-mcp-workbench`
+1. `dsh plugin --profile web add file:D:/PythonProjects/dsh-mcp-tools`
    - 写入 profile `package.json` 依赖 + `dsh.profile.bundles`；
    - pnpm 安装会输出 `Packages: +1 -30`（对已有依赖做了一次 prune），**已验证未影响 GUI 与既有插件**（页面、插件市场、上下文洞察、会话均正常）。
-2. 把 `profiles/web/node_modules/dsh-mcp-workbench` 换成指向源码目录的 junction，方便改代码即时生效。
+2. 把 `profiles/web/node_modules/dsh-mcp-tools` 换成指向源码目录的 junction，方便改代码即时生效。
 3. 刷新页面 → 设置里出现 MCP 分区；host 插件由 cordis 增量扫描/热重组加载（日志「MCP 管理器已启动 · 2 个服务器配置」）。
 4. 曾同时存在「bundles」与「cordis.patch.yml insert」两条加载路径，已删除 patch 里的重复 insert，只保留 bundles 这条官方路径；删除后功能不变。
 
@@ -184,9 +184,9 @@ node scripts/browser-login.mjs
 
 ## 12. 发布准备（更名 + npm/GitHub）
 
-- 包名/仓库名从 `dsh-mcp-manager`（npm 上已被占用）改为 **`dsh-mcp-workbench`**（npm 查询可用）。
-- 状态目录迁移：新目录 `~/.dsh/dsh-mcp-workbench`；首次启动若旧目录 `~/.dsh/dsh-mcp-manager` 存在则**复制**（不移动）state/logs/registry，可回滚。
-- 同步更新：`package.json`（name/version 1.0.0/license/repository/files/locale/icon）、`cordis.patch.yml`（bundle 名、row id `mcp-workbench`）、`client/client.js`（loader id、CSS id、日志前缀）、profile 的 dependency + `dsh.profile.bundles` + node_modules 联接、README/docs。
+- 包名/仓库名从 `dsh-mcp-manager`（npm 上已被占用）改为 **`dsh-mcp-tools`**（npm 查询可用）。
+- 状态目录迁移：新目录 `~/.dsh/dsh-mcp-tools`；首次启动若旧目录 `~/.dsh/dsh-mcp-manager` 存在则**复制**（不移动）state/logs/registry，可回滚。
+- 同步更新：`package.json`（name/version 1.0.0/license/repository/files/locale/icon）、`cordis.patch.yml`（bundle 名、row id `mcp-tools`）、`client/client.js`（loader id、CSS id、日志前缀）、profile 的 dependency + `dsh.profile.bundles` + node_modules 联接、README/docs。
 - 真机验证（HMR 下）：页面刷新后插件以新 id 正常加载，`/mcp-manager/api/state` 返回原有 2 台服务器（comein 已连接 95 工具、pharmcube 停用），状态迁移成功。
   - 注意：host 进程内仍残留旧 bundle 的 client graph 行（控制台一条 locale 重复注册 warning），需重启 `dsh web` 后彻底消失；不影响功能。
 - 截图整理为 `docs/screenshots/en/` 与 `docs/screenshots/zh/` 两套（同一套 7 张：overview / tools / tooltip / add-server / json-import / tool-toggles / dark）。
