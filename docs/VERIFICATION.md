@@ -246,3 +246,11 @@ npm 页面（1.0.0）暴露的问题与处理：
 | 发布产物 | GitHub Release v1.0.1（含 `dsh-mcp-tools-1.0.1.tgz`） |
 
 已知：`0.0.0-stage` 是 npm staged publishing 留下的占位版本，未 deprecate（需再次 2FA），不影响 `latest` 与安装。
+
+## 18. README 视觉改版（1.0.2）
+
+- 结构：居中 logo/标题/tagline/徽章 → 快捷链接 → 顶部两张截图（overview + detail） → 一句话说明 → 功能表格 → 安装 → 快速开始 → 更多界面 → 工作原理 → 安全 → 开发 → FAQ → License。
+- 保留作者手写内容：新 tagline、「类 Cursor 风格的全局 MCP 控制」、两张顶部截图、一站式说明、安装前置提示、安装段前置位置。
+- 新增 `docs/screenshots/zh/mcp-detail.png`（由作者提供的 jpg 无损转 PNG）。
+- 所有截图走 jsDelivr CDN；npm 页面可直接渲染（已确认 npm 允许 README 内联 HTML）。
+- smoke 中 tagline 断言改为「DeepSeek Harness 简洁」，语言切换断言改为 `README.en.md` 链接存在。

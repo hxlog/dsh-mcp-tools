@@ -1,149 +1,111 @@
-# dsh-mcp-tools
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/logo.png" width="72" height="72" alt="dsh-mcp-tools" />
+</p>
 
-**The most minimal, elegant MCP tool manager for DeepSeek Harness.**
+<h1 align="center">dsh-mcp-tools</h1>
 
-[![npm](https://img.shields.io/npm/v/dsh-mcp-tools?color=black)](https://www.npmjs.com/package/dsh-mcp-tools)
-[![npm downloads](https://img.shields.io/npm/dm/dsh-mcp-tools?color=black)](https://www.npmjs.com/package/dsh-mcp-tools)
-[![license](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
-[![node](https://img.shields.io/badge/node-%3E%3D22.13-black.svg)](https://nodejs.org)
-[![GitHub](https://img.shields.io/badge/GitHub-hxlog%2Fdsh--mcp--tools-black?logo=github)](https://github.com/hxlog/dsh-mcp-tools)
+<p align="center">
+  <b>The most minimal, elegant MCP tool manager for DeepSeek Harness.</b><br />
+  Cursor-style global MCP control: add, disable and remove MCP servers and tools freely — for MCP testing, on-demand requests and context expansion.
+</p>
 
-[GitHub repository](https://github.com/hxlog/dsh-mcp-tools) · [npm](https://www.npmjs.com/package/dsh-mcp-tools) · [Issues](https://github.com/hxlog/dsh-mcp-tools/issues)
+<p align="center">
+  <a href="https://www.npmjs.com/package/dsh-mcp-tools"><img src="https://img.shields.io/npm/v/dsh-mcp-tools?color=black" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/dsh-mcp-tools"><img src="https://img.shields.io/npm/dm/dsh-mcp-tools?color=black" alt="npm downloads" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-black.svg" alt="license" /></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D22.13-black.svg" alt="node" /></a>
+  <a href="https://github.com/hxlog/dsh-mcp-tools"><img src="https://img.shields.io/badge/GitHub-hxlog%2Fdsh--mcp--tools-black?logo=github" alt="GitHub" /></a>
+</p>
 
-English | [简体中文](README.md)
+<p align="center">
+  <a href="https://github.com/hxlog/dsh-mcp-tools">GitHub</a> ·
+  <a href="https://www.npmjs.com/package/dsh-mcp-tools">npm</a> ·
+  <a href="https://github.com/hxlog/dsh-mcp-tools/issues">Issues</a> ·
+  <a href="README.md">简体中文</a>
+</p>
 
-Manage your MCP servers and toggle MCP tools on demand, inside DeepSeek Harness (Web GUI or Desktop). Disabled tools **never reach the model**: no context cost, no accidental calls.
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-overview.png" width="70%" alt="MCP servers in Settings" />
+</p>
 
-![MCP servers in Settings](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-overview.png)
+> All-in-one MCP server management with per-tool switches. Disabled tools **never reach the model**: no context cost, no accidental calls.
 
----
+## ✨ Features
 
-## Why this exists
+| Capability | Details |
+| --- | --- |
+| **Server management** | Two transports: `streamable-http` (URL + headers) and `stdio` (command / args / env / cwd); fill fields or paste `{"mcpServers": { ... }}` to import many at once. |
+| **Postman-style secrets** | Headers are key/value rows, not a JSON textarea; a default `x-mcp-key` row is provided, values are masked and can be revealed per row, duplicate names error inline. |
+| **Real per-tool control** | Every tool is a chip; disable it and it disappears from the model's tool list entirely (not "registered then errors"). Search, select all, invert, disable all — hover for the full description. |
+| **Connectivity test & event log** | Temporary connection: `initialize → tools/list → close`, reporting latency / protocol version / tool count without touching the live server. The "Recent events" log records connects, reloads, tests and failures. |
+| **Server toggle & config copy** | Turning a server off disconnects it and unregisters all its tools (config kept); one click copies that server's `mcpServers` snippet. |
+| **Native DSH look** | Reuses `--dsw-*` design tokens, flat rows and 32px inputs; light/dark and zh/en adapt automatically. The client is a classic script — no build step. |
 
-MCP servers are great until a single "all-in-one" server drops 95 tools into every request. DSH's native configuration is a YAML/JSON file: editing it means restarting or recomposing the profile, and there is no way to say *"keep this server, but give the model only 12 of its tools."*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-add-server.png" width="48%" alt="Add server: key/value headers" />
+  <img src="https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-tools.png" width="48%" alt="Per-tool chips" />
+</p>
 
-dsh-mcp-tools moves all of that into **Settings → MCP**:
+## 🚀 Install
 
-- add, edit, disable and delete servers without touching config files;
-- paste secrets as Postman-style key/value headers (headers stay on your machine);
-- verify connectivity and see the tool count before enabling anything;
-- toggle tools per server, with search, select-all, invert and disable-all.
+Requires **DeepSeek Harness 0.2.x** (Web GUI `dsh web` or DSH Desktop) and **Node.js ≥ 22.13**. Available on npm: [dsh-mcp-tools](https://www.npmjs.com/package/dsh-mcp-tools).
 
----
+> ⚠️ This is a **DeepSeek Harness plugin**, not a plain npm library: `npm i dsh-mcp-tools` only downloads the package — it still has to be installed into a DSH profile as below.
 
-## Features
-
-### Server management
-
-- **Two transports**: `streamable-http` (URL + headers) and `stdio` (command, args, env, cwd).
-- **Two ways to add**: fill in fields, or paste an `{"mcpServers": { ... }}` block — the same shape DSH and Claude Desktop use — to import several servers at once.
-- **Server switch**: turning a server off disconnects it and unregisters all of its tools. Nothing is deleted.
-- **Copy config**: one click copies that server back out as an `mcpServers` snippet.
-
-### Secrets, the Postman way
-
-Header rows are key/value pairs, not a JSON textarea. A new server starts with an `x-mcp-key` row: paste the secret into the value column and save.
-
-![Adding a server with key/value headers](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-add-server.png)
-
-Values are masked by default and can be revealed per row. Duplicate header names are rejected inline. Prefer JSON? Switch to **Paste JSON** — it syncs name, URL, transport and headers back into the form.
-
-![Pasting an mcpServers JSON block](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-json-import.png)
-
-### Real per-tool control
-
-Every tool is a chip. Click to disable; the tool disappears from the model's tool list immediately (it is not registered at all). Search, select all, invert, disable all.
-
-![Per-tool chips](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-tools.png)
-
-Hover a chip for its full description, even while the server is disabled.
-
-![Tool description tooltip](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-tooltip.png)
-
-### Connectivity test and event log
-
-The test button opens a throwaway connection: `initialize` → `tools/list` → close. It reports latency, protocol version and tool count, and never mutates the running server. A compact event log records connects, reloads, tests and failures.
-
-### Native fit
-
-Same design tokens (`--dsw-*`), same flat rows, same 32px inputs as DSH itself. Light and dark, Chinese and English, keyboard focus rings included. No build step: the client bundle is a classic script that only requires `react` and the official UI primitives.
-
-See it in dark mode:
-
-![MCP manager in dark mode](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-dark.png)
-
-![Disabled tools](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-tool-toggles.png)
-
----
-
-## Install
-
-Requires **DeepSeek Harness 0.2.x** (Web GUI `dsh web` or DSH Desktop) and **Node.js ≥ 22.13**. Published on npm as [dsh-mcp-tools](https://www.npmjs.com/package/dsh-mcp-tools) `1.0.1`.
-
-> ⚠️ This is a **DeepSeek Harness plugin**, not a plain npm library. `npm i dsh-mcp-tools` only downloads the package; it still has to be installed into a DSH profile as described below.
-
-### From the Plugins page (recommended)
+**From the Plugins page (recommended)**
 
 1. Open DSH Web (or DSH Desktop) → **Plugins** in the sidebar (Desktop: **Settings → Plugins**).
 2. Choose **Install**, enter `dsh-mcp-tools`, and confirm.
-3. Enable the new bundle, then refresh the page once.
-4. Open **Settings → MCP**.
+3. Enable the new bundle, refresh the page, then open **Settings → MCP**.
 
-### From the CLI
+**From the CLI**
 
 ```bash
 dsh plugin --profile web add dsh-mcp-tools      # Web
 dsh plugin --profile desktop add dsh-mcp-tools  # Desktop
 ```
 
-The command installs from npm and records the bundle in that profile's `dsh.profile.bundles`. If the Plugins page does not show it, enable the bundle once; if the section still does not appear, restart `dsh web`.
+> Upgrading the package requires a restart of `dsh web` / reopening DSH Desktop.
 
-> Upgrading the package requires a restart of `dsh web` (or reopening DSH Desktop) to load the new host module generation.
+## ⚡ Quick start
 
----
+1. **Settings → MCP → Add server**: for remote servers enter the URL and paste the secret into the header row (default `x-mcp-key`).
+2. Hit **Test connection** — expect something like `connected · 95 tools · 478 ms` — then save and flip the server switch on.
+3. Let the model call the tools; DSH registers them as `mcp__<server>__<tool>`. Disable unused tools to shrink the tool schema in every request.
 
-## Quick start
+## 🖼 More screenshots
 
-1. **Settings → MCP → Add server.**
-2. For a remote server: paste its URL, then put the key in the header row (`x-mcp-key` by default).
-3. Hit **Test connection** — you should see something like `Connected · 95 tools · 478 ms`.
-4. Save. Enable the server if it is not on yet.
-5. In a session, ask the model to use a tool. DSH registers each one as `mcp__<server>__<tool>`.
+| Dark mode | Some tools disabled |
+| --- | --- |
+| <img src="https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-dark.png" width="100%" alt="Dark mode" /> | <img src="https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-tool-toggles.png" width="100%" alt="Some tools disabled" /> |
 
-To trim context, open the server's tools and disable what you do not need. Fewer enabled tools means a smaller tool schema in every request.
+| Paste `mcpServers` JSON | Tool tooltip |
+| --- | --- |
+| <img src="https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-json-import.png" width="100%" alt="Paste mcpServers JSON" /> | <img src="https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-tooltip.png" width="100%" alt="Tool tooltip" /> |
 
----
-
-## How it works
+## 🧩 How it works
 
 ```
 DeepSeek Harness Web (dsh web)
-├── Host plugin  (lib/)            ← cordis bundle patch, native MCP client
-│   ├── manager.js                 connections, tool registry, enable/disable
-│   ├── store.js                   ~/.dsh/dsh-mcp-tools/state.json (atomic, watched)
-│   └── routes.js                  /mcp-tools/api/*
+├── Host plugin (lib/)          ← cordis bundle patch, reuses the native MCP client
+│   ├── manager.js              connect, register tools, enable/disable
+│   ├── store.js                ~/.dsh/dsh-mcp-tools/state.json (atomic writes, watches external edits)
+│   └── routes.js               /mcp-tools/api/*
 └── Client bundle (client/client.js)
     └── Settings section "MCP" (id: mcp, order: 18) — classic script, no build
 ```
 
-- The host plugin wraps DSH's native MCP client, so tools appear in sessions exactly like hand-configured ones (`mcp__server__tool`).
-- Enablement is enforced at **registration** time, not on call: a disabled tool is absent from the model's tool list.
-- State lives in `~/.dsh/dsh-mcp-tools/state.json`, written atomically. External edits are picked up and applied live.
+- Enable/disable happens at **registration** time, not call time: disabled tools never appear in the model's tool list.
+- State lives in `~/.dsh/dsh-mcp-tools/state.json`, written atomically; external edits are watched and hot-applied.
+- REST API: `GET /mcp-tools/api/state`, `POST /servers/{test,save,delete,toggle,refresh}`, `POST /tools/{toggle,bulk}`, `POST /import`, `POST /reload`, `GET /logs`. See [docs/API.md](docs/API.md).
 
-REST surface (used by the panel, also scriptable): `GET /mcp-tools/api/state`, `POST /servers/{test,save,delete,toggle,refresh}`, `POST /tools/{toggle,bulk}`, `POST /import`, `POST /reload`, `GET /logs`. See [docs/API.md](docs/API.md).
+## 🔒 Security
 
----
+- Headers are stored **in plain text** in the local state file — local only; never commit or sync it to a public location.
+- Use a dedicated, least-privilege key for every MCP server.
+- No network requests beyond the MCP servers you configure, and no telemetry; deleting a server removes its tools from subsequent requests.
 
-## Security notes
-
-- Server headers are stored **in plaintext** in the local state file. The file is yours, on your machine — do not commit it or sync it to a public location.
-- Use a dedicated, least-privilege key per MCP server.
-- The plugin makes no network calls except to the MCP servers you configure. No telemetry.
-- Deleting a server removes its tools from every future request.
-
----
-
-## Development
+## 🛠 Development
 
 ```bash
 git clone https://github.com/hxlog/dsh-mcp-tools.git
@@ -152,36 +114,28 @@ node --check client/client.js
 npm run selftest
 ```
 
-For live development, link the checkout into your profile instead of installing a copy (Windows example):
+Link the source tree into a profile instead of installing a copy (Windows example):
 
 ```bat
 rmdir "C:\Users\<you>\.dsh\profiles\web\node_modules\dsh-mcp-tools"
 mklink /J "C:\Users\<you>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path\to\dsh-mcp-tools"
 ```
 
-- **Client changes**: refresh the page. The bundle is served from disk, no build involved.
-- **Host changes**: touch the profile's `cordis.patch.yml` (e.g. append a comment) to trigger HMR recomposition; the log line `MCP manager started` confirms it.
+- **Client changes**: just refresh the page; the bundle is served from disk, no build.
+- **Host changes**: touch the profile's `cordis.patch.yml` (e.g. append a comment) to trigger HMR; once the log shows `MCP 管理器已启动` it is active.
+- The panel is a single classic script and may only `require` `react` and `@deepseek-ai/dsh-client-ui-primitives`.
 
-The panel is written as a single classic script because DSH's Web loader evaluates client bundles as classic scripts. Only `react` and `@deepseek-ai/dsh-client-ui-primitives` may be required.
+## ❓ FAQ
 
----
+| Question | Answer |
+| --- | --- |
+| No MCP section in Settings | The bundle is probably not enabled — confirm on the Plugins page, refresh, restart `dsh web` if needed. |
+| Tools missing in a session | Make sure the server switch is on and the tool chips are enabled; disabled tools are never registered. |
+| Connection test fails | Check the URL, that the server speaks `streamable-http` (not plain SSE), and the header names; network/proxy problems surface here too. |
+| Where is the state file? | `~/.dsh/dsh-mcp-tools/state.json`; delete it to reset to empty — it is recreated on next start. |
 
-## FAQ
+## 📄 License
 
-**The MCP section is missing.** The bundle is probably not enabled. Check Plugins → the bundle, refresh, and restart `dsh web` if needed.
-
-**Tools do not show up in a session.** Make sure the server is enabled and the individual tool chips are on. Disabled tools are never registered.
-
-**Test connection fails.** Verify the URL, that the server speaks `streamable-http` (not plain SSE), and that the header name matches what the server expects. Network/proxy issues surface here too.
-
-**Where is the state?** `~/.dsh/dsh-mcp-tools/state.json`. Deleting it resets everything to empty; the plugin recreates it on next launch.
-
----
-
-## License
-
-[MIT](LICENSE)
-
----
+[MIT](LICENSE) · Powered by [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
 
 [![](https://img.shields.io/badge/powered_by-dsh-4D6BFE?style=flat-square&logo=deepseek&logoColor=white)](https://github.com/deepseek-ai/deepseek-harness)

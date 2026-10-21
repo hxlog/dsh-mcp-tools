@@ -63,8 +63,8 @@ check('README screenshots exist (zh primary + en)', () => {
 })
 check('Chinese README is the npm/GitHub landing page', () => {
   const text = read('README.md')
-  assert(text.includes('DeepSeek Harness 最简洁'), 'tagline missing from README.md')
-  assert(text.includes('[English](README.en.md)'), 'language switch missing from README.md')
+  assert(text.includes('DeepSeek Harness 简洁'), 'tagline missing from README.md')
+  assert(text.includes('README.en.md'), 'language switch missing from README.md')
 })
 check('npm files whitelist contains runtime paths', () => {
   for (const entry of ['lib', 'client/client.js', 'locale', 'cordis.patch.yml', 'icon.svg', 'README.md', 'README.en.md', 'LICENSE']) {
