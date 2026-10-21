@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+pnpm-lock.yaml
+
+# local state / backups
+*.bak-*
+*.bak
+.dsh/
+*.log
+npm-debug.log*
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editor
+.vscode/
+.idea/
+*.swp
