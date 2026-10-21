@@ -190,3 +190,12 @@ node scripts/browser-login.mjs
 - 真机验证（HMR 下）：页面刷新后插件以新 id 正常加载，`/mcp-manager/api/state` 返回原有 2 台服务器（comein 已连接 95 工具、pharmcube 停用），状态迁移成功。
   - 注意：host 进程内仍残留旧 bundle 的 client graph 行（控制台一条 locale 重复注册 warning），需重启 `dsh web` 后彻底消失；不影响功能。
 - 截图整理为 `docs/screenshots/en/` 与 `docs/screenshots/zh/` 两套（同一套 7 张：overview / tools / tooltip / add-server / json-import / tool-toggles / dark）。
+
+## 13. 最终发布（dsh-mcp-tools）
+
+- 包名/仓库名定为 **`dsh-mcp-tools`**（npm 可用性 404 实测通过），中文 README 为主（`README.md`），英文为 `README.en.md`。
+- API 基础路径同步改为 `/mcp-tools/api`；client loader id、STYLE_ID、日志前缀、bundle row id、状态目录一并改为 `dsh-mcp-tools`。
+- 状态迁移：`~/.dsh/dsh-mcp-tools` 优先；不存在时按 mtime 从 `dsh-mcp-workbench` / `dsh-mcp-manager` 复制最新一份（不移动，旧版本可回滚）。实测迁移后 2 台服务器、95+36 工具、备注均保留。
+- GitHub：https://github.com/hxlog/dsh-mcp-tools（public，main 分支，v1.0.0 Release）。
+- 生态：向 awesome-dsh-plugin 目录提交条目 PR（data/plugins/hxlog__dsh-mcp-tools.yml，category tools）。
+- npm：`npm publish` 因本机未登录（ENEEDAUTH）未完成；包内容 `npm pack` 校验通过（32 files / 690 KB）。

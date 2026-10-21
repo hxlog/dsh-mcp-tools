@@ -175,3 +175,7 @@ The panel is written as a single classic script because DSH's Web loader evaluat
 ## License
 
 [MIT](LICENSE)
+
+---
+
+[![](https://img.shields.io/badge/powered_by-dsh-4D6BFE?style=flat-square&logo=deepseek&logoColor=white)](https://github.com/deepseek-ai/deepseek-harness)
