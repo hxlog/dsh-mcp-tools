@@ -254,3 +254,11 @@ npm 页面（1.0.0）暴露的问题与处理：
 - 新增 `docs/screenshots/zh/mcp-detail.png`（由作者提供的 jpg 无损转 PNG）。
 - 所有截图走 jsDelivr CDN；npm 页面可直接渲染（已确认 npm 允许 README 内联 HTML）。
 - smoke 中 tagline 断言改为「DeepSeek Harness 简洁」，语言切换断言改为 `README.en.md` 链接存在。
+
+## 19. npm 1.0.2 发布与页面复核
+
+- `dsh-mcp-tools@1.0.2` 通过 npm 浏览器授权发布；registry `latest = 1.0.2`，`versions = 0.0.0-stage, 1.0.0, 1.0.1, 1.0.2`。
+- registry 顶层 `readme` 已更新为新版 README（含「类 Cursor 风格」tagline）。
+- 1.0.2 tarball（33 files）含 `docs/screenshots/zh/mcp-detail.png`；解包 README 为改版后的居中版式。
+- npm 页面复核（缓存刷新后）：`<p align="center">` 内联 HTML 正常渲染（6 处，无转义泄漏），9 张 jsDelivr 图片（logo + 8 截图），tagline「类 Cursor 风格的全局 MCP 控制」生效，`mcp-detail.png` 已引用。
+- GitHub 仓库页复核：README 正常渲染，tagline 与 18 处 jsDelivr 引用存在，无 HTML 转义泄漏。
