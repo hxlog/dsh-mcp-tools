@@ -1,8 +1,8 @@
 {
   "name": "dsh-mcp-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
-  "description": "Manage your MCP servers and toggle MCP tools on demand, inside DeepSeek Harness settings.",
+  "description": "Manage your MCP servers and toggle MCP tools on demand inside DeepSeek Harness settings",
   "icon": "icon.svg",
   "main": "./lib/index.js",
   "exports": {
@@ -51,7 +51,7 @@
   },
   "license": "MIT",
   "author": "Xingyu Liu <xingyuliu@outlook.sg>",
-  "homepage": "https://github.com/hxlog/dsh-mcp-tools#readme",
+  "homepage": "https://github.com/hxlog/dsh-mcp-tools",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hxlog/dsh-mcp-tools.git"

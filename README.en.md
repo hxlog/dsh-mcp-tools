@@ -6,12 +6,15 @@
 [![npm downloads](https://img.shields.io/npm/dm/dsh-mcp-tools?color=black)](https://www.npmjs.com/package/dsh-mcp-tools)
 [![license](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D22.13-black.svg)](https://nodejs.org)
+[![GitHub](https://img.shields.io/badge/GitHub-hxlog%2Fdsh--mcp--tools-black?logo=github)](https://github.com/hxlog/dsh-mcp-tools)
+
+[GitHub repository](https://github.com/hxlog/dsh-mcp-tools) · [npm](https://www.npmjs.com/package/dsh-mcp-tools) · [Issues](https://github.com/hxlog/dsh-mcp-tools/issues)
 
 English | [简体中文](README.md)
 
-Manage your MCP servers and toggle MCP tools on demand, inside the DeepSeek Harness Web GUI. Disabled tools **never reach the model**: no context cost, no accidental calls.
+Manage your MCP servers and toggle MCP tools on demand, inside DeepSeek Harness (Web GUI or Desktop). Disabled tools **never reach the model**: no context cost, no accidental calls.
 
-![MCP servers in Settings](docs/screenshots/en/mcp-overview.png)
+![MCP servers in Settings](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-overview.png)
 
 ---
 
@@ -41,21 +44,21 @@ dsh-mcp-tools moves all of that into **Settings → MCP**:
 
 Header rows are key/value pairs, not a JSON textarea. A new server starts with an `x-mcp-key` row: paste the secret into the value column and save.
 
-![Adding a server with key/value headers](docs/screenshots/en/mcp-add-server.png)
+![Adding a server with key/value headers](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-add-server.png)
 
 Values are masked by default and can be revealed per row. Duplicate header names are rejected inline. Prefer JSON? Switch to **Paste JSON** — it syncs name, URL, transport and headers back into the form.
 
-![Pasting an mcpServers JSON block](docs/screenshots/en/mcp-json-import.png)
+![Pasting an mcpServers JSON block](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-json-import.png)
 
 ### Real per-tool control
 
 Every tool is a chip. Click to disable; the tool disappears from the model's tool list immediately (it is not registered at all). Search, select all, invert, disable all.
 
-![Per-tool chips](docs/screenshots/en/mcp-tools.png)
+![Per-tool chips](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-tools.png)
 
 Hover a chip for its full description, even while the server is disabled.
 
-![Tool description tooltip](docs/screenshots/en/mcp-tooltip.png)
+![Tool description tooltip](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-tooltip.png)
 
 ### Connectivity test and event log
 
@@ -67,15 +70,17 @@ Same design tokens (`--dsw-*`), same flat rows, same 32px inputs as DSH itself. 
 
 See it in dark mode:
 
-![MCP manager in dark mode](docs/screenshots/en/mcp-dark.png)
+![MCP manager in dark mode](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-dark.png)
 
-![Disabled tools](docs/screenshots/en/mcp-tool-toggles.png)
+![Disabled tools](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/en/mcp-tool-toggles.png)
 
 ---
 
 ## Install
 
-Requires **DeepSeek Harness 0.2.x** (Web GUI `dsh web` or DSH Desktop) and **Node.js ≥ 22.13**. Published on npm as [dsh-mcp-tools](https://www.npmjs.com/package/dsh-mcp-tools) `1.0.0`.
+Requires **DeepSeek Harness 0.2.x** (Web GUI `dsh web` or DSH Desktop) and **Node.js ≥ 22.13**. Published on npm as [dsh-mcp-tools](https://www.npmjs.com/package/dsh-mcp-tools) `1.0.1`.
+
+> ⚠️ This is a **DeepSeek Harness plugin**, not a plain npm library. `npm i dsh-mcp-tools` only downloads the package; it still has to be installed into a DSH profile as described below.
 
 ### From the Plugins page (recommended)
 

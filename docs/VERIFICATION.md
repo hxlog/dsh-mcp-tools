@@ -219,3 +219,16 @@ node scripts/browser-login.mjs
 | 全新安装 | 空目录 `npm install dsh-mcp-tools@1.0.0` 成功，无 postinstall 依赖；安装后 smoke 通过 |
 | DSH 安装 | `dsh plugin --profile npmcheck add dsh-mcp-tools` → pnpm 从 registry 安装 1.0.0，profile 的 `dsh.profile.bundles` 自动加入 `dsh-mcp-tools`；测试 profile 已删除 |
 | 插件元数据 | npm 包内 locale：`MCP 管理器 / 管理用户的MCP Server，按需开关MCP Tools`；`icon.svg` 771 B，36×36 蓝色渐变 |
+
+## 16. npm 页面信息修整（1.0.1）
+
+npm 页面（1.0.0）暴露的问题与处理：
+
+| 问题 | 处理 |
+| --- | --- |
+| README 里的截图由 npm 重写为 `raw.githubusercontent.com/.../HEAD/...`，在部分网络下加载不出来 | README 图片改为 jsDelivr CDN：`https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/...`（GitHub 与 npm 均可显示） |
+| npm 页 README 是发布时的 1.0.0 版本，安装说明已过时（手动加 bundles 等） | 随 1.0.1 重新发布；安装段落同步为 npm 链接、Desktop 路径、CLI 自动写入 bundles |
+| 元数据描述以句号结尾，npm 拼接后出现 `settings..` | `description` 去掉结尾句号 |
+| `homepage` 指向 `#readme` | 改为仓库根地址 `https://github.com/hxlog/dsh-mcp-tools`；`repository`/`bugs` 保持指向 GitHub |
+| README 缺少明确的仓库 / npm / Issues 入口 | 徽章下新增一行：GitHub 仓库 · npm · 问题反馈（中英双份） |
+| 用户容易误以为 `npm i dsh-mcp-tools` 即可用 | 安装段落增加醒目提示：这是 DSH 插件，npm 只负责下载，仍需装进 DSH profile |

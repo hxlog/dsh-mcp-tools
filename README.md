@@ -6,12 +6,15 @@
 [![npm downloads](https://img.shields.io/npm/dm/dsh-mcp-tools?color=black)](https://www.npmjs.com/package/dsh-mcp-tools)
 [![license](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D22.13-black.svg)](https://nodejs.org)
+[![GitHub](https://img.shields.io/badge/GitHub-hxlog%2Fdsh--mcp--tools-black?logo=github)](https://github.com/hxlog/dsh-mcp-tools)
+
+[GitHub 仓库](https://github.com/hxlog/dsh-mcp-tools) · [npm](https://www.npmjs.com/package/dsh-mcp-tools) · [问题反馈](https://github.com/hxlog/dsh-mcp-tools/issues)
 
 [English](README.en.md) | 简体中文
 
 管理用户的 MCP Server，按需开关 MCP Tools。被停用的工具**不会注册进模型**，既不占上下文，也无法被误调用。
 
-![设置中的 MCP 服务器](docs/screenshots/zh/mcp-overview.png)
+![设置中的 MCP 服务器](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/zh/mcp-overview.png)
 
 ---
 
@@ -41,21 +44,21 @@ dsh-mcp-tools 把这些搬进了 **设置 → MCP**：
 
 请求头是键值对行，而不是 JSON 文本框。新服务器默认带一行 `x-mcp-key`，把密钥粘进「值」即可保存。
 
-![添加服务器：键值对请求头](docs/screenshots/zh/mcp-add-server.png)
+![添加服务器：键值对请求头](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/zh/mcp-add-server.png)
 
 值默认掩码显示，可逐行切换显示；名称重复会就地报错。也可以切到「粘贴 JSON」——解析后会把名称、URL、传输方式和请求头同步回表单。
 
-![粘贴 mcpServers JSON](docs/screenshots/zh/mcp-json-import.png)
+![粘贴 mcpServers JSON](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/zh/mcp-json-import.png)
 
 ### 真正的逐工具控制
 
 每个工具是一个 chip。点击即停用，工具会立刻从模型工具列表中消失（不是注册了再报错）。支持搜索、全选、反选、全部停用。
 
-![逐工具 chip](docs/screenshots/zh/mcp-tools.png)
+![逐工具 chip](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/zh/mcp-tools.png)
 
 悬停 chip 可查看完整描述，服务器停用时也能看。
 
-![工具描述 tooltip](docs/screenshots/zh/mcp-tooltip.png)
+![工具描述 tooltip](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/zh/mcp-tooltip.png)
 
 ### 连通性测试与事件日志
 
@@ -67,17 +70,19 @@ dsh-mcp-tools 把这些搬进了 **设置 → MCP**：
 
 深色模式：
 
-![深色模式](docs/screenshots/zh/mcp-dark.png)
+![深色模式](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/zh/mcp-dark.png)
 
 停用部分工具：
 
-![停用工具](docs/screenshots/zh/mcp-tool-toggles.png)
+![停用工具](https://cdn.jsdelivr.net/gh/hxlog/dsh-mcp-tools@main/docs/screenshots/zh/mcp-tool-toggles.png)
 
 ---
 
 ## 安装
 
-需要 **DeepSeek Harness 0.2.x**（Web GUI `dsh web` 或 DSH Desktop）与 **Node.js ≥ 22.13**。包已发布到 npm：[dsh-mcp-tools](https://www.npmjs.com/package/dsh-mcp-tools) `1.0.0`。
+需要 **DeepSeek Harness 0.2.x**（Web GUI `dsh web` 或 DSH Desktop）与 **Node.js ≥ 22.13**。包已发布到 npm：[dsh-mcp-tools](https://www.npmjs.com/package/dsh-mcp-tools) `1.0.1`。
+
+> ⚠️ 这是一个 **DeepSeek Harness 插件**，不是普通 npm 依赖库。`npm i dsh-mcp-tools` 只会下载包，运行时仍要通过下面的方式装进 DSH profile。
 
 ### 通过插件页安装（推荐）
 
