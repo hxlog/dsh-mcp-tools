@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 18 个市场 + 34 个待审/待跟进 PR/Issue/目录站（bruc3van 待每日重建后落地）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 18 个市场 + 34 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -14,7 +14,7 @@
 | [imsai-sh/awesome-deepseek-harness-plugins](https://github.com/imsai-sh/awesome-deepseek-harness-plugins)（deepseek1024.com） | 312★ | 人工 PR（catalog JSON，CI 自动合并） | 🟢 已合并（PR #669）；线上 API 已返回：`GET /api/v1/plugins/hxlog/dsh-mcp-tools`（2026-10-23 核验） | https://deepseek1024.com/ |
 | [fendouai/awesome-deepseek-harness](https://github.com/fendouai/awesome-deepseek-harness) | 41★ | 定时 discover workflow 自动写入 data/plugins.json | ✅ 已含（README 搜索到 hxlog/dsh-mcp-tools） | https://github.com/fendouai/awesome-deepseek-harness |
 | [vvlife/awesome-deepseek-harness-plugins](https://github.com/vvlife/awesome-deepseek-harness-plugins) | 10★ | PR #168（README.md Tools & Editor UX，机器人规则审核通过后自动 squash-merge） | 🟢 已合并（2026-10-23，commit c337c46） | https://github.com/vvlife/awesome-deepseek-harness-plugins |
-| [bruc3van/awesome-dsh-plugin](https://github.com/bruc3van/awesome-dsh-plugin) | 453★ | 每日抓取 `dsh-plugin` topic + 人工/规则复核，写入 data/approved.json | 🟡 已进入 `data/approved.json`（2026-10-23 核准）；`data/market.json` 每日 14:17Z 重建，同日核准的其他仓库同样尚未入市场 → 今晚刷新后应出现。安装目标映射 `data/packages.json` 由维护者审核补充。原：✅ 已通过复核（approved.json 记录 `hxlog/dsh-mcp-tools: 2026-10-23`），README/feed 待下一轮渲染 | https://github.com/bruc3van/awesome-dsh-plugin |
+| [bruc3van/awesome-dsh-plugin](https://github.com/bruc3van/awesome-dsh-plugin) | 453★ | 每日抓取 `dsh-plugin` topic + 人工/规则复核，写入 data/approved.json | 🟡 已进入 `data/approved.json`（2026-10-23 核准）；`data/market.json` 每日 14:17Z 重建，同日核准的其他仓库同样尚未入市场 → 今晚刷新后应出现。安装目标映射 `data/packages.json` 由维护者审核补充。原：✅ 已通过复核（approved.json 记录 `hxlog/dsh-mcp-tools: 2026-10-23`），README/feed 待下一轮渲染 | https://github.com/bruc3van/awesome-dsh-plugin · **已 approved：`data/approved.json["hxlog/dsh-mcp-tools"] = "2026-10-23"`**；`repositories.json` 已有我们，但 `market.json` 有体积上限（约 1000 条，分类轮转 + star 排序），2★ 暂未进渲染，升星后自动进入，**无需 PR** |
 | [2BingLing/dsh-market](https://github.com/2BingLing/dsh-market)（dsh.market） | 168★ / 6000+ | topic 自动扫描写入 data/plugins.json | ✅ 已含（`sources: [topic]`，cordis-plugin，已生成中文简介） | https://dsh.market/ |
 | [unStone/dsh-xray](https://github.com/unStone/dsh-xray) | 7★ / 静态能力扫描注册表 | topic 自动收录（能力卡片 C3：runtime patch / exec / dev 网络） | ✅ 已收录：<https://unstone.github.io/dsh-xray/p/hxlog__dsh-mcp-tools.html> | 自动扫描，无需提交 |
 | [linny006/mcp-servers-live](https://github.com/linny006/mcp-servers-live) | 13★ / 15 分钟刷新 MCP 索引 | GitHub 全量 MCP 仓库自动索引 | ✅ 已收录：<https://linny006.github.io/mcp-servers-live/r/hxlog/dsh-mcp-tools/index.html> | 自动抓取，无需提交 |
@@ -61,7 +61,7 @@
 
 | 市场 | 原因 |
 | --- | --- |
-| bruc3van/awesome-dsh-plugin（453★） | 作者自荐区要求 star > 10；等 star 增长后提交 SHOWCASE.md |
+| bruc3van/awesome-dsh-plugin（453★） | 作者自荐区要求 star > 10；等 star 增长后提交 SHOWCASE.md · **已 approved：`data/approved.json["hxlog/dsh-mcp-tools"] = "2026-10-23"`**；`repositories.json` 已有我们，但 `market.json` 有体积上限（约 1000 条，分类轮转 + star 排序），2★ 暂未进渲染，升星后自动进入，**无需 PR** |
 | dsh-external/hub | 仓库私有/404，是其手选目录上游，无公开入口 |
 | libukai（319★）、SihanTeng、ZeroPointRepo、uyq 等 | 维护者长期不活跃（libukai 自 2026-09-12 起无合并）或规模过小，收益有限；如需覆盖再按第二梯队处理 |
 | billLiao/awesome-dsh-plugin（15★） | 目录由 topic 自动生成（21k 条），本仓库已在 topic 内，等待下一轮刷新即可 |
@@ -129,7 +129,7 @@
 | `@99galaxy/dsh-plugin-market` | 浏览 awesome-dsh-plugin 目录 | ✅ 随 catalog |
 | `@1e0zj/dsh-plugin-mall` | 实时搜 GitHub `dsh-plugin` topic | ✅ 随 topic |
 | `dsh-plugin-console`（AlexYin-Tongji） | 可配置 catalog sourceUrl（默认社区目录） | ✅ 随 catalog |
-| `safer-dsh-market`（bruc3van） | bruc3van 自家 feed | 🟡 随 bruc3van market 渲染 |
+| `safer-dsh-market`（bruc3van） | bruc3van 自家 feed | 🟡 随 bruc3van market 渲染 · **已 approved：`data/approved.json["hxlog/dsh-mcp-tools"] = "2026-10-23"`**；`repositories.json` 已有我们，但 `market.json` 有体积上限（约 1000 条，分类轮转 + star 排序），2★ 暂未进渲染，升星后自动进入，**无需 PR** |
 | `dsh-find-plugin`（204★） | awesome-dsh-plugin 索引 | ✅ 随 catalog |
 | `@linxin666/dsh-client-ui-market` | dsh-market.com + 本地 | ✅ 随 catalog |
 | `dshhub-market`（dshhub.co，口令制） | 自有口令库 | ⚪ 不同分发模型，不适用 |
