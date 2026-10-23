@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 34 个市场 + 56 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 34 个市场 + 57 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -233,6 +233,12 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.47 2026-10-23 dshlib 插件商店投稿 + 认证体系（PerryLink）识别
+
+**dshlib/dshlib（compliancehub.cn/store）**：代码搜 `dshlib` 商店，实验性插件商店，投稿用 Issue 模板 `Add: <plugin>`，要求 `dsh-plugin` topic + LICENSE + bundle manifest；上架前自动做内容完整性校验（npm 官方 hash）、dshlib-scan + GuardDog 第三方复扫、OSV.dev 依赖检查，并给 CHA2A（L0-L4）认证徽章。已按模板提交 [Issue #4](https://github.com/dshlib/dshlib/issues/4)（附 npm 版本、pinned commit、豁免/安全说明）。注意其仓库自 2026-08-27 无新提交、站内 3 条历史投稿也未处理，属「低活跃实验项目」，不作为主力预期。
+
+**PerryLink/dsh-plugin-certification**（配套 `PerryLink/dsh-cert-mcp`）：结论是**认证数据仓库，不是可浏览的插件市场**——`package.json` 为 private、不发 npm、不可安装；五个维度 A 清单合规 / B 构建卫生 / C OpenSSF Scorecard / D npm provenance / E dsh-test-drive 真实安装冒烟，A-D 级评分。可作为「自证材料」来源（其 b 维度正好检查 `files` allowlist、无恶意 postinstall、lint/typecheck 门禁——我们已满足），但收录与市场曝光无直接关系，暂不投入；若后续要拿认证徽章再按其 `data/certified.json` 的 evidence 规范补齐 Scorecard/provenance 证据。
+
 ### 6.46 2026-10-23 新发现 deepseekplugin.store（已走通自动准入 → PR #316）＋ cclank/dsh-plugin-hub（自动抓取型）
 
 用 GitHub 代码搜索 `"dsh plugin --profile web add"` / `"dsh-plugin" "marketplace"`（共 106 个去重仓库）继续扫目录站，发现两家此前矩阵里没有的：
@@ -386,6 +392,7 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | [dshplugin.io](https://dshplugin.io) | 7,460 URL | `/plugin/<slug>` | 未发现投稿入口 | 未收录（自报 3,729 个插件） |
 | [Ericwong5021/deepseek-plugin-store](https://github.com/Ericwong5021/deepseek-plugin-store)（[deepseekplugin.store](https://deepseekplugin.store)） | 23★ / 1,000+ registry 条目 | 全自动：`plugin-submission` Issue → governance-bot 校验 → 自动开 PR 写 `registry/plugins/<owner>-<repo>.json` | ✅ 已提交 2026-10-23：[Issue #315](https://github.com/Ericwong5021/deepseek-plugin-store/issues/315) 已被标注 `type:submission, gov:approved, gov:pr-open`，机器人开出 [PR #316](https://github.com/Ericwong5021/deepseek-plugin-store/pull/316)（条目含 `verifiedCommitSha: 4c310a6`、`github:hxlog/dsh-mcp-tools`、中英 summary） | 等维护者合并（其 PR 有 `action_required` 工作流待批，10-20/10-22 的几条同类 PR 也仍未合并，属批量审核节奏） |
 | [cclank/dsh-plugin-hub](https://github.com/cclank/dsh-plugin-hub)（[dsh.lanshuagent.com](https://dsh.lanshuagent.com)） | 21★ / 655 条在线 registry（`/api/plugins`） | 纯自动：Cloudflare Cron 每 12h 扫 `topic:dsh-plugin` → 候选队列 → 源码/manifest 筛查 → D1；无投稿入口 | 🟡 未收录（`/api/plugins` 与 `plugins.json` 均无 `hxlog`）；其 automation `state: degraded`、`lastSuccessfulRunAt: 2026-10-07` | 只能等其 cron 恢复后自动发现（我们 topic + `dsh.bundle` 均满足其准入前提） |
+| [dshlib/dshlib](https://github.com/dshlib/dshlib)（[compliancehub.cn/store](https://compliancehub.cn/store/)） | 0★ / 实验性插件商店（CHA2A L0-L4 认证徽章） | Issue 模板投稿（`Add: <plugin>`）→ 自动验签（npm 官方 hash）+ 自动安全扫描（dshlib-scan + GuardDog 3.2.0 + OSV.dev）→ 1 个工作日内上架 | ✅ 已提交 2026-10-23：[Issue #4](https://github.com/dshlib/dshlib/issues/4)（npm `dsh-mcp-tools@1.0.2` + `github:hxlog/dsh-mcp-tools`、LICENSE、`dsh.bundle`、pinned commit `4c310a6`、安全说明） | 等维护者处理（仓库 8-27 后无提交，站点仍在线；若长期无响应再降级） |
 | [dshindex.com](https://dshindex.com) | 8,316 URL | `/plugins/<slug>` | 未发现投稿入口 | 未收录（与 dshindex.dev 不是一回事） |
 | [dshplugin.dev](https://dshplugin.dev) | 1,136 仓库 / 740 URL | `/plugins/<owner>-<repo>` | `/submit` 表单（**带 Cloudflare Turnstile**） | 未收录；自动抓取（「Crawled daily from GitHub」） |
 | [dshhub.dev](https://dshhub.dev) | 2,000+ 插件 | `/plugins/<owner>-<repo>` | `/submit` 给文案模板，让贴到「Issue 或 PR on this repo」（仓库未公开） | 未收录 |
