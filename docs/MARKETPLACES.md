@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 29 个市场 + 43 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 30 个市场 + 52 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -36,6 +36,7 @@
 | [deepseekplugin.org](https://deepseekplugin.org)（DeepSeek Harness 插件目录） | 目录 sitemap 8,593 条 · 2.67MB `registry/v1/catalog.json` | **自助 API 投稿**：`POST /api/submissions {url}`，识别后即时发布 | ✅ 已收录（2026-10-23 提交，`state=published`；解析出标题/中英描述/安装命令 `dsh plugin --profile web add dsh-mcp-tools`/tags/`installable=true`/`security.score=5`） | https://deepseekplugin.org/plugins/submitted?slug=hxlog-2f-dsh-2d-mcp-2d-tools |
 | [dsh-plugins-mp.com](https://dsh-plugins-mp.com)（`dsh-plugins-hub` npm 客户端的数据源） | 19,175 个插件条目（`/api/plugins` 分页 24/页） | 自动抓取 + 结构校验（`verificationState: structure_ok`） | ✅ 已含（API `?q=` 命中 `slug: hxlog--dsh-mcp-tools`，`license: MIT`、`profiles:[web]`、`categories:[tools,models]`；站点页 `/plugins/hxlog--dsh-mcp-tools` 200） | https://dsh-plugins-mp.com/plugins/hxlog--dsh-mcp-tools |
 | [dsh.qomob.ai](https://dsh.qomob.ai)（qomob 的 DSH 导航站，数据内嵌在 SPA bundle） | 1,700+ 条（bundle 内嵌全量 JSON） | 非自建目录：聚合 awesome 列表 + GitHub 元数据（`source: awesome-list`） | ✅ 已含（bundle 内 `id: hxlog/dsh-mcp-tools`，`category: terminal`、`score: 53`、`installCmd: dsh plugin add "github:hxlog/dsh-mcp-tools"`、topics/stars/license 与我们仓库一致，`updatedAt: 2026-10-23`） | https://dsh.qomob.ai/ |
+| [dsh.pub](https://dsh.pub)（12,704 条，按固定 commit 可安装的插件注册表） | 12,704 条（`community.generated.json`） | GitHub Topic `dsh-plugin` 自动同步 + 静态契约校验（`topic-catalog-sync.yml`） | ✅ 已含（`id: github:hxlog/dsh-mcp-tools`、`slug: dsh-mcp-tools`、`version: 1.0.2`、`license: MIT`、`type: bundle`、`category: client-ui`；7 项静态校验全 true：pinnedCommit / bundleManifest / safeBundlePatch / committedRuntime / committedClient / readme / license；`discoveredVia: github-topic:dsh-plugin`，`status: verified`） | https://dsh.pub/en/plugins/dsh-mcp-tools/ |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -228,6 +229,39 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.37 2026-10-23 站点域名扫街：dsh.pub 已收录（第 30 个）＋ 9 个新目录站全部未收录（附投稿路径）
+
+**先修正之前的判断**：`dsh.pub` 详情页此前 404 是因为我把 slug 猜成 `hxlog/dsh-mcp-tools`，实际 slug 是 `dsh-mcp-tools`（`https://dsh.pub/en/plugins/dsh-mcp-tools/` 200）。其 `packages/catalog/src/community.generated.json`（**44.9MB**）里已有我们的条目：
+
+```json
+"id": "github:hxlog/dsh-mcp-tools", "slug": "dsh-mcp-tools", "version": "1.0.2", "license": "MIT",
+"type": "bundle", "category": "client-ui", "provenance": { "status": "community-automated",
+  "discoveredVia": "github-topic:dsh-plugin", "analyzedAt": "2026-10-22" },
+  "checks": { publicRepository/pinnedCommit/bundleManifest/safeBundlePatch/committedRuntime/committedClient/readme/license: true },
+  "method": "automated-static-contract", "status": "verified" }
+```
+
+顺带验证了它的投稿闭环：提交 `submissions/<owner>--<repo>.json`（只有 `repository` + `schemaVersion:1` 两个键）→ `plugin-submission.yml` 调 `scripts/process-plugin-submission.mjs` 校验 → **通过即自动 merge**。我按格式提了 [#156](https://github.com/dsh-pub/dsh-pub/pull/156)，CI 返回 `{"code":"already_listed","status":"invalid"}` —— 反而证明「Topic 自动同步已经收录」。PR 已关闭并说明原因。
+
+**域名扫街结果（全部 200 在跑、但 sitemap/详情页都没有我们）**：
+
+| 站点 | 规模（sitemap） | 数据结构 | 投稿路径 | 状态 |
+| --- | --- | --- | --- | --- |
+| [dsh.directory](https://dsh.directory) | 10,826 URL | `/plugins/<owner>/<repo>` | 页头「Submit Plugin」按钮 | 未收录（自动 topic 发现 + 人工提交，FAQ 说会每 30 天重扫） |
+| [deepseek-plugin.org](https://deepseek-plugin.org)（注意与 deepseekplugin.org 不同域） | 13,267 URL | `/plugins/*`、`/collections` | 未发现投稿入口（自动抓） | 未收录 |
+| [dsh-plugin.com](https://dsh-plugin.com) | 7,055 URL | `/plugins/<owner>/<repo>` | 未发现投稿入口（自动抓 + `/explore`） | 未收录 |
+| [dshplugin.io](https://dshplugin.io) | 7,460 URL | `/plugin/<slug>` | 未发现投稿入口 | 未收录（自报 3,729 个插件） |
+| [dshindex.com](https://dshindex.com) | 8,316 URL | `/plugins/<slug>` | 未发现投稿入口 | 未收录（与 dshindex.dev 不是一回事） |
+| [dshplugin.dev](https://dshplugin.dev) | 1,136 仓库 / 740 URL | `/plugins/<owner>-<repo>` | `/submit` 表单（**带 Cloudflare Turnstile**） | 未收录；自动抓取（「Crawled daily from GitHub」） |
+| [dshhub.dev](https://dshhub.dev) | 2,000+ 插件 | `/plugins/<owner>-<repo>` | `/submit` 给文案模板，让贴到「Issue 或 PR on this repo」（仓库未公开） | 未收录 |
+| [dsharness.io](https://dsharness.io) | 82 精编 | `/en/plugins/<slug>` | 明确「we index what actually exists, not what people submit」 | 未收录（自动索引） |
+| [dsh.fish](https://dsh.fish) | 14 URL | 应用型（frontend/backend 仓库） | `/submit` 走 backend API | 未收录 |
+
+**另读到两个对我们有用的「收录标准」**：
+
+1. `dsh-plugins.net` 的 **Evidence Score 评分口径**（不是安全认证）：Source provenance 25（pinned commit / README / license / 声明的包身份）＋ Install documentation 25（可追溯到 README 或 package metadata 的安装命令）＋ Maintenance 20（近期推送、打 tag、未归档）＋ Compatibility 20（**写明具体 DSH 版本 > 只有 profile/platform 声明**；官方 core 包应放 peerDependencies）＋ Security 10（无安装脚本、可识别 license、无高危静态发现）。我们的 README 已写「已在 DSH 0.2.1-rc.2 实机验证」、license MIT、零依赖零脚本、安装命令在 README —— 按这套口径基本是满分结构；其提交方式是「表单生成结构化 markdown → 贴到 DSH Discussions」（提交邮箱 `contact@dsh-plugins.net`）。
+2. `dshhub.dev` 的投稿模板要求：plugin name / GitHub URL / 安装命令（`dsh plugin --profile … add`）/ category，并**明确要求 README 有安装命令、有 license** —— 我们都满足。
 
 ### 6.36 2026-10-23 移动端精选列表（WSK-build）：收录门槛与本地复现，已提 PR #24
 
