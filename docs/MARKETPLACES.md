@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 33 个市场 + 55 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 34 个市场 + 54 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -68,7 +68,7 @@
 | [zp-home/dsh-recommend](https://github.com/zp-home/dsh-recommend) | 19★ | Issue #41（submit-plugin 模板 + 精选认证申请） | 🟡 待审核 | 每日同步 topic；`dsh.bundle` 可安装，申请 🏅 精选认证 |
 
 | [diegosouzapw/awesome-omni-dsh-plugins](https://github.com/diegosouzapw/awesome-omni-dsh-plugins) | 19★ / 3626 | PR #3723（catalog/plugins/hxlog-dsh-mcp-tools.yaml，每插件一 PR） | 🟡 待审（本地 `catalog validate` 3627 entries valid；已 re-pin 到最新 commit `65fc438`，semgrep 重跑中） | 创作者优先 PR；分类 coding-developer-tools · **本地已过 CI 门禁**（2026-10-23，按 workflow 同命令）：`catalog validate` → `3627 entries valid`；`docs-check --skip-count` → passed |
-| [polang233/dsh-plugin-index](https://github.com/polang233/dsh-plugin-index)（dshopen.org） | 35★ / Open Plugin Market，864 条 | 维护者**手工批量**把申请写进 `data/sources.json`（提交历史可见 "Add N submitted plugins"），非 PR 通道 | 🟡 Issue #58 已提交，并于 2026-10-23 补了一份**可直接粘贴的 `sources.json` 条目**（含 v1.0.2 的 `source.commit`/`integrity`/`publishedAt` + 与已收录 `@sunshaobei/dsh-mcp-manager` 的差异说明）：#issuecomment-6362814800 | 索引每 6h 重建（09:19Z 最新），等维护者下一批合入 |
+| [polang233/dsh-plugin-index](https://github.com/polang233/dsh-plugin-index)（[dshopen.org](https://dshopen.org) · Open Plugin Market，876 条索引） | 35★ | 维护者**手工批量**写进 `data/sources.json`（非 PR 通道）；Issue #58 已由维护者回复「已核查并加入收录配置」 | ✅ 已收录（2026-10-23）：`https://dshopen.org/index.json` 可检索到 `dsh-mcp-tools`（title zh「MCP 管理器」/en「MCP Manager」、category `tools`、★3、keywords 含 dsh/dsh-plugin/mcp、repository 指向本仓库、图标已生成） | 索引每 6 小时重建；条目由维护者手写，不带 install spec，安装走插件市场默认解析 |
 | [DshHunt/community](https://github.com/DshHunt/community)（[dshhunt.com](https://dshhunt.com)） | 独立目录站（静态结构证据 + 社区投稿） | Issue [#4](https://github.com/DshHunt/community/issues/4)（plugin-submission 表单） | 🟡 待审（2026-10-23 提交） | 站点 `/plugins` 已上线但未含我们；投稿要求固定 commit SHA + 公开证据，已按表单字段提交（SHA `6cb6342`、bundle path `.`、npm `dsh-mcp-tools`、分类 developer-tools、MIT） |
 | [REALOIYO/dsh-plugin-market](https://github.com/REALOIYO/dsh-plugin-market) | 7,123 个插件 / 58,629 个版本 · 自建 format 1 索引 | Issue [#1](https://github.com/REALOIYO/dsh-plugin-market/issues/1)（召回缺口报告 + 建议补种子） | 🟡 待回复（2026-10-23 提交） | 索引源 `realoiyo.github.io/dsh-plugin-market/index.json`；每 6 小时重建（10-23T10:55Z success），但我们这个**声明了 `dsh.bundle` 且带 `dsh-plugin` 关键字**的包仍未被召回 → 判断为其切片式 npm 搜索召回缺口，建议把包名加进 `seeds/dsh-so.json` |
 | [dsh-pluginmarket/metadata](https://github.com/dsh-pluginmarket/metadata)（DSH Registry，站点 `dsh-pluginmarket.github.io/registry/`） | 82 条元数据 · plugin/skill/preset/theme 注册表 | Issue [#6809](https://github.com/dsh-pluginmarket/metadata/issues/6809) → 机器人自动开 PR [#6810](https://github.com/dsh-pluginmarket/metadata/pull/6810) | 🟡 待合并（2026-10-23 提交，issue→PR 全自动链路已跑通） | 投稿用 `Add:` issue 模板；Actions 校验后由 `issue-to-entry.mjs` 生成 `entries/github_hxlog_dsh-mcp-tools.json` 并开 PR，维护者合并即上架；已验证 workflow 两次 run 均 success、bot 已回「Metadata validated and a pull request was opened」 |
@@ -232,6 +232,22 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.44 2026-10-23 收到维护者回复：dshopen.org 已收录（第 34 个）＋ dshplugin 安全建议＋ dsh-pub 失败原因
+
+本轮把「已关闭」的 PR/Issue 也翻了一遍（之前只盯 open，漏了维护者在关闭时留的话），逐条回复并核实：
+
+| 线程 | 维护者原话（节选） | 我们的处理 |
+| --- | --- | --- |
+| [polang233/dsh-plugin-index#58](https://github.com/polang233/dsh-plugin-index/issues/58) | 「已核查并加入收录配置，提交推送且 GitHub Actions 发布完成后即可在市场中看到」 | ✅ **已验证上线**：`https://dshopen.org/index.json`（876 条）含我们；已回帖确认 + 致谢 |
+| [dshplugin/dsh-plugin-hub#391](https://github.com/dshplugin/dsh-plugin-hub/issues/391) | 「目录数据里已经收录，应用内插件中心下一轮同步即可看到」+ **安全建议**：请求头是凭据，明文存在 `state.json`，建议 README 醒目提示、后续接钥匙串 | 已回帖：README 早有「🔒 安全说明 · 状态文件等同密码」段落（`README.md#-安全说明`），FAQ/权限声明各重复一次；钥匙串记入 roadmap 但不承诺时间表 |
+| [Dominic789654/awesome-deepseek-harness#671](https://github.com/Dominic789654/awesome-deepseek-harness/pull/671) | 「Verified … merging now」 | 已合并；回帖致谢并说明后续版本保持包名/安装命令稳定 |
+| [vvlife/awesome-deepseek-harness-plugins#168](https://github.com/vvlife/awesome-deepseek-harness-plugins/pull/168) | 机器人「✅ AUTO-APPROVED … will be auto-merged」 | 已合并；回帖致谢 |
+| [imsai-sh#669](https://github.com/imsai-sh/awesome-deepseek-harness-plugins/pull/669)（1024 Store） | 「review passed … squash-merged automatically」+ Codex review「couldn’t complete this review」（工具失败，不是代码问题）+ 「npm-only，未发布前 browse-only」 | PR 已合并；npm `dsh-mcp-tools@1.0.2` 其实已发布且 manifest 带 `dsh.bundle`，已在 [#678](https://github.com/imsai-sh/awesome-deepseek-harness-plugins/issues/678) 补发布证据请其下次扫描改走 npm |
+| [dsh-pub](https://github.com/dsh-pub/dsh-pub) 提交流程 | CI `Plugin submission` / `Quality` 失败 | 读了 job 日志：`{"code":"already_listed","status":"invalid"}` —— **仅因重复投稿**（我们已在 dsh.pub 收录），非代码/格式问题；`Inspect the fixed public source` 之后的步骤全部 skipped |
+| [awesome-deepseekharness#186](https://github.com/awesome-deepseekharness/awesome-deepseek-harness/pull/186) | 机器人 `submission-guard:velocity-tip`：14 天内第 4 个自荐 PR 起自动关闭 | 已回帖确认：本仓库只投这 1 个 PR，14 天内不再开自荐 |
+
+**教训**：查「回信」不能只看 open 条目——维护者经常在**合并/关闭的同时**留言（这次 4 条全在已关闭条目里）。以后每轮把 `is:closed` 一并扫。
 
 ### 6.43 2026-10-23 bruc3van 管线真相（已进 catalog，站点 index 待重建）＋ DSH Discussion 改成投稿标题
 
