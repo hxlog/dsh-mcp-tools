@@ -57,7 +57,6 @@
 
 | [diegosouzapw/awesome-omni-dsh-plugins](https://github.com/diegosouzapw/awesome-omni-dsh-plugins) | 19★ / 3626 | PR #3723（catalog/plugins/hxlog-dsh-mcp-tools.yaml，每插件一 PR） | 🟡 待审（本地 `catalog validate` 3627 entries valid；已 re-pin 到最新 commit `65fc438`，semgrep 重跑中） | 创作者优先 PR；分类 coding-developer-tools · **本地已过 CI 门禁**（2026-10-23，按 workflow 同命令）：`catalog validate` → `3627 entries valid`；`docs-check --skip-count` → passed |
 | [polang233/dsh-plugin-index](https://github.com/polang233/dsh-plugin-index)（dshopen.org） | 35★ / Open Plugin Market，864 条 | 维护者**手工批量**把申请写进 `data/sources.json`（提交历史可见 "Add N submitted plugins"），非 PR 通道 | 🟡 Issue #58 已提交，并于 2026-10-23 补了一份**可直接粘贴的 `sources.json` 条目**（含 v1.0.2 的 `source.commit`/`integrity`/`publishedAt` + 与已收录 `@sunshaobei/dsh-mcp-manager` 的差异说明）：#issuecomment-6362814800 | 索引每 6h 重建（09:19Z 最新），等维护者下一批合入 |
-
 | [DshHunt/community](https://github.com/DshHunt/community)（[dshhunt.com](https://dshhunt.com)） | 独立目录站（静态结构证据 + 社区投稿） | Issue [#4](https://github.com/DshHunt/community/issues/4)（plugin-submission 表单） | 🟡 待审（2026-10-23 提交） | 站点 `/plugins` 已上线但未含我们；投稿要求固定 commit SHA + 公开证据，已按表单字段提交（SHA `6cb6342`、bundle path `.`、npm `dsh-mcp-tools`、分类 developer-tools、MIT） |
 > **合并节奏观察（2026-10-23）**：dsh-plugin-radar 只合并 `app/github-actions` 机器人生成的快照 PR，人工提交的 PR（本仓库 #968）不会被合并，收录以它每日快照为准；dshworks 由维护者 lroolle 批量合并，最近一次合并 2026-10-19（本仓库 #184 已 CLEAN 等其下个批次）。
 
