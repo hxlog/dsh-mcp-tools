@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 31 个市场 + 53 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 32 个市场 + 53 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -38,6 +38,7 @@
 | [dsh.qomob.ai](https://dsh.qomob.ai)（qomob 的 DSH 导航站，数据内嵌在 SPA bundle） | 1,700+ 条（bundle 内嵌全量 JSON） | 非自建目录：聚合 awesome 列表 + GitHub 元数据（`source: awesome-list`） | ✅ 已含（bundle 内 `id: hxlog/dsh-mcp-tools`，`category: terminal`、`score: 53`、`installCmd: dsh plugin add "github:hxlog/dsh-mcp-tools"`、topics/stars/license 与我们仓库一致，`updatedAt: 2026-10-23`） | https://dsh.qomob.ai/ |
 | [dsh.pub](https://dsh.pub)（12,704 条，按固定 commit 可安装的插件注册表） | 12,704 条（`community.generated.json`） | GitHub Topic `dsh-plugin` 自动同步 + 静态契约校验（`topic-catalog-sync.yml`） | ✅ 已含（`id: github:hxlog/dsh-mcp-tools`、`slug: dsh-mcp-tools`、`version: 1.0.2`、`license: MIT`、`type: bundle`、`category: client-ui`；7 项静态校验全 true：pinnedCommit / bundleManifest / safeBundlePatch / committedRuntime / committedClient / readme / license；`discoveredVia: github-topic:dsh-plugin`，`status: verified`） | https://dsh.pub/en/plugins/dsh-mcp-tools/ |
 | [dshhub.org](https://dshhub.org)（`coderPerseus/dsh-hub`，README 自称静态目录 + CLI + Harness 原生工具，每日刷新） | 2,000+ 插件（站点 README） | 每日抓取 GitHub；Issue 投稿 `[Plugin] ...`；`data/catalog-enrichment.json` 10.7MB 带中文摘要 | ✅ 已含（`github:hxlog/dsh-mcp-tools` 在 enrichment 中；详情页 200，含中文描述「管理MCP服务器并按需开关MCP工具」、安装命令 `npx -p @deepseek-ai/dsh dsh plugin --profile web add github:hxlog/dsh-mcp-tools`、MIT；**版本字段仍显示 1.0.0 / 兼容性「待验证」，等每日刷新**） | https://dshhub.org/plugins/hxlog/dsh-mcp-tools |
+| [dshhub.co](https://www.dshhub.co)（Passcode Market，口令/付费插件市场） | 13,144 条 sitemap URL | 从 GitHub / awesome 目录抓取 + 站内 Publish | ✅ 已含（`/en/plugin/hxlog/dsh-mcp-tools`、`/zh/plugin/...` 均为 200，标题带插件名，正文含中文功能描述、分类「工具与能力」、`Added 2026-10-22`、★ 2、源仓库与 awesome-dsh-plugin 原页链接） | https://www.dshhub.co/en/plugin/hxlog/dsh-mcp-tools |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -230,6 +231,24 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.40 2026-10-23 dshhub.co 已收录（第 32 个）：注意 dshhub.co / dshhub.org / dshhub.dev 是三个不同项目
+
+从 npm 搜索 `dsh-plugin market` 顺出一串**市场客户端包**，逐个推它们的上游站点，找到 **dshhub.co**：
+
+- `dshhub-market` 包（`dshhub-co/dshhub-market`）描述是「DeepSeek Harness 口令插件市场客户端：输码解锁插件，连接创作者与买家（DSHHub.co 驱动）」；
+- sitemap `https://dshhub.co/sitemap.xml` **13,144 条**，其中命中我们 2 条：`/zh/plugin/hxlog/dsh-mcp-tools`、`/en/plugin/hxlog/dsh-mcp-tools`；
+- 详情页 200，`<title>dsh-mcp-tools · DeepSeek Harness Plugin Passcode · dshhub.co</title>`，正文有「DeepSeek Harness 的 MCP 工具管理器…」中文描述、分类「工具与能力」、`Added 2026-10-22`、`★ 2`、源仓库 + awesome-dsh-plugin 原页链接、`dsh plugin --profile web add dshhub-market` 安装市场客户端命令。
+
+**三个 dshhub 域名别混**：
+
+| 域名 | 项 | 状态 |
+| --- | --- | --- |
+| dshhub.co | Passcode Market（口令/付费插件市场，`dshhub-co/dshhub-market` 客户端） | ✅ 已收录我们（第 32 个） |
+| dshhub.org | `coderPerseus/dsh-hub` 静态目录（10.7MB enrichment） | ✅ 已收录我们（第 31 个，版本字段待刷新） |
+| dshhub.dev | 另一个「2,000+ 插件」目录，`/submit` 给模板让贴到 Issue/PR（仓库未公开） | ❌ 未收录 |
+
+**npm 搜索挖市场的思路**（这轮验证有效）：`registry.npmjs.org/-/v1/search?text=dsh-plugin%20market&size=250`（再换 `deepseek harness plugin`、`dsh plugin registry` 两词并去重，本轮 608 个唯一包）→ 过滤名字/描述含 market/directory/hub/catalog/index/store 的 91 个 → 逐个看 `links.repository`，对不是我们已知市场的客户端包，抓它的 README 找**上游站点 URL**，再拿站点 sitemap 搜 `dsh-mcp-tools`。这比盲扫域名准得多。
 
 ### 6.39 2026-10-23 dshhub.org 已收录（第 31 个，版本字段待刷新）
 
