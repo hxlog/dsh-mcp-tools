@@ -53,6 +53,14 @@
 - 已在 https://github.com/deepseek-ai/deepseek-harness/discussions/10768 提交（Show Your Plugins!）
 - 如需更新，直接编辑该 Discussion
 
+### dshmarketplace.com（人工审核目录，邮件）
+- 邮箱：`hello@dshmarketplace.com`；站点 slug 形如 `owner--repo`
+- 邮件附：仓库 URL、一句话定位、安装命令、许可证、权限声明（用上文段落）
+
+### dshplugin.app（注册表提交表单）
+- 提交页：https://dshplugin.app/submit（无需账号，但含 captcha，需浏览器操作）
+- 只需填 GitHub 仓库 URL；可选邮箱与备注（可粘贴「60 字简介」）
+
 ### 通用（Issue 表单类）
 - 必填通常是：仓库 URL、固定 commit（当前 main：见 `git rev-parse HEAD`）、manifest 路径 `package.json`、patch 路径 `cordis.patch.yml`、许可证、安装命令
 
