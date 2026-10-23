@@ -29,6 +29,7 @@ const LIGHT = [
   ["unStone dsh-xray 能力卡", "https://unstone.github.io/dsh-xray/p/hxlog__dsh-mcp-tools.html"],
   ["linny006 MCP 索引", "https://linny006.github.io/mcp-servers-live/r/hxlog/dsh-mcp-tools/index.html"],
   ["mydsh.dev 目录数据", "https://mydsh.dev/assets/catalog-index.json"],
+  ["dpharness 详情页", "https://dpharness.com/plugin/hxlog/dsh-mcp-tools"],
   ["dshmarketplace.dev 搜索 API", "https://dshmarketplace.dev/api/v1/plugins?q=dsh-mcp-tools"],
   ["deepseekplugin.org 投稿 API", "https://deepseekplugin.org/api/submissions?slug=hxlog-2f-dsh-2d-mcp-2d-tools"],
   ["XingLingQAQ catalog", "https://raw.githubusercontent.com/XingLingQAQ/dsh-plugin-registry/main/catalog.json"],
