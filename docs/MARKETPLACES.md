@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 34 个市场 + 54 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 34 个市场 + 56 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -233,6 +233,24 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.46 2026-10-23 新发现 deepseekplugin.store（已走通自动准入 → PR #316）＋ cclank/dsh-plugin-hub（自动抓取型）
+
+用 GitHub 代码搜索 `"dsh plugin --profile web add"` / `"dsh-plugin" "marketplace"`（共 106 个去重仓库）继续扫目录站，发现两家此前矩阵里没有的：
+
+**① deepseekplugin.store（Ericwong5021/deepseek-plugin-store，★23，当日仍在推送）**
+
+- 准入口径写在 `COLLABORATION.md`：仓库加 `topic:dsh-plugin` 只进隐藏候选池；正式收录需根 `package.json` 有 `dsh.bundle` + 通过 `plugin-submission` Issue 提交，Intake Agent 用**默认分支固定 commit** 检查仓库/Manifest/README，不执行外部代码。
+- 我们按模板提交 [Issue #315](https://github.com/Ericwong5021/deepseek-plugin-store/issues/315)（含 pinned commit `4c310a6`、MIT、npm `dsh-mcp-tools@1.0.2`、安装命令、分类证据）→ 几分钟内机器人打标 `type:submission, gov:approved, gov:pr-open` 并开出 [PR #316](https://github.com/Ericwong5021/deepseek-plugin-store/pull/316)，新增 `registry/plugins/hxlog-dsh-mcp-tools.json`（80 行，含 `verifiedCommitSha` 与中英 summary）。
+- 注意：其自动分类把我们归到 `integrations-communication / collaboration`（源码里 `confidence: low`、`needsReview: true`）；实际更接近 `Tools & Data / General Utilities`。不阻塞合并，若维护者审到可提一句。
+- 合并节奏：同类 PR #313/#314（10-20、10-22）仍在 open 且工作流 `action_required`，说明是批量人工审核；等待即可。
+
+**② cclank/dsh-plugin-hub（dsh.lanshuagent.com，★21，655 条在线索引）**
+
+- 站点带开放 API（`/api/plugins`、`/api/registry/status`、`/api/passports/...`）与「岚叔严选」+ 自动收录（Cloudflare Cron 每 12h 扫 topic），**无投稿入口**；准入全靠自动发现+筛查。
+- 当前它的 automation 状态 `degraded`、`lastSuccessfulRunAt: 2026-10-07`，`/api/plugins` 655 条与 `plugins.json` 220 条快照均无我们 → 只能等其 cron 恢复。
+
+**另外核实**：`Sanqi-normal/dsh-webui-market-plugin`（★104）只是消费 `awesome-dsh-plugin.com` 目录的应用内市场客户端（我们已在 feed 里，故可浏览）；`dsh-market/dsh-market` 仓库已无 `data/registry-snapshot.json`（404），其应用直接读官方 feed，同样已覆盖。
+
 ### 6.45 2026-10-23 发现 dshplugin.io 同步管线被上游删除路径冻死 → 提 PR [#38](https://github.com/tjsdyy/dshplugin/pull/38)
 
 **现象**：dshplugin.io 站点首页自报 3,729 个插件、`app/plugins.json` 的 `updated` 停在 `2026-08-15`，仓库最后一次数据提交是 2026-09-12——而它的 sync workflow 每 6 小时都在「success」。
@@ -366,6 +384,8 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | [deepseek-plugin.org](https://deepseek-plugin.org)（注意与 deepseekplugin.org 不同域） | 13,267 URL | `/plugins/*`、`/collections` | 未发现投稿入口（自动抓） | 未收录 |
 | [dsh-plugin.com](https://dsh-plugin.com) | 7,055 URL | `/plugins/<owner>/<repo>` | 未发现投稿入口（自动抓 + `/explore`） | 未收录 |
 | [dshplugin.io](https://dshplugin.io) | 7,460 URL | `/plugin/<slug>` | 未发现投稿入口 | 未收录（自报 3,729 个插件） |
+| [Ericwong5021/deepseek-plugin-store](https://github.com/Ericwong5021/deepseek-plugin-store)（[deepseekplugin.store](https://deepseekplugin.store)） | 23★ / 1,000+ registry 条目 | 全自动：`plugin-submission` Issue → governance-bot 校验 → 自动开 PR 写 `registry/plugins/<owner>-<repo>.json` | ✅ 已提交 2026-10-23：[Issue #315](https://github.com/Ericwong5021/deepseek-plugin-store/issues/315) 已被标注 `type:submission, gov:approved, gov:pr-open`，机器人开出 [PR #316](https://github.com/Ericwong5021/deepseek-plugin-store/pull/316)（条目含 `verifiedCommitSha: 4c310a6`、`github:hxlog/dsh-mcp-tools`、中英 summary） | 等维护者合并（其 PR 有 `action_required` 工作流待批，10-20/10-22 的几条同类 PR 也仍未合并，属批量审核节奏） |
+| [cclank/dsh-plugin-hub](https://github.com/cclank/dsh-plugin-hub)（[dsh.lanshuagent.com](https://dsh.lanshuagent.com)） | 21★ / 655 条在线 registry（`/api/plugins`） | 纯自动：Cloudflare Cron 每 12h 扫 `topic:dsh-plugin` → 候选队列 → 源码/manifest 筛查 → D1；无投稿入口 | 🟡 未收录（`/api/plugins` 与 `plugins.json` 均无 `hxlog`）；其 automation `state: degraded`、`lastSuccessfulRunAt: 2026-10-07` | 只能等其 cron 恢复后自动发现（我们 topic + `dsh.bundle` 均满足其准入前提） |
 | [dshindex.com](https://dshindex.com) | 8,316 URL | `/plugins/<slug>` | 未发现投稿入口 | 未收录（与 dshindex.dev 不是一回事） |
 | [dshplugin.dev](https://dshplugin.dev) | 1,136 仓库 / 740 URL | `/plugins/<owner>-<repo>` | `/submit` 表单（**带 Cloudflare Turnstile**） | 未收录；自动抓取（「Crawled daily from GitHub」） |
 | [dshhub.dev](https://dshhub.dev) | 2,000+ 插件 | `/plugins/<owner>-<repo>` | `/submit` 给文案模板，让贴到「Issue 或 PR on this repo」（仓库未公开） | 未收录 |
