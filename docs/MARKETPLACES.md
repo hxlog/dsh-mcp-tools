@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 26 个市场 + 39 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 26 个市场 + 41 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -65,6 +65,8 @@
 | [REALOIYO/dsh-plugin-market](https://github.com/REALOIYO/dsh-plugin-market) | 7,123 个插件 / 58,629 个版本 · 自建 format 1 索引 | Issue [#1](https://github.com/REALOIYO/dsh-plugin-market/issues/1)（召回缺口报告 + 建议补种子） | 🟡 待回复（2026-10-23 提交） | 索引源 `realoiyo.github.io/dsh-plugin-market/index.json`；每 6 小时重建（10-23T10:55Z success），但我们这个**声明了 `dsh.bundle` 且带 `dsh-plugin` 关键字**的包仍未被召回 → 判断为其切片式 npm 搜索召回缺口，建议把包名加进 `seeds/dsh-so.json` |
 | [dsh-pluginmarket/metadata](https://github.com/dsh-pluginmarket/metadata)（DSH Registry，站点 `dsh-pluginmarket.github.io/registry/`） | 82 条元数据 · plugin/skill/preset/theme 注册表 | Issue [#6809](https://github.com/dsh-pluginmarket/metadata/issues/6809) → 机器人自动开 PR [#6810](https://github.com/dsh-pluginmarket/metadata/pull/6810) | 🟡 待合并（2026-10-23 提交，issue→PR 全自动链路已跑通） | 投稿用 `Add:` issue 模板；Actions 校验后由 `issue-to-entry.mjs` 生成 `entries/github_hxlog_dsh-mcp-tools.json` 并开 PR，维护者合并即上架；已验证 workflow 两次 run 均 success、bot 已回「Metadata validated and a pull request was opened」 |
 | [majiayu000/dsh-plugin-registry](https://github.com/majiayu000/dsh-plugin-registry)（[plugin.dshdesk.com](https://plugin.dshdesk.com)，Harness Registry） | 可搜索注册表（`curated` + `manifest_verified` 双可信等级） | Issue [#88](https://github.com/majiayu000/dsh-plugin-registry/issues/88)（`[Plugin submission]` 模板） | 🟡 待审（2026-10-23 提交） | 其发现管道未收录我们（`public/data/registry-audit.json` 中连 `hxlog` 都没有），已附包/manifest/CI/固定 SHA 证据提交；其 `manifest_verified` 契约＝topic + 有效 `dsh.bundle` + patch 文件为顶层 YAML 数组，我方 `cordis.patch.yml` 已满足（顶层 `- insert:` 数组） |
+| [tuofangzhe/dsh-plugins](https://github.com/tuofangzhe/dsh-plugins)（[52dsh.com/plugins](https://52dsh.com/plugins)） | 社区插件注册表（`registry/<owner>/*.yaml` + `candidates/discovered.json`） | Issue [#15](https://github.com/tuofangzhe/dsh-plugins/issues/15)（`[Plugin submission]` 模板：固定 40 位 commit + SPDX + 权限/数据流） | 🟡 待审（2026-10-23 提交） | 其 `candidates/discovered.json`（643KB）里没有我们 → 未被发现；已在 issue 内逐项写明文件/命令/网络端点/凭据/会话数据影响面 |
+| [TYEclipse/dsh-plugins-hub](https://github.com/TYEclipse/dsh-plugins-hub) | 独立插件目录（README 精选表：install/status/security/trial/checked-at/commit） | Issue [#65](https://github.com/TYEclipse/dsh-plugins-hub/issues/65)（`[Plugin Submission]` 模板） | 🟡 待审（2026-10-23 提交） | 其流水线对每个投稿做隔离环境验证：安全审查 → 安装 → **一次真实端到端工具调用**，再进目录表 |
 
 > **合并节奏观察（2026-10-23）**：dsh-plugin-radar 只合并 `app/github-actions` 机器人生成的快照 PR，人工提交的 PR（本仓库 #968）不会被合并，收录以它每日快照为准；dshworks 由维护者 lroolle 批量合并，最近一次合并 2026-10-19（本仓库 #184 已 CLEAN 等其下个批次）。
 
@@ -222,6 +224,26 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.30 2026-10-23 又两个投稿型目录：52dsh.com 与 dsh-plugins-hub
+
+**发现方式**：用 issue 标题检索反查投稿型渠道 —— `"Plugin submission" in:title dsh` / `【插件】 dsh in:title`，直接命中各家 `[Plugin submission]` 投稿队列，是目前最省力的渠道发现法。
+
+| 渠道 | 形态 | 我方状态 | 动作 |
+| --- | --- | --- | --- |
+| [tuofangzhe/dsh-plugins](https://github.com/tuofangzhe/dsh-plugins)（[52dsh.com](https://52dsh.com/plugins)） | `registry/<owner>/<plugin>.yaml` 证据型注册表 + `candidates/` 候选区 + schema 校验 | ❌ 未收录（`registry/hxlog` 404，`candidates/discovered.json` 643KB 内也无我们） | 按其 `plugin-submission.yml` 提交 [issue #15](https://github.com/tuofangzhe/dsh-plugins/issues/15) |
+| [TYEclipse/dsh-plugins-hub](https://github.com/TYEclipse/dsh-plugins-hub) | README 精选索引表（install / status / security / trial / checked-at / commit 六列） | ❌ 未收录（README 73KB 无 `dsh-mcp-tools`） | 按其模板提交 [issue #65](https://github.com/TYEclipse/dsh-plugins-hub/issues/65) |
+
+**52dsh 投稿要点**（其 CONTRIBUTING 明确要求）：
+
+- 必须固定 **40 位 commit**（拒绝移动分支作证据）；
+- 必须给 **SPDX 许可证 + 证据 URL**；
+- 必须写清**权限与数据流**（文件 / 命令 / 网络端点 / 凭据 / 会话数据），且不得声称「清单或源码审查即代表运行时安全」；
+- 我们按此逐项填写：只读写 DSH profile 里的 MCP 服务器配置、不写 profile 外文件、自身不执行命令（stdio 服务器由宿主按用户配置拉起）、只连用户显式配置的 MCP 端点（无第三方目录/遥测/更新检查）、凭据仅存于用户自己的 profile 且只发往该服务器。
+
+**dsh-plugins-hub 投稿要点**：其流水线在隔离 profile 里做「安全审查 → 安装 → **一次真实端到端工具调用**」后才收录，是最接近「CI 实机验证」的目录之一；已在 issue 里给出 npm 1.0.2 与 DSH 0.2.1-rc.2 验证边界。
+
+**方法论沉淀**：`"Plugin submission" in:title dsh` 这类**投稿队列反查**比按名字搜仓库命中率高得多——投稿模板标题本身就是渠道清单。
 
 ### 6.29 2026-10-23 注册表/索引类渠道批量甄别：3 个已含 + 1 个漏收已报 + 契约核对
 
