@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 35 个市场 + 58 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 35 个市场 + 59 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -14,7 +14,7 @@
 | [imsai-sh/awesome-deepseek-harness-plugins](https://github.com/imsai-sh/awesome-deepseek-harness-plugins)（deepseek1024.com） | 312★ | 人工 PR（catalog JSON，CI 自动合并） | 🟢 已合并（PR #669）；线上 API 已返回：`GET /api/v1/plugins/hxlog/dsh-mcp-tools`（2026-10-23 核验） | https://deepseek1024.com/ |
 | [fendouai/awesome-deepseek-harness](https://github.com/fendouai/awesome-deepseek-harness) | 41★ | 定时 discover workflow 自动写入 data/plugins.json | ✅ 已含（README 搜索到 hxlog/dsh-mcp-tools） | https://github.com/fendouai/awesome-deepseek-harness |
 | [vvlife/awesome-deepseek-harness-plugins](https://github.com/vvlife/awesome-deepseek-harness-plugins) | 10★ | PR #168（README.md Tools & Editor UX，机器人规则审核通过后自动 squash-merge） | 🟢 已合并（2026-10-23，commit c337c46） | https://github.com/vvlife/awesome-deepseek-harness-plugins |
-| [bruc3van/awesome-dsh-plugin](https://github.com/bruc3van/awesome-dsh-plugin) | 453★ | 每日抓取 `dsh-plugin` topic + 人工/规则复核，写入 data/approved.json | 🟡 已进入 `data/approved.json`（2026-10-23 核准）；`data/market.json` 每日 14:17Z 重建，同日核准的其他仓库同样尚未入市场 → 今晚刷新后应出现。安装目标映射 `data/packages.json` 由维护者审核补充。原：✅ 已通过复核（approved.json 记录 `hxlog/dsh-mcp-tools: 2026-10-23`），README/feed 待下一轮渲染 | https://github.com/bruc3van/awesome-dsh-plugin · **已 approved：`data/approved.json["hxlog/dsh-mcp-tools"] = "2026-10-23"`**；`repositories.json` 已有我们，但 `market.json` 有体积上限（约 1000 条，分类轮转 + star 排序），2★ 暂未进渲染，升星后自动进入，**无需 PR** |
+| [bruc3van/awesome-dsh-plugin](https://github.com/bruc3van/awesome-dsh-plugin) | 453★ | 每日抓取 `dsh-plugin` topic + 人工/规则复核，写入 data/approved.json | 🟡 已进入 `data/approved.json`（2026-10-23 核准），但站点索引 `bruc3van.com/dsh-plugins/index.json` 实测固定 **1000 条**（按 star/热度取 Top1000），`data/market.json`、`curated.json` 均无我们 → 核准≠进榜，需 star/下载量升到 Top1000 才会渲染。安装目标映射 `data/packages.json` 由维护者审核补充。原：✅ 已通过复核（approved.json 记录 `hxlog/dsh-mcp-tools: 2026-10-23`），README/feed 待下一轮渲染 | https://github.com/bruc3van/awesome-dsh-plugin · **已 approved：`data/approved.json["hxlog/dsh-mcp-tools"] = "2026-10-23"`**；`repositories.json` 已有我们，但 `market.json` 有体积上限（约 1000 条，分类轮转 + star 排序），2★ 暂未进渲染，升星后自动进入，**无需 PR** |
 | [2BingLing/dsh-market](https://github.com/2BingLing/dsh-market)（dsh.market） | 168★ / 6000+ | topic 自动扫描写入 data/plugins.json | ✅ 已含（`sources: [topic]`，cordis-plugin，已生成中文简介） | https://dsh.market/ |
 | [unStone/dsh-xray](https://github.com/unStone/dsh-xray) | 7★ / 静态能力扫描注册表 | topic 自动收录（能力卡片 C3：runtime patch / exec / dev 网络） | ✅ 已收录：<https://unstone.github.io/dsh-xray/p/hxlog__dsh-mcp-tools.html> | 自动扫描，无需提交 |
 | [linny006/mcp-servers-live](https://github.com/linny006/mcp-servers-live) | 13★ / 15 分钟刷新 MCP 索引 | GitHub 全量 MCP 仓库自动索引 | ✅ 已收录：<https://linny006.github.io/mcp-servers-live/r/hxlog/dsh-mcp-tools/index.html> | 自动抓取，无需提交 |
@@ -234,6 +234,20 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.51 2026-10-23 DSH Registry（dsh-pluginmarket）：Issue→自动 PR→合并即发布，我们的 PR #6812 已过校验
+
+发现轴：GitHub 通知里出现 `dsh-pluginmarket/metadata:Issue`，反查 org `dsh-pluginmarket` 有两个仓库：`metadata`（当日仍在推送，条目源）与 `registry`（纯静态前端）。
+
+**架构**（读 README 确认）：没有 API/数据库，前端直接浏览器拉 `metadata` 仓库默认分支的 `entries/*.json`，部署在 <https://dsh-pluginmarket.github.io/registry/>；安装引导用 DSH 原生命令 `dsh plugin --profile <name> add <package>`。
+
+**投稿流程与格式**（`Add registry entry` Issue 模板要求 7 个字段）：Kind / Name / GitHub repository / npm package / Description / Tags / Submitter；标题**必须以 `Add:` 开头**（不依赖 label 触发）。Actions 校验后自动生成 PR；PR 即审核闸；合并即发布，并自动关闭原 issue。条目格式（`entries/<owner>_<repo>.json`）固定 25 行：`id: "github:owner/repo"`、`kind/name/description/source/sources/githubRepo/repositoryUrl/npmPackage/tags/status/official/submittedBy/issueNumber`。
+
+**执行结果**：[Issue #6811](https://github.com/dsh-pluginmarket/metadata/issues/6811)（标题 `Add: dsh-mcp-tools`）→ 约 15 秒后 bot 开 [PR #6812](https://github.com/dsh-pluginmarket/metadata/pull/6812)，diff 仅新增 `entries/github_hxlog_dsh-mcp-tools.json`（+25 行），`validate-submission` 通过、`mergeable_state: clean`。注意：首次发 issue 时我把 pinned commit 写成了编造的 hash，已 PATCH 修正为真实 `9b80a8c` —— 教训：**任何对外文本里的 commit/URL 必须先核实再写**。
+
+**待办**：只等维护者合并（该 org 审核节奏活跃：同日已有其他 add-entry PR）。合并后到 <https://dsh-pluginmarket.github.io/registry/> 复核条目，即可计入收录（当前 pending #59）。
+
+**bruc3van 复核结论（本轮补）**：`bruc3van.com/dsh-plugins/index.json` 现已 200（format 1，标题 Bruce's Plugin Picks），但**恰好 1000 条、无我们**；对照仓库数据：`data/approved.json` 有 `"hxlog/dsh-mcp-tools": "2026-10-23"`（核准），而 `data/market.json`、`curated.json`、`packages.json` 都没有 → 站点索引是「Top1000（star/热度）精选」而非全量核准列表，核准只是入场资格。结论：**无需 PR，star 未到 Top1000 前不会渲染**，此前「受体积上限未渲染」的判断被修正为「Top1000 排序截断」。
+
 ### 6.50 2026-10-23 DSH Go（coeasy/dsh-go）：发现层已在我们、可安装层要求 Manifest V2 + Release Descriptor V2
 
 从「topic:dsh-plugin-market 共 767 个仓库」扫到 [coeasy/dsh-go](https://github.com/coeasy/dsh-go)（★1，当日仍在推送）：口号是「原生包管理器 + Registry/Distribution + Marketplace」，API 入口 `https://dsh-go.pages.dev/`，registry revision 每小时级刷新。
@@ -438,6 +452,7 @@ DSH 官方 Web GUI 的 **Discover 页**（`packages/client/ui-plugin-market` + `
 | [cclank/dsh-plugin-hub](https://github.com/cclank/dsh-plugin-hub)（[dsh.lanshuagent.com](https://dsh.lanshuagent.com)） | 21★ / 655 条在线 registry（`/api/plugins`） | 纯自动：Cloudflare Cron 每 12h 扫 `topic:dsh-plugin` → 候选队列 → 源码/manifest 筛查 → D1；无投稿入口 | 🟡 未收录（`/api/plugins` 与 `plugins.json` 均无 `hxlog`）；其 automation `state: degraded`、`lastSuccessfulRunAt: 2026-10-07` | 只能等其 cron 恢复后自动发现（我们 topic + `dsh.bundle` 均满足其准入前提） |
 | [dshlib/dshlib](https://github.com/dshlib/dshlib)（[compliancehub.cn/store](https://compliancehub.cn/store/)） | 0★ / 实验性插件商店（CHA2A L0-L4 认证徽章） | Issue 模板投稿（`Add: <plugin>`）→ 自动验签（npm 官方 hash）+ 自动安全扫描（dshlib-scan + GuardDog 3.2.0 + OSV.dev）→ 1 个工作日内上架 | ✅ 已提交 2026-10-23：[Issue #4](https://github.com/dshlib/dshlib/issues/4)（npm `dsh-mcp-tools@1.0.2` + `github:hxlog/dsh-mcp-tools`、LICENSE、`dsh.bundle`、pinned commit `4c310a6`、安全说明） | 等维护者处理（仓库 8-27 后无提交，站点仍在线；若长期无响应再降级） |
 | [coeasy/dsh-go](https://github.com/coeasy/dsh-go)（[dsh-go.pages.dev](https://dsh-go.pages.dev)） | 1★ / 自建 Registry V4（当前仅 2 个包），要求 **Manifest V2 = 仓库根 `dsh-package.json`** + GitHub Release 里的 **Release Descriptor V2**（artifact 只收 `release-archive` tgz + `sha256-` digest） | 发现层自动扫 GitHub（`catalog/plugins.json` 22,435 条**已含我们**，`metadata_source: github`、category mcp）；可安装需 Manifest V2 + release descriptor；人工覆盖可 PR `catalog/overrides.json` | 🟡 已做一半：2026-10-23 已在仓库根加 `dsh-package.json`（对官方 schema 校验 0 错误，commit `f803dea`），并开 [Issue #165](https://github.com/coeasy/dsh-go/issues/165) 咨询 release-archive 规范（npm 优先的插件如何提供 tgz + descriptor） | 等维护者回复后，在下一个版本 tag 上附 `dsh-package-release.json` + tgz，其增量 sync 会自动转正 |
+| [dsh-pluginmarket/metadata](https://github.com/dsh-pluginmarket/metadata)（[registry 站点](https://dsh-pluginmarket.github.io/registry/)） | 1★ / DSH Registry：元数据仓库 + 纯静态前端（GitHub Pages 直接读 `entries/*.json`），无 API/数据库 | **Issue 模板投稿**（标题必须以 `Add:` 开头）→ Actions 校验字段并自动生成 `entries/<owner>_<repo>.json` 的 PR → 维护者合并后由默认分支发布 | 🟡 [PR #6812](https://github.com/dsh-pluginmarket/metadata/pull/6812) 已由 bot 生成：`entries/github_hxlog_dsh-mcp-tools.json`（25 行，`source: github+npm`、tags、`status: active`），`validate-submission` **success**、`mergeable_state: clean`，等维护者合并 | 合并后自动出现在 <https://dsh-pluginmarket.github.io/registry/>；无需再动 |
 | [dshindex.com](https://dshindex.com) | 8,316 URL | `/plugins/<slug>` | 未发现投稿入口 | 未收录（与 dshindex.dev 不是一回事） |
 | [dshplugin.dev](https://dshplugin.dev) | 1,136 仓库 / 740 URL | `/plugins/<owner>-<repo>` | `/submit` 表单（**带 Cloudflare Turnstile**） | 未收录；自动抓取（「Crawled daily from GitHub」） |
 | [dshhub.dev](https://dshhub.dev) | 2,000+ 插件 | `/plugins/<owner>-<repo>` | `/submit` 给文案模板，让贴到「Issue 或 PR on this repo」（仓库未公开） | 未收录 |
