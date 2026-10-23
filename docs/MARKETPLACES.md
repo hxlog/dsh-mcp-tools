@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 48 个市场 + 79 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 48 个市场 + 80 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1570,3 +1570,32 @@ DSH-Store 是「跑在 DSH 设置页里的第三方插件商城 + 安全生命�
 **④ 全量核验**：`npm run verify:listings -- --full` → **30/30 通过 ✅**（含 dsh-go 47MB catalog、canonical feed 7.3MB、hoyyang 28.9MB 等）。
 
 **⑤ dsh-go**：最近 sync `2026-10-23T11:39:16Z`（scanned 1310 / included 1000，共 22435 条），我们条目在册（`first_seen 2026-10-23T11:38:52Z`）但 `verified:false`、`manifest_file:null` —— 该快照早于 `dsh-package.json` 提交；等 `02:18 +08` 那轮 sync 再核（提醒已挂）。
+
+### 6.85 2026-10-24 凌晨：`ZASENJC/dsh-plugins-store`（dshmk.com ★72）—— 我们已被分类收录，只差一次成功的沙箱验证
+
+从「未投过的 stars 榜」里补扫到 [ZASENJC/dsh-plugins-store](https://github.com/ZASENJC/dsh-plugins-store)（★72，站点 **https://dshmk.com**，2500 条已发布目录、每 30 分钟从 `topic:dsh-plugin` 自动同步 + 沙箱验证）。它不需要投稿，是**自动收录型**市场。
+
+**关键发现（`src/data/source-classification.json`，14497 条记录）**：我们的仓库已被它分类，且结果是我们想要的：
+```json
+"fullName": "hxlog/dsh-mcp-tools",
+"disposition": "include",
+"dshRelevance": "recognized",
+"projectType": "plugin",
+"category": "model-mcp",
+"confidence": "high",
+"validation": { "status": "inconclusive", "disposition": "retryable",
+                 "errorCode": "SOURCE_CHANGED_DURING_RUN", "attribution": "infrastructure" }
+```
+
+即：**分类层已通过**（信号 `package.json:dsh.bundle.patch` + `cordis.patch.yml:parsed` + 仓库名），只差沙箱验证那一步；失败原因不是我们不符合规范，而是 **验证期间仓库 SHA 变了**（正好是我们当天在连推 docs 提交），归因 `infrastructure`、状态 `retryable`。
+
+**我们的对策**：
+1. **暂停向 `hxlog/dsh-mcp-tools` 推提交一段时间**（docs 提交先在本地攒），让它在下一轮 sync 的验证窗口里 SHA 保持不动，验证通过后即进 2500 条发布池（live catalog 的 stars 下限只有 1，我们 3★ 不会被排名截断）
+2. 站点 `https://dshmk.com/catalog.json`（6.4MB，`generatedAt 2026-10-23T16:07Z`）目前无我们；`/plugins/dsh-mcp-tools` 仍 404 —— 等验证通过后再核
+3. 已挂提醒复核
+
+### 6.86 `HackSing/dsh-plugins`（★15）投稿 issue #339
+
+双语插件目录（58KB README + `submit-plugin.yml` 结构化投稿模板），按模板逐字段填了：仓库、一句话价值、分类（Tools & Capabilities）、安装/卸载、兼容性与验证（DSH 0.2.1-rc.2 实机装过 + CI；未验证项如实标注）、三项勾选清单。
+
+**issue：[HackSing/dsh-plugins#339](https://github.com/HackSing/dsh-plugins/issues/339)**
