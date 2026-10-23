@@ -233,6 +233,18 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.45 2026-10-23 发现 dshplugin.io 同步管线被上游删除路径冻死 → 提 PR [#38](https://github.com/tjsdyy/dshplugin/pull/38)
+
+**现象**：dshplugin.io 站点首页自报 3,729 个插件、`app/plugins.json` 的 `updated` 停在 `2026-08-15`，仓库最后一次数据提交是 2026-09-12——而它的 sync workflow 每 6 小时都在「success」。
+
+**根因**：`scripts/sync-plugins.mjs` 的 `UPSTREAM` 常量指向 `https://raw.githubusercontent.com/awesome-dsh-plugin/awesome-dsh-plugin/main/docs/plugins.json`，该路径已被上游删除（404，`repos/.../contents/docs` 为空）。fetch 被 try/catch 包住，于是每次 cron 都静默回退到本地快照（并只追加 dshhub.org 的新发现），日志显示「Catalog is already current」。
+
+**修复**：把它指向 awesome-dsh-plugin 官方发布 feed `https://awesome-dsh-plugin.com/plugins.json`（200，`updated: 2026-10-22`，6,565 条，字段 name/owner/url/category/install/双语 description 齐全）。
+
+**本地验证**（fork `hxlog/dshplugin`，Node 24 实跑）：`node scripts/sync-plugins.mjs` → `Scanning DSH Hub page 1/8... Catalog updated to 9158 plugins (2026-10-22).`；独立校验上游 6,565 条全部过 `assertRegistry()`（0 条缺核心字段 / 0 条未知 category / 0 条缺 en|zh / 0 条 owner+name 重复）；生成的 `app/plugins.json` 里 `dsh-mcp-tools` 在列（category `tools`、install `dsh plugin --profile web add dsh-mcp-tools`）。PR 只改 `scripts/sync-plugins.mjs` 一行，数据文件留给其 cron 生成，避免 19 万行 diff。
+
+**顺带结论（本轮扫街）**：`dsh.directory`（10.8k）/ `dshplugin.io`（7.5k）/ `dsh-plugin.com`（7.1k）/ `dshindex.com`（8.3k）/ `deepseek-plugin.org`（13.3k）/ `dsh-plugins.net`（15.2k）这类大目录都含 9★ 的 `dsh-project-mcp-manager` 却**不含 3★ 的我们**，属于按热度/翻页窗口截断，短期不可通过投稿绕过；`dsh.fish` 的 `/submit` 需登录浏览器会话（我们只能在用户手动操作时提供 `npm:dsh-mcp-tools` 参数）。
+
 ### 6.44 2026-10-23 收到维护者回复：dshopen.org 已收录（第 34 个）＋ dshplugin 安全建议＋ dsh-pub 失败原因
 
 本轮把「已关闭」的 PR/Issue 也翻了一遍（之前只盯 open，漏了维护者在关闭时留的话），逐条回复并核实：
