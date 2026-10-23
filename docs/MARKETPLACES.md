@@ -225,6 +225,24 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.31 2026-10-23 索引源「爆发期」甄别：新增候选多为镜像/派生，不虚增收录数
+
+**背景**：用 `dsh in:name created:>2026-10-22` / `dsh-plugin in:name created:>2026-10-19` / `dsh market in:name created:>2026-10-18` 扫近 5 天新仓库，发现 **十余个新建 format 1 索引/镜像仓库**（多为 0★、当天新建）。逐个抓其索引 JSON 检索后分类：
+
+| 候选 | 结果 | 处理 |
+| --- | --- | --- |
+| [corvus5536-eng/dsh-market-compat](https://github.com/corvus5536-eng/dsh-market-compat) | ✅ `index.json`（5.04MB，兼容性过滤派生索引）含我们 | **不计入收录数**：仓库仅一个派生 index.json、无 README/站点/消费说明，非用户可发现的独立市场 |
+| [xiaojiu190918/dsh-plugin-index](https://github.com/xiaojiu190918/dsh-plugin-index) | ❌ 主索引 1.38MB / staging 143KB / reviewed 3KB **三份都没有我们**；`data/build-report.json`（186KB）也无 `hxlog` → 未被发现（非被拒） | **不投稿**：README 无公开投稿入口；其发现面为 npm+GitHub 配额制，属对方召回覆盖问题；记录观察 |
+| [shwili/dsh-plugin-market-zh](https://github.com/shwili/dsh-plugin-market-zh) | ✗ 该仓库其实是**插件本体**（内含 cordis.patch.yml），不是索引镜像 | 跳过 |
+| [zjust7/dsh-plugin-market](https://github.com/zjust7/dsh-plugin-market) / [Sher-ryKarl/dsh-market-index](https://github.com/Sher-ryKarl/dsh-market-index) / [gaoyujia20071214/dsh-plugin-market](https://github.com/gaoyujia20071214/dsh-plugin-market) 等 | ✗ 无 index.json / 未部署 / 0★ 当天新建 | 跳过 |
+| [crane-you/dsh-market-index](https://github.com/crane-you/dsh-market-index) | ✗ 仓库内 index.json 仅 2.6KB（自有插件目录） | 跳过 |
+| [fuxi-ailabs/dsh-plugin-market](https://github.com/fuxi-ailabs/dsh-plugin-market)（fuxi-ailabs.github.io） | ✗ 1813 字节的 **Fuxi 团队自有目录**（只有自家插件），非开放市场 | 跳过 |
+| [DSH-APP/DSHA](https://github.com/DSH-APP/DSHA)（2038★ 安卓 DSH） | `[插件市场收录]` issue 实为其 App 内置目录的**退役补丁**（`retired-market-catalog-patch.json`），不是对外开放投稿 | 跳过 |
+
+**甄别标准（写死，避免虚增）**：只有同时满足 ①**用户可发现**（有站点或公开订阅地址 + 使用说明）、②**独立维护**（不是纯派生/镜像/单文件快照）、③**数据文件内实际含本插件**，才计入「已确认收录」。仅满足 ③ 的派生索引只在核验记录里提一笔。
+
+同时把 README/README.en 的「可复核平台」数从 22 更正为 26（与本文档表一致，新增 realguan / dsplugin.app / hoyyang / XingLingQAQ 四项），并补上这 4 个 format 1 订阅索引的条目。
+
 ### 6.30 2026-10-23 又两个投稿型目录：52dsh.com 与 dsh-plugins-hub
 
 **发现方式**：用 issue 标题检索反查投稿型渠道 —— `"Plugin submission" in:title dsh` / `【插件】 dsh in:title`，直接命中各家 `[Plugin submission]` 投稿队列，是目前最省力的渠道发现法。
