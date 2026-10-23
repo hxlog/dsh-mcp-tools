@@ -19,10 +19,10 @@ const { McpManager } = await import('../lib/manager.js')
 
 store.ensureDir()
 const server = store.normalizeServer({
-  id: 'srv_test_comein',
-  name: 'comein-mcp-all',
+  id: 'srv_test_demo',
+  name: 'demo-mcp',
   transport: 'streamable-http',
-  url: 'https://mcp-server-global.comein.cn/mcp-servers/mcp-server-brm',
+  url: 'https://mcp.example.com/mcp',
   headers: { 'x-mcp-key': key },
   note: 'selftest',
   enabled: true

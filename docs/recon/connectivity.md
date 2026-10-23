@@ -1,4 +1,4 @@
-# MCP 连通性实测报告：comein-mcp-all / pharmcube
+# MCP 连通性实测报告：demo-mcp / pharmcube
 
 > 目的：为「DSH 自定义 MCP 管理器」插件提供**真实**连通性证据——能否连上、协商到哪个协议版本、有多少工具、真实调用是否可用、以及开关服务器/工具时插件必须处理哪些协议细节。
 > 探测时间：2026-10-20 19:49–19:56（Asia/Shanghai）　探测机：Windows / Node v24.16.0
@@ -11,7 +11,7 @@
 
 | 目标 | 连通 | 协商协议版本 | serverInfo | mcp-session-id | 工具数 | 首包 TTFB（均值） | initialize（均值） | tools/list（均值） | 整轮探测耗时（均值） | 真实 tools/call |
 |---|---|---|---|---|---:|---:|---:|---:|---:|---|
-| **comein-mcp-all** | ✅ 可用 | `2025-06-18` | `{"name":"mcp-server-brm","version":"1.0.0"}` | 未下发 | `95` | `193.6` ms | `267` ms | `368.5` ms | `1529.4` ms | 3 次（2 成功 + 1 服务端 isError） |
+| **demo-mcp** | ✅ 可用 | `2025-06-18` | `{"name":"mcp-server-brm","version":"1.0.0"}` | 未下发 | `95` | `193.6` ms | `267` ms | `368.5` ms | `1529.4` ms | 3 次（2 成功 + 1 服务端 isError） |
 | **pharmcube** | ✅ 可用 | `2025-11-25` | `{"name":"pharmcube_openapi_mcp_server","version":"1.0.0"}` | 未下发 | `36` | `155.8` ms | `204.4` ms | `197.4` ms | `1102` ms | 2 次（2 成功） |
 
 两个目标均**真实连通**、`tools/list` 正常、`tools/call` 能拿到业务数据；两端都**不下发** `mcp-session-id`（无状态模式），也都**不返回** `annotations` / `outputSchema`。
@@ -24,14 +24,14 @@
 
 ```powershell
 # 1) 环境变量（明文 key 只在环境变量里，脚本与产物均打码：前 6 + 后 4）
-$env:MCP_KEY='<comein 的 x-mcp-key>'
+$env:MCP_KEY='<demo 的 x-mcp-key>'
 $env:PHARMCUBE_TOKEN='<pharmcube 的 Bearer token>'
 
 # 2) 全量探测（结尾打印汇总，并按 --json-out 落原始 JSON）
 node scripts/probe-mcp.mjs --json-out=docs/recon/raw/probe-run1.json
 
 # 其他常用姿势
-node scripts/probe-mcp.mjs --target=comein                 # 只探一个
+node scripts/probe-mcp.mjs --target=demo                 # 只探一个
 node scripts/probe-mcp.mjs --no-call                        # 只到 tools/list，不调用工具（最安全的“测连通性”）
 node scripts/probe-mcp.mjs --raw                            # 强制原生 fetch（验证不依赖 SDK 也能连）
 node scripts/probe-mcp.mjs --call=document_search:{}        # 指定工具与参数（可重复）
@@ -39,7 +39,7 @@ node scripts/probe-mcp.mjs --call=document_search:{}        # 指定工具与参
 
 | 参数 / 环境变量 | 作用 |
 |---|---|
-| `--target=comein,pharmcube` | 选择目标（缺省全部） |
+| `--target=demo,pharmcube` | 选择目标（缺省全部） |
 | `--no-call` | 跳过 tools/call（建议插件「测试连通性」按钮就用这个语义） |
 | `--raw` | 强制原生 fetch 模式 |
 | `--json-out=<path>` | 落完整结构化结果（含每条 HTTP 状态码/耗时/脱敏 header） |
@@ -51,16 +51,16 @@ node scripts/probe-mcp.mjs --call=document_search:{}        # 指定工具与参
 
 ---
 
-## 2. 目标 1：comein-mcp-all（用户新提供）
+## 2. 目标 1：demo-mcp（用户新提供）
 
 ### 2.1 配置（脱敏）
 
 ```yaml
-serverName: comein-mcp-all
+serverName: demo-mcp
 transport: streamable-http
-url: https://mcp-server-global.comein.cn/mcp-servers/mcp-server-brm
+url: https://mcp.example.com/mcp
 headers:
-  x-mcp-key: cm_3a6***93fd        # 原始值只在环境变量 MCP_KEY / profile 配置里
+  x-mcp-key: cm_***        # 原始值只在环境变量 MCP_KEY / profile 配置里
 ```
 
 ### 2.2 握手结果（initialize）
@@ -93,7 +93,7 @@ headers:
 
 ### 2.4 工具清单（共 95 个，单页返回，`nextCursor` 为空）
 
-> ⚠️ **工具顺序不稳定**：3 次探测中 comein 每次返回的工具顺序都不同（服务端哈希/集合序），工具**集合**则完全一致。插件里做工具开关时必须以 `tool.name` 为键，绝不能存 index/下标。下表按名称排序便于查阅。
+> ⚠️ **工具顺序不稳定**：3 次探测中 demo 每次返回的工具顺序都不同（服务端哈希/集合序），工具**集合**则完全一致。插件里做工具开关时必须以 `tool.name` 为键，绝不能存 index/下标。下表按名称排序便于查阅。
 
 前 10 个（按名称排序）：`add_stocks_to_portfolio_group`、`backtest_auto_event_submit`、`backtest_event_submit`、`backtest_submit`、`backtest_task_list`、`backtest_tasks_status`、`company_finance_search`、`company_report_date_search`、`create_portfolio_group`、`document_access`
 
@@ -169,7 +169,7 @@ headers:
 | 68 | `searchAnalystComments` | `query` |
 | 69 | `searchAnnouncementReport` | `query` |
 | 70 | `searchChart` | `query` |
-| 71 | `searchComeinResource` | `query`, `filterImage` |
+| 71 | `searchdemoResource` | `query`, `filterImage` |
 | 72 | `searchCompanyOperatingData` | `query` |
 | 73 | `searchDocChunks` | — |
 | 74 | `searchDomesticReports` | `query`, `filterImage` |
@@ -214,7 +214,7 @@ headers:
 
 - 用一条伪造的 key 请求：`HTTP 401 Unauthorized`，响应体 `{"allowed":false,"code":401,"reason":"MCP Key 无效或已失效"}`；SDK 侧抛 `Error: HTTP 401 Unauthorized`。
 - 脚本随后降级 fetch 复验：对 3 个历史协议版本各发一次 `initialize`，**全部 401**（`401/119.2ms、401/36.1ms、401/36.5ms`）。
-- 结论：comein 在 **initialize 阶段**就做鉴权，401 + 中文 reason 很适合直接回显给用户。
+- 结论：demo 在 **initialize 阶段**就做鉴权，401 + 中文 reason 很适合直接回显给用户。
 
 ---
 
@@ -323,7 +323,7 @@ headers:
 
 ## 4. 耗时统计（3 轮采样）
 
-| 指标 | comein-mcp-all | pharmcube |
+| 指标 | demo-mcp | pharmcube |
 |---|---:|---:|
 | initialize 响应头（TTFB） | 175.6 / 166.4 / 238.9 ms → 均值 **193.6 ms** | 185.1 / 142.1 / 140.2 ms → 均值 **155.8 ms** |
 | initialize 阶段（SDK 计时） | 均值 **267.0 ms** | 均值 **204.4 ms** |
@@ -345,16 +345,16 @@ headers:
 
 ## 6. 对「自定义 MCP 管理器」插件的直接启示（关键坑）
 
-1. **连通性判定必须跑到 tools/list**。pharmcube 的错误 token 在 initialize 阶段返回 200；只测握手/只测端口一定误报。建议“测试连通性”= initialize + tools/list（即 `--no-call` 语义），并把服务器错误体原样回显（comein 会给中文 reason）。
+1. **连通性判定必须跑到 tools/list**。pharmcube 的错误 token 在 initialize 阶段返回 200；只测握手/只测端口一定误报。建议“测试连通性”= initialize + tools/list（即 `--no-call` 语义），并把服务器错误体原样回显（demo 会给中文 reason）。
 2. **GET SSE 405 不是失败**。两个服务端都不支持独立 SSE 流（GET 405），Streamable HTTP 单次 POST 足以完成全部交互。插件不要以 GET 405 / 无 mcp-session-id 判失败。
 3. **两端都是无状态（无 mcp-session-id）**：插件不需要持久化 session；但要实现“有 session 时回传”的分支，以兼容其他 MCP 服务端。
-4. **工具顺序不稳定**（comein 每轮都变、pharmcube 稳定）：工具开关的持久化键必须是 `serverName + tool.name`，UI 列表建议按 name 排序，避免每次刷新顺序乱跳。
+4. **工具顺序不稳定**（demo 每轮都变、pharmcube 稳定）：工具开关的持久化键必须是 `serverName + tool.name`，UI 列表建议按 name 排序，避免每次刷新顺序乱跳。
 5. **没有 annotations / outputSchema**：无法用 readOnlyHint 自动识别只读工具；“默认全开”可行，但“按只读/写分类”“危险工具二次确认”只能按名称/描述启发式，且不能承诺准确。
 6. **工具名映射**：DSH 侧统一为 `mcp__<serverName>__<rawName>`（如 `mcp__pharmcube__pharmcube-mcp-companyMA`），由 @deepseek-ai/dsh-mcp-client 生成；管理器的工具开关必须基于这个 namespace 规则，不能改原始名（tools/call 必须发 rawName）。
 7. **@deepseek-ai/dsh-mcp-client 本身没有 per-tool 开关配置**（只有整条服务器配置 + disabled）。因此「关掉某些工具」必须在管理器插件内自行实现：在服务器 tools/list 结果上做过滤后再注册，或对已注册工具做调用拦截；仅靠改 profile 的 `cordis.patch.yml` 只能做到“整台服务器开关”。
 8. **整台服务器开关有两条路**：(a) profile 的 `cordis.patch.yml` 里给该条设置 `disabled: true` 并重启 dsh web（当前 pharmcube 就是这么停用的，注释还写明“取消下一行注释，然后重启 dsh web”）；(b) 由插件自己控制连接/注册生命周期（不重启）。插件想做到“点一下开关即时生效”，必须走 (b) 或依赖 DSH 的 HMR/config 重载能力，不能指望改 YAML 立刻生效。
 9. **服务端工具可能自身报错**（`backtest_task_list` 空参 500 且以 isError 返回）：连接测试不要拿业务工具当探针，避免把“某工具坏了”误报成“服务器连不上”。
-10. **协议版本不要硬编码**：客户端最高 2025-11-25，comein 回落到 2025-06-18、pharmcube 用 2025-11-25。以 initialize 返回值作为真实版本记录/展示即可。
+10. **协议版本不要硬编码**：客户端最高 2025-11-25，demo 回落到 2025-06-18、pharmcube 用 2025-11-25。以 initialize 返回值作为真实版本记录/展示即可。
 
 ---
 
@@ -408,6 +408,6 @@ Invoke-WebRequest http://127.0.0.1:3080 -UseBasicParsing | Select-Object StatusC
 | `docs/recon/raw/probe-run1.json` / `probe-run2.json` / `probe-run3.json` | 3 轮完整探测（含调用）结构化结果，用于耗时统计 |
 | `docs/recon/raw/probe-inspect.json` | initialize + tools/list 明细（含全部工具 required / annotations 字段） |
 | `docs/recon/raw/probe-rawmode.json` | 原生 fetch 降级路径验证 |
-| `docs/recon/raw/probe-negative-comein.json` / `probe-negative-pharmcube.json` | 错误凭据负向测试 |
+| `docs/recon/raw/probe-negative-demo.json` / `probe-negative-pharmcube.json` | 错误凭据负向测试 |
 
 > 所有 JSON 中 `x-mcp-key` / `Authorization` 均已打码（前 6 后 4），可直接分享；明文只存在于运行时的环境变量与用户 profile 配置中。

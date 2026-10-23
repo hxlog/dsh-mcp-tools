@@ -11,7 +11,7 @@
 ```jsonc
 {
   "id": "srv_xxx",                 // 服务端生成，稳定不变
-  "name": "comein-mcp-all",        // 用户输入，唯一；同时是工具命名空间 mcp__<name>__<tool>
+  "name": "demo-mcp",        // 用户输入，唯一；同时是工具命名空间 mcp__<name>__<tool>
                                    // 约束 ^[A-Za-z0-9_-]{1,32}$
   "transport": "streamable-http",  // "streamable-http" | "stdio"
   "url": "https://…",              // http 传输必填
@@ -65,7 +65,7 @@
   "ok": true,
   "version": 1,
   "servers": [ ServerView ],
-  "events": [ { "at": 0, "level": "info", "server": "comein-mcp-all", "message": "已连接 · 95 个工具" } ],
+  "events": [ { "at": 0, "level": "info", "server": "demo-mcp", "message": "已连接 · 95 个工具" } ],
   "registeredTotal": 131,
   "paths": { "state": "C:\\Users\\…\\.dsh\\dsh-mcp-tools\\state.json" }
 }
@@ -74,8 +74,8 @@
 ### GET `/mcp-tools/api/registered`
 验证用：当前真正注册进模型的工具清单。
 ```jsonc
-{ "ok": true, "total": 131, "tools": ["mcp__comein-mcp-all__document_search", …],
-  "byServer": { "srv_xxx": { "name": "comein-mcp-all", "tools": ["mcp__…"] } } }
+{ "ok": true, "total": 131, "tools": ["mcp__demo-mcp__document_search", …],
+  "byServer": { "srv_xxx": { "name": "demo-mcp", "tools": ["mcp__…"] } } }
 ```
 
 ### GET `/mcp-tools/api/logs?limit=100`
@@ -141,7 +141,7 @@
 ## 5. 导入
 
 ### POST `/mcp-tools/api/import`
-`{ "json": "{ \"mcpServers\": { \"comein-mcp-all\": { \"url\": \"https://…\", \"headers\": { \"x-mcp-key\": \"…\" } } } }" }`
+`{ "json": "{ \"mcpServers\": { \"demo-mcp\": { \"url\": \"https://…\", \"headers\": { \"x-mcp-key\": \"…\" } } } }" }`
 或直接传对象 `{ "json": { "mcpServers": { … } } }`。
 - 兼容 `{ "mcpServers": { name: { transport?, url?, headers?, command?, args?, env?, note? } } }`；缺少 transport 时按有无 url 推断（url→streamable-http，command→stdio）。
 - 同名服务器已存在 → 覆盖更新（保留 id 与工具开关），响应里 `updated` 列出。

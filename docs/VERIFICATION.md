@@ -10,16 +10,16 @@
 
 | 服务器 | 传输/URL | 协议版本 | serverInfo | 工具数 | 延迟 |
 | --- | --- | --- | --- | --- | --- |
-| `comein-mcp-all` | streamable-http / `https://mcp-server-global.comein.cn/mcp-servers/mcp-server-brm` | `2025-06-18` | `mcp-server-brm/1.0.0` | **95** | 472 ms（UI「测试连接」） / 730–1688 ms（离线自测，取决于网络） |
+| `demo-mcp` | streamable-http / `https://mcp.example.com/mcp` | `2025-06-18` | `mcp-server-brm/1.0.0` | **95** | 472 ms（UI「测试连接」） / 730–1688 ms（离线自测，取决于网络） |
 | `pharmcube` | streamable-http / `https://mcp-openapi.pharmcube.com/mcp` | `2025-11-25` | `pharmcube_openapi_mcp_server/1.0.0` | **36** | 513–1215 ms |
 
-鉴权失败的真实表现（构造错误密钥时）：comein 在 `initialize` 阶段 HTTP 401；pharmcube 在 `tools/list` 阶段返回 JSON-RPC `-32001`。因此「测试连接」实现为必须跑到 `tools/list` 才算通过。
+鉴权失败的真实表现（构造错误密钥时）：demo 在 `initialize` 阶段 HTTP 401；pharmcube 在 `tools/list` 阶段返回 JSON-RPC `-32001`。因此「测试连接」实现为必须跑到 `tools/list` 才算通过。
 
 **真实业务调用**（模型侧，工具名即 `mcp__<server>__<tool>`）：
 
-- `mcp__comein-mcp-all__stock_group_list` → `用户暂无自选分组`
-- `mcp__comein-mcp-all__document_search {}` → `云文档共 1894 条，当前第 1 页，每页 10 条`
-- `mcp__comein-mcp-all__get_stock_kline`、`research_query` 等其余 94 个工具均正常注册
+- `mcp__demo-mcp__stock_group_list` → `用户暂无自选分组`
+- `mcp__demo-mcp__document_search {}` → `云文档共 1894 条，当前第 1 页，每页 10 条`
+- `mcp__demo-mcp__get_stock_kline`、`research_query` 等其余 94 个工具均正常注册
 
 ## 2. 逐工具停用：三层证据
 
@@ -28,8 +28,8 @@
 | 层 | 观测点 | 停用后 | 恢复后 |
 | --- | --- | --- | --- |
 | L1 插件 API | `POST /tools/toggle {enabled:false}` 响应 + `GET /registered` | `enabledToolCount=94`、`registeredToolCount=94`、注册表无该工具 | 95 / 95 |
-| L2 注册表快照 | `~/.dsh/dsh-mcp-tools/registry.json` | `totalRegistered=94`，`tools` 无 `mcp__comein-mcp-all__document_search` | 95，含该工具 |
-| L3 模型侧（独立子代理） | `Object.keys(tools)` + 直接调用 | comein 工具 94 个、`document_search` 不在 keys 中；调用报错 `tools[target] is not a function`（工具根本没注册，不是调用失败） | 95 个，可调用 |
+| L2 注册表快照 | `~/.dsh/dsh-mcp-tools/registry.json` | `totalRegistered=94`，`tools` 无 `mcp__demo-mcp__document_search` | 95，含该工具 |
+| L3 模型侧（独立子代理） | `Object.keys(tools)` + 直接调用 | demo 工具 94 个、`document_search` 不在 keys 中；调用报错 `tools[target] is not a function`（工具根本没注册，不是调用失败） | 95 个，可调用 |
 
 对照组：同一时刻 `stock_group_list` 仍正常返回业务数据，说明停用的是**单个工具**而不是整条连接。
 
@@ -42,7 +42,7 @@
 
 | 操作 | 卡片状态 | 注册工具数 |
 | --- | --- | --- |
-| 关闭 comein | 已停用 | 0（日志「已停用（工具已全部移除）」） |
+| 关闭 demo | 已停用 | 0（日志「已停用（工具已全部移除）」） |
 | 重新打开 | 已连接 · 95 个工具 | 95（日志「正在连接… / 已连接 · 95 个工具 · 协议 2025-06-18 / 已启用」） |
 | 打开 pharmcube | 已连接 · 36 个工具 | 36（总计 131） |
 | 再关闭 pharmcube | 已停用 | 0（总计回到 95） |
@@ -91,15 +91,8 @@ node scripts/selftest.mjs
 # 2) 对 state.json 中的服务器做连通性测试
 node scripts/test-one.mjs srv_pharmcube
 
-# 3) 对运行中的 3080 做完整 API 回归（会临时开关工具/服务器并恢复）
-node scripts/api-check.mjs
-
-# 4) 单个工具开关
-node scripts/toggle-tool.mjs srv_comein document_search off
-node scripts/toggle-tool.mjs srv_comein document_search on
-
-# 5) UI 自动化登录（本机验证用，起一个一次性 302 登录页）
-node scripts/browser-login.mjs
+# 3) 运行中实例的 API/UI 自动化脚本需要读取本机 ~/.dsh/.credentials.yaml（浏览器会话签名密钥），
+#    出于安全考虑不随仓库发布；如本机保留这些本地脚本，可自行执行。
 ```
 
 ## 8. 已知问题 / 注意
@@ -187,7 +180,7 @@ node scripts/browser-login.mjs
 - 包名/仓库名从 `dsh-mcp-manager`（npm 上已被占用）改为 **`dsh-mcp-tools`**（npm 查询可用）。
 - 状态目录迁移：新目录 `~/.dsh/dsh-mcp-tools`；首次启动若旧目录 `~/.dsh/dsh-mcp-manager` 存在则**复制**（不移动）state/logs/registry，可回滚。
 - 同步更新：`package.json`（name/version 1.0.0/license/repository/files/locale/icon）、`cordis.patch.yml`（bundle 名、row id `mcp-tools`）、`client/client.js`（loader id、CSS id、日志前缀）、profile 的 dependency + `dsh.profile.bundles` + node_modules 联接、README/docs。
-- 真机验证（HMR 下）：页面刷新后插件以新 id 正常加载，`/mcp-manager/api/state` 返回原有 2 台服务器（comein 已连接 95 工具、pharmcube 停用），状态迁移成功。
+- 真机验证（HMR 下）：页面刷新后插件以新 id 正常加载，`/mcp-manager/api/state` 返回原有 2 台服务器（demo 已连接 95 工具、pharmcube 停用），状态迁移成功。
   - 注意：host 进程内仍残留旧 bundle 的 client graph 行（控制台一条 locale 重复注册 warning），需重启 `dsh web` 后彻底消失；不影响功能。
 - 截图整理为 `docs/screenshots/en/` 与 `docs/screenshots/zh/` 两套（同一套 7 张：overview / tools / tooltip / add-server / json-import / tool-toggles / dark）。
 

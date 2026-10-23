@@ -2859,7 +2859,7 @@ window.__ModuleLoader__.load({
       }
 
       var fieldsPanel = h("div", { className: "mcpm-form", role: "tabpanel", id: dialogId + "-panel-fields", "aria-labelledby": dialogId + "-tab-fields" },
-        field(dialogId + "-name", t("fieldName"), textInput(dialogId + "-name", "name", "comein-mcp-all", true, !!errors.name), t("fieldNameHint"), errors.name, { required: true }),
+        field(dialogId + "-name", t("fieldName"), textInput(dialogId + "-name", "name", "my-mcp-server", true, !!errors.name), t("fieldNameHint"), errors.name, { required: true }),
         h("div", { className: "mcpm-field" },
           h("span", { className: "mcpm-label" }, t("fieldTransport")),
           h(InlineTabs, {

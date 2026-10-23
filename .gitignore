@@ -21,3 +21,10 @@ desktop.ini
 
 # pack artifacts
 *.tgz
+
+# local-only dev helpers: read ~/.dsh/.credentials.yaml and are intentionally NOT published
+scripts/browser-login.mjs
+scripts/api-check.mjs
+scripts/toggle-tool.mjs
+scripts/gui-probe.mjs
+scripts/gui-probe2.mjs

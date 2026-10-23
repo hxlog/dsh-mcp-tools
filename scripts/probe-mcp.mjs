@@ -20,13 +20,13 @@
  *   # PowerShell
  *   $env:MCP_KEY="cm_xxx"; $env:PHARMCUBE_TOKEN="xxx"
  *   node scripts/probe-mcp.mjs                       # 探测全部目标
- *   node scripts/probe-mcp.mjs --target=comein       # 只探一个
+ *   node scripts/probe-mcp.mjs --target=demo       # 只探一个
  *   node scripts/probe-mcp.mjs --no-call             # 只做 initialize + tools/list
  *   node scripts/probe-mcp.mjs --raw                 # 强制原生 fetch 手写 JSON-RPC
  *   node scripts/probe-mcp.mjs --json-out=docs/recon/raw/probe.json
  *
  * 可选环境变量：
- *   MCP_KEY            目标 1（comein-mcp-all）的 x-mcp-key
+ *   MCP_KEY            目标 1（demo-mcp）的 x-mcp-key
  *   PHARMCUBE_TOKEN    目标 2（pharmcube）的 Bearer token
  *   MCP_SDK_PATH       覆盖 @modelcontextprotocol/client 的 dist/index.mjs 绝对路径
  *   MCP_PROTOCOL_VERSION  原生 fetch 模式下 initialize 首选的协议版本
@@ -47,10 +47,10 @@ const DEFAULT_TIMEOUT_MS = Number(process.env.MCP_CALL_TIMEOUT_MS || 60000);
 // 目标定义（URL 不是秘密；密钥只从环境变量取）
 // ---------------------------------------------------------------------------
 const TARGETS = {
-  comein: {
-    key: "comein",
-    label: "comein-mcp-all",
-    url: "https://mcp-server-global.comein.cn/mcp-servers/mcp-server-brm",
+  demo: {
+    key: "demo",
+    label: "demo-mcp",
+    url: "https://mcp.example.com/mcp",
     transport: "streamable-http",
     envName: "MCP_KEY",
     headers: () => ({ "x-mcp-key": process.env.MCP_KEY }),
@@ -670,7 +670,7 @@ function pickTargets(argTargets) {
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (opts.help) {
-    console.log("用法: node scripts/probe-mcp.mjs [--target=comein,pharmcube] [--no-call] [--raw] [--json-out=path] [--call=name:{json}]");
+    console.log("用法: node scripts/probe-mcp.mjs [--target=demo,pharmcube] [--no-call] [--raw] [--json-out=path] [--call=name:{json}]");
     return 0;
   }
   collectSecrets();
