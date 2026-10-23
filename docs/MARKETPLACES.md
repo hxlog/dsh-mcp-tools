@@ -215,6 +215,32 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.24 2026-10-23 PR 反馈巡检（无待处理修改项）+ 新候选渠道甄别 + dshfind 陈旧版本归因
+
+**① 17 个开放 PR 的评论/Review 全量巡检：没有任何维护者提出修改意见**
+
+逐 PR 拉取 `comments`/`reviews`：除 `awesome-deepseekharness#186` 有 curator bot 的「✅ Verified」+ Sourcery `APPROVED` 外，其余 PR 的评论全是我们自己的补充说明（omni#3723、zhu#52、white0dew#21、Alex#162、0xsline#737、beancookie#236、keji#150），**无 CHANGES_REQUESTED、无「请修改」类回复**。即当前「PR 上有不同意或修改的返回」= 空集，格式侧无返工项。
+
+**② 新发现候选渠道逐个甄别（结果：均非可提交对象）**
+
+| 仓库 | 性质 | 结论 |
+| --- | --- | --- |
+| [NanmiCoder/dsh-plugin-market](https://github.com/NanmiCoder/dsh-plugin-market)（7★） | 自带 catalog 快照的插件市场（npm `@nanmicoder/dsh-plugin-market`） | ✗ 数据停在 **2026-08-16**（`data/v1/meta.json`: count 5908, generatedAt 2026-08-16），已停更；无收录入口 |
+| [iasiv5/dsh-m](https://github.com/iasiv5/dsh-m)（9★） | 侧栏插件市场客户端（npm `dsh-m`） | ✗ 自维护 `registry.json` 为作者精选（不含我们），4k+ 社区目录运行时拉取，随上游 feed 继承，无需提交 |
+| [Sivan757/dsh-agent-plugins-market](https://github.com/Sivan757/dsh-agent-plugins-market)（14★） | 可自配源的 skills/MCP/LSP 管理器 | ✗ 客户端，不维护公共目录 |
+| [sliverp/dsh-hub-plugin](https://github.com/sliverp/dsh-hub-plugin)（18★） | `dsh-plugin` topic 目录浏览器 | ✗ 直接读 topic，我们已带 topic → 已覆盖 |
+| [jiji262/awesome-deepseek-harness](https://github.com/jiji262/awesome-deepseek-harness)（16★） | 资源型 awesome 列表（按 ⭐ 精选） | ✗ 选择性榜单，3★ 插件不符合其收录口径 |
+
+**③ dshfind 显示 v1.0.0 的归因（会自动恢复，不需要提 issue）**
+
+- 其 `sync-plugins.yml` 每日 **02:17Z** 同步，`probe:install` 的规则是「新收录 + **超过 7 天未探测**的仓库重探」，并支持 `workflow_dispatch -f only=owner/repo` 强制点名重探；
+- 我们是 2026-10-21 首次被收录并探测，当时最新 release 还是 v1.0.0；v1.0.2 发布于 **2026-10-21T09:56Z**（晚于首次探测）；因此页面仍显示 v1.0.0、安装串为 `releases/download/v1.0.0/dsh-mcp-tools-1.0.0.tgz`，属**探测新鲜度机制的预期行为**，约 7 天后自动重探为 1.0.2；
+- 已核对我们三个 release 的资产命名均符合其模板 `dsh-mcp-tools-<version>.tgz`（v1.0.0/1.0.1/1.0.2 齐全），故重探时能正确取到 1.0.2。
+
+**④ 官方「发现」页机制确认**
+
+`@deepseek-ai/dsh-plugin-market` 的 `pluginMarket.indexes` 默认 `[]`（用户自行添加索引源），官方 Discover 无内置默认目录；因此「进官方发现页」= 进入可订阅索引（canonical feed 已含我们，bruc3van index 待渲染），这两条链路已分别验证。
+
 ### 6.23 2026-10-23 全量 PR 状态复核 + bruc3van 渲染闸口 + 上游 feed 数据核对
 
 **① 17 个开放 PR 全部 `MERGEABLE`（无冲突、无格式残留）**
