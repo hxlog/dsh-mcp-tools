@@ -51,7 +51,7 @@
 | [whyihaveyou/dsh-suite](https://github.com/whyihaveyou/dsh-suite) | 44★ / 2103 | Issue #76（plugin-submission 模板） | 🟡 待审核 | 目录按 topic 抓取但只收 top-N，需人工提名；目录每小时刷新 |
 | [zp-home/dsh-recommend](https://github.com/zp-home/dsh-recommend) | 19★ | Issue #41（submit-plugin 模板 + 精选认证申请） | 🟡 待审核 | 每日同步 topic；`dsh.bundle` 可安装，申请 🏅 精选认证 |
 
-| [diegosouzapw/awesome-omni-dsh-plugins](https://github.com/diegosouzapw/awesome-omni-dsh-plugins) | 19★ / 3626 | PR #3723（catalog/plugins/hxlog-dsh-mcp-tools.yaml，每插件一 PR） | 🟡 待审（本地 `catalog validate` 3627 entries valid；已 re-pin 到最新 commit `65fc438`，semgrep 重跑中） | 创作者优先 PR；分类 coding-developer-tools |
+| [diegosouzapw/awesome-omni-dsh-plugins](https://github.com/diegosouzapw/awesome-omni-dsh-plugins) | 19★ / 3626 | PR #3723（catalog/plugins/hxlog-dsh-mcp-tools.yaml，每插件一 PR） | 🟡 待审（本地 `catalog validate` 3627 entries valid；已 re-pin 到最新 commit `65fc438`，semgrep 重跑中） | 创作者优先 PR；分类 coding-developer-tools · **本地已过 CI 门禁**（2026-10-23，按 workflow 同命令）：`catalog validate` → `3627 entries valid`；`docs-check --skip-count` → passed |
 | [polang233/dsh-plugin-index](https://github.com/polang233/dsh-plugin-index)（dshopen.org） | 35★ / Open Plugin Market | Issue 收录申请（`plugin-add` 模板，维护者更新 sources.json 后发布） | 🟡 已提交 Issue #58（`dshopen.org/index.json` 1.2MB 实测未含；其要求 npm 已发布 + `dsh.bundle.patch` + 公开仓库/许可证，本插件均已满足） | 要求：npm 已发布 + `dsh.bundle.patch` + 公开仓库与许可证 |
 
 > **合并节奏观察（2026-10-23）**：dsh-plugin-radar 只合并 `app/github-actions` 机器人生成的快照 PR，人工提交的 PR（本仓库 #968）不会被合并，收录以它每日快照为准；dshworks 由维护者 lroolle 批量合并，最近一次合并 2026-10-19（本仓库 #184 已 CLEAN 等其下个批次）。
