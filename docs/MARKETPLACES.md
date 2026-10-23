@@ -1550,3 +1550,23 @@ DSH-Store 是「跑在 DSH 设置页里的第三方插件商城 + 安全生命�
 - 结构对齐仓库既有文章：定位 / 核心功能 / 安装 / 安全性 / 技术栈 / 生态 / 一句话总结；并在「生态」里写清与 `dsh-mcp-manager` 的定位差异
 - 遵守 CONTRIBUTING：分支 `docs/add-dsh-mcp-tools`、Conventional Commit、**本地 `npm run build` 实测通过（57.84s，VitePress 渲染成功，新文章已进自动 sidebar）**
 - 小插曲： `npm ci` 被 npm 12 的 remote-tarball 策略拦（lockfile 指向 npmmirror），用 `--replace-registry-host=always` 解决后才跑通构建
+
+### 6.84 2026-10-24 凌晨：巡检 + 新仓库扫一遍（无新增可投市场）+ 全量核验 30/30
+
+**① 状态巡检**：dsh-plugin.market 详情 200 ✅；dpharness 目录 API 仍未刷到；Blue-Whale #183、DSH-Store #1555、dshtool #4、Britney PR #3 均 0 评论（等维护者）；WSK #24 的 checks 仍为 0（等 Approve and run）。
+
+**② 30 个在审 PR 的合并态复查**：`mergeable=true` 全部成立；`unstable` 仅代表「有非必需检查未过/在跑」，不是冲突；`blocked` 只有 3 个：WSK #24（action_required）、diegosouzapw #3723、zhu1090093659 #52（均为 required check/审批未满足）。逐条读了维护者评论：**没有一条是待我们答复的修改要求**，最后发言方都是我们（附本地 gate 结果/字段说明）。
+
+**③ 新仓库扫描（created > 2026-10-21）**：
+| 仓库 | 结论 |
+| --- | --- |
+| `zjust7/dsh-plugin-market` ★1 | 是「市场插件」本体，目录运行时从上游 canonical feed 拉，属于**派生源**，不单独算市场 |
+| `wakeUpGitHub/dsh-plugin-market` ★0 | 运行时从 npm registry 生成 **format-1** 索引，自动派生，不算 |
+| `Ronnie-Young/dsh-plugins-market` ★1 | 个人索引（index.json 2KB），非公共收录 |
+| `saul-dsh/dsh-plugin-market` ★0 | 只列自己发布的插件，结构性排除 |
+| `shwili/dsh-plugin-market-zh` ★0 | 多索引的中文机翻镜像，派生 |
+| `TimeMachineLab/awesome-deepseek-harness-zh` ★3 | 指南站 + `recommend.yml` 投稿模板，尚未有我们的页面；优先级低 |
+
+**④ 全量核验**：`npm run verify:listings -- --full` → **30/30 通过 ✅**（含 dsh-go 47MB catalog、canonical feed 7.3MB、hoyyang 28.9MB 等）。
+
+**⑤ dsh-go**：最近 sync `2026-10-23T11:39:16Z`（scanned 1310 / included 1000，共 22435 条），我们条目在册（`first_seen 2026-10-23T11:38:52Z`）但 `verified:false`、`manifest_file:null` —— 该快照早于 `dsh-package.json` 提交；等 `02:18 +08` 那轮 sync 再核（提醒已挂）。
