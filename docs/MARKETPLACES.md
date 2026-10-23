@@ -1342,3 +1342,21 @@ dsh-go 官方目录核验
 另清理了 dependabot PR **#1**（`github-actions` 组 2 个 action 升级）：检查 `smoke + manifest contract` 通过后 squash 合并，main 头提交 `dcc79ad`，CI **success**（保持市场侧「CI 绿色」的观感与 badge 真实性）。
 
 **为什么这类改动算收录工作**：多份市场文档明确把 repo description / homepage / CI 状态作为列表展示字段或可信度信号（如 dsh-go catalog 的 `description`/`homepage`/`has_readme`，awesome feed 的 `desc`），字段为空会在这些站点上表现为「信息缺失」，属于「格式不对」的一种。
+
+### 6.74 2026-10-24 凌晨：`scripts/verify-listings.mjs` —— 一条命令复核全部收录证据（轻量 19 项 / 全量 26 项）
+
+把 44 个收录口径里**可在线访问的证据**固化成脚本，避免「文档说收录、实际已下架」的漂移：
+
+```bash
+npm run verify:listings           # 轻量集：19 项（详情页 + 小数据端点，~10s）
+npm run verify:listings -- --full # 全量：26 项（含 47MB dsh-go catalog、7.3MB canonical feed 等）
+node scripts/verify-listings.mjs --json  # 机器可读输出（CI/审计用）
+```
+
+判定：每个市场登记「证据 URL + 期望出现 `dsh-mcp-tools` 或 `hxlog/dsh-mcp-tools`」；HTTP 网络偶发失败自动重试 2 次（本轮实测 deepseekplugin.org 第一次 status 0、重试即 200）；退出码 0=全通过、1=有失败。
+
+**本轮实跑结果**：轻量 **19/19 ✅**、全量 **26/26 ✅**（含 awesome canonical feed 7.3MB、hoyyang 28.9MB、vbarter 24.9MB、ukinch605 19.5MB、dsh.pub 11.5MB、realguan 7.5MB、dsh-go 47.5MB）。
+
+覆盖的市场（按脚本顺序）：awesome 详情/canonical、dsh-plugin.org、dsh.so、dsh-plugin.store、dshfind、dshpluginhub.ai、dshhub.org、dshhub.co、dsh.pub、dsh-plugins-mp、unStone、linny006、mydsh.dev、dshmarketplace.dev、deepseekplugin.org、XingLingQAQ、dshopen、dshmarket.com、npm dsh-plugin-catalog、hoyyang、vbarter、ukinch605、realguan、dsh-go。
+
+这套脚本也是「目标达成度」的机器判据之一：只要它保持绿色，说明这些市场**此刻**确实收录着我们；若某项转红，先按 §6.68 的三个假阴性陷阱排查再下结论。

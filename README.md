@@ -160,6 +160,8 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 
 ## 🌐 收录渠道
 
+> 收录证据可一条命令复核：`npm run verify:listings`（轻量 19 项）/ `npm run verify:listings -- --full`（全量 26 项），全绿即代表各市场当前确实收录本插件。
+
 本插件已被多个 DSH 插件市场/目录收录（截至 2026-10-23，44 个可复核平台）：
 
 - [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/)（20k★ 社区精选列表）
