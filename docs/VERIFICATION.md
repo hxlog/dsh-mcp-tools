@@ -262,3 +262,32 @@ npm 页面（1.0.0）暴露的问题与处理：
 - 1.0.2 tarball（33 files）含 `docs/screenshots/zh/mcp-detail.png`；解包 README 为改版后的居中版式。
 - npm 页面复核（缓存刷新后）：`<p align="center">` 内联 HTML 正常渲染（6 处，无转义泄漏），9 张 jsDelivr 图片（logo + 8 截图），tagline「类 Cursor 风格的全局 MCP 控制」生效，`mcp-detail.png` 已引用。
 - GitHub 仓库页复核：README 正常渲染，tagline 与 18 处 jsDelivr 引用存在，无 HTML 转义泄漏。
+
+## 20. 插件市场推广复核（2026-10-23）
+
+先澄清一个误判：「marketplace 提交失败」并不成立。主市场的 PR **#8407 已合并**（2026-10-22T17:16:51Z，check 与 Submission gate 均 SUCCESS），`data/plugins/hxlog__dsh-mcp-tools.yml` 已在 main，`awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/` 返回 200。此前看起来「未收录」是 jsDelivr 对 `dsh-plugin-catalog` 的 CDN 缓存滞后（npm 包 `2026.1022.9486` 已含本插件）。
+
+已确认收录：
+
+- awesome-dsh-plugin（人工 PR，已合并）
+- npm 目录包 `dsh-plugin-catalog`（随主市场自动生成）
+- bradeGithub/DSH-Plugins-Marketplace（topic 自动索引，registry.json 含本插件）
+- ZASENJC/dsh-plugins-store（topic 自动采集，api.dshmk.com 全量 JSON 含本插件）
+
+本轮新提交（均为文档/注册表改动，不涉及插件代码，npm 版本保持 1.0.2）：
+
+| 目标 | 方式 | 状态 |
+| --- | --- | --- |
+| imsai-sh/awesome-deepseek-harness-plugins | PR #669（catalog JSON） | 已合并（static-review 首次因 `category: mcp` 非枚举失败，改为 `tools` 后通过并自动合并） |
+| losebird/dsh-plugin-market | PR #54（registry/curated） | 待审；本地 `node scripts/validate.mjs` 通过（28 条） |
+| kejixiaoliang/awesome-dsh-plugins | PR #150（plugins/mcp.md） | 待审 |
+| beancookie/awesome-dsh-plugin | PR #236（README.md + README.en.md） | 待审 |
+| 0xsline/awesome-deepseek-harness | PR #737（README.md + README.zh-CN.md） | 待审 |
+| AdamPlatin123/dsh-plugin-radar | PR #968（PLUGINS.md 登记） | 待审 |
+| dshworks/awesome-dsh-plugins | PR #184（data/plugins.json） | 待审；本地 `validate.mjs` + `render.mjs` 通过（20770 条） |
+| dshplugin/dsh-plugin-hub（dsh-plugin.org） | Issue #391（官方投稿模板） | 待审核 |
+| Zhiyuan-Fan/Awesome-DeepSeek-Harness-Plugins | Issue #94（目录无 PR 入口） | 待回复 |
+
+跳过：bruc3van（自荐区要求 star > 10，当前 2★）、dsh-external/hub（私有）、MCP server 目录（分类不符）。
+
+追踪文档：`docs/MARKETPLACES.md`。所有提交 PR 描述末尾使用官方 powered-by-dsh 徽章。
