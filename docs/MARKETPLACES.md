@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 30 个市场 + 52 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 30 个市场 + 53 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -229,6 +229,19 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.38 2026-10-23 ZeroPointRepo 列表按格式投稿（PR #27）；dsh.directory 投稿入口失效
+
+**ZeroPointRepo/awesome-dsh-plugins**（「80+ verified」、README 45.6KB、有 4 个 CI：`pr-validate` / `verify-installs` / `link-check` / `entry-health`）—— 之前没扫到，从 dsh-plugin-directory 的搜索里顺出来的。它的 `CONTRIBUTING.md` 写得很细，我们逐条对照后投稿：
+
+- 条目格式：`- **动作短语** with [name](repo) by [author](author). 一句事实描述. N★, LICENSE.` + 折叠 `<details><summary>Install</summary>` 代码块；
+- 安装命令必须**从项目自己的 README 抄**（我们用了 README 第 66 行 `dsh plugin --profile web add dsh-mcp-tools`）；
+- 验收：能装、仓库可解析且未归档、未重复收录、分类正确；
+- 风格：**禁止 em dash**、少 tag、不堆副条目、描述 ~120 字符内。
+
+已提 **[PR #27](https://github.com/ZeroPointRepo/awesome-dsh-plugins/pull/27)**（分类放在 `### Find and manage plugins`，与 `dsh-web-plugin-manager` 同类；正文说明可让维护者移动分类）。
+
+**dsh.directory（10,826 URL）的投稿入口是坏的**：页头 Submit 按钮指向 `https://github.com/alexchenzl/dsh-plugin-directory/issues/new?template=plugin-submission.yml`，但该仓库 404（账号存在、其它 repo 正常，说明该 repo 被删或转私有）。它的目录仍从 `dsh-plugin` topic 自动发现候选，所以等自动重扫即可；如需人工提交得等它修好入口。
 
 ### 6.37 2026-10-23 站点域名扫街：dsh.pub 已收录（第 30 个）＋ 9 个新目录站全部未收录（附投稿路径）
 
