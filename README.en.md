@@ -187,6 +187,8 @@ This plugin is listed in several DSH plugin marketplaces and directories (43 ver
 
 If you spot it in another directory, a PR or issue telling us is welcome.
 
+> Full matrix with per-site evidence: [docs/MARKETPLACES.md](./docs/MARKETPLACES.md) · live PR/issue status: [docs/PR-STATUS.md](./docs/PR-STATUS.md) · copy-paste text for login-gated sites: [docs/SUBMISSION-KIT.md](./docs/SUBMISSION-KIT.md)
+
 ## 📄 License
 
 [MIT](LICENSE) · Powered by [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)

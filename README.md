@@ -192,6 +192,8 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 
 如果你在别的目录里看到它，欢迎提 PR 或 issue 告诉我们。
 
+> 完整清单与逐站证据：[docs/MARKETPLACES.md](./docs/MARKETPLACES.md) · 实时 PR/Issue 状态：[docs/PR-STATUS.md](./docs/PR-STATUS.md) · 需登录提交站的复制文案：[docs/SUBMISSION-KIT.md](./docs/SUBMISSION-KIT.md)
+
 ## 📄 License
 
 [MIT](LICENSE) · Powered by [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
