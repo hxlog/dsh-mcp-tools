@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 41 个市场 + 67 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 41 个市场 + 69 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1148,3 +1148,19 @@ render: wrote README.md + docs artifacts (20770 entries)
 已开 [Issue #1](https://github.com/YureWright/dsh-plgstore/issues/1) 作为**可复现的缓存 bug 报告**（附逐月 firstSeen 分布与 max pushedAt 证据、建议在 `process-github-candidates` 前补一步 GitHub 候选重爬），并注明若为有意冻结则把本条记作已知限制。该市场无 CONTRIBUTING/PR 通道，Issue 是唯一反馈方式。
 
 **教训（适用于所有 npm/GitHub 自动聚合站）**：判断「为什么没收录」时先看对方**数据新鲜度**（`pushedAt`/`firstSeen` 分布）与**候选基数上限**，而不是先怀疑自己的 manifest 格式；本轮 Topic 扫描（`dsh-market`/`dsh-marketplace`/`dsh-plugin-market`）新出现的 47 个仓库里，其余为客户端/竞品/skill，不构成新市场。
+
+### 6.63 2026-10-23 新抓 12 个 DSH 目录站：2 个有明确投稿通道已提交；其余为 star 截断型
+
+用 `in:name,description` 搜 `dsh plugin market/registry/index/directory/catalog/store` 再逐个查数据文件是否含 `hxlog/dsh-mcp-tools`，得到 12 个此前未记录的站：
+
+**已提交（有官方 Issue 模板，不靠 PR）**
+- **`majiayu000/dsh-plugin-registry`**（★3，[plugin.dshdesk.com](https://plugin.dshdesk.com)，「Harness Registry」：curated + GitHub topic 自动发现 + `dsh.bundle` 清单校验 + 可复制安装命令）→ 按其 `.github/ISSUE_TEMPLATE/plugin_submission.yml` 提交 [Issue #91](https://github.com/majiayu000/dsh-plugin-registry/issues/91)（选了「New plugin listing」、勾满 4 条 checklist、附 pinned tag/npm/descriptor 证据）。
+- **`TYEclipse/dsh-plugins-hub`**（★2，独立 curated 目录，投稿后在隔离 profile 里做「安全审查 → 安装 → 一次真实端到端工具调用」再入索引）→ 按其模板提交 [Issue #66](https://github.com/TYEclipse/dsh-plugins-hub/issues/66)（name/repo/release `v1.0.2`/MIT/install `dsh plugin --profile web add github:hxlog/dsh-mcp-tools#v1.0.2` + 验证边界说明）。
+
+**未提交（自动聚合 + star 截断，提交无意义）**
+- **`whyihaveyou/dsh-suite`**（★63，「活目录」2,105 条、每小时刷新 + 每日兼容实测，站点 whyihaveyou.github.io/dsh-suite）：`scripts/discover-plugins.mjs` 拉 `topic:dsh-plugin` **按 stars 降序最多 15 页 = 1500 个仓库**，3★ 天然在截断外；其 `data/install-audit.json`/`compat-report.json`/`compat-installed.json` 里均无我们（即根本没被发现，不是兼容失败）。
+- **`dsh-plugin/dsh-plugin.github.io`**（★2，401 个文件含 `data/plugins.json` + 每插件 SEO 页，`sync-plugins.yml` 每 6h）：同步源同样是 topic 快照，未见我们。
+- **`zhushaochun/dsh-plugin-index`**（★0，`index.json` 2,608 条 format-1 索引，**已含我们**）：由 awesome-* 列表派生，属镜像类，按既有规则不重复计数。
+- 其余为客户端/工具/极低星原型：`wink-run/dsh-plugin-store`（★3）、`Luaphes/dsh-plugins-market`（★3，实为插件 `lib/index.js`）、`yang051211/dsh-plugin-store`（★0，人工审核型、`catalog/scan/*.json` 逐插件扫描，后续可作投稿备选）、`oa1mgo/dshplugin`、`majiayu000` 之外的 `439436269-ctrl/dsh-preview-market`、`majiayu000` 同级 `f0909172434/stellvyr/doraasn/yansuui/2759069519` 等 format-1 微索引（0★，无站点/无投稿通道）。
+
+**经验**：本轮 12 个站里 9 个是「按 star 排序取 topic Top-N」的截断型聚合——3★ 项目在 1,500~25,000 条量级的目录里几乎不可能被自动发现；有官方 Issue 模板的站（majiayu000、TYEclipse）才是当前可推进的增量。
