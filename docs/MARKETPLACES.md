@@ -1599,3 +1599,15 @@ DSH-Store 是「跑在 DSH 设置页里的第三方插件商城 + 安全生命�
 双语插件目录（58KB README + `submit-plugin.yml` 结构化投稿模板），按模板逐字段填了：仓库、一句话价值、分类（Tools & Capabilities）、安装/卸载、兼容性与验证（DSH 0.2.1-rc.2 实机装过 + CI；未验证项如实标注）、三项勾选清单。
 
 **issue：[HackSing/dsh-plugins#339](https://github.com/HackSing/dsh-plugins/issues/339)**
+
+### 6.87 dshmk.com 追进：收录 issue #13 + 管线卡点取证（本地提交，暂不 push 以稳住 SHA）
+
+`ZASENJC/dsh-plugins-store` 有既定的 `[Inclusion]` / `[Revalidation]` issue 通道（参考 #7 duhu2000 的写法），我们此前已开 **#13**（当时 0 回复）。本轮补上管线侧取证：
+
+- 分类归档里我们这条：`disposition: include` / `dshRelevance: recognized` / `projectType: plugin` / `category: model-mcp`，**只挂沙箱一步**：`status: inconclusive`、`disposition: retryable`、`errorCode: SOURCE_CHANGED_DURING_RUN`、`attribution: infrastructure`（验证进行中我们推了提交）
+- 上游管线本身卡住：`Validate plugins` run **#39961211323 在 2026-10-23T13:26:26Z 失败**（jobs：`validate (5):failure`，其余 shard 0–15 成功），此后 6 次 `Sync catalog` 都在重发这份残缺归档；分类归档 `generatedAt` 仍停在 `2026-10-23T07:49:29Z`
+- 分类 cron 节奏实际约 **6 小时一轮**（01:25Z / 07:23Z / 13:20Z），下一轮预计 **2026-10-23T19:20Z ≈ 03:20 +08**
+
+**已发**：[issue #13 评论](https://github.com/ZASENJC/dsh-plugins-store/issues/13#issuecomment-6370660111) —— 附完整 JSON 记录、失败 shard 证据、请求重跑 `validate (5)` 并把 `1427825895` 纳入选择；同时声明若下次是插件级失败会按报告修，不要求跳过验证。
+
+**行动纪律**：在下一轮验证窗口（03:20 +08 前后）结束前，**不向 `hxlog/dsh-mcp-tools` push**（本地 docs 提交攒着），保证远端 HEAD 稳定在 `b278062`；已挂 03:40 +08 提醒复核并补推。
