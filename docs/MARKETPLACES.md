@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 35 个市场 + 60 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 36 个市场 + 60 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -70,6 +70,7 @@
 | [diegosouzapw/awesome-omni-dsh-plugins](https://github.com/diegosouzapw/awesome-omni-dsh-plugins) | 19★ / 3626 | PR #3723（catalog/plugins/hxlog-dsh-mcp-tools.yaml，每插件一 PR） | 🟡 待审（本地 `catalog validate` 3627 entries valid；已 re-pin 到最新 commit `65fc438`，semgrep 重跑中） | 创作者优先 PR；分类 coding-developer-tools · **本地已过 CI 门禁**（2026-10-23，按 workflow 同命令）：`catalog validate` → `3627 entries valid`；`docs-check --skip-count` → passed |
 | [polang233/dsh-plugin-index](https://github.com/polang233/dsh-plugin-index)（[dshopen.org](https://dshopen.org) · Open Plugin Market，876 条索引） | 35★ | 维护者**手工批量**写进 `data/sources.json`（非 PR 通道）；Issue #58 已由维护者回复「已核查并加入收录配置」 | ✅ 已收录（2026-10-23）：`https://dshopen.org/index.json` 可检索到 `dsh-mcp-tools`（title zh「MCP 管理器」/en「MCP Manager」、category `tools`、★3、keywords 含 dsh/dsh-plugin/mcp、repository 指向本仓库、图标已生成） | 索引每 6 小时重建；条目由维护者手写，不带 install spec，安装走插件市场默认解析 |
 | [dingdang66686/dsh-market-index](https://github.com/dingdang66686/dsh-market-index)（format-1 市场索引，3,365 插件 / 1.26 万版本） | 0★ / GitHub Actions **每 12h** 从 awesome feed 全量重建并校验 | 产出可直接加进官方 Discover 的索引源（raw / GitHub Pages / jsDelivr 三地址，README 已实测三地址 200） | ✅ 已收录：`index.json` 含 `dsh-mcp-tools` 条目（中英描述、`category: tools`、versions、install 源），由 canonical feed 自动派生 | 自动生成，无需提交；只要 feed 有我们它就有 |
+| [ukinch605/awesome-dsh-hub](https://github.com/ukinch605/awesome-dsh-hub)（站点 [ukinch605.github.io/awesome-dsh-hub](https://ukinch605.github.io/awesome-dsh-hub/)） | 17,769 个插件 / 21,133 监测仓库 · 自动维护的机器可读 Registry + 中英双语分类目录 + 可检索静态站；每 1 小时刷新 | **无需申请**：仓库加 `dsh-plugin` 话题 + 根 `package.json` 声明 `dsh.bundle.patch` 即自动收录；分类/描述可改 `data/overrides.json` 提 PR | 🟢 已收录：`registry/plugins.json` 含 `hxlog/dsh-mcp-tools`（`discoverySource: github-topic:dsh-plugin`、`packageVersion 1.0.2`、`firstSeenAt 2026-10-23T07:58Z`）；`docs/catalog.en.md` / `catalog.zh.md` 均有词条与安装命令 | — |
 | [DshHunt/community](https://github.com/DshHunt/community)（[dshhunt.com](https://dshhunt.com)） | 独立目录站（静态结构证据 + 社区投稿） | Issue [#4](https://github.com/DshHunt/community/issues/4)（plugin-submission 表单） | 🟡 待审（2026-10-23 提交） | 站点 `/plugins` 已上线但未含我们；投稿要求固定 commit SHA + 公开证据，已按表单字段提交（SHA `6cb6342`、bundle path `.`、npm `dsh-mcp-tools`、分类 developer-tools、MIT） |
 | [REALOIYO/dsh-plugin-market](https://github.com/REALOIYO/dsh-plugin-market) | 7,123 个插件 / 58,629 个版本 · 自建 format 1 索引 | Issue [#1](https://github.com/REALOIYO/dsh-plugin-market/issues/1)（召回缺口报告 + 建议补种子） | 🟡 待回复（2026-10-23 提交） | 索引源 `realoiyo.github.io/dsh-plugin-market/index.json`；每 6 小时重建（10-23T10:55Z success），但我们这个**声明了 `dsh.bundle` 且带 `dsh-plugin` 关键字**的包仍未被召回 → 判断为其切片式 npm 搜索召回缺口，建议把包名加进 `seeds/dsh-so.json` |
 | [dsh-pluginmarket/metadata](https://github.com/dsh-pluginmarket/metadata)（DSH Registry，站点 `dsh-pluginmarket.github.io/registry/`） | 82 条元数据 · plugin/skill/preset/theme 注册表 | Issue [#6809](https://github.com/dsh-pluginmarket/metadata/issues/6809) → 机器人自动开 PR [#6810](https://github.com/dsh-pluginmarket/metadata/pull/6810) | 🟡 待合并（2026-10-23 提交，issue→PR 全自动链路已跑通） | 投稿用 `Add:` issue 模板；Actions 校验后由 `issue-to-entry.mjs` 生成 `entries/github_hxlog_dsh-mcp-tools.json` 并开 PR，维护者合并即上架；已验证 workflow 两次 run 均 success、bot 已回「Metadata validated and a pull request was opened」 |
@@ -234,6 +235,16 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.53 2026-10-23 `ukinch605/awesome-dsh-hub`：纯自动收录型目录（36th），无申请入口，靠 topic + `dsh.bundle.patch` 触发
+
+[ukinch605/awesome-dsh-hub](https://github.com/ukinch605/awesome-dsh-hub) 是自动维护的 DSH 插件目录（当前 **17,769** 个插件 / 21,133 监测仓库 / 21.8 万累计 star），产物分三份：机器可读 [`registry/plugins.json`](https://github.com/ukinch605/awesome-dsh-hub/blob/main/registry/plugins.json)（约 19.9MB JSON）、抓取元信息 `registry/meta.json`、中英双语分类目录 `docs/catalog.{zh,en}.md`，外加 GitHub Pages 检索站 <https://ukinch605.github.io/awesome-dsh-hub/>。
+
+**收录规则（完全自动、无需申请）**：① 仓库加 [`dsh-plugin`](https://github.com/topics/dsh-plugin) 话题；② 根目录 `package.json` 声明 `dsh.bundle.patch`。Registry 每小时刷新（`meta.json.generatedAt`），符合规则即出现在下一次运行。另有收录徽章可贴到自己 README。
+
+**我们的命中情况**：`registry/plugins.json` 中已有 `"name": "dsh-mcp-tools"` 条目——`repo: hxlog/dsh-mcp-tools`、`packageVersion: 1.0.2`、`discoverySource: github-topic:dsh-plugin`、`firstSeenAt: 2026-10-23T07:58:44Z`、`lastSeenAt: 2026-10-23T13:02:26Z`；`docs/catalog.en.md` 词条附 GitHub 链接、★3、MIT、英文描述与 `npx @deepseek-ai/dsh plugin --profile web add github:hxlog/dsh-mcp-tools` 安装命令（`catalog.zh.md` 为中文描述）。说明我们的 topic 与 `dsh.bundle.patch` 元数据已满足其自动发现条件，无需 PR。
+
+**可选项**：`data/overrides.json` 可提 PR 修正分类/描述/排除镜像（我们无需改）；如需曝光可在 README 加 [收录徽章](https://github.com/ukinch605/awesome-dsh-hub#%E6%94%B6%E5%BD%95%E5%BE%BD%E7%AB%A0--listing-badge)。计数从 35 → **36**。
 
 ### 6.52 2026-10-23 hashgraph `awesome-ai-plugins`：scanner score ≥80 是硬门槛，79→100 的修法（可直接复用到其它 scanner 闸门）
 
