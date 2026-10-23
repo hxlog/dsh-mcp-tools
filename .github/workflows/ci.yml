@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: smoke + manifest contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Node version
+        run: node --version && npm --version
+
+      - name: Manifest contract (dsh.bundle.patch, files[], zero deps, no lifecycle)
+        run: node scripts/ci-check.mjs
+
+      - name: Smoke tests
+        run: npm test
+
+      - name: Packed tarball contains the runtime files
+        run: |
+          npm pack --dry-run --json > pack.json
+          node -e "
+          const files = JSON.parse(require('node:fs').readFileSync('pack.json','utf8'))[0].files.map(f => f.path);
+          const required = ['package.json','cordis.patch.yml','lib/index.js','client/client.js','icon.svg','README.md','LICENSE'];
+          const missing = required.filter(p => !files.includes(p));
+          if (missing.length) { console.error('missing from tarball:', missing.join(', ')); process.exit(1); }
+          console.log('tarball OK:', files.length, 'files');
+          "

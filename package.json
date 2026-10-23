@@ -45,7 +45,8 @@
   },
   "scripts": {
     "test": "node scripts/smoke.mjs",
-    "selftest": "node scripts/selftest.mjs"
+    "selftest": "node scripts/selftest.mjs",
+    "ci-check": "node scripts/ci-check.mjs"
   },
   "license": "MIT",
   "author": "Xingyu Liu <xingyuliu@outlook.sg>",
