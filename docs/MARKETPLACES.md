@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 26 个市场 + 41 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 27 个市场 + 41 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -32,6 +32,7 @@
 | [vbarter/dsh-plugin-registry](https://github.com/vbarter/dsh-plugin-registry)（[dsplugin.app](https://dsplugin.app)） | 社区插件注册表 + 发布流程（`publish.html`） | 自动发现 + 站点数据快照 | ✅ 已含（`data/plugins.json` 25.4MB 内条目 `id: hxlog/dsh-mcp-tools`，含中英描述） | https://github.com/vbarter/dsh-plugin-registry/blob/main/data/plugins.json |
 | [hoyyang/dsh-market-index](https://github.com/hoyyang/dsh-market-index)（dsh-store 市场目录索引） | 可订阅索引 `registry.json`（29.3MB） | GitHub Actions 定时抓取 `#dsh-plugin` 全量仓库生成 | ✅ 已含（2026-10-23 抓 `registry.json` 检索到 `dsh-mcp-tools`） | https://raw.githubusercontent.com/hoyyang/dsh-market-index/main/registry.json |
 | [XingLingQAQ/dsh-plugin-registry](https://github.com/XingLingQAQ/dsh-plugin-registry) | 机器可读目录 `catalog.json`（451KB，每日刷新） | 自动抓取 | ✅ 已含（2026-10-23 抓 `catalog.json` 检索到 `dsh-mcp-tools`） | https://raw.githubusercontent.com/XingLingQAQ/dsh-plugin-registry/main/catalog.json |
+| [deepseekplugin.org](https://deepseekplugin.org)（DeepSeek Harness 插件目录） | 目录 sitemap 8,593 条 · 2.67MB `registry/v1/catalog.json` | **自助 API 投稿**：`POST /api/submissions {url}`，识别后即时发布 | ✅ 已收录（2026-10-23 提交，`state=published`；解析出标题/中英描述/安装命令 `dsh plugin --profile web add dsh-mcp-tools`/tags/`installable=true`/`security.score=5`） | https://deepseekplugin.org/plugins/submitted?slug=hxlog-2f-dsh-2d-mcp-2d-tools |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -224,6 +225,30 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.32 2026-10-23 从 npm 包反查市场：deepseekplugin.org 自助 API 即时收录成功
+
+**发现路径（新轴：npm 包反查）**：搜 npm 「dsh plugin registry」发现 `dsh-plugins@0.1.2` 与 `dshplugin-registry@0.1.0` 两个「市场客户端」包；解包 `dsh-plugins` 的 tarball（21,648 字节）后从代码里读到其数据源 `https://deepseekplugin.org/registry/v1/catalog.json` —— 顺藤发现 **deepseekplugin.org（DeepSeek Harness 插件目录）**，一个此前完全没扫到的大目录。
+
+**为什么这条轴有效**：市场客户端插件必须把索引地址写进代码或配置，**解 npm tarball 比翻网页更容易拿到真实数据源**。
+
+**deepseekplugin.org 的收录机制（本轮实测）**
+
+- 站点 Next.js，`/submit` 只有一个输入框（`name="repository-url"`，按钮「自动收录」），提示「仅支持公开 GitHub 仓库；通过插件识别后会立即发布」；
+- 前端 chunk 里可直接读到接口：`fetch("/api/submissions", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({url})})`；
+- 实测 `POST https://deepseekplugin.org/api/submissions {"url":"https://github.com/hxlog/dsh-mcp-tools"}` → **HTTP 201**，返回：
+
+```json
+{"ok":true,"state":"published","plugin":{"name":"hxlog/dsh-mcp-tools","slug":"hxlog-2f-dsh-2d-mcp-2d-tools","title":"dsh-mcp-tools","desc":"…MCP 工具管理器…","stars":3,"install":"dsh plugin --profile web add dsh-mcp-tools","installKind":"author","installRequiresBuildApproval":false,"installable":true,"security":{"score":5},"source":"github-submission","detailUrl":"/plugins/submitted?slug=…"}}
+```
+
+- 复核：`GET /api/submissions/hxlog-2f-dsh-2d-mcp-2d-tools` → 200 且返回同一条记录；详情页为客户端渲染（`/plugins/submitted?slug=…`）；
+- 注意：静态 `registry/v1/catalog.json`（2.67MB）与 sitemap（8,593 条）尚未包含我们 —— 判断为**静态快照按计划重建**，DB 侧已 published；后续例行回归会继续盯这两份产物。
+
+**顺带核清的两个站点**
+
+- **dshplugin.app**（`dshplugin-app/dsh-plugin-registry` 客户端插件的数据源）：sitemap 1,224 条里**没有** `dsh-mcp-tools`，即未被收录；其 `/submit` 页面是 React 表单（`POST` 走 JS server action，静态 POST 只会回显同一页面），**自动化不可行**，需用户浏览器手动提交：<https://dshplugin.app/submit>（字段：GitHub repository URL / 可选 Email / 可选 Notes）；
+- **dshplugin-registry / dsh-plugins 两个 npm 客户端**：分别指向 dshplugin.app 与 deepseekplugin.org，均非独立市场，无需单列。
 
 ### 6.31 2026-10-23 索引源「爆发期」甄别：新增候选多为镜像/派生，不虚增收录数
 

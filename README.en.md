@@ -159,7 +159,7 @@ mklink /J "C:\Users\<you>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 
 ## 🌐 Where it is listed
 
-This plugin is listed in several DSH plugin marketplaces and directories (26 verifiable platforms as of 2026-10-23):
+This plugin is listed in several DSH plugin marketplaces and directories (27 verifiable platforms as of 2026-10-23):
 
 - [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/) (20k★ community list)
 - [dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop) (656★, 18,000+ plugins, refreshed daily)
@@ -174,6 +174,7 @@ This plugin is listed in several DSH plugin marketplaces and directories (26 ver
 - [dsh.so](https://www.dsh.so/artifact/dsh-mcp-tools/) (21,000+ plugin verified registry)
 - [deepseek1024.com](https://deepseek1024.com) (312★, 13,840-plugin directory, catalog PR #669 merged)
 - [dsh-plugin-catalog](https://www.npmjs.com/package/dsh-plugin-catalog) (npm catalog, 6000+ entries)
+- [deepseekplugin.org](https://deepseekplugin.org) (self-serve submission, published on submit)
 - format-1 subscription indexes: [realguan/dsh-plugin-market](https://realguan.github.io/dsh-plugin-market/), [dsplugin.app](https://dsplugin.app), [dsh-market-index](https://github.com/hoyyang/dsh-market-index), [XingLingQAQ/dsh-plugin-registry](https://github.com/XingLingQAQ/dsh-plugin-registry) (all verified to contain this plugin)
 - awesome lists such as brade, imsai, fendouai, vvlife and 2BingLing, plus indexers such as dsh-xray and mcp-servers-live
 
