@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 32 个市场 + 53 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 32 个市场 + 54 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -231,6 +231,19 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.41 2026-10-23 npm 反查市场客户端：新增 2 个站点（1 已收录、1 待跟进）、1 个暂不追
+
+方法同 §6.40：npm 搜索 3 组关键词去重得 608 个包 → 91 个「market/directory/hub/catalog/index/store」类 → 逐个看 `links.repository` 与 README 里的上游站点。除已记录的 dshhub.co 外还捞出：
+
+| 站点 / 项目 | 性质 | 结论 |
+| --- | --- | --- |
+| **deepseekplugins.com** | Next.js 站点，`/plugins/<name>`，当前 **18–19 个精选插件**（modlens、dsh-lark、dsh-vision-toolkit…），首页只链官方仓库与 `topics/dsh-plugin` | ❌ 未收录；**无投稿入口**（无 submit/无 issue/无 repo 链接），只能等人工精选或作者主动加 → 待跟进 |
+| **百通插件广场** `s.1100111.cn/baitong_ai`（客户端 `@baitongserver/dsh-plugin-market`，`imyasonly/dsh-plugin-market`） | 服务端目录 API：`GET /api/bt/dsh/plugins`；`/categories` 返回 **401 请先登录** | 目录只有 **3 个插件**（total=3），是面向企业/私域的广场，需百通账号才能投稿 → **暂不追** |
+
+其余客户端包多为**衍生镜像**（数据仍来自我们已确认的平台），不算独立市场：`@99galaxy/dsh-plugin-market`（读 awesome-dsh-plugin 目录）、`dsh-unified-market`（聚合多目录）、`deepseek-harness-market`、`dsh-plugin-studio`、`@x1a0f3n9/dshmarket`/`@gausszhou/dsh-market`/`safer-dsh-market`（dsh-market 分支，数据源 dsh.market）、`@linxin666/dsh-client-ui-market` + `dsh-community-plugins`（zhu 的社区索引，已提 PR #52）。
+
+至此本轮盘点：**32 个已确认收录**、54 个待审/待跟进。
 
 ### 6.40 2026-10-23 dshhub.co 已收录（第 32 个）：注意 dshhub.co / dshhub.org / dshhub.dev 是三个不同项目
 
