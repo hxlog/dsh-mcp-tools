@@ -21,8 +21,8 @@
 | [lwmxiaobei/dsh-plugins](https://github.com/lwmxiaobei/dsh-plugins)（dsh-plugins.org） | 5★ / 747 插件自动同步 | GitHub 自动汇总 + 基础校验（sync workflow） | ✅ 已收录：`catalog/plugins.json` 含本仓库（含 install 命令与 bundlePatch 信息） | https://dsh-plugins.org |
 | [dshplugin/dsh-plugin-hub](https://github.com/dshplugin/dsh-plugin-hub)（dsh-plugin.org） | 310★ / 16.5k | Issue #391 官方核对 + 站点同步 | ✅ 已收录并上线：https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools | https://dsh-plugin.org/ |
 | [Dominic789654/awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness) | 397★ / 20.1k | 人工 review PR + 每日自动扫描 | ✅ 已合并：PR #671（2026-10-23T09:02Z），条目在 MCP Servers 分区 | https://github.com/Dominic789654/awesome-deepseek-harness |
-| [LivXue/dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop) | 656★ / 18,276 插件（每日刷新） | npm 关键词自动采集（`dsh-plugin`/`deepseek-harness`） | ✅ 已收录：目录条目 `dsh-mcp-tools@1.0.2`（2026-10-21 加入，category tool；仓库因 npm 同名被标 shadowed-by-npm 属正常） | https://LivXue.github.io/dsh-plugin-shop/ |
-| [dsh.so](https://www.dsh.so)（ihuajiu/dsh.so） | 21,303 插件验证注册表 | npm/GitHub 自动收录 + L1–L5 扫描 | ✅ 已收录：<https://www.dsh.so/artifact/dsh-mcp-tools/>（**Verification L5 · Run tested**，LowRisk / Trust Gold，2026-10-21 复检）（2026-10-21 发布） | 自动抓取，无需提交 |
+| [LivXue/dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop) | 656★ / 18,276 插件（每日刷新） | npm 关键词自动采集（`dsh-plugin`/`deepseek-harness`） | ✅ 已收录：`registry/first-seen.yml` 载明 `dsh-mcp-tools`（`added: 2026-10-21`；仓库已改造成 host 插件 + registry 数据仓，旧的 `LivXue.github.io` Pages 地址已 404，勿再引用） | https://github.com/LivXue/dsh-plugin-shop/tree/main/registry |
+| [dsh.so](https://www.dsh.so)（ihuajiu/dsh.so） | 21,303 插件验证注册表 | npm/GitHub 自动收录 + L1–L5 扫描 | ✅ 已收录：<https://www.dsh.so/artifact/dsh-mcp-tools/>（**Verification L5 · Run tested**，LowRisk / Trust Gold，2026-10-21 复检）（2026-10-21 发布） | 自动抓取，无需提交（2026-10-23 复核：artifact 页 200 且含本插件） |
 | [DshMarketPlace/dshmarketplace](https://github.com/DshMarketPlace/dshmarketplace)（dshmarketplace.dev） | 3★ / 3,420 listing + **13,175 条 API 索引** | GitHub topic 自动 ingest + 沙箱验证安装命令 | ✅ 已收录：`/api/v1/index` 含 `hxlog/dsh-mcp-tools`（`category: tools` + install 命令；2026-10-23 复核，`generated` 10:38Z，`count: 13175`）；`path` 为 null（暂无人工精选详情页，非必需）。曾开 Issue #7 申请，复核后自行关闭并说明 |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
@@ -76,7 +76,7 @@
 | [Sanqi-normal/dsh-webui-market-plugin](https://github.com/Sanqi-normal/dsh-webui-market-plugin)（104★） | 浏览 awesome-dsh-plugin.com 目录 | ✅ 同上 |
 | [AwesomeHou/dsh-plugin-marketplace](https://github.com/AwesomeHou/dsh-plugin-marketplace)（33★） | 设置页内市场，运行时实时同步 GitHub `dsh-plugin` topic | ✅ topic 已打，用户端搜索即可见（无需提交） |
 | [anywhere-labs/dsh-desktop](https://github.com/anywhere-labs/dsh-desktop)（32.6k★）内置 Community Market | 从用户选择的目录源（含 awesome-dsh-plugin registry feed）发现插件 | ✅ 已随 registry feed 覆盖（无需单独提交） |
-| [dsh-plugin.store](https://dsh-plugin.store) | 14,082 个 GitHub 真实插件目录（Next.js） | 直接消费 `awesome-dsh-plugin.com/plugins.json` | ✅ 已收录：`/p/hxlog/dsh-mcp-tools` 详情页 200 | https://dsh-plugin.store/p/hxlog/dsh-mcp-tools |
+| [dsh-plugin.store](https://dsh-plugin.store) | 14,082 个 GitHub 真实插件目录（Next.js） | 直接消费 `awesome-dsh-plugin.com/plugins.json` | ✅ 已收录：`/p/hxlog/dsh-mcp-tools` 详情页 200 | https://dsh-plugin.store/p/hxlog/dsh-mcp-tools （2026-10-23 复核 200，页面命中本插件） |
 | [YELEBAI/dsh-plugin-marketplace](https://github.com/YELEBAI/dsh-plugin-marketplace)（21★） | 每日扫描 `dsh-plugin` topic 进中心 Registry | ⏳ topic 已打，下轮扫描自动进候选 |
 | [w2112515/dsh-plugin-marketplace](https://github.com/w2112515/dsh-plugin-marketplace)（17★） | 扫描 topic 后逐个证明可安装，再进入市场 | ⏳ 同上 |
 
@@ -208,3 +208,13 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.10 2026-10-23 多渠道在线复核（第 2 批）
+
+| 渠道 | 复核结果 |
+| --- | --- |
+| bradeGithub `registry.json` | ✅ 19,244,496 字节，含 `dsh-mcp-tools` |
+| dsh.so `/artifact/dsh-mcp-tools/` | ✅ 200，页面含本插件（L5 / Verification） |
+| dsh-plugin.store `/p/hxlog/dsh-mcp-tools` | ✅ 200，页面含本插件 |
+| LivXue registry `first-seen.yml` | ✅ 含 `dsh-mcp-tools`（added 2026-10-21） |
+| LivXue GitHub Pages | ❌ 已 404（项目已改为 host 插件 + registry 数据仓，矩阵链接已更正） |
