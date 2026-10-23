@@ -87,7 +87,7 @@
 | [dshplugins.com](https://dshplugins.com) | 审核制目录（含 /submit 页） | 需 GitHub 登录由管理员审核；提交需在 README 写清安装步骤 | 🟡 待人工 OAuth 提交 |
 | [dsh-plugins.net](https://dsh-plugins.net) | 带验证方法论的社区目录 | 表单生成 Markdown，发到 deepseek-harness GitHub Discussions 由维护者审核 | 🟡 已发 [Discussion #10768](https://github.com/deepseek-ai/deepseek-harness/discussions/10768)（Show Your Plugins! 分类） |
 | [dshplugin.net](https://dshplugin.net)（coolbat/awesome-dsh-plugins） | 1★ / 双语证据式目录 | GitHub Issue `plugin-submission` 模板（需固定 commit） | 🟡 已提交 Issue #34 · 仓库已改名 `coolbat/awesome-dsh-plugins`（1★，证据型双语目录，数据源 `data/plugins.json`，1709 条）；issue #34 仍在；**已按 CONTRIBUTING 逐条提交证据 + 拟好的 JSON 条目**（2026-10-23，含 40 位 SHA / manifest / patch / 双 license / lifecycle none / 能力信号；分类对齐已有先例 `Discovery & Management`） |
-| [dsh.store](https://dsh.store)（AI-Scarlett/DSH-Store） | 5★ / 第三方市场 + 生命周期管理 | 每 8 小时自动 radar 扫描写入 `registry/catalog.json` | 🟡 机器人预检**已通过**（固定 commit `f245bca`、识别 `dsh-mcp-tools@1.0.2`、入口 `mcp-tools`、无生命周期脚本、13/13 文件扫描完整、1 条 shell 警告来自 `scripts/smoke.mjs`），等 8 小时 Catalog 策略复核 |
+| [dsh.store](https://dsh.store)（AI-Scarlett/DSH-Store） | 5★ / 第三方市场 + 生命周期管理 | 每 8 小时自动 radar 扫描写入 `registry/catalog.json` | 🟡 机器人预检**已通过**（固定 commit `f245bca`、识别 `dsh-mcp-tools@1.0.2`、无生命周期脚本、扫描完整；唯一 Warning 是 dev 测试脚本里的 `child_process`）。**已修**：`scripts/smoke.mjs` 改用 `vm.Script` 语法校验（commit `14d5be1`），并把 dev 脚本移出 npm `files`，运行时面零 shell/子进程；已在 #1551 说明（#issuecomment-6363039134），等下一轮扫描/复核 |
 | [dshplugins.org](https://dshplugins.org)「深鲸插件港」 | 聚合型（14000+） | 聚合 AdamPlatin123 / vvlife / libukai / 0xsline 等 awesome 列表 | ⏳ 随上游列表合并自动跟进 · **lint 基线相同**（2026-10-23 本地复跑 workflow 同命令）：`main` 与 PR 分支均 exit 1 / **21 个相同 issue**，本 PR 新增 0 个；维护者 2026-10-16 后未再处理 PR（仓库现有 22 个 PR 全部 `action_required`） |
 | [dshplugin.app](https://dshplugin.app) | 注册表 + 审核提交 | `/submit` 表单（无需账号，但有 captcha）；提交后抓取仓库并分类 | 🟡 待人工/带 captcha 提交 |
 | [dshplugin.market](https://dshplugin.market) | 插件/技能/Agent 目录（含 MCP Servers 分类） | `/submit` 无表单：collector 按 GitHub topic 索引 | ⚪ 停止跟进：sitemap 的 lastmod 停在 **2026-08-15**，collector 已 2 个月未跑 |
@@ -153,6 +153,14 @@
 ### 6.4 上游 feed 条目已落地（2026-10-23 核验）
 
 canonical feed 仓库 `awesome-dsh-plugin/awesome-dsh-plugin`（20.3k★）已生成我们的条目：`data/plugins/hxlog__dsh-mcp-tools.yml`（`name: hxlog/dsh-mcp-tools`，`category: tools`，中英描述齐全，`url` 指向仓库）。这条是绝大多数下游市场（dshmarket / @99galaxy / dsh-find-plugin / dsh.so / 多个 format-1 索引）的**唯一上游**，条目存在即代表下游可继承；`data/added-dates.json` 只记近期新增、不含我们属正常（我们发布时间早于该文件的滚动窗口）。
+
+### 6.7 2026-10-23 发布面加固（为通过 dsh.store 静态扫描）
+
+dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scripts/smoke.mjs`——dev 测试脚本里的 `execFileSync(node --check)`。已做两处收紧（commit `14d5be1`）：
+1. `scripts/smoke.mjs` 改用 `new vm.Script(client)` 做语法校验，**彻底移除 `node:child_process` 依赖**；`npm test` 仍 10/10 通过。
+2. `package.json` 的 `files` 去掉 `scripts/smoke.mjs` / `scripts/selftest.mjs`，dev 脚本不再进入发布包。
+
+运行时面（`lib/*.js` 6 个 + `client/client.js`）实测**零** `child_process`/`exec*`/`spawn`/`node:http(s)`/`fetch(` 命中；唯一的网络行为是用官方 MCP client 连用户自己配置的端点。下一次 dsh.store 扫描（或下次发版）即可看到 Warning 消失。
 
 ### 6.6 2026-10-23 PR 正文自检
 
