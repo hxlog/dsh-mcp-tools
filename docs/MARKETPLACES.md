@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 23 个市场 + 38 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 26 个市场 + 39 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -29,6 +29,9 @@
 | [helloHupc/dsh-plugin-hub](https://github.com/helloHupc/dsh-plugin-hub)（dsh-plugin-hub.hupc.site） | 22★ · 多源聚合检索（每小时刷新） | GitHub topic + dshworks 等多源去重聚合 | ✅ 已收录：`data/plugins.json`（16.0MB）含 `id: hxlog/dsh-mcp-tools`、`status: verified`、`sources: [github_topic, dshworks]`、category tools（2026-10-23 10:50 刷新） | https://dsh-plugin-hub.hupc.site |
 | [dshfind.com](https://dshfind.com)（hikariming/dshfind） | DSH 插件超市 + 学习社区（四语言） | 自动同步 GitHub `dsh-plugin` topic 全量仓库，每日刷新 star/增长/质量分 | ✅ 已收录：`/zh/plugins/hxlog/dsh-mcp-tools` 页面 200（分类「工具集成」；展示 star/7 日增长/语言/更新日；另有可嵌入 README 的 badge/card API；安装命令按其探测的 Release `.tgz` 推导，当前显示 v1.0.0 属抓取缓存，下一轮同步会取 v1.0.2） | https://dshfind.com/zh/plugins/hxlog/dsh-mcp-tools |
 | [realguan/dsh-plugin-market](https://github.com/realguan/dsh-plugin-market)（索引源：`realguan.github.io/dsh-plugin-market/dsh-index.json`、`cdn.jsdelivr.net/gh/realguan/dsh-plugin-market@dist/dsh-index.json`） | 4,562 条 / 23 分类 | 每日 03:17Z 从上游 feed 自动重建索引 | ✅ 已含（2026-10-23 核验 `dsh-index.json` 7.72MB：`name=dsh-mcp-tools`、`versions[0]=1.0.2`、`source.type=npm`、`metadata.category=tools`） | https://realguan.github.io/dsh-plugin-market/ |
+| [vbarter/dsh-plugin-registry](https://github.com/vbarter/dsh-plugin-registry)（[dsplugin.app](https://dsplugin.app)） | 社区插件注册表 + 发布流程（`publish.html`） | 自动发现 + 站点数据快照 | ✅ 已含（`data/plugins.json` 25.4MB 内条目 `id: hxlog/dsh-mcp-tools`，含中英描述） | https://github.com/vbarter/dsh-plugin-registry/blob/main/data/plugins.json |
+| [hoyyang/dsh-market-index](https://github.com/hoyyang/dsh-market-index)（dsh-store 市场目录索引） | 可订阅索引 `registry.json`（29.3MB） | GitHub Actions 定时抓取 `#dsh-plugin` 全量仓库生成 | ✅ 已含（2026-10-23 抓 `registry.json` 检索到 `dsh-mcp-tools`） | https://raw.githubusercontent.com/hoyyang/dsh-market-index/main/registry.json |
+| [XingLingQAQ/dsh-plugin-registry](https://github.com/XingLingQAQ/dsh-plugin-registry) | 机器可读目录 `catalog.json`（451KB，每日刷新） | 自动抓取 | ✅ 已含（2026-10-23 抓 `catalog.json` 检索到 `dsh-mcp-tools`） | https://raw.githubusercontent.com/XingLingQAQ/dsh-plugin-registry/main/catalog.json |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -61,6 +64,7 @@
 | [DshHunt/community](https://github.com/DshHunt/community)（[dshhunt.com](https://dshhunt.com)） | 独立目录站（静态结构证据 + 社区投稿） | Issue [#4](https://github.com/DshHunt/community/issues/4)（plugin-submission 表单） | 🟡 待审（2026-10-23 提交） | 站点 `/plugins` 已上线但未含我们；投稿要求固定 commit SHA + 公开证据，已按表单字段提交（SHA `6cb6342`、bundle path `.`、npm `dsh-mcp-tools`、分类 developer-tools、MIT） |
 | [REALOIYO/dsh-plugin-market](https://github.com/REALOIYO/dsh-plugin-market) | 7,123 个插件 / 58,629 个版本 · 自建 format 1 索引 | Issue [#1](https://github.com/REALOIYO/dsh-plugin-market/issues/1)（召回缺口报告 + 建议补种子） | 🟡 待回复（2026-10-23 提交） | 索引源 `realoiyo.github.io/dsh-plugin-market/index.json`；每 6 小时重建（10-23T10:55Z success），但我们这个**声明了 `dsh.bundle` 且带 `dsh-plugin` 关键字**的包仍未被召回 → 判断为其切片式 npm 搜索召回缺口，建议把包名加进 `seeds/dsh-so.json` |
 | [dsh-pluginmarket/metadata](https://github.com/dsh-pluginmarket/metadata)（DSH Registry，站点 `dsh-pluginmarket.github.io/registry/`） | 82 条元数据 · plugin/skill/preset/theme 注册表 | Issue [#6809](https://github.com/dsh-pluginmarket/metadata/issues/6809) → 机器人自动开 PR [#6810](https://github.com/dsh-pluginmarket/metadata/pull/6810) | 🟡 待合并（2026-10-23 提交，issue→PR 全自动链路已跑通） | 投稿用 `Add:` issue 模板；Actions 校验后由 `issue-to-entry.mjs` 生成 `entries/github_hxlog_dsh-mcp-tools.json` 并开 PR，维护者合并即上架；已验证 workflow 两次 run 均 success、bot 已回「Metadata validated and a pull request was opened」 |
+| [majiayu000/dsh-plugin-registry](https://github.com/majiayu000/dsh-plugin-registry)（[plugin.dshdesk.com](https://plugin.dshdesk.com)，Harness Registry） | 可搜索注册表（`curated` + `manifest_verified` 双可信等级） | Issue [#88](https://github.com/majiayu000/dsh-plugin-registry/issues/88)（`[Plugin submission]` 模板） | 🟡 待审（2026-10-23 提交） | 其发现管道未收录我们（`public/data/registry-audit.json` 中连 `hxlog` 都没有），已附包/manifest/CI/固定 SHA 证据提交；其 `manifest_verified` 契约＝topic + 有效 `dsh.bundle` + patch 文件为顶层 YAML 数组，我方 `cordis.patch.yml` 已满足（顶层 `- insert:` 数组） |
 
 > **合并节奏观察（2026-10-23）**：dsh-plugin-radar 只合并 `app/github-actions` 机器人生成的快照 PR，人工提交的 PR（本仓库 #968）不会被合并，收录以它每日快照为准；dshworks 由维护者 lroolle 批量合并，最近一次合并 2026-10-19（本仓库 #184 已 CLEAN 等其下个批次）。
 
@@ -218,6 +222,27 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.29 2026-10-23 注册表/索引类渠道批量甄别：3 个已含 + 1 个漏收已报 + 契约核对
+
+**本轮以 `dsh registry in:name` / `dsh marketplace in:name` 批量扒出候选，逐个抓其数据文件核验**（不看首页，直接检索索引 JSON）：
+
+| 仓库/站点 | 性质 | 结果 |
+| --- | --- | --- |
+| [vbarter/dsh-plugin-registry](https://github.com/vbarter/dsh-plugin-registry)（dsplugin.app） | 社区注册表 + `publish.html` 发布流程 | ✅ **已含**：`data/plugins.json`（25.4MB）内有 `id: hxlog/dsh-mcp-tools`（含中英 description/icon） |
+| [hoyyang/dsh-market-index](https://github.com/hoyyang/dsh-market-index) | dsh-store 的市场目录索引（`registry.json` 29.3MB） | ✅ **已含**：定时抓 `#dsh-plugin` 全量仓库 |
+| [XingLingQAQ/dsh-plugin-registry](https://github.com/XingLingQAQ/dsh-plugin-registry) | 机器可读目录 `catalog.json`（451KB，每日刷新） | ✅ **已含** |
+| [majiayu000/dsh-plugin-registry](https://github.com/majiayu000/dsh-plugin-registry)（[plugin.dshdesk.com](https://plugin.dshdesk.com)） | Harness Registry：`curated`（人工精选）+ `manifest_verified`（topic 自动发现）双可信等级 | ❌ **漏收**，已投稿 |
+| automagik-dev/dsh-marketplace / ChasePassion / HYQL 等 0★ 仓库 | 自有插件索引或空壳 | ✗ 非公共目录，不计入 |
+
+**majiayu000（plugin.dshdesk.com）深挖结论**
+
+- 其治理文档（`docs/registry-governance.md`）写的自动收录契约是：**`dsh-plugin` topic + `package.json` 声明有效 `dsh.bundle` + `patch` 为单个安全相对路径或非空列表 + 每个被引用的 patch 文件必须存在且是顶层 YAML 数组**；
+- 我方仓库**完全满足**：`dsh.bundle.patch: ./cordis.patch.yml`，且 `cordis.patch.yml` 顶层就是数组（首行 `- insert:`，注释在数组项之前，YAML 仍解析为 list）；
+- 但抓 `public/data/registry-audit.json`（3.95MB）全文检索 **`hxlog` 0 命中** —— 说明不是被判 `pending_review`/`quarantined`，而是**发现管道根本没扫到**（覆盖率问题，非我方格式问题）；
+- 已按其 `plugin_submission.yml` 模板提交 [issue #88](https://github.com/majiayu000/dsh-plugin-registry/issues/88)（`[Plugin submission]: dsh-mcp-tools`，Request type = New plugin listing），附固定 SHA `6cb6342` 的源码/许可证/README/patch 链接、npm 1.0.2 与 DSH 0.2.1-rc.2 实机验证说明、CI 门禁说明。
+
+**方法论补充**：注册表类渠道的「收录契约」常写在 `docs/*governance*` 或 `CONTRIBUTING` 里，先读契约再投稿，能避免把「覆盖率漏抓」误判成「格式不合规」；本轮的契约核对证明我方格式本就合规，问题只在对方发现管道覆盖。
 
 ### 6.28 2026-10-23 新渠道：DSH Registry（dsh-pluginmarket/metadata）——issue 自动生成 PR
 
