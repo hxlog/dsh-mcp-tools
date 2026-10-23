@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 43 个市场 + 73 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 44 个市场 + 73 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1269,3 +1269,15 @@ render: wrote README.md + docs artifacts (20770 entries)
 **结论：不需要额外提交**。等 #949 合并后，HOL 会自动从该列表索引到我们（其站点即索引该 awesome 列表），届时成为第 44 个收录市场；在那之前它只能算「跟随 #949 的待生效项」。已把这条依赖关系记进 pending 清单（73）。
 
 **顺手排除**：`dshindex.dev`（标题「DeepSeek Harness Plugins (DSH) | DSH Index」，`lijma/dsh-plugin-marketplace` ★0、仓库 2026-08-15 后未再推送）——其 `/api/marketplace/v1/plugins` 的 snapshot 停在 **`date: 2026-09-04`**，口径写明「GitHub `dsh-plugin` topic universe, **ranked by most stars**、bounded to Top 1,000」，我们 2026-10-21 才建仓、3★，结构性不可能进榜；且已 7 周未更新 → 与 NanmiCoder/dshbase 同类，归入「停更/星标截断」，不追。
+
+### 6.70 2026-10-23 深夜：**mydsh.dev（`uluckystar/dsh-plugin-market`）已收录我们 → 第 44 个市场**（此前漏算）
+
+在按名字搜 `dsh market` 类仓库时发现 `uluckystar/dsh-plugin-market`（★3，README：在设置页浏览 **mydsh.dev 插件大全**，catalog 5,596 / 已核验可直接启用 3,656），其数据源是站点静态 JSON，而不是仓库内文件，所以之前的仓库内 grep 全部漏掉。
+
+**核验（2026-10-23 15:5xZ）**
+- 数据端点：`https://mydsh.dev/assets/plugins.json`（`total: 25,162`、`fetched: 1,069`）、`https://mydsh.dev/assets/catalog-index.json`（同源）
+- 我们的条目：`full_name: hxlog/dsh-mcp-tools`、`verified: "valid"`、`language: JavaScript`、`stars: 3`、`topics` 12 个（含 `mcp-manager` / `mcp-tools` / `dsh-plugin`）、`zh_desc` + `en_desc` 均自动生成、`updated_at: 2026-10-23T15:14:45Z`
+- 站点入口：`https://mydsh.dev/plugins.html`（分类浏览 / 本地搜索 / AI 搜索）；插件本体即 `uluckystar/dsh-plugin-market`，安装后直接在 DSH 设置页内浏览、安装、启停、卸载
+- 收录方式：**自动**（爬 `topic:dsh-plugin` + 校验「可直接启用」），无需提交；页面上另有 Turnstile 保护的「提交插件」通道，我们用不上
+
+**方法论补充（第二次踩到同一个坑）**：`dsh-plugin-market` 这类**站点型市场**，数据放在站点域名下（`/assets/*.json`）而不是仓库里；判断是否收录必须**先找前端代码里的 fetch 目标**（`grep '\.json' plugins.html` / 看 `<script>` 里的 `fetch(...)`），仓库内 grep 会系统性漏判。
