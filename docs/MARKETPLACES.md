@@ -1301,3 +1301,31 @@ render: wrote README.md + docs artifacts (20770 entries)
 **结论**：引用我们的仓库全部已在收录矩阵内（或已归类为非市场），无漏算；同时确认存在一个 ★9 竞品 `dsh-project-mcp-manager`，定位是「项目级 + 用户级两层 MCP 管理」——我们目前是「全局 + 设置页」路线，差异点应在 README 里保持清晰（已有：按需请求/测试/停用工具不进模型）。
 
 **顺手状态**：`dsh-ai.org` 提交仍 `queued`（13:45Z 提交，已 2h+，其队列疑似人工/夜间跑）；`YureWright/dsh-plgstore` Issue #1 仍无回复。
+
+### 6.72 2026-10-24 凌晨：给 dsh-go 收录核验做了个可复跑脚本（`scripts/verify-dsh-go.mjs`）
+
+dsh-go（`coeasy/dsh-go`，官方 DSH Go 市场）的 sync 是 cron `18 0/6/12/18 * * *` UTC（= 08:18 / 14:18 / 20:18 / 02:18 +08），每轮重扫 topic 并读 `dsh-package.json`（`observeDshManifest`）。我们首次被扫到是 **`first_seen 2026-10-23T11:38:52Z`**，当轮 `verified: false / manifest_file: null`；下一轮 sync（02:18 +08 之后）应翻成 `verified: true / manifest_file: "dsh-package.json"`。
+
+为了不再靠手翻 48MB JSON，加了脚本：
+
+```bash
+node scripts/verify-dsh-go.mjs          # 单次核验，0=已 verified / 1=尚未同步 / 2=网络或解析失败
+node scripts/verify-dsh-go.mjs --wait   # 60s 轮询、最多 15 分钟，适合挂在 sync 时间点后盯
+# 也可 npm run verify:dsh-go
+```
+
+输出示例（当前，sync 前）：
+```
+dsh-go 官方目录核验
+  catalog 最近同步 : 2026-10-23T11:39:16.243Z（scanned 1310 / included 1000，共 22435 条）
+  slug            : dsh-mcp-tools
+  full_name       : hxlog/dsh-mcp-tools
+  first_seen      : 2026-10-23T11:38:52.710Z
+  stars / license : 3 / MIT
+  verified        : false ⏳
+  manifest_file   : null ⏳
+  package_version : null
+  ⏳ 尚未翻 verified：等 dsh-go 下一轮 sync（cron 18 0/6/12/18 UTC = 08:18/14:18/20:18/02:18 +08）后再跑一次
+```
+
+脚本同时核对 `catalog/meta.json` 的 `last_sync`，避免把「sync 还没跑」误判成「manifest 不合格」。

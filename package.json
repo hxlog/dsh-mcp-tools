@@ -46,7 +46,8 @@
   "scripts": {
     "test": "node scripts/smoke.mjs",
     "selftest": "node scripts/selftest.mjs",
-    "ci-check": "node scripts/ci-check.mjs"
+    "ci-check": "node scripts/ci-check.mjs",
+    "verify:dsh-go": "node scripts/verify-dsh-go.mjs"
   },
   "license": "MIT",
   "author": "Xingyu Liu <xingyuliu@outlook.sg>",
