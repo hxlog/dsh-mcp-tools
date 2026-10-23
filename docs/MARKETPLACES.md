@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 35 个市场 + 59 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 35 个市场 + 60 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -73,6 +73,7 @@
 | [DshHunt/community](https://github.com/DshHunt/community)（[dshhunt.com](https://dshhunt.com)） | 独立目录站（静态结构证据 + 社区投稿） | Issue [#4](https://github.com/DshHunt/community/issues/4)（plugin-submission 表单） | 🟡 待审（2026-10-23 提交） | 站点 `/plugins` 已上线但未含我们；投稿要求固定 commit SHA + 公开证据，已按表单字段提交（SHA `6cb6342`、bundle path `.`、npm `dsh-mcp-tools`、分类 developer-tools、MIT） |
 | [REALOIYO/dsh-plugin-market](https://github.com/REALOIYO/dsh-plugin-market) | 7,123 个插件 / 58,629 个版本 · 自建 format 1 索引 | Issue [#1](https://github.com/REALOIYO/dsh-plugin-market/issues/1)（召回缺口报告 + 建议补种子） | 🟡 待回复（2026-10-23 提交） | 索引源 `realoiyo.github.io/dsh-plugin-market/index.json`；每 6 小时重建（10-23T10:55Z success），但我们这个**声明了 `dsh.bundle` 且带 `dsh-plugin` 关键字**的包仍未被召回 → 判断为其切片式 npm 搜索召回缺口，建议把包名加进 `seeds/dsh-so.json` |
 | [dsh-pluginmarket/metadata](https://github.com/dsh-pluginmarket/metadata)（DSH Registry，站点 `dsh-pluginmarket.github.io/registry/`） | 82 条元数据 · plugin/skill/preset/theme 注册表 | Issue [#6809](https://github.com/dsh-pluginmarket/metadata/issues/6809) → 机器人自动开 PR [#6810](https://github.com/dsh-pluginmarket/metadata/pull/6810) | 🟡 待合并（2026-10-23 提交，issue→PR 全自动链路已跑通） | 投稿用 `Add:` issue 模板；Actions 校验后由 `issue-to-entry.mjs` 生成 `entries/github_hxlog_dsh-mcp-tools.json` 并开 PR，维护者合并即上架；已验证 workflow 两次 run 均 success、bot 已回「Metadata validated and a pull request was opened」 |
+| [hashgraph-online/awesome-ai-plugins](https://github.com/hashgraph-online/awesome-ai-plugins)（[hol.org/registry/plugins](https://hol.org/registry/plugins)） | 837★ / 跨客户端 AI 插件目录（Codex / Claude Code / Gemini CLI / DSH / Cursor …），含 **DeepSeek Harness Plugins** 分区；每条自动进 HOL Plugin Registry 并跑 HAL 扫描打分 | 单行 PR（README 分区内按字母序，`- [Name](repo) - 一句描述`）；CI 三道：alphabetical、validate-contribution（格式+仓库可达）、validate-plugins（离线生成器）；**`pull_request_target` Sweep 还会对源仓库跑既有 scanner，要求 score ≥ 80 才能过 gate** | 🟢 [PR #949](https://github.com/hashgraph-online/awesome-ai-plugins/pull/949) 已开：alphabetical 通过、`Open Plugin Contribution Gate` **success**、`Scan PR (949…): success`；**scanner score 初始 79 未达 80，已在源仓库修完 5 条 findings（pin actions / SECURITY.md / dependabot / lockfile）→ 复扫 100 分 0 findings** | 等 maintainer 合并；合并后自动进 README 列表与 HOL Registry |
 | [majiayu000/dsh-plugin-registry](https://github.com/majiayu000/dsh-plugin-registry)（[plugin.dshdesk.com](https://plugin.dshdesk.com)，Harness Registry） | 可搜索注册表（`curated` + `manifest_verified` 双可信等级） | Issue [#88](https://github.com/majiayu000/dsh-plugin-registry/issues/88)（`[Plugin submission]` 模板） | 🟡 待审（2026-10-23 提交） | 其发现管道未收录我们（`public/data/registry-audit.json` 中连 `hxlog` 都没有），已附包/manifest/CI/固定 SHA 证据提交；其 `manifest_verified` 契约＝topic + 有效 `dsh.bundle` + patch 文件为顶层 YAML 数组，我方 `cordis.patch.yml` 已满足（顶层 `- insert:` 数组） |
 | [tuofangzhe/dsh-plugins](https://github.com/tuofangzhe/dsh-plugins)（[52dsh.com/plugins](https://52dsh.com/plugins)） | 社区插件注册表（`registry/<owner>/*.yaml` + `candidates/discovered.json`） | Issue [#15](https://github.com/tuofangzhe/dsh-plugins/issues/15)（`[Plugin submission]` 模板：固定 40 位 commit + SPDX + 权限/数据流） | 🟡 待审（2026-10-23 提交） | 其 `candidates/discovered.json`（643KB）里没有我们 → 未被发现；已在 issue 内逐项写明文件/命令/网络端点/凭据/会话数据影响面 |
 | [TYEclipse/dsh-plugins-hub](https://github.com/TYEclipse/dsh-plugins-hub) | 独立插件目录（README 精选表：install/status/security/trial/checked-at/commit） | Issue [#65](https://github.com/TYEclipse/dsh-plugins-hub/issues/65)（`[Plugin Submission]` 模板） | 🟡 待审（2026-10-23 提交） | 其流水线对每个投稿做隔离环境验证：安全审查 → 安装 → **一次真实端到端工具调用**，再进目录表 |
@@ -233,6 +234,24 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.52 2026-10-23 hashgraph `awesome-ai-plugins`：scanner score ≥80 是硬门槛，79→100 的修法（可直接复用到其它 scanner 闸门）
+
+[hashgraph-online/awesome-ai-plugins](https://github.com/hashgraph-online/awesome-ai-plugins)（837★）是跨客户端 AI 插件大目录（Codex/Claude Code/Gemini CLI/**DSH**/Cursor…），含独立 `## DeepSeek Harness Plugins` 分区（19 条），入口规则极简：README 对应分区按字母序加一行 `- [Name](repo) - 一句描述`，PR 说明来源仓库；列表背后[每条会自动进 HOL Plugin Registry](https://hol.org/registry/plugins) 跑 `plugin-scanner` 打分。
+
+**CI 结构（三道 + 一道隐藏闸）**：`Alphabetical Order Check`（按 ## 分区、大小写不敏感、支持 `<!-- pinned -->` 跳过）；`Validate Plugin Contributions`（`scripts/validate-contribution.py`：只校验新增条目格式 `- [Name](https://github.com/owner/repo) - desc` + 源仓库可达 + 扫描可选 CI，告警不阻断）；`Validate marketplace artifacts`（离线跑 `generate_plugins_json.py`）；**`Sweep Open Plugin Contributions`（`pull_request_target`）会对所有 open PR 的源仓库 clone 后跑 `hashgraph-online/ai-plugin-scanner-action`，低于 80 分直接 gate 失败并阻断合并**。
+
+**我们的两道门槛与修复**：PR [#949](https://github.com/hashgraph-online/awesome-ai-plugins/pull/949) 首轮 `Scan PR (949, hxlog, dsh-mcp-tools): failure`——artifact `scan-findings-pr-949-…/findings.json` 显示 **score 79**（阈值 80），5 条 findings：`GITHUB_ACTION_UNPINNED`×2（ci.yml 用了 `actions/checkout@v4`/`setup-node@v4` 浮动 tag）、`DEPENDENCY_LOCKFILE_MISSING`（package.json 存在但无 lockfile）、`SECURITY_MD_MISSING`、`DEPENDABOT_MISSING`。
+
+**源仓库修复（提交 `93981f0` + `7a4950e`）**：
+1. GitHub Actions 全部 pin 到 commit SHA（`checkout@11d5960a…# v4.4.0`、`setup-node@49933ea5…# v4.4.0`）；
+2. 新增 `SECURITY.md`（支持版本、GitHub Security Advisories 私密报告、威胁模型：state.json 等同凭据、MCP server 为不可信输入、无第三方运行时依赖/无 lifecycle scripts）；
+3. 新增 `.github/dependabot.yml`（github-actions + npm 每周，actions 分组）；
+4. `npm install --package-lock-only` 生成 `package-lock.json`（零依赖，仅根包）。
+
+**复扫结果**：推一个 `ci: retrigger` 空提交触发 `synchronize` → `Sweep` 变 **success**，artifact 复扫 `score=100, findings=0`；PR #949 五道 check 全绿（`Validate open contribution requirements`、`Open Plugin Contribution Gate`、`Scan PR (949…)` 等）。经验：**scanner 闸门失败时先下 artifact 看 `score/findings`，按 ruleId 逐个修源仓库**，比反复改 PR 有效得多；这套修法对任何用 `ai-plugin-scanner` 的列表/市场都通用。
+
+**待办**：等 maintainer 合并（`pull_request` 那几条显示 `action_required` 是 fork 首贡献者的 workflow 审批门，非失败；`pull_request_target` 的 gate 已通过）。合并后条目进 README + 自动进 HOL Registry，可计入收录（pending #60）。
 
 ### 6.51 2026-10-23 DSH Registry（dsh-pluginmarket）：Issue→自动 PR→合并即发布，我们的 PR #6812 已过校验
 
