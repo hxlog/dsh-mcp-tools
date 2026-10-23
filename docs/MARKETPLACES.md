@@ -1665,3 +1665,12 @@ capabilities    : mcp.server-management, mcp.tool-toggle, settings.panel, connec
 **详情页：https://dshmk.com/plugins/1427825895** （HTTP 200，74KB，含本插件卡片）
 
 **顺带把脚本站稳**：`scripts/verify-listings.mjs` 轻量组新增 `dshmk.com 插件详情页` → 轻量 **22/22 ✅**、全量 **32/32 ✅**（本轮实跑）。已回帖 [issue #13](https://github.com/ZASENJC/dsh-plugins-store/issues/13) 报结果并道谢。
+
+### 6.90 ⚠️ 仓库主人已从 README 删除「收录渠道」整节（commit `95ab65a`）——后续不要在 README 里加回
+
+2026-10-24 00:51 +08，仓库 owner 直接推送 **`95ab65a` "Remove plugin marketplace listing from README"**，删掉 `README.md` 里 39 行的 `## 🌐 收录渠道` 小节（含「48 个可复核平台」清单与 verify 命令说明）。
+
+**结论与纪律**：
+- **不要**再往 `README.md` / `README.en.md` 加收录清单或 `verify:listings` 的计数说明；收录状态只维护在 `docs/MARKETPLACES.md`（本文件）与 `docs/PR-STATUS.md`
+- 本轮 rebase 已按上游版本解决冲突（README 取上游、只保留 docs 与脚本改动），最终推送 `445ebd2`
+- 如果以后要给用户看收录情况，指向 `docs/MARKETPLACES.md`，不要改 README
