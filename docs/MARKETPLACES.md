@@ -135,3 +135,16 @@
 | `dshhub-market`（dshhub.co，口令制） | 自有口令库 | ⚪ 不同分发模型，不适用 |
 
 | [dshplugin/dsh-plugin-hub](https://github.com/dshplugin/dsh-plugin-hub)（dsh-plugin.org，318★） | 目录 4,597 条（v2.0+ 只展示 **npm 一键可装** 的插件） | 人工 Issue 提交（`[插件提交]` 模板） | ✅ 已收录：Issue **#391 CLOSED**；本插件已发布 npm `dsh-mcp-tools@1.0.2`，符合「npm 可装」门槛 | https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools |
+
+### 6.1 2026-10-23 下游索引覆盖审计（代码/数据实测）
+
+| 索引源 | 规模 | 我们是否在库 | 机制与结论 |
+| --- | --- | --- | --- |
+| `zhushaochun/dsh-plugin-index` | 2,428 条 | ✅ 已含 | 由 awesome 系 feed 生成，无需提交 |
+| `xiaojiu190918/dsh-plugin-index` | corpus 2.3MB | ✅ 已含 | 按 npm keywords（`dsh-plugin` / `deepseek-harness` / `dsh`）发现 |
+| `TheYoungChen/dsh-plugin-market`（4★） | 3,562 条 | ❌ | 按 star 分区抓 topic；`stars:0..4` 区间实际约 1.9 万仓库，远超其每区间 1,000 条上限 → 2★ 仓库结构性抓不到（**非提交问题，勿浪费 PR**） |
+| `Luaphes/dsh-plugins-market`（3★） | 日快照 | ❌ | 仅抓 topic **top ~500 by stars**，无提交入口 |
+| `chnjames/dsh-plugin-market`（7★） | 公开目录站 | ❌ | 同上，star 门槛 |
+| `inowness/dsh-plugin-index` | 15 条 | ❌ | 只收录官方 `@deepseek-ai` 发布包，非社区插件 |
+
+结论：下游自动索引里，**凡是按 feed 或 npm keywords 取数的都已收录我们**；未收录的都是 star 门槛型（需先把 star 做上去），没有可提交的入口。
