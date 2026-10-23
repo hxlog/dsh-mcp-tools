@@ -132,3 +132,5 @@
 | `dsh-find-plugin`（204★） | awesome-dsh-plugin 索引 | ✅ 随 catalog |
 | `@linxin666/dsh-client-ui-market` | dsh-market.com + 本地 | ✅ 随 catalog |
 | `dshhub-market`（dshhub.co，口令制） | 自有口令库 | ⚪ 不同分发模型，不适用 |
+
+| [dshplugin/dsh-plugin-hub](https://github.com/dshplugin/dsh-plugin-hub)（dsh-plugin.org，318★） | 目录 4,597 条（v2.0+ 只展示 **npm 一键可装** 的插件） | 人工 Issue 提交（`[插件提交]` 模板） | ✅ 已收录：Issue **#391 CLOSED**；本插件已发布 npm `dsh-mcp-tools@1.0.2`，符合「npm 可装」门槛 | https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools |
