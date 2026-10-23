@@ -107,7 +107,7 @@
 | dshmk.com API | 30 分钟 | 已收录 |
 | dsh-plugin-radar 快照 | 每日 02:00 | PR 合并或下一次扫描 |
 | 0xsline CATALOG（topic） | 每次快照生成 | 下一轮 · **lint 基线相同**（2026-10-23 本地复跑 workflow 同命令）：`main` 与 PR 分支均 exit 1 / **21 个相同 issue**，本 PR 新增 0 个；维护者 2026-10-16 后未再处理 PR（仓库现有 22 个 PR 全部 `action_required`） |
-| dsh-plugin.org | 每周/按审核队列 | Issue 处理前后 |
+| dsh-plugin.org | 每周/按审核队列 | Issue 处理前后 · 页面已上线并带 **Verified** 徽章：`https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools`（`Listed on 2026-10-21`，索引共 16,498 仓库） |
 
 ## 六、后续动作
 
@@ -153,6 +153,10 @@
 ### 6.4 上游 feed 条目已落地（2026-10-23 核验）
 
 canonical feed 仓库 `awesome-dsh-plugin/awesome-dsh-plugin`（20.3k★）已生成我们的条目：`data/plugins/hxlog__dsh-mcp-tools.yml`（`name: hxlog/dsh-mcp-tools`，`category: tools`，中英描述齐全，`url` 指向仓库）。这条是绝大多数下游市场（dshmarket / @99galaxy / dsh-find-plugin / dsh.so / 多个 format-1 索引）的**唯一上游**，条目存在即代表下游可继承；`data/added-dates.json` 只记近期新增、不含我们属正常（我们发布时间早于该文件的滚动窗口）。
+
+### 6.6 2026-10-23 PR 正文自检
+
+18 个 open PR 的正文全部包含 dsh 徽章（`powered_by-dsh`），长度 636–1,679 字符，无空正文。
 
 ### 6.5 2026-10-23 全量 PR 可合并性复核（18 个 open PR）
 
