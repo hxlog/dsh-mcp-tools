@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 44 个市场 + 73 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 45 个市场 + 74 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1360,3 +1360,29 @@ node scripts/verify-listings.mjs --json  # 机器可读输出（CI/审计用）
 覆盖的市场（按脚本顺序）：awesome 详情/canonical、dsh-plugin.org、dsh.so、dsh-plugin.store、dshfind、dshpluginhub.ai、dshhub.org、dshhub.co、dsh.pub、dsh-plugins-mp、unStone、linny006、mydsh.dev、dshmarketplace.dev、deepseekplugin.org、XingLingQAQ、dshopen、dshmarket.com、npm dsh-plugin-catalog、hoyyang、vbarter、ukinch605、realguan、dsh-go。
 
 这套脚本也是「目标达成度」的机器判据之一：只要它保持绿色，说明这些市场**此刻**确实收录着我们；若某项转红，先按 §6.68 的三个假阴性陷阱排查再下结论。
+
+### 6.75 2026-10-24 凌晨：换搜索维度又挖到 2 个（第 45 个市场在架 + 1 条新 PR 通道），并排除 3 个假市场
+
+之前一直是「按仓库名 / topic / npm 关键词」找市场；这轮换用 **`in:description`**（`"deepseek harness" in:description pushed:>2026-10-20` 两页共 216 个仓库，筛出 39 个 market-ish），立刻捞到此前完全没出现在视野里的两个：
+
+**① 第 45 个市场：`xrj/dsh-market-site` → https://dsh-market.pages.dev/（DSH 插件集市）**
+- 站点标题「DSH 插件集市 | DeepSeek Harness 非官方插件集市」，Cloudflare Pages 静态站，仓库 `xrj/dsh-market-site`（★1）
+- 数据端点 `https://dsh-market.pages.dev/data.json`（**14.25MB / 18,603 条**）含我们：`name: dsh-mcp-tools`、`fullName: hxlog/dsh-mcp-tools`、topics 12 个、license MIT、`slug: 1427825895`（该快照里 stars 还是 2，说明是若干天前的抓取）
+- 收录方式：自动（爬 `topic:dsh-plugin`）；详情页是 SPA（路由一律返回 5.3KB 壳），**证据只看 data.json**
+- 已加入 `scripts/verify-listings.mjs` 全量集
+
+**② 新 PR 通道：`Britneycode/dsh-update-center`（★2）→ 已开 PR #3**
+- 它是「DSH 本地更新中心 + 内置插件市场」，注册表读本仓库 `plugins.json`（998 条，日更自动刷新）；扫描窗口是 `topic:dsh-plugin` **星标前 500**，我们 3★ 进不去
+- 但 README 明确写了后门：**`data/extra-plugins.json` 是常驻条目，「加载时无条件合并，保证 0 星新插件始终可见」**，且刷新脚本把该文件读入 `pinnedRepos` **原样重写**（不会被每日自动刷新冲掉）
+- 按此开 PR：[Britneycode/dsh-update-center#3](https://github.com/Britneycode/dsh-update-center/pull/3)（`data/extra-plugins.json` +15 行，3→4 条）
+- 格式对齐细节：`githubRepoToEntry()` 转换后 `category` 由关键词决定；初版描述含 `server` / `test` 命中了 **dev** 规则（规则顺序里 dev 在 tools 之前），改写为「connect streamable-HTTP or stdio MCP **endpoints**… **probe** connectivity…」后落到 **`tools`（Tools & Capabilities）**；`install` 自动生成 `dsh plugin --profile web add github:hxlog/dsh-mcp-tools`，npm 映射等下次 refresh 自动补
+- 本地验证：JSON 合法、`node --test tests/github-topic.test.mjs` **7/7 pass**
+
+**③ 排除的 3 个（不是真市场 / 结构性进不去）**
+| 仓库 | 结论 |
+| --- | --- |
+| `tanle-mtr/dsh-plogin-plugin-recommender`（★2，200 条 AI 策展清单） | 每小时 Actions 用 7 个搜索词各取 **stars 排序 top-50** 重建 `plugins.json` → 3★ 结构性进不去；手工 issue 建议也会被下一轮覆盖，不追 |
+| `439436269-ctrl/dsh-preview-market`（★0） | 只收 **预览渲染类**插件（media/blender/stl），明确声明「not a general plugin market」 |
+| `crane-you/dsh-plugin-index`、`TuWeiZhi`、`gitMFQ`、`zhchzh11-tech` 等 format-1 索引 | 自动派生/个人索引，非独立市场（按 §6.64 口径不计） |
+
+**方法论更新**：找市场别只看名字——`in:description` 能捞到站点名与仓库名完全不同名的项目（`dsh-market-site` 就是这么来的）；判定收录则必须打到**站点自己的数据端点**（§6.70 / §6.74 同样的坑）。
