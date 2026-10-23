@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 37 个市场 + 61 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 37 个市场 + 62 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -77,6 +77,7 @@
 | [dsh-pluginmarket/metadata](https://github.com/dsh-pluginmarket/metadata)（DSH Registry，站点 `dsh-pluginmarket.github.io/registry/`） | 82 条元数据 · plugin/skill/preset/theme 注册表 | Issue [#6809](https://github.com/dsh-pluginmarket/metadata/issues/6809) → 机器人自动开 PR [#6810](https://github.com/dsh-pluginmarket/metadata/pull/6810) | 🟡 待合并（2026-10-23 提交，issue→PR 全自动链路已跑通） | 投稿用 `Add:` issue 模板；Actions 校验后由 `issue-to-entry.mjs` 生成 `entries/github_hxlog_dsh-mcp-tools.json` 并开 PR，维护者合并即上架；已验证 workflow 两次 run 均 success、bot 已回「Metadata validated and a pull request was opened」 |
 | [hashgraph-online/awesome-ai-plugins](https://github.com/hashgraph-online/awesome-ai-plugins)（[hol.org/registry/plugins](https://hol.org/registry/plugins)） | 837★ / 跨客户端 AI 插件目录（Codex / Claude Code / Gemini CLI / DSH / Cursor …），含 **DeepSeek Harness Plugins** 分区；每条自动进 HOL Plugin Registry 并跑 HAL 扫描打分 | 单行 PR（README 分区内按字母序，`- [Name](repo) - 一句描述`）；CI 三道：alphabetical、validate-contribution（格式+仓库可达）、validate-plugins（离线生成器）；**`pull_request_target` Sweep 还会对源仓库跑既有 scanner，要求 score ≥ 80 才能过 gate** | 🟢 [PR #949](https://github.com/hashgraph-online/awesome-ai-plugins/pull/949) 已开：alphabetical 通过、`Open Plugin Contribution Gate` **success**、`Scan PR (949…): success`；**scanner score 初始 79 未达 80，已在源仓库修完 5 条 findings（pin actions / SECURITY.md / dependabot / lockfile）→ 复扫 100 分 0 findings** | 等 maintainer 合并；合并后自动进 README 列表与 HOL Registry |
 | [fjzzwxp/awesome-dsh-plugins](https://github.com/fjzzwxp/awesome-dsh-plugins)（[awesome-dsh-plugins.vercel.app](https://awesome-dsh-plugins.vercel.app)） | 1★ · 自动采集 + 人工策展 list（`data/plugins/` 每插件一个 YAML，689 条），Vercel 站点；README 由脚本生成 | 加 `data/plugins/<owner>__<repo>.yml`（`url`/`name`/`category`/`description.en`）+ `npm run generate` 重生成两个 README，同 PR 提交；CI：`check-submission.mjs`（本地+远程仓库存在/未归档/年龄≥1 天）、`npm run check` | 🟢 [PR #2](https://github.com/fjzzwxp/awesome-dsh-plugins/pull/2) 已开：本地校验 689 entries 通过、`npm run check` exit 0、README 两行 +1 | 等 maintainer 合并 |
+| [tanle-mtr/dsh-plogin-plugin-recommender](https://github.com/tanle-mtr/dsh-plogin-plugin-recommender) | 2★ · AI 策展 DSH 插件清单（`plugins.json` 约 12 万字节），按「智能度」分类、每小时更新；README 91KB | README 明确「Open an Issue — suggest a plugin」，无固定模板 | 🟡 [Issue #1](https://github.com/tanle-mtr/dsh-plogin-plugin-recommender/issues/1) 已提（标题 `[Plugin] Add hxlog/dsh-mcp-tools…`） | 等维护者处理 |
 | [majiayu000/dsh-plugin-registry](https://github.com/majiayu000/dsh-plugin-registry)（[plugin.dshdesk.com](https://plugin.dshdesk.com)，Harness Registry） | 可搜索注册表（`curated` + `manifest_verified` 双可信等级） | Issue [#88](https://github.com/majiayu000/dsh-plugin-registry/issues/88)（`[Plugin submission]` 模板） | 🟡 待审（2026-10-23 提交） | 其发现管道未收录我们（`public/data/registry-audit.json` 中连 `hxlog` 都没有），已附包/manifest/CI/固定 SHA 证据提交；其 `manifest_verified` 契约＝topic + 有效 `dsh.bundle` + patch 文件为顶层 YAML 数组，我方 `cordis.patch.yml` 已满足（顶层 `- insert:` 数组） |
 | [tuofangzhe/dsh-plugins](https://github.com/tuofangzhe/dsh-plugins)（[52dsh.com/plugins](https://52dsh.com/plugins)） | 社区插件注册表（`registry/<owner>/*.yaml` + `candidates/discovered.json`） | Issue [#15](https://github.com/tuofangzhe/dsh-plugins/issues/15)（`[Plugin submission]` 模板：固定 40 位 commit + SPDX + 权限/数据流） | 🟡 待审（2026-10-23 提交） | 其 `candidates/discovered.json`（643KB）里没有我们 → 未被发现；已在 issue 内逐项写明文件/命令/网络端点/凭据/会话数据影响面 |
 | [TYEclipse/dsh-plugins-hub](https://github.com/TYEclipse/dsh-plugins-hub) | 独立插件目录（README 精选表：install/status/security/trial/checked-at/commit） | Issue [#65](https://github.com/TYEclipse/dsh-plugins-hub/issues/65)（`[Plugin Submission]` 模板） | 🟡 待审（2026-10-23 提交） | 其流水线对每个投稿做隔离环境验证：安全审查 → 安装 → **一次真实端到端工具调用**，再进目录表 |
@@ -248,6 +249,8 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 - **`dsh-plugin/dsh-plugin.github.io`**（★2，<https://dsh-plugin.github.io/>，标题「DSH 创意工坊」）：`data/plugins.json`（约 40 万字节）不含我们；站点由 `sync-plugins.yml` 从 topic 抓取，可能有过滤或滞后，暂不计入。
 - **`Wenston-dev/awesome-dsh-plugin`**（★3，自动聚合 `data/repositories.json` 7.6MB）：`data/last.json` 不含我们（可能按 star/活跃度截断），暂不计入。
 - **`tanle-mtr/dsh-plogin-plugin-recommender`**（★2，AI 策展 `plugins.json`）：不含我们（AI 精选子集），暂不计入。
+
+**另**：`tanle-mtr/dsh-plogin-plugin-recommender`（★2，AI 策展、每小时更新）README 提供 Issue 投稿通道，已开 [Issue #1](https://github.com/tanle-mtr/dsh-plogin-plugin-recommender/issues/1) 提议收录（pending）。
 
 **经验**：自动目录基本按 `topic:dsh-plugin` + star 热度截断，3★ 项目在大型榜单里天然吃亏；要进这类榜单要么涨 star，要么走「每插件 YAML/单行 PR」型策展 list（如 fjzzwxp、hashgraph）。计数更新为 **37 收录 / 61 待审**。
 
