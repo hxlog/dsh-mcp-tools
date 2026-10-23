@@ -7,6 +7,7 @@
 | 市场 | 规模 | 收录方式 | 状态 | 链接 |
 | --- | --- | --- | --- | --- |
 | [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) | 20k★ | 人工 PR | ✅ 已合并（PR #8407，2026-10-22） | https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/ |
+| [Werewolf-Wu/awesome-dsh-plugin-status](https://github.com/Werewolf-Wu/awesome-dsh-plugin-status) | 每日中文镜像（带仓库状态徽章，0★/2026-10-23 起） | 自动镜像 awesome-dsh-plugin 列表 | ✅ 已含（GitHub code search 命中本插件名） | https://github.com/Werewolf-Wu/awesome-dsh-plugin-status |
 | [dsh-plugin-catalog](https://www.npmjs.com/package/dsh-plugin-catalog)（npm 目录包） | 3.2k 条 | 随主市场上游自动生成 | ✅ 每日构建含本插件（2026-10-23 构建 `2026.1023.9552`，plugins.json 7.47MB 已核验） | https://unpkg.com/dsh-plugin-catalog/index.json |
 | [bradeGithub/DSH-Plugins-Marketplace](https://github.com/bradeGithub/DSH-Plugins-Marketplace) | 188★ / 19.6k 仓库 | GitHub topic 自动索引（2h） | ✅ registry.json 已含 | https://github.com/bradeGithub/DSH-Plugins-Marketplace |
 | [ZASENJC/dsh-plugins-store](https://github.com/ZASENJC/dsh-plugins-store)（dshmk.com） | 72★ / 2500 验证 | 服务端自动采集 + 沙箱验证 | 🟡 待复核：2026-10-23 实测 `catalog.json`（9.4MB）未含本插件，已提交 issue #13 请求重新采集/验证 | https://dshmk.com |
