@@ -139,10 +139,11 @@ mklink /J "C:\Users\<you>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 
 ## 🌐 Where it is listed
 
-This plugin is listed in several DSH plugin marketplaces and directories (13 verifiable platforms as of 2026-10-23):
+This plugin is listed in several DSH plugin marketplaces and directories (14 verifiable platforms as of 2026-10-23):
 
 - [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/) (20k★ community list)
 - [dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop) (656★, 18,000+ plugins, refreshed daily)
+- [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness) (397★ curated list, MCP Servers section)
 - [dsh-plugin.org](https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools) (310★ community plugin hub, live detail page)
 - [dsh.market](https://dsh.market) (168★, 6000+ plugin directory)
 - [dsh.so](https://www.dsh.so/artifact/dsh-mcp-tools/) (21,000+ plugin verified registry)
