@@ -116,4 +116,19 @@
 3. 待 star > 10 后提交 bruc3van SHOWCASE.md。
 4. 如需把这些收录徽章同步到 npm 页面，需要发一个新版本（README 改动才会进 npm 包）。
 
+## 六、下游市场插件（随 feed / topic 自动覆盖，无需提交）
 
+这些 npm 包把「插件市场」做进 DSH 设置页，数据源都是 awesome-dsh-plugin feed、GitHub `dsh-plugin` topic 或本目录源，因此**本插件出现在 feed/topic 即自动可搜到**：
+
+| 包 | 数据源 | 覆盖状态 |
+| --- | --- | --- |
+| `dshmarket`（dsh-market/dsh-market，8.4k★） | awesome-dsh-plugin catalog | ✅ `/browse/` 已含（见上表） |
+| `@dsh-market/plugin` + `dsh-market-plus` | 同上（dsh-market.com 品牌） | ✅ 随 catalog |
+| `dsh-plugin-marketplace`（YELEBAI） | 自主 registry（topic 扫描） | ✅ verified（见上表） |
+| `@99galaxy/dsh-plugin-market` | 浏览 awesome-dsh-plugin 目录 | ✅ 随 catalog |
+| `@1e0zj/dsh-plugin-mall` | 实时搜 GitHub `dsh-plugin` topic | ✅ 随 topic |
+| `dsh-plugin-console`（AlexYin-Tongji） | 可配置 catalog sourceUrl（默认社区目录） | ✅ 随 catalog |
+| `safer-dsh-market`（bruc3van） | bruc3van 自家 feed | 🟡 随 bruc3van market 渲染 |
+| `dsh-find-plugin`（204★） | awesome-dsh-plugin 索引 | ✅ 随 catalog |
+| `@linxin666/dsh-client-ui-market` | dsh-market.com + 本地 | ✅ 随 catalog |
+| `dshhub-market`（dshhub.co，口令制） | 自有口令库 | ⚪ 不同分发模型，不适用 |
