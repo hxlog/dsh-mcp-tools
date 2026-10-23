@@ -227,6 +227,29 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.34 2026-10-23 从 DSH 源码确认兼容判定语义：**不要**给 manifest 加 `engines.dsh` / dsh peerDependencies
+
+多个市场（REALOIYO、corvus5536 的 compat 索引、dsh-plugins-mp.com 的 `dsh` 标记等）会从 manifest 推断「支持哪些 DSH 版本」，社区里也有插件用 `engines.dsh` 或 peerDependencies 声明。因此需要先弄清 **DSH 官方插件管理器到底怎么判**，再决定我们的 manifest 要不要加标记。
+
+**证据**（本机 DSH 运行时源码，Electron asar 内）：`…\resources\app.asar\dsh\node_modules\@deepseek-ai\dsh-app-boot\lib\index.js` → `//#region lib/types/plugin-compatibility.js`，函数 `unmetRequirements()` 的逻辑：
+
+```js
+// 1) 有 engines.dsh → 只认它（peerDependencies 被忽略）
+if (Object.hasOwn(engines, "dsh")) return satisfies(runtimeVersion, engines.dsh) ? {} : { "engines.dsh": range };
+// 2) 没有 engines.dsh → 只看 @deepseek-ai/dsh 与 @deepseek-ai/dsh-* 的 peer 范围
+if (!Object.hasOwn(fields, "peerDependencies")) return {};   // 3) 两者都没有 → 无要求
+```
+
+`evaluatePluginCompatibility()` 在 requirements 为空时直接返回 `undefined`（即**视为兼容、不告警**）；一旦有未满足的要求，则生成 `pluginCompatibilityWarning`，安装会以 `incompatible-version` 被拒，只能靠精确版本豁免（`dsh plugin allow-version`）绕过。源码注释原话：*"An own `engines.dsh` range decides alone and peerDependencies are ignored; otherwise every @deepseek-ai/dsh or @deepseek-ai/dsh-* peer must match."*
+
+**结论（刻意不采纳社区建议）**：
+
+- 我们**不声明** `engines.dsh`，**不声明** `@deepseek-ai/dsh*` 的 peerDependencies —— 于是 DSH 判定为「无要求 → 兼容」，在任意 0.2.x 运行时都能装、不触发豁免流程；
+- 若照某些索引要求的写法声明一个具体范围，等于给所有用户的安装加一道**硬闸**（不匹配就装不上），风险远大于「兼容性索引里显示 unknown」的收益；
+- 我们的兼容性事实改用**可复核的证据**表达：CI 在 Node 22.x 跑 `node scripts/ci-check.mjs` + `npm test`（10/10）+ `npm pack` 内容断言；PR 里则以「在 DSH 0.2.1-rc.2 的 web profile 实机通过 `dsh plugin --profile web add github:hxlog/dsh-mcp-tools`」为证。
+
+这条也解释了第三方索引的一些「看起来像缺陷」的字段：dsh-plugins-mp.com 给我们 `dsh:false`、`latestVersion:null`，是它自己的推断/缓存，不是我们的 manifest 不合规；DSH 原生安装流程与它无关。
+
 ### 6.33 2026-10-23 npm 包反查第二波：dsh-plugins-mp.com（第 28 个市场）+ dshindex.dev 已停更
 
 **方法复述**：批量搜 npm 里「market/registry/catalog/directory」类包 → 下 tarball → gunzip 后正则抽域名 → 与已知域名去重 → 逐新域名探站/探 API。本轮扫了 7 个客户端包，命中 2 个新数据源。
