@@ -28,3 +28,4 @@ scripts/api-check.mjs
 scripts/toggle-tool.mjs
 scripts/gui-probe.mjs
 scripts/gui-probe2.mjs
+pack.json
