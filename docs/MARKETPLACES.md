@@ -34,8 +34,8 @@
 | [dshworks/awesome-dsh-plugins](https://github.com/dshworks/awesome-dsh-plugins)（dsh.works） | 24★ / 20.7k | PR #184（data/plugins.json） | 🟡 待审（2026-10-23 已 rebase 解决 DIRTY 冲突，`check` CI 通过，等待合并） | 维护者按 Sweep 批量 fold 贡献者 PR | 队列机制：`coverage.json`（2026-10-23）显示 topic 唯一仓库 25,430 / 已决定 22,456 / **队列 472**，本仓库可通过 `topic:dsh-plugin` 检索到（GitHub search 命中 1）→ 由 sweep 决定批次收录；PR #184 为并行路径。
 | [0xsline/awesome-deepseek-harness](https://github.com/0xsline/awesome-deepseek-harness) | 1.2k★ | PR #737（README + README.zh-CN 的 Tools & Utilities） | 🟡 待审 | 手选列表；CATALOG 由 topic 自动生成，后续可能自动出现 · **lint 基线相同**（2026-10-23 本地复跑 workflow 同命令）：`main` 与 PR 分支均 exit 1 / **21 个相同 issue**，本 PR 新增 0 个；维护者 2026-10-16 后未再处理 PR（仓库现有 22 个 PR 全部 `action_required`） |
 | [AdamPlatin123/dsh-plugin-radar](https://github.com/AdamPlatin123/dsh-plugin-radar) | 1.5k★ | PR #968（PLUGINS.md 单插件表登记） | 🟡 待审 | 未登记也会每日 02:00 扫 topic 自动收录 |
-| [kejixiaoliang/awesome-dsh-plugins](https://github.com/kejixiaoliang/awesome-dsh-plugins) | 64★ | PR #150（plugins/mcp.md） | 🟡 待审 | 14 类目录，归 mcp 分类 |
-| [beancookie/awesome-dsh-plugin](https://github.com/beancookie/awesome-dsh-plugin) | 171★ | PR #236（README + README.en 的工具与能力） | 🟡 待审 | 504 个插件的中文目录 |
+| [kejixiaoliang/awesome-dsh-plugins](https://github.com/kejixiaoliang/awesome-dsh-plugins) | 64★ | PR #150（plugins/mcp.md） | 🟡 待审 | 14 类目录，归 mcp 分类 · **已同步 main**（2026-10-23 合并上游后重跑仓库自带检查通过，`behind: 0` / `MERGEABLE`） |
+| [beancookie/awesome-dsh-plugin](https://github.com/beancookie/awesome-dsh-plugin) | 171★ | PR #236（README + README.en 的工具与能力） | 🟡 待审 | 504 个插件的中文目录 · **已同步 main**（2026-10-23 合并上游后重跑仓库自带检查通过，`behind: 0` / `MERGEABLE`） |
 | [Zhiyuan-Fan/Awesome-DeepSeek-Harness-Plugins](https://github.com/Zhiyuan-Fan/Awesome-DeepSeek-Harness-Plugins) | 558★ | Issue #94（目录无 PR 入口，请求收录） | 🟡 待回复 | 纯生成式目录 |
 | [losebird/dsh-plugin-market](https://github.com/losebird/dsh-plugin-market) | 16★ | PR #54（registry/curated） | 🟡 待审 | 合并后数秒内上架 |
 | [Alex-Yanggg/awesome-DSH-plugin](https://github.com/Alex-Yanggg/awesome-DSH-plugin) | 103★ | PR #162（catalog/plugins.json + 生成的中文镜像） | 🟡 待审（CI 需维护者批准首跑） | 双语 JSON 目录，developer-tools 分类；本地 `generate_readmes.py --check` 通过 |
