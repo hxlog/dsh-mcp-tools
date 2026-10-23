@@ -84,3 +84,4 @@
 2. dsh-plugin.org 收录后，可在 README 加其官方徽章（`https://dsh-plugin.org/badges/listed.svg`）。
 3. 待 star > 10 后提交 bruc3van SHOWCASE.md。
 4. 如需把这些收录徽章同步到 npm 页面，需要发一个新版本（README 改动才会进 npm 包）。
+

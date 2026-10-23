@@ -140,14 +140,14 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 
 ## 🌐 收录渠道
 
-本插件已被多个 DSH 插件市场/目录收录（截至 2026-10-23，14 个平台）：
+本插件已被多个 DSH 插件市场/目录收录（截至 2026-10-23，13 个可复核平台）：
 
 - [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/)（20k★ 社区精选列表）
 - [dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop)（656★，18,000+ 插件，每日刷新）
 - [dsh-plugin.org](https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools)（310★ 社区插件中心，站点详情页已上线）
 - [dsh.market](https://dsh.market)（168★，6000+ 插件目录）
 - [dsh.so](https://www.dsh.so/artifact/dsh-mcp-tools/)（21,000+ 插件验证注册表）
-- [dshmk.com](https://dshmk.com)（72★，topic 自动验证目录）与 [deepseek1024.com](https://deepseek1024.com)
+- [deepseek1024.com](https://deepseek1024.com)（312★，13,840 插件目录，收录 PR #669 已合并）
 - [dsh-plugin-catalog](https://www.npmjs.com/package/dsh-plugin-catalog)（npm 目录，6000+ 条）
 - brade / imsai / fendouai / vvlife / 2BingLing 等 awesome 列表，以及 dsh-xray、mcp-servers-live 等索引站
 
