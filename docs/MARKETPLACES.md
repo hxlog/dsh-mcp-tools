@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 48 个市场 + 77 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 48 个市场 + 78 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1506,3 +1506,23 @@ DSH-Store 是「跑在 DSH 设置页里的第三方插件商城 + 安全生命�
 **后续**：按 registry/README.md，预检通过后「**八小时 Catalog 策略**会重新固定源码并执行更严格的许可证/依赖/生命周期/Bundle/完整有界运行时源码/权限信号门禁，全部通过才自动上架」。我们 `network` 能力证据在受保护清单里，**可能落入「blocked/需人工复核」**而不是自动合并——这一点如实记录，等 8 小时窗口出结果。
 
 注意：它的「自动上架」严格版要求「无网络/文件/命令/凭据信号」，而 MCP 管理器必然有网络探测——所以更现实的结果是**进人工复核队列**。这不是我们格式有问题，是这类插件的能力光谱决定的。
+
+### 6.81 2026-10-24 凌晨：`topic:dsh-plugin-market` 全量（768 仓库）扫完 → 第 78 个待审 `phil616/dsh-plugin-market`（dshtool.com）
+
+这次不只看 top100：把 `topic:dsh-plugin-market` 全部 8 页（768 个仓库）拉完，用描述关键词（market/marketplace/directory/catalog/registry/index/store/hub/awesome/集市/导航/收录/站）过滤出 71 个候选，再对**未核过的 7 个**逐个查数据文件：
+
+| 仓库 | 星 | 结论 |
+| --- | --- | --- |
+| `phil616/dsh-plugin-market` | ★2 | 站点 **https://dshtool.com/**（DeepSeek Harness 插件市场，站内有 57 万字节插件列表），有 issue 模板 `add-plugin.yml` → **已投稿** |
+| `czj-git/dsh-plugin-hub` | ★1 | 站点就是 **dshpluginhub.dev**（已在 10 个 user-OAuth 待办里），不重复计 |
+| `Winnie-0721/dsh-plugin-market` | ★2 | 只有 docs/CHANGELOG，无部署站点与数据 |
+| `cxdyun/dsh-skills-marketplace` | ★4 | 无数据文件/站点，WIP |
+| `kirbylynx/dsh-hub` | ★4 | 只有运维文档，无数据 |
+| `ARFCON/dsh-hub-DSH` | ★3 | 无数据 |
+| `Viveksssss/DeepSeek-harness-marketplace` | ★1 | 无数据 |
+
+**dshtool.com 投稿**：[phil616/dsh-plugin-market#4](https://github.com/phil616/dsh-plugin-market/issues/4)，标题 `[收录申请] dsh-mcp-tools（MCP 工具管理器，MIT，零依赖）`，字段全填：名称/仓库/作者/简介/分类（工具插件 tool）/标签（MCP, Tool, Development, Settings）/安装命令（`dsh plugin --profile web add github:hxlog/dsh-mcp-tools`）/文档/许可证 MIT + 4 项提交确认全部勾选。
+
+站点侧数据 `https://dshtool.com/plugins`（575KB SSR HTML）当前**无我们**，等维护者按 issue 手工收录。
+
+**附带产出**：把 `dsh-badge` skill 的官方 badge 规范（Shields.io URL + linked markdown）应用到本次投稿，后续 PR/issue 统一用它。
