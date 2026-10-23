@@ -101,6 +101,8 @@ DeepSeek Harness Web (dsh web)
 
 ## 🔒 Security
 
+> ⚠️ **The state file is credential-equivalent**: MCP header values (usually API keys / tokens) are stored **in plain text** in `~/.dsh/dsh-mcp-tools/state.json`. Never commit it to a repository, and never sync it to iCloud / OneDrive / a cloud drive or share it. Encrypt backups yourself. A future version may use the OS keychain (macOS Keychain / Windows DPAPI).
+
 - Headers are stored **in plain text** in the local state file — local only; never commit or sync it to a public location.
 - Use a dedicated, least-privilege key for every MCP server.
 - No network requests beyond the MCP servers you configure, and no telemetry; deleting a server removes its tools from subsequent requests.

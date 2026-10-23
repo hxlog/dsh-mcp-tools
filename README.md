@@ -102,6 +102,8 @@ DeepSeek Harness Web (dsh web)
 
 ## 🔒 安全说明
 
+> ⚠️ **状态文件等同密码**：`~/.dsh/dsh-mcp-tools/state.json` 里按**明文**保存 MCP 请求头（通常是 API Key / Token）。**不要**提交到任何仓库，也不要同步到 iCloud / OneDrive / 云盘或分享给他人；备份时请自行加密。后续版本会考虑接入系统钥匙串（macOS Keychain / Windows DPAPI）。
+
 - 请求头以**明文**保存在本地状态文件里，只在本机——不要提交到仓库或同步到公开位置。
 - 给每个 MCP 服务器使用独立、最小权限的密钥。
 - 除你配置的 MCP 服务器外不发起任何网络请求，没有遥测；删除服务器后它的工具会从后续所有请求中移除。
