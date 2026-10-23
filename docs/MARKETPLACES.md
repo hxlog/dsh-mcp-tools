@@ -88,6 +88,7 @@
 
 | 站点 | 规模/形态 | 收录机制 | 状态 |
 | --- | --- | --- | --- |
+| [dsh-plgstore](https://github.com/YureWright/dsh-plgstore)（yurewright.github.io/dsh-plgstore） | 1★ / 2,521 条 · 每日 13:00 更新 + 每日日报 | GitHub + npm 多路聚合，**只收有官方声明/依赖 DSH 核心的插件**，AI 体检报告分三档 | ⏳ 待自动收录：数据更新到 2026-10-23T09:52Z 仍无我们；抽查同为新近且更高星（`oil-oil/dsh-oil-ui` 137★）也缺席 → 其扫描存在滞后，**非我方条件不满足**（bundle 声明 + npm 一致 + MIT 均已具备）；每日 13:00 跑，观察 | https://yurewright.github.io/dsh-plgstore/ |
 | [dsh.directory](https://dsh.directory)（alexchenzl/dsh-plugin-directory） | 10,773 个插件页 / 15 个分类（sitemap 10,826 条） | 自动爬取：按 default-branch HEAD 校验 DSH bundle 契约（声明仓库包）；**提交入口已失效** | ⏳ 待观察：我们未收录（`/plugins/hxlog/dsh-mcp-tools` 404）；站点的 issue 表单指向的 GitHub 仓库已 404，无法提交；爬取选择性且疑似停滞（10-23 实测高星新插件也缺席）。**勿浪费 PR** |
 | [dshplugins.com](https://dshplugins.com) | 审核制目录（含 /submit 页） | 需 GitHub 登录由管理员审核；提交需在 README 写清安装步骤 | 🟡 待人工 OAuth 提交 |
 | [dsh-plugins.net](https://dsh-plugins.net) | 带验证方法论的社区目录 | 表单生成 Markdown，发到 deepseek-harness GitHub Discussions 由维护者审核 | 🟡 已发 [Discussion #10768](https://github.com/deepseek-ai/deepseek-harness/discussions/10768)（Show Your Plugins! 分类） |
@@ -213,6 +214,16 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.18 2026-10-23 新发现：dsh-plgstore（每日 13:00 聚合，当前有滞后）
+
+经 GitHub topic 搜索（`topic:dsh-plugin-market`）发现 `YureWright/dsh-plgstore`（1★，「给 DSH 用的插件商城」，站点 `yurewright.github.io/dsh-plgstore`，2,521 条，每日 13:00 自动更新 + 每日日报）：
+
+- 采集：GitHub + npm 多路聚合、实体去重，**只收有官方声明/依赖 DSH 核心的插件**（我们的 `dsh.bundle.patch` + npm 同名包完全符合）；
+- 每条附 AI「体检报告」并分三档（放心用/留个心眼/别急着装），另提供 npm / git 两种安装口令；
+- **当前未收录**：`data/plugins.json`（2.7MB，`updatedAt` 最新 2026-10-23T09:52Z）不含 `hxlog/dsh-mcp-tools`；抽查 `oil-oil/dsh-oil-ui`（137★，10-23 建仓）同样缺席 → 说明其扫描对「新仓」有系统性滞后，不是我们的条件问题。
+
+结论：**无需提交**，等其每日 13:00 轮次；已列入待观察。
 
 ### 6.17 2026-10-23 补上仓库自身 CI（提升各市场自动评分/人工复核可信度）
 
