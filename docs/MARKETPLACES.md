@@ -233,6 +233,23 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.43 2026-10-23 bruc3van 管线真相（已进 catalog，站点 index 待重建）＋ DSH Discussion 改成投稿标题
+
+**bruc3van 收录状态说实话**（深挖了它仓库的数据管线）：
+
+| 环节 | 证据 |
+| --- | --- |
+| 抓取 | `data/repositories.json`（18.3MB）含 `hxlog/dsh-mcp-tools` |
+| 核实/批准 | `data/approved.json` 有 `"hxlog/dsh-mcp-tools": "2026-10-23"`（门控：新仓库经核实后才进目录） |
+| 目录分册 | `catalog/agents-workflows.md` **已收录**：`[hxlog/dsh-mcp-tools](…) \| … \| JavaScript \| 2 \| MIT \| 2026-10-21` |
+| 站点 index | `https://bruc3van.com/dsh-plugins/index.json` 目前 **1000 条、无我们**；`market.json` / `market-v2.json` / `curated.json` 也都没有（站点数据另走一条受 curated 门控的管线） |
+
+结论：**目录/仓库这一层已经算收录**（catalog 文件可复核），站点首页索引要等它下一次重建（其 refresh 工作流由 push/cron 触发，不是我们可控）。另外它「作者自荐」区有硬门槛：**star > 10**（CI 会拒），我们 3★ 走不通，别去提 PR 自荐。
+
+**把 DSH 官方 Discussion 改成它家投稿格式**：dsh-plugins.net 的投稿是「表单生成 markdown → 贴到 DSH Discussions，标题固定 `Plugin submission: <name>`」。我们之前那条 #10768 正文其实已经是结构化投稿格式（plugin name / package / repo / description / version / min DSH / category / 权限声明 / 无遥测），只差标题。已用 GraphQL `updateDiscussion` 把它改名为 **`Plugin submission: dsh-mcp-tools`**（同一条讨论，不新增线程，避免刷屏）：https://github.com/deepseek-ai/deepseek-harness/discussions/10768 。dsh-plugins.net 仍未被收录（12 个项目 / 7,597 插件页均无我们），等它快照重扫。
+
+**PR 状态巡检（19 条在跟）**：本轮无新 merge；`awesome-deepseekharness/awesome-deepseek-harness#186` 是唯一 APPROVED 且 CLEAN 的（curator 已「✅ Verified」，等维护者点 merge）；其余多 CLEAN 但未合，含 libukai#153、ZeroPointRepo#27。
+
 ### 6.42 2026-10-23 Topic 榜扫街：dshpluginhub.ai 已收录（第 33 个）＋ libukai 精选插件 PR #153
 
 把 `topic:dsh-plugin` 按 star 排序取前 300 个仓库，用 `market|directory|hub|catalog|index|registry|store|awesome|list|discover` 过滤得 41 个候选，再对没见过的逐个查站点：
