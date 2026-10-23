@@ -148,3 +148,13 @@
 | `inowness/dsh-plugin-index` | 15 条 | ❌ | 只收录官方 `@deepseek-ai` 发布包，非社区插件 |
 
 结论：下游自动索引里，**凡是按 feed 或 npm keywords 取数的都已收录我们**；未收录的都是 star 门槛型（需先把 star 做上去），没有可提交的入口。
+
+### 6.2 2026-10-23 新发现：3 个未登记目录站
+
+| 站点 | 规模 / 数据源 | 状态 | 动作 |
+| --- | --- | --- | --- |
+| `dshplugin.store` | **19,850 个仓库**，明示「synced from the GitHub topic `dsh-plugin`」，上次同步 2026-10-21 14:31 UTC | 未含我们 | 纯 topic 同步，无提交入口，下次同步自动收录（可用来观察 star 门槛型站点之外的另一种延迟） |
+| `dsh-plugin.app` | 11,630 个项目，同上「GitHub Topic」驱动，页面标注更新于 08/26 | 未含我们 | 同上，等下次同步 |
+| `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
+
+（另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
