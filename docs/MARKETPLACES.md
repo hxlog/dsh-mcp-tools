@@ -215,6 +215,27 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.19 2026-10-23 dshworks PR #184 按 CONTRIBUTING 逐条复核（含本地跑其校验器）
+
+dshworks 的 CONTRIBUTING 明确「注册表是 JSON，不是 README；所有贡献都是对 `data/plugins.json` 的 PR，README 由脚本再生」，并要求 `node scripts/validate.mjs` + `node scripts/render.mjs` 后同时提交数据与渲染产物。
+
+复核方式：clone 我们的 fork 分支 `hxlog/awesome-dsh-plugins-1@add-dsh-mcp-tools` 跑其校验器（而非只看 CI 绿）：
+
+```text
+$ node scripts/validate.mjs
+validate: ok (20770 plugins, 79 candidates, 3172 rejected, 6448 npm names, 890 unpublished)
+$ node scripts/render.mjs
+render: wrote README.md + docs artifacts (20770 entries)
+```
+
+- 条目字段齐全：`name`/`repo`/`description`（中文）/`stars`/`starsUpdated`/`pushedAt` 等，与 schema 一致；本地校验 **ok**。
+- PR 已含渲染产物（README.md、docs/index.html、docs/plugins-embed.js、docs/plugins.json、docs/stats.json、lists/bundles.md），符合「同时提交」要求。
+- PR CI：`check = pass / success`（run 39930227653），`mergeStateStatus = CLEAN`。
+- 已知无害差异：分支落后上游 `main` 约 204KB 新增条目（`data/plugins.json` 13.20MB vs 上游 13.40MB），但**不影响**其 validate/render CI（已实测通过）；合并时由上游 squash 处理，无需强推重建。
+- 目前 dshworks 的 `data/plugins.json` 尚未含我们（PR 未合并），与其上表「待审」状态一致。
+
+结论：格式与门禁均已符合，**唯一等待项是人工 merge**。
+
 ### 6.18 2026-10-23 新发现：dsh-plgstore（每日 13:00 聚合，当前有滞后）
 
 经 GitHub topic 搜索（`topic:dsh-plugin-market`）发现 `YureWright/dsh-plgstore`（1★，「给 DSH 用的插件商城」，站点 `yurewright.github.io/dsh-plgstore`，2,521 条，每日 13:00 自动更新 + 每日日报）：
