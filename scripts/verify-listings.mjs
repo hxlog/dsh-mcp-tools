@@ -47,6 +47,7 @@ const FULL = [
   ["dsh.pub plugins.json", "https://dsh.pub/plugins.json"],
   ["realguan dsh-index", "https://realguan.github.io/dsh-plugin-market/dsh-index.json"],
   ["dsh-go catalog", "https://raw.githubusercontent.com/coeasy/dsh-go/main/catalog/plugins.json"],
+  ["dsh-go registry-v4", "https://raw.githubusercontent.com/coeasy/dsh-go/main/catalog/registry-v4.json"],
   ["xrj dsh-market 集市数据", "https://dsh-market.pages.dev/data.json"],
   ["DSH-Plugin-Hub 静态索引数据", "https://raw.githubusercontent.com/usertianziyang/DSH-Plugin-Hub/main/public/plugins.json"],
 ];

@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 48 个市场 + 80 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-24（已收录 49 个市场 + 79 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1611,3 +1611,29 @@ DSH-Store 是「跑在 DSH 设置页里的第三方插件商城 + 安全生命�
 **已发**：[issue #13 评论](https://github.com/ZASENJC/dsh-plugins-store/issues/13#issuecomment-6370660111) —— 附完整 JSON 记录、失败 shard 证据、请求重跑 `validate (5)` 并把 `1427825895` 纳入选择；同时声明若下次是插件级失败会按报告修，不要求跳过验证。
 
 **行动纪律**：在下一轮验证窗口（03:20 +08 前后）结束前，**不向 `hxlog/dsh-mcp-tools` push**（本地 docs 提交攒着），保证远端 HEAD 稳定在 `b278062`；已挂 03:40 +08 提醒复核并补推。
+
+### 6.88 ✅ 第 49 个市场：`coeasy/dsh-go` 官方目录 **verified=true** + `registry-v4.json` 已收录（可安装层也打通）
+
+02:18 +08 那轮 sync **成功翻转**（catalog `built 2026-10-23T17:18:07Z`，scanned 1311 / included 1000 / 共 22481 条）：
+```text
+slug            : dsh-mcp-tools
+full_name       : hxlog/dsh-mcp-tools
+first_seen      : 2026-10-23T17:17:53Z
+stars / license : 3 / MIT
+verified        : true ✅
+manifest_file   : dsh-package.json ✅
+package_version : 1.0.2 ✅
+capabilities    : mcp.server-management, mcp.tool-toggle, settings.panel, connectivity-test
+```
+
+更关键的是**可安装层**也确认了：`catalog/registry-v4.json`（8.4KB，`packages` 共 3 个）新增我们这条：
+```json
+{ "type": "plugin", "id": "hxlog/dsh-mcp-tools", "publisher_id": "hxlog",
+  "source": { "provider": "github", "repo": "hxlog/dsh-mcp-tools" },
+  "metadata": { "category": "tools", "tags": ["mcp","mcp-manager","tools","settings","dsh-plugin"],
+                "name": "dsh-mcp-tools", "homepage": "https://github.com/hxlog/dsh-mcp-tools" } }
+```
+
+也就是说走通了它要求的两层契约：发现层（`catalog/plugins.json` → `verified: true`）+ 安装层（`registry-v4.json` → Release `v1.0.2` 与 `dsh-package-release.json` descriptor）。已回帖 [Issue #165 #issuecomment-6371913515](https://github.com/coeasy/dsh-go/issues/165#issuecomment-6371913515) 附完整证据并致谢。
+
+**验证脚本同步升级**：`scripts/verify-listings.mjs` 的 FULL 组新增 `dsh-go registry-v4` 一项 → 全量由 30 项变 **31 项，本次实跑 31/31 ✅**（轻量仍 21 项，21/21 ✅）。README 中「轻量 19 / 全量 26」的旧数字一并修正为 21/31。
