@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 34 个市场 + 57 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 35 个市场 + 57 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -69,6 +69,7 @@
 
 | [diegosouzapw/awesome-omni-dsh-plugins](https://github.com/diegosouzapw/awesome-omni-dsh-plugins) | 19★ / 3626 | PR #3723（catalog/plugins/hxlog-dsh-mcp-tools.yaml，每插件一 PR） | 🟡 待审（本地 `catalog validate` 3627 entries valid；已 re-pin 到最新 commit `65fc438`，semgrep 重跑中） | 创作者优先 PR；分类 coding-developer-tools · **本地已过 CI 门禁**（2026-10-23，按 workflow 同命令）：`catalog validate` → `3627 entries valid`；`docs-check --skip-count` → passed |
 | [polang233/dsh-plugin-index](https://github.com/polang233/dsh-plugin-index)（[dshopen.org](https://dshopen.org) · Open Plugin Market，876 条索引） | 35★ | 维护者**手工批量**写进 `data/sources.json`（非 PR 通道）；Issue #58 已由维护者回复「已核查并加入收录配置」 | ✅ 已收录（2026-10-23）：`https://dshopen.org/index.json` 可检索到 `dsh-mcp-tools`（title zh「MCP 管理器」/en「MCP Manager」、category `tools`、★3、keywords 含 dsh/dsh-plugin/mcp、repository 指向本仓库、图标已生成） | 索引每 6 小时重建；条目由维护者手写，不带 install spec，安装走插件市场默认解析 |
+| [dingdang66686/dsh-market-index](https://github.com/dingdang66686/dsh-market-index)（format-1 市场索引，3,365 插件 / 1.26 万版本） | 0★ / GitHub Actions **每 12h** 从 awesome feed 全量重建并校验 | 产出可直接加进官方 Discover 的索引源（raw / GitHub Pages / jsDelivr 三地址，README 已实测三地址 200） | ✅ 已收录：`index.json` 含 `dsh-mcp-tools` 条目（中英描述、`category: tools`、versions、install 源），由 canonical feed 自动派生 | 自动生成，无需提交；只要 feed 有我们它就有 |
 | [DshHunt/community](https://github.com/DshHunt/community)（[dshhunt.com](https://dshhunt.com)） | 独立目录站（静态结构证据 + 社区投稿） | Issue [#4](https://github.com/DshHunt/community/issues/4)（plugin-submission 表单） | 🟡 待审（2026-10-23 提交） | 站点 `/plugins` 已上线但未含我们；投稿要求固定 commit SHA + 公开证据，已按表单字段提交（SHA `6cb6342`、bundle path `.`、npm `dsh-mcp-tools`、分类 developer-tools、MIT） |
 | [REALOIYO/dsh-plugin-market](https://github.com/REALOIYO/dsh-plugin-market) | 7,123 个插件 / 58,629 个版本 · 自建 format 1 索引 | Issue [#1](https://github.com/REALOIYO/dsh-plugin-market/issues/1)（召回缺口报告 + 建议补种子） | 🟡 待回复（2026-10-23 提交） | 索引源 `realoiyo.github.io/dsh-plugin-market/index.json`；每 6 小时重建（10-23T10:55Z success），但我们这个**声明了 `dsh.bundle` 且带 `dsh-plugin` 关键字**的包仍未被召回 → 判断为其切片式 npm 搜索召回缺口，建议把包名加进 `seeds/dsh-so.json` |
 | [dsh-pluginmarket/metadata](https://github.com/dsh-pluginmarket/metadata)（DSH Registry，站点 `dsh-pluginmarket.github.io/registry/`） | 82 条元数据 · plugin/skill/preset/theme 注册表 | Issue [#6809](https://github.com/dsh-pluginmarket/metadata/issues/6809) → 机器人自动开 PR [#6810](https://github.com/dsh-pluginmarket/metadata/pull/6810) | 🟡 待合并（2026-10-23 提交，issue→PR 全自动链路已跑通） | 投稿用 `Add:` issue 模板；Actions 校验后由 `issue-to-entry.mjs` 生成 `entries/github_hxlog_dsh-mcp-tools.json` 并开 PR，维护者合并即上架；已验证 workflow 两次 run 均 success、bot 已回「Metadata validated and a pull request was opened」 |
@@ -232,6 +233,17 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.49 2026-10-23 全量审计「引用官方 feed 的 147 个仓库」：只多出 1 个真市场（已收录）
+
+用 GitHub code search 扫 `"awesome-dsh-plugin.com/plugins.json"`（4 页共 147 个去重仓库），逐个判定是「市场」还是「客户端/工具/文档」，结论：
+
+- **真市场（新增收录）**：[dingdang66686/dsh-market-index](https://github.com/dingdang66686/dsh-market-index) —— 每次 GitHub Actions（12h）从 awesome feed 生成 **format 1** 的 `index.json`（3,365 插件 / 1.26 万版本，23 分类、11 能力标签、排序键 stars/downloads），README 实测 raw / Pages / jsDelivr 三个地址均可作为官方 Discover 索引源。我们的条目在其中（`name: dsh-mcp-tools`、中英描述、`category: tools`、versions）。✅ 计入第 35 个收录。
+- **同为 format-1 但个人范围**：`vlln/plugin-registry`（★59，只收作者自己的插件，非社区市场）。
+- **客户端/应用内市场（消费 feed，不是独立市场）**：`anywhere-labs/dsh-desktop`、`dsh-market/dsh-market`、`KokuYu-sysu/dsh-market-desktop`、`Liaominduyh/GitHub-dsh-plugin-market`、`Headmaster218/dsh-market-moe4all`、`Sanqi-normal/dsh-webui-market-plugin`、`qichuang321/dsh-plugin-browser`、`anjaymi/dsh-plugin-store`、`striveh/dsh-plugin-extension-center`、`Harzva/harness-flow-hub`（其 `registry/` 只有 platform-support/revocations，非插件目录）、`Eray114514/dsh-find-plugins`（五源聚合查询器）、`flysusdjd/dsh-rank-board`（npm 下载榜）、`Relistencode/dsh-extension-hub`（skills/MCP 管理客户端）、`peter123023/dsh-featured-plugins`（精选客户端）、`LM20230311/dsh-bundles`（persona 整合包）。
+- **非市场**：`szhjia/stackharbor`（Go agent harness）、`lincheuk/Deskminis`、`JustGenius-s/DSH-Plugs`（自研套件 monorepo）、`WOO-woo-Waf/agent-harness-landscape`（研究文档）等。
+
+方法论沉淀：**「谁引用了官方 feed」是最可靠的 DSH 市场发现轴**——比按 topic 扫或用关键词搜词召回率高得多（147 个仓库里此前矩阵外的市场只剩 1 个，且已被 feed 覆盖）。后续新增市场若直接消费 feed，会自动覆盖我们，无需逐个提交。
 
 ### 6.48 2026-10-23 搞清官方 Discover 的收录机制（format-1 index），并核对主流 index 是否含我们
 
