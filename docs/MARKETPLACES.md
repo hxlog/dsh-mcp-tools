@@ -1200,6 +1200,7 @@ render: wrote README.md + docs artifacts (20770 entries)
 - 我们**未收录**：`/plugins?q=dsh-mcp` 结果中 `dsh-mcp-tools` 出现 0 次（只有查询串回显）。
 - 投稿通道：`/plugins/new`「提交插件」，表单只要求一个 **GitHub 仓库链接**；页面明示检查要求「仓库可访问、`package.json` 声明 `dsh.bundle`、且引用的配置文件存在」——**三条我们都满足**。
 - **阻塞点**：`/plugins/new` 提示「提交插件需要登录。请使用页面顶部的登录入口」，登录走 GitHub OAuth（浏览器内完成）→ 属**用户操作项**，无法由脚本代提。
+- 站点源码仓：`furongjun-lingshu/dsh-plugin-reviews`（★1，web + worker + **`deploy/discovery-drip.sh` 定时滴灌式自动发现**）+ 规范仓 `FuRongJun-1999/dsh-bench`（`/spec` 指向其插件评测站方案 v3.0）。即该目录除人工提交外还有自动发现 worker，3★ 新仓库可能被后续滴灌扫到；无需额外动作，隔天复查即可。
 
 **`zjust7/dsh-plugin-market`（★1，带独立测评/安全红线的市场插件）→ 判定为「上游数据已覆盖」**
 - 其 README「数据来源与新鲜度」写明：**插件目录 = `awesome-dsh-plugin.com/plugins.json`**（上游每天重建）—— 该 feed 已包含我们（PR #8407 已合并），所以这个市场的「精选目录」里我们已经可见；它额外展示的「测评判定」来自 lingshulab 快照，属可选增强，不构成独立收录计数。
