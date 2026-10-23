@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 41 个市场 + 66 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 41 个市场 + 67 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1136,3 +1136,15 @@ render: wrote README.md + docs artifacts (20770 entries)
 | dsh-plugin.store `/p/hxlog/dsh-mcp-tools` | ✅ 200，页面含本插件 |
 | LivXue registry `first-seen.yml` | ✅ 含 `dsh-mcp-tools`（added 2026-10-21） |
 | LivXue GitHub Pages | ❌ 已 404（项目已改为 host 插件 + registry 数据仓，矩阵链接已更正） |
+
+### 6.62 2026-10-23 `YureWright/dsh-plgstore`：GitHub 候选缓存冻结在 8 月中旬（已开 Issue #1 报 bug，非投稿）
+
+**`YureWright/dsh-plgstore`**（★1，[站点](https://yurewright.github.io/dsh-plgstore/)，2,521 条、每天 13:00 自动更新、带 AI「体检报告」与三档信任分级）：菜单里**不含我们**。逆向其流水线后定位到根因——不是我们的格式问题，是对方 GitHub 侧缓存冻结：
+
+- `data/plugins.json`：2,179 条 GitHub 来源记录，`github.pushedAt` **最大值 = 2026-08-16T14:14:40Z**；9/10 月新增的 526 条 `firstSeen` 全部来自 npm 侧合并进已有 GitHub 记录
+- `daily.yml` 每天只跑 `npm-scan --phase discover`（npm search 每查询词只取前 250 条）+ `--phase llm` + `process-github-candidates.mjs`；而后者只读 `data/cache/github-candidates.json`（由 `build-index.mjs --discover-only` 生成），**日常流水线没有重新生成它** → 8 月之后新建/活跃的 `dsh-plugin` 仓库永远进不来
+- 能过其 `entryCheck()`：我们有 `dsh.bundle.patch` + `dsh.client` 声明；npm `dsh-mcp-tools@1.0.2` 有 `keywords: dsh-plugin` 与 `repository` 字段；同类 MCP 管理器 `hyqhyq3/dsh-mcp-manager`（08-15 pushed）在 8 月缓存里，所以被收录
+
+已开 [Issue #1](https://github.com/YureWright/dsh-plgstore/issues/1) 作为**可复现的缓存 bug 报告**（附逐月 firstSeen 分布与 max pushedAt 证据、建议在 `process-github-candidates` 前补一步 GitHub 候选重爬），并注明若为有意冻结则把本条记作已知限制。该市场无 CONTRIBUTING/PR 通道，Issue 是唯一反馈方式。
+
+**教训（适用于所有 npm/GitHub 自动聚合站）**：判断「为什么没收录」时先看对方**数据新鲜度**（`pushedAt`/`firstSeen` 分布）与**候选基数上限**，而不是先怀疑自己的 manifest 格式；本轮 Topic 扫描（`dsh-market`/`dsh-marketplace`/`dsh-plugin-market`）新出现的 47 个仓库里，其余为客户端/竞品/skill，不构成新市场。
