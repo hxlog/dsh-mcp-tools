@@ -257,6 +257,7 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 - `439436269-ctrl/dsh-preview-market`：`lib/catalog.js` 仅 2.7KB 的 preview 专用小目录，非通用市场。
 - `2026heshao/dsh-armory`（★21）：不是目录，是「MCP 管理器 + Skills + WorkBuddy 专家 + 工具」的一体化面板插件（**与本插件同类竞品**），其 market 是内置 catalog 而非可收录的公共目录。
 
+**`dsh.store`（`AI-Scarlett/DSH-Store`，★5，840 条目录）——按策略评估后不提交**：这是目前自动化最严格的第三方商城（`registry/catalog.json` + `catalog-index.json` + `catalog/details/*.json`，Issue 表单 `[Plugin]` 触发 10 分钟静态预检，8 小时 Catalog 策略重扫，`bounded-source-v3` 准入引擎）。其自动准入要求「完整有界运行时源码没有文件、网络、命令、凭据、原生制品信号」——同类竞品 `hyqhyq3/dsh-mcp-manager`（MCP server manager，0.13.3）在目录里的实际状态就是 **`status: blocked`**，`statusReason` 明确列出 `files / network / commands / credentials permission signal`。我们的 MCP 管理器同样需要 fs/network 与 stdio 子进程，会得到相同结论（blocked 展示，不进入受保护安装通道），因此**不浪费时间提交**；若后续其策略区分「需用户确认的高权限插件」，再考虑。
 **计数：收录 39 → 40，待审保持 64。**
 
 ### 6.59 2026-10-23 DSH Go Registry V4：补齐 Release Descriptor V2（可安装发布记录），已用官方协议核验器验证
