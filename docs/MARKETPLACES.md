@@ -23,7 +23,7 @@
 | [Dominic789654/awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness) | 397★ / 20.1k | 人工 review PR + 每日自动扫描 | ✅ 已合并：PR #671（2026-10-23T09:02Z），条目在 MCP Servers 分区 | https://github.com/Dominic789654/awesome-deepseek-harness |
 | [LivXue/dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop) | 656★ / 18,276 插件（每日刷新） | npm 关键词自动采集（`dsh-plugin`/`deepseek-harness`） | ✅ 已收录：目录条目 `dsh-mcp-tools@1.0.2`（2026-10-21 加入，category tool；仓库因 npm 同名被标 shadowed-by-npm 属正常） | https://LivXue.github.io/dsh-plugin-shop/ |
 | [dsh.so](https://www.dsh.so)（ihuajiu/dsh.so） | 21,303 插件验证注册表 | npm/GitHub 自动收录 + L1–L5 扫描 | ✅ 已收录：<https://www.dsh.so/artifact/dsh-mcp-tools/>（**Verification L5 · Run tested**，LowRisk / Trust Gold，2026-10-21 复检）（2026-10-21 发布） | 自动抓取，无需提交 |
-| [DshMarketPlace/dshmarketplace](https://github.com/DshMarketPlace/dshmarketplace)（dshmarketplace.dev） | 3★ / 3,420 listing + 13,175 条 API 索引 | GitHub topic 自动 ingest + 沙箱验证安装命令 | ✅ 已收录：`/api/v1/index` 含 `hxlog/dsh-mcp-tools`（category tools、install 命令、npm 名） | https://dshmarketplace.dev/plugins |
+| [DshMarketPlace/dshmarketplace](https://github.com/DshMarketPlace/dshmarketplace)（dshmarketplace.dev） | 3★ / 3,420 listing + **13,175 条 API 索引** | GitHub topic 自动 ingest + 沙箱验证安装命令 | ✅ 已收录：`/api/v1/index` 含 `hxlog/dsh-mcp-tools`（`category: tools` + install 命令；2026-10-23 复核，`generated` 10:38Z，`count: 13175`）；`path` 为 null（暂无人工精选详情页，非必需）。曾开 Issue #7 申请，复核后自行关闭并说明 |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -93,7 +93,7 @@
 | [dshplugin.market](https://dshplugin.market) | 插件/技能/Agent 目录（含 MCP Servers 分类） | `/submit` 无表单：collector 按 GitHub topic 索引 | ⚪ 停止跟进：sitemap 的 lastmod 停在 **2026-08-15**，collector 已 2 个月未跑 |
 | [dsh-store.com](https://dsh-store.com) | 域名重定向到「DSHalpha」法语衣架商店 | 与本生态无关 | ⚪ 排除（域名混淆） |
 | [dsh-plugin.net](https://dsh-plugin.net) | 官方发布预检 + 注册表 | 按其「官方发布方式」：仓库加 `dsh-plugin` topic 即进入其 registry 同步 | ⏳ topic 已打，待其同步（当前 `/plugins` 未含） |
-| [dshmarketplace.com](https://dshmarketplace.com) | 人工审核目录（3,400+） | 邮件提交 `hello@dshmarketplace.com`；slug 形如 `owner--repo` | 🟡 待发邮件 |
+| [dshmarketplace.com](https://dshmarketplace.com) | 人工审核目录（3,400+） | 邮件提交 `hello@dshmarketplace.com`（**注意：与 dshmarketplace.dev 是两个不同站点**；后者已自动收录我们） | 🟡 待发邮件（无法自动化） |
 | [dshplugin.dev](https://dshplugin.dev)（arkyu2077/awesome-dsh-plugin） | 导航式说明书（5★） | 从该仓库 catalog 生成 | ⚪ 仓库自 2026-08-17 未更新，暂停投入 |
 | [dshplugin.io](https://dshplugin.io)（tjsdyy/dshplugin） | Next.js 市场（6★） | 自带 DB/drizzle 目录 | ⚪ 仓库自 2026-09-12 未更新，暂停投入 |
 | [dshplugins.cc](https://dshplugins.cc) | 静态目录（sitemap 2026-09-20） | 静态快照 | ⚪ 已停更，暂停投入 |
