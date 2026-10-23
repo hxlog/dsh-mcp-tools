@@ -1281,3 +1281,23 @@ render: wrote README.md + docs artifacts (20770 entries)
 - 收录方式：**自动**（爬 `topic:dsh-plugin` + 校验「可直接启用」），无需提交；页面上另有 Turnstile 保护的「提交插件」通道，我们用不上
 
 **方法论补充（第二次踩到同一个坑）**：`dsh-plugin-market` 这类**站点型市场**，数据放在站点域名下（`/assets/*.json`）而不是仓库里；判断是否收录必须**先找前端代码里的 fetch 目标**（`grep '\.json' plugins.html` / 看 `<script>` 里的 `fetch(...)`），仓库内 grep 会系统性漏判。
+
+### 6.71 2026-10-24 凌晨：GitHub code search 反向核验（84 个文件 / 11 个仓库）——覆盖无遗漏，另记竞品情报
+
+用 `GET /search/code?q="dsh-mcp-tools"`（84 个文件命中，归并为 11 个仓库）做**反向核验**：谁在数据/文档里引用了我们这个插件。这是「漏算市场」的另一条发现路径（正向是找市场，反向是找谁已经提到我们）。
+
+| 仓库 | 命中数 | 归类 |
+| --- | --- | --- |
+| linny006/mcp-servers-live | 68 | ✅ 已收录（第 11 个，MCP 索引站） |
+| fendouai/awesome-deepseek-harness | 4 | ✅ 已收录 |
+| awesome-dsh-plugin/awesome-dsh-plugin | 1 | ✅ 已收录（canonical feed） |
+| imsai-sh/awesome-deepseek-harness-plugins | 1 | ✅ 已收录（PR #669 已合并） |
+| unStone/dsh-xray | 1 | ✅ 已收录 |
+| Werewolf-Wu/awesome-dsh-plugin-status | 1 | ✅ 已收录（镜像） |
+| dsh-market/dsh-market | 1 | ✅ 已收录（★8,450 站内市场 = dshmarket.com） |
+| **wldxiaobai/dsh-project-mcp-manager** | 3 | ⚔️ **竞品**（★9，「基于原版 DSH 扩展，项目层/用户层 MCP 管理」）——非市场 |
+| JoFe2/PANSPHAIRA、CaiZongyuan/clinmesh、wavetao2010/tessivum | 各 1-2 | 个人项目/无关仓库，非市场 |
+
+**结论**：引用我们的仓库全部已在收录矩阵内（或已归类为非市场），无漏算；同时确认存在一个 ★9 竞品 `dsh-project-mcp-manager`，定位是「项目级 + 用户级两层 MCP 管理」——我们目前是「全局 + 设置页」路线，差异点应在 README 里保持清晰（已有：按需请求/测试/停用工具不进模型）。
+
+**顺手状态**：`dsh-ai.org` 提交仍 `queued`（13:45Z 提交，已 2h+，其队列疑似人工/夜间跑）；`YureWright/dsh-plgstore` Issue #1 仍无回复。
