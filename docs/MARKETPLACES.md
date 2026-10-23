@@ -1329,3 +1329,16 @@ dsh-go 官方目录核验
 ```
 
 脚本同时核对 `catalog/meta.json` 的 `last_sync`，避免把「sync 还没跑」误判成「manifest 不合格」。
+
+### 6.73 2026-10-24 凌晨：仓库元数据补齐（homepage / 双语 description）+ dependabot 清理 —— 都直接影响市场收录质量
+
+聚合器/市场读取的字段里，有两项此前是空的：
+
+| 字段 | 之前 | 现在 | 影响 |
+| --- | --- | --- | --- |
+| GitHub repo `homepage` | **空**（dsh-go catalog 里也是 `homepage: ""`） | `https://www.npmjs.com/package/dsh-mcp-tools` | dsh.so / dsh-plugin.store / dshfind 等多处展示「官网/主页」，空值会让详情页缺链接 |
+| GitHub repo `description` | 仅中文 | **中英双语**（前半中文定位，后半 `MCP manager for DSH: …`） | dsh-go catalog、awesome feed、各种 topic 抓取站点都把 repo description 当作默认简介，单语会漏掉英文用户 |
+
+另清理了 dependabot PR **#1**（`github-actions` 组 2 个 action 升级）：检查 `smoke + manifest contract` 通过后 squash 合并，main 头提交 `dcc79ad`，CI **success**（保持市场侧「CI 绿色」的观感与 badge 真实性）。
+
+**为什么这类改动算收录工作**：多份市场文档明确把 repo description / homepage / CI 状态作为列表展示字段或可信度信号（如 dsh-go catalog 的 `description`/`homepage`/`has_readme`，awesome feed 的 `desc`），字段为空会在这些站点上表现为「信息缺失」，属于「格式不对」的一种。
