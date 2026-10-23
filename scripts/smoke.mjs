@@ -2,7 +2,7 @@
 // Usage: npm test
 import fs from 'node:fs'
 import path from 'node:path'
-import { execFileSync } from 'node:child_process'
+import vm from 'node:vm'
 import { fileURLToPath } from 'node:url'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
@@ -19,7 +19,7 @@ const pkg = JSON.parse(read('package.json'))
 const client = read('client/client.js')
 
 check('client bundle parses', () => {
-  execFileSync(process.execPath, ['--check', path.join(root, 'client/client.js')], { stdio: 'pipe' })
+  new vm.Script(client, { filename: 'client/client.js' })
 })
 check('package name matches client loader id', () => {
   assert(client.includes('id: "' + pkg.name + '"'), 'loader id != package name')

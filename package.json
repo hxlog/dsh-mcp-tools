@@ -23,8 +23,6 @@
     "locale",
     "cordis.patch.yml",
     "icon.svg",
-    "scripts/smoke.mjs",
-    "scripts/selftest.mjs",
     "docs/screenshots",
     "README.md",
     "README.en.md",
