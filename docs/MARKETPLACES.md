@@ -215,6 +215,26 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.25 2026-10-23 向 dsh.so 官方投稿队列补交登记（issue #17）+ 查明其投稿/修正通道
+
+**背景**：dsh.so 此前只靠自动抓取收录我们，`/artifact/dsh-mcp-tools/` 的一键安装串停在 `github:...#v1.0.0`（旧 tag）。本轮通过 GitLab 检索发现其完整投稿体系，走官方队列提交了登记 + 版本修正请求。
+
+**发现的投稿体系**
+
+- 投稿表单：<https://www.dsh.so/submit/>（客户端做仓库校验 + 文件安全扫描，然后 `POST /api/submit`，payload 含 `entry` / `repository` / `npmPackage` / `formatPass` / `headCommitSha` / `scan`）；
+- 官方 intake 仓库：[`dsh-so/dsh-plugin-submissions`](https://github.com/dsh-so/dsh-plugin-submissions)（GitLab 镜像 `gitlab.com/dsh-so/dsh-plugin-submissions`），说明「通过校验的投稿由后端以 issue 形式归档，作者无需账号」；实测该仓库无文件、只收 issue，已有多个作者手工投稿（#10 明确写「Web 提交端点当前返回 token-invalid，故走此渠道」）；
+- 相关配套：[`dsh-so/dsh-plugin-finder`](https://gitlab.com/dsh-so/dsh-plugin-finder)（让 Agent 检索 dsh.so 市场的一键找插件工具）、`dsh-so/dsh-code-security`（扫描器）、`dsh-so/dshvm`（18★）。
+
+**已提交**：[dsh-so/dsh-plugin-submissions#17](https://github.com/dsh-so/dsh-plugin-submissions/issues/17)
+
+内容按已有投稿 #15/#16 的格式（仓库 / npm / 许可证 / 简介 / DSH 兼容 / topic + **建议 registry entry** JSON + **现有条目修正请求**），要点：
+
+- 建议 entry：`id: dsh-mcp-tools`、`category: developer`、`status: unverified`、`declaredCompatibility: ">=0.2.0"`、`verifiedVersions: ["0.2.1-rc.2"]`、`installCommand: dsh plugin --profile web add dsh-mcp-tools`、`topics: [dsh-plugin, dsh, deepseek-harness, mcp]`；
+- 修正请求：详情页安装串请从 `#v1.0.0` 刷新到 **1.0.2**（npm latest 与三个 release 资产均已核对），或改用 npm 安装命令；
+- 附构建卫生参考：我方 CI 校验 bundle 契约 / 产物清单 / 冒烟 / tarball 必需文件。
+
+**状态**：issue 待维护者处理（该队列历史投稿多为手工跟进；#7 曾以同类 issue 解决「已入库但详情页 404」问题，说明修正是有效路径）。
+
 ### 6.24 2026-10-23 PR 反馈巡检（无待处理修改项）+ 新候选渠道甄别 + dshfind 陈旧版本归因
 
 **① 17 个开放 PR 的评论/Review 全量巡检：没有任何维护者提出修改意见**
