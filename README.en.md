@@ -159,7 +159,7 @@ mklink /J "C:\Users\<you>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 
 ## 🌐 Where it is listed
 
-This plugin is listed in several DSH plugin marketplaces and directories (36 verifiable platforms as of 2026-10-23):
+This plugin is listed in several DSH plugin marketplaces and directories (37 verifiable platforms as of 2026-10-23):
 
 - [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/) (20k★ community list)
 - [dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop) (656★, 18,000+ plugins, refreshed daily)
