@@ -243,6 +243,33 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.59 2026-10-23 DSH Go Registry V4：补齐 Release Descriptor V2（可安装发布记录），已用官方协议核验器验证
+
+`coeasy/dsh-go` 的 **Registry V4** 不是「仓库被发现就能装」：契约要求 **Manifest V2**（根目录 `dsh-package.json`）+ 每个 GitHub Release 内的 **Release Descriptor V2**（`dsh-package-release.json`），且 artifact 必须是 GitHub Release 归档（`kind: release-archive`、`format: tgz`、`digest: sha256-<64hex>`、`strip_components`）。我们此前只有 Manifest V2（`f803dea`），所以 catalog 里一直是 `verified: false / manifest_file: null`。
+
+**本轮补齐**（tag `v1.0.2`，canonical tag 由 `packageReleaseTag()` 推出 = `v1.0.2`）：
+
+1. 稀疏克隆官方 toolkit（`coeasy/dsh-go` 的 `packages/protocol-core`、`runtime`、`scripts`、`schemas`），用 **Protocol Core 官方实现**核验，而不是只看 JSON Schema：
+   - `readDshManifest(repoRoot)` → `manifest ok: hxlog/dsh-mcp-tools 1.0.2 plugin stable`
+   - `validatePackageReleaseDescriptor(descriptor, { type, id, version, channel, repository, tag, package_path: null })` → **VALID**
+2. 生成并上传 `dsh-package-release.json` 到既有 Release `v1.0.2`（上传后 GitHub 记录 `sha256:a2245cce…`）：
+   - `https://github.com/hxlog/dsh-mcp-tools/releases/download/v1.0.2/dsh-package-release.json`
+   - `artifact.url = …/download/v1.0.2/dsh-mcp-tools-1.0.2.tgz`、`digest = sha256-435d32393e4f73d04b7b77a76b7bae3770169805c44111278c47f5727bfbb219`、`format: tgz`、`strip_components: 1`
+   - `id/type/version/channel` = `hxlog/dsh-mcp-tools` / `plugin` / `1.0.2` / `stable`；`commit = ddfb49a…`（tag `v1.0.2` 的提交）、`published_at = 2026-10-21T09:56:27Z`；`manifest` 内嵌当前 Manifest V2
+3. 端到端复验：从 Release URL 下载 descriptor → 再次 `validatePackageReleaseDescriptor` **OK**；再下载 artifact 计算 sha256 → **与 descriptor digest 一致**（797,549 bytes）
+
+**发现链路的现状**：`catalog/plugins.json`（48.6MB，2026-10-23T11:38Z 构建）里我们仍是 `metadata_source: github`、`verified: false`、`manifest_file: null` —— 该快照早于 `dsh-package.json` 提交（13:10Z），下次 discovery sync 应会把 `manifest_file` 置为 `dsh-package.json`（`isAuthoritativeDshManifest`）并进入可安装候选；随后 `registry-v4-source.mjs` 会按 `packageReleaseTag()` 去 Release 取 descriptor、校验后写入 Registry V4。已在 [Issue #165](https://github.com/coeasy/dsh-go/issues/165#issuecomment-6366507249) 同步进展并询问是否还需要 SBOM/SHA256SUMS 资产或显式 source 配置。
+
+**可复现命令**（本地 toolkit）：
+```powershell
+git clone --depth 1 --filter=blob:none --sparse https://github.com/coeasy/dsh-go.git dsh-go-toolkit
+cd dsh-go-toolkit; git sparse-checkout set packages/protocol-core runtime scripts schemas
+node build-descriptor.mjs   # readDshManifest + validatePackageReleaseDescriptor + 写 descriptor
+node verify-published.mjs   # 从 Release URL 复核 + artifact digest 校验
+```
+
+**与 npm 的一致性**：Release 资产 `dsh-mcp-tools-1.0.2.tgz` 与 npm 上 `dsh-mcp-tools@1.0.2` 为同一 tarball（npm pack 产物），sha256 一致；因此 dsh-go 安装源（Release 归档）与 npm 安装源内容相同，不存在版本漂移。
+
 ### 6.58 2026-10-23 `zyf-maker/dsh-catalog-merged` 自动收录（39th）；StarPivot 目录 PR #2；另核 PerryLink/dshbase 非通用市场
 
 **`zyf-maker/dsh-catalog-merged`**（站点 <https://zyf-maker.github.io/dsh-catalog-merged/web/>，插件本体 `zyf-maker/dsh-market-own`）：自称「自有的 DSH 插件市场：自己抓取、自己合并、自己排名、自己修兼容，不是任何现成市场的套壳」。数据与采集管线在本仓库（`ingest/` → `data/`，CI 每 6 小时重建），插件本身在另一个仓库、通过 raw URL 读 `data/catalog.json`（可 `DSH_MARKET_CATALOG` 覆盖）。实测 **`data/catalog.json`（30.2MB）与 `data/plugins.json`（17.7MB）都含 `dsh-mcp-tools`**，Pages 站点 HTTP 200 → **第 39 个收录**，无需提交动作。
