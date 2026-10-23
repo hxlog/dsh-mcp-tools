@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 22 个市场 + 36 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 23 个市场 + 37 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -28,6 +28,7 @@
 | [ymck-x/dsh-plugin-index](https://github.com/ymck-x/dsh-plugin-index)（cj.codexve.cn） | 22,485 条 · 证据优先索引 | 服务端管道：topic 枚举 + code search + npm 关键词，**只认 `dsh.bundle.patch`** | ✅ 已收录：站点分片 `p/20261023-180504-25.json` 含 `hxlog/dsh-mcp-tools`（`n: dsh-mcp-tools`、`v: 1.0.2`、tag 固定安装地址、分类「模型接入」、证据 `e:2`；数据 `generated 2026-10-23T10:05Z`） | https://cj.codexve.cn/ |
 | [helloHupc/dsh-plugin-hub](https://github.com/helloHupc/dsh-plugin-hub)（dsh-plugin-hub.hupc.site） | 22★ · 多源聚合检索（每小时刷新） | GitHub topic + dshworks 等多源去重聚合 | ✅ 已收录：`data/plugins.json`（16.0MB）含 `id: hxlog/dsh-mcp-tools`、`status: verified`、`sources: [github_topic, dshworks]`、category tools（2026-10-23 10:50 刷新） | https://dsh-plugin-hub.hupc.site |
 | [dshfind.com](https://dshfind.com)（hikariming/dshfind） | DSH 插件超市 + 学习社区（四语言） | 自动同步 GitHub `dsh-plugin` topic 全量仓库，每日刷新 star/增长/质量分 | ✅ 已收录：`/zh/plugins/hxlog/dsh-mcp-tools` 页面 200（分类「工具集成」；展示 star/7 日增长/语言/更新日；另有可嵌入 README 的 badge/card API；安装命令按其探测的 Release `.tgz` 推导，当前显示 v1.0.0 属抓取缓存，下一轮同步会取 v1.0.2） | https://dshfind.com/zh/plugins/hxlog/dsh-mcp-tools |
+| [realguan/dsh-plugin-market](https://github.com/realguan/dsh-plugin-market)（索引源：`realguan.github.io/dsh-plugin-market/dsh-index.json`、`cdn.jsdelivr.net/gh/realguan/dsh-plugin-market@dist/dsh-index.json`） | 4,562 条 / 23 分类 | 每日 03:17Z 从上游 feed 自动重建索引 | ✅ 已含（2026-10-23 核验 `dsh-index.json` 7.72MB：`name=dsh-mcp-tools`、`versions[0]=1.0.2`、`source.type=npm`、`metadata.category=tools`） | https://realguan.github.io/dsh-plugin-market/ |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -58,6 +59,7 @@
 | [diegosouzapw/awesome-omni-dsh-plugins](https://github.com/diegosouzapw/awesome-omni-dsh-plugins) | 19★ / 3626 | PR #3723（catalog/plugins/hxlog-dsh-mcp-tools.yaml，每插件一 PR） | 🟡 待审（本地 `catalog validate` 3627 entries valid；已 re-pin 到最新 commit `65fc438`，semgrep 重跑中） | 创作者优先 PR；分类 coding-developer-tools · **本地已过 CI 门禁**（2026-10-23，按 workflow 同命令）：`catalog validate` → `3627 entries valid`；`docs-check --skip-count` → passed |
 | [polang233/dsh-plugin-index](https://github.com/polang233/dsh-plugin-index)（dshopen.org） | 35★ / Open Plugin Market，864 条 | 维护者**手工批量**把申请写进 `data/sources.json`（提交历史可见 "Add N submitted plugins"），非 PR 通道 | 🟡 Issue #58 已提交，并于 2026-10-23 补了一份**可直接粘贴的 `sources.json` 条目**（含 v1.0.2 的 `source.commit`/`integrity`/`publishedAt` + 与已收录 `@sunshaobei/dsh-mcp-manager` 的差异说明）：#issuecomment-6362814800 | 索引每 6h 重建（09:19Z 最新），等维护者下一批合入 |
 | [DshHunt/community](https://github.com/DshHunt/community)（[dshhunt.com](https://dshhunt.com)） | 独立目录站（静态结构证据 + 社区投稿） | Issue [#4](https://github.com/DshHunt/community/issues/4)（plugin-submission 表单） | 🟡 待审（2026-10-23 提交） | 站点 `/plugins` 已上线但未含我们；投稿要求固定 commit SHA + 公开证据，已按表单字段提交（SHA `6cb6342`、bundle path `.`、npm `dsh-mcp-tools`、分类 developer-tools、MIT） |
+| [REALOIYO/dsh-plugin-market](https://github.com/REALOIYO/dsh-plugin-market) | 7,123 个插件 / 58,629 个版本 · 自建 format 1 索引 | Issue [#1](https://github.com/REALOIYO/dsh-plugin-market/issues/1)（召回缺口报告 + 建议补种子） | 🟡 待回复（2026-10-23 提交） | 索引源 `realoiyo.github.io/dsh-plugin-market/index.json`；每 6 小时重建（10-23T10:55Z success），但我们这个**声明了 `dsh.bundle` 且带 `dsh-plugin` 关键字**的包仍未被召回 → 判断为其切片式 npm 搜索召回缺口，建议把包名加进 `seeds/dsh-so.json` |
 
 > **合并节奏观察（2026-10-23）**：dsh-plugin-radar 只合并 `app/github-actions` 机器人生成的快照 PR，人工提交的 PR（本仓库 #968）不会被合并，收录以它每日快照为准；dshworks 由维护者 lroolle 批量合并，最近一次合并 2026-10-19（本仓库 #184 已 CLEAN 等其下个批次）。
 
@@ -215,6 +217,24 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.27 2026-10-23 两个新索引源一正一负：realguan 已含我们 / REALOIYO 召回缺口已报
+
+**① 新确认收录（第 23 个市场）：`realguan/dsh-plugin-market`**
+
+- 形态：第三方 **format 1 索引源**，用户在 DSH「发现 → 添加索引源」订阅；两个等价地址——GitHub Pages `https://realguan.github.io/dsh-plugin-market/dsh-index.json`（约 10 分钟生效）与 jsDelivr `https://cdn.jsdelivr.net/gh/realguan/dsh-plugin-market@dist/dsh-index.json`（最长 12 小时）；
+- 规模与更新：**4,562 个插件 / 23 分类 / 10 个能力标签**，每日 **03:17 UTC** 自动重建，索引带中英双语标题描述；
+- 核验结果（2026-10-23 抓取 `dsh-index.json` 7,717,658 字节）：条目存在且正确 —— `name=dsh-mcp-tools`、`title=dsh-mcp-tools`、双语 description、`icon` 指向 `cdn.jsdelivr.net/npm/dsh-mcp-tools@1.0.2/icon.svg`、`versions[0]={version:1.0.2, source:{type:npm}}`、`metadata.category=tools`、`metadata.labels=[shell,fs-write,fs-read,network,env]`；**无需任何提交动作**。
+
+**② 同类索引源但漏收：`REALOIYO/dsh-plugin-market`**
+
+- 也是 format 1 索引源（`https://realoiyo.github.io/dsh-plugin-market/index.json`），**7,123 个插件 / 58,629 个版本 / 9.5MB**，每 6 小时重建（UTC 0/6/12/18）；
+- 但其线上索引（9,060,175 字节，工作流 2026-10-23T10:55Z success）**全文无 `dsh-mcp-tools`**；
+- 而我们的 npm packument 完全合格：`keywords` 含 `dsh-plugin`，`dsh.bundle.patch` 在 1.0.0/1.0.1/1.0.2 三个版本都存在，`dsh.client.platform=web`，仓库可访问；
+- 归因：其召回 = `seeds/*.json`（种子）+ `keywords:dsh-plugin` **切片翻页**（a–z / 0–9 / 常见词，每片 250 条上限），低下载量新包容易落在切片召回之外；`seeds/dsh-so.json` 里也没有我们；
+- 已提交 [REALOIYO/dsh-plugin-market#1](https://github.com/REALOIYO/dsh-plugin-market/issues/1)：附完整包侧证据 + 复现方式 + 建议补种子（该仓库此前无任何 issue/PR，故先走 issue 询问是否接受 PR）。
+
+**方法论沉淀**：判断「某个索引源是否已收录」不能只看站点首页，要**直接抓它的索引 JSON 检索包名**；索引源类市场的收录动作往往不是 PR/Issue，而是「让你的包满足其召回条件」（关键字、`dsh.bundle` 声明）或「补它的种子名单」。
 
 ### 6.26 2026-10-23 新市场发现：DSH Hunt（dshhunt.com）+ 官方投稿表单已提交
 
