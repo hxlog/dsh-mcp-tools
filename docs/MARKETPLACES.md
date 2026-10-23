@@ -87,6 +87,7 @@
 
 | 站点 | 规模/形态 | 收录机制 | 状态 |
 | --- | --- | --- | --- |
+| [dsh.directory](https://dsh.directory)（alexchenzl/dsh-plugin-directory） | 10,773 个插件页 / 15 个分类（sitemap 10,826 条） | 自动爬取：按 default-branch HEAD 校验 DSH bundle 契约（声明仓库包）；**提交入口已失效** | ⏳ 待观察：我们未收录（`/plugins/hxlog/dsh-mcp-tools` 404）；站点的 issue 表单指向的 GitHub 仓库已 404，无法提交；爬取选择性且疑似停滞（10-23 实测高星新插件也缺席）。**勿浪费 PR** |
 | [dshplugins.com](https://dshplugins.com) | 审核制目录（含 /submit 页） | 需 GitHub 登录由管理员审核；提交需在 README 写清安装步骤 | 🟡 待人工 OAuth 提交 |
 | [dsh-plugins.net](https://dsh-plugins.net) | 带验证方法论的社区目录 | 表单生成 Markdown，发到 deepseek-harness GitHub Discussions 由维护者审核 | 🟡 已发 [Discussion #10768](https://github.com/deepseek-ai/deepseek-harness/discussions/10768)（Show Your Plugins! 分类） |
 | [dshplugin.net](https://dshplugin.net)（coolbat/awesome-dsh-plugins） | 1★ / 双语证据式目录 | GitHub Issue `plugin-submission` 模板（需固定 commit） | 🟡 已提交 Issue #34 · 仓库已改名 `coolbat/awesome-dsh-plugins`（1★，证据型双语目录，数据源 `data/plugins.json`，1709 条）；issue #34 仍在；**已按 CONTRIBUTING 逐条提交证据 + 拟好的 JSON 条目**（2026-10-23，含 40 位 SHA / manifest / patch / 双 license / lifecycle none / 能力信号；分类对齐已有先例 `Discovery & Management`） |
@@ -211,6 +212,17 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.13 2026-10-23 新发现：dsh.directory（提交入口已失效，只能等自动爬取）
+
+线索来自 `PerryLink/dsh-plugin-doctor` 的 `OUTREACH-dsh-directory-submissions.md`（该文档记录了 9-23 向 dsh.directory 批量提交 44 个包、#276–#319 的经过，并附提交机制说明）。核验结果：
+
+- 站点在线：`sitemap.xml` 10,826 条 loc，其中 10,773 个 `/plugins/...` 页、15 个分类；站点声明「按 default-branch HEAD 校验 DSH bundle 契约，只展示声明仓库包」，不做打分/排序。
+- 我们**未被收录**：`/plugins/hxlog/dsh-mcp-tools` → 404。
+- **提交链路已断**：站点 `Submit ↗` 指向 `https://github.com/alexchenzl/dsh-plugin-directory/issues/new?template=plugin-submission.yml`，但该仓库 API 与网页均 404（仓库已删除/转私有），表单打不开。
+- 爬取为选择性/疑似停滞：抽查 `Rosynb666/dsh-whale-catch` 有页（200），而高星新插件 `oil-oil/dsh-oil-ui`、`AtinyFurina/dsh-prompt-layer` 均 404。
+
+结论：**无可用提交动作**，标记为待观察（若其数据源改为同步 awesome feed，10-22 之后应能进入）。已排除，不重复投入。
 
 ### 6.12 2026-10-23 新发现：dsh-plugin-hub 聚合站（每小时刷新）
 
