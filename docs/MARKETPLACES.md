@@ -150,6 +150,19 @@
 结论：下游自动索引里，**凡是按 feed 或 npm keywords 取数的都已收录我们**；未收录的都是 star 门槛型（需先把 star 做上去），没有可提交的入口。
 
 
+### 6.4 上游 feed 条目已落地（2026-10-23 核验）
+
+canonical feed 仓库 `awesome-dsh-plugin/awesome-dsh-plugin`（20.3k★）已生成我们的条目：`data/plugins/hxlog__dsh-mcp-tools.yml`（`name: hxlog/dsh-mcp-tools`，`category: tools`，中英描述齐全，`url` 指向仓库）。这条是绝大多数下游市场（dshmarket / @99galaxy / dsh-find-plugin / dsh.so / 多个 format-1 索引）的**唯一上游**，条目存在即代表下游可继承；`data/added-dates.json` 只记近期新增、不含我们属正常（我们发布时间早于该文件的滚动窗口）。
+
+### 6.5 2026-10-23 全量 PR 可合并性复核（18 个 open PR）
+
+| 结论 | 数量 | 明细 |
+| --- | --- | --- |
+| 冲突 / 需 rebase | **0** | 无 `DIRTY`/`CONFLICTING` |
+| `CLEAN`+`MERGEABLE` | 10 | 含 adh #186（`APPROVED` 待点合并）、Zhiyuan-Fan #96、walkinglabs #121 等 |
+| `BLOCKED` | 2 | omni #3723、zhu #52 —— 规则集要求维护者批准 workflow |
+| `UNSTABLE` | 6 | white0dew #21、beancookie #236、keji #150、losebird #54、0xsline #737、Alex-Yanggg #162 —— 实测 `commits/<sha>/status = pending` 且 **contexts 为空、check-runs 为空**，即首跑 workflow 处于 `action_required` 等维护者批准，**非我方失败项** |
+
 ### 6.3 发布包可安装性自检（2026-10-23，供审核方复现）
 
 `npm i dsh-mcp-tools@1.0.2` 后检查：运行期文件齐全（`cordis.patch.yml`、`lib/*.js`、`client/client.js`、`locale/*.json`、LICENSE、双 README、截图），`package.json` 的 `dsh.bundle.patch = ./cordis.patch.yml` 存在，且包内自带的 `scripts/smoke.mjs` 在干净目录下 **6/6 项通过**（locale 元数据、client 字典键一致、header 编辑器为键值行而非 JSON 文本域、README 截图齐全、中文 README 为落地页、npm files 白名单含运行路径）。这是 1024Store / dshopen 等「npm-only 安装」市场审核时最容易被卡的一环，可随时重跑复现。
