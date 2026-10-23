@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 43 个市场 + 69 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 43 个市场 + 71 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1179,3 +1179,16 @@ render: wrote README.md + docs artifacts (20770 entries)
 - `oa1mgo/dshplugin`（★0，community discovery/verification registry，有 `.github/ISSUE_TEMPLATE/plugin.yml`）
 - `iasiv5/dsh-m`（★9，市场插件 + `registry.json`，有 `registry.yml` 校验 workflow）
 - `zjust7/dsh-plugin-market`（★1，带安全检测的市场，`data/reviews.json`）
+
+### 6.65 2026-10-23 深夜：两个「curated registry」投稿（Issue + PR），都按对方 CI 本地预跑过
+
+**① `iasiv5/dsh-m` → [PR #5](https://github.com/iasiv5/dsh-m/pull/5)**（★9，npm `dsh-m` 市场插件，`registry.json` 20 条 curated 清单 + `registry.yml` 五道 CI：build / typecheck / test / `validate-registry.mjs` / `npm pack` 断言）
+- 条目类型：**第三方 `watchlist`**（与 dsh-mermaid / dsh-server-deck / ds-bot 同形），**不填 `verified`、不写「已适配」句式**（没实测全代际就不做兼容声明，符合对方 `docs/registry-copy-guide.md` §6「三方只做结构统一」）
+- description 当量 **36.0 ≤ 60**、tags 3 个无依赖词、无全角括号尾巴 → `validate-registry.mjs` 零 warn
+- **本地预跑对方 CI**：`npm ci` ✅ → `npm run build` ✅ → `node scripts/validate-registry.mjs` ✅（`✓ [dsh-mcp-tools] npm 包存在 / GitHub 仓库存在 / homepage 可达`）→ `node --test tests/registry.test.mjs` 78 pass/0 fail；并把该测试里的收录条数断言 20 → 21 一并提交（否则 CI 必挂）
+- 全量 `npm test` 在 Windows 本地有 `symlink EPERM`、doctor 读本机 DSH 等**与本改动无关**的环境失败；Ubuntu CI 上应绿
+
+**② `oa1mgo/dshplugin` → [Issue #12](https://github.com/oa1mgo/dshplugin/issues/12)**（community discovery/verification registry，`.github/ISSUE_TEMPLATE/plugin.yml` 投稿模板）
+- 按模板填：canonical repo / name / type=Plugin / 功能描述 / 勾满 3 条 check；附 npm·Release·Manifest V2 证据链接
+
+**方法论补充**：curated 型（人工清单）市场的正确姿势是「**先把对方 CI 在本地跑通再提 PR**」，尤其注意对方测试里写死的条目数断言（本轮 `21 !== 20` 就是它）；自动聚合型市场不需要提交。
