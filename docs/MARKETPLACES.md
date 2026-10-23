@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 27 个市场 + 41 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 28 个市场 + 41 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -33,6 +33,7 @@
 | [hoyyang/dsh-market-index](https://github.com/hoyyang/dsh-market-index)（dsh-store 市场目录索引） | 可订阅索引 `registry.json`（29.3MB） | GitHub Actions 定时抓取 `#dsh-plugin` 全量仓库生成 | ✅ 已含（2026-10-23 抓 `registry.json` 检索到 `dsh-mcp-tools`） | https://raw.githubusercontent.com/hoyyang/dsh-market-index/main/registry.json |
 | [XingLingQAQ/dsh-plugin-registry](https://github.com/XingLingQAQ/dsh-plugin-registry) | 机器可读目录 `catalog.json`（451KB，每日刷新） | 自动抓取 | ✅ 已含（2026-10-23 抓 `catalog.json` 检索到 `dsh-mcp-tools`） | https://raw.githubusercontent.com/XingLingQAQ/dsh-plugin-registry/main/catalog.json |
 | [deepseekplugin.org](https://deepseekplugin.org)（DeepSeek Harness 插件目录） | 目录 sitemap 8,593 条 · 2.67MB `registry/v1/catalog.json` | **自助 API 投稿**：`POST /api/submissions {url}`，识别后即时发布 | ✅ 已收录（2026-10-23 提交，`state=published`；解析出标题/中英描述/安装命令 `dsh plugin --profile web add dsh-mcp-tools`/tags/`installable=true`/`security.score=5`） | https://deepseekplugin.org/plugins/submitted?slug=hxlog-2f-dsh-2d-mcp-2d-tools |
+| [dsh-plugins-mp.com](https://dsh-plugins-mp.com)（`dsh-plugins-hub` npm 客户端的数据源） | 19,175 个插件条目（`/api/plugins` 分页 24/页） | 自动抓取 + 结构校验（`verificationState: structure_ok`） | ✅ 已含（API `?q=` 命中 `slug: hxlog--dsh-mcp-tools`，`license: MIT`、`profiles:[web]`、`categories:[tools,models]`；站点页 `/plugins/hxlog--dsh-mcp-tools` 200） | https://dsh-plugins-mp.com/plugins/hxlog--dsh-mcp-tools |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -225,6 +226,19 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.33 2026-10-23 npm 包反查第二波：dsh-plugins-mp.com（第 28 个市场）+ dshindex.dev 已停更
+
+**方法复述**：批量搜 npm 里「market/registry/catalog/directory」类包 → 下 tarball → gunzip 后正则抽域名 → 与已知域名去重 → 逐新域名探站/探 API。本轮扫了 7 个客户端包，命中 2 个新数据源。
+
+| npm 客户端 | 数据源 | 结论 |
+| --- | --- | --- |
+| `dsh-plugins-hub@0.2.1`（侧边栏市场 + `mp_search`/`mp_similar`/`mp_detail` 工具） | **`https://dsh-plugins-mp.com/api`** | ✅ 已收录我们（`verificationState: structure_ok`）→ 计入第 28 个市场 |
+| `@dshindex/dsh-plugin-marketplace@0.1.0` | `https://dshindex.dev/api/marketplace/v1` | ⚪ 站点可用但 **snapshot.date = 2026-09-04**（7 周前，按 star 排序的 topic 快照），我们 10-21 才发布 → 天然收不到；仓库 `lijma/dsh-plugin-marketplace`，判定低价值，不追 |
+| `dsh-plugins-store` / `@99galaxy/dsh-plugin-market` / `@mutocenew/dsh-plugin-catalog` / `dsh-plugin-store-optimized` | 分别指向 dsh-plugin.store、awesome-dsh-plugin feed、topic:dsh-plugin | 均为**已知**数据源，无需重复提交 |
+| `hi-dsh` / `@lovstudio/…` / `@ruihuahe/…` / `@starpivot/…` / `dsh-plugin-marketplace` 等 | 无独立数据源（本地/GitHub 提供者或纯 UI 包） | 跳过 |
+
+**dsh-plugins-mp.com 记录字段**（`GET /api/plugins?q=dsh-mcp-tools` 实测）：`slug: hxlog--dsh-mcp-tools`、`sourceType: github`、`npmPackage: dsh-mcp-tools`、`license: MIT`、`primaryLanguage: JavaScript`、`profiles: [web]`、`tags` 取自我们 repo topics、`categories: [tools, models]`、`stars: 2`（其缓存值）。两个可改进点：`dsh: false`（可能其解析未识别 `dsh.bundle`）、`latestVersion: null`（未回填 npm 最新版本）——不影响安装（其卡片直接用 `npmPackage`）。
 
 ### 6.32 2026-10-23 从 npm 包反查市场：deepseekplugin.org 自助 API 即时收录成功
 
