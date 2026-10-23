@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 29 个市场 + 42 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 29 个市场 + 43 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -32,6 +32,7 @@
 | [vbarter/dsh-plugin-registry](https://github.com/vbarter/dsh-plugin-registry)（[dsplugin.app](https://dsplugin.app)） | 社区插件注册表 + 发布流程（`publish.html`） | 自动发现 + 站点数据快照 | ✅ 已含（`data/plugins.json` 25.4MB 内条目 `id: hxlog/dsh-mcp-tools`，含中英描述） | https://github.com/vbarter/dsh-plugin-registry/blob/main/data/plugins.json |
 | [hoyyang/dsh-market-index](https://github.com/hoyyang/dsh-market-index)（dsh-store 市场目录索引） | 可订阅索引 `registry.json`（29.3MB） | GitHub Actions 定时抓取 `#dsh-plugin` 全量仓库生成 | ✅ 已含（2026-10-23 抓 `registry.json` 检索到 `dsh-mcp-tools`） | https://raw.githubusercontent.com/hoyyang/dsh-market-index/main/registry.json |
 | [XingLingQAQ/dsh-plugin-registry](https://github.com/XingLingQAQ/dsh-plugin-registry) | 机器可读目录 `catalog.json`（451KB，每日刷新） | 自动抓取 | ✅ 已含（2026-10-23 抓 `catalog.json` 检索到 `dsh-mcp-tools`） | https://raw.githubusercontent.com/XingLingQAQ/dsh-plugin-registry/main/catalog.json |
+| [WSK-build/awesome-dsh-mobile-plugins](https://github.com/WSK-build/awesome-dsh-mobile-plugins)（移动端精选列表，站点 wsk-build.github.io） | 45 条目 · 每插件一个 `data/plugins/<owner>__<repo>.yml` | Issue/PR 投稿，CI 有三道闸（`dsh.bundle` 清单、仓库年龄 ≥1 天、非常规整拷贝）+ 描述查重 | ⏳ **PR #24**（2026-10-23 提交；本地已跑 `validateEntries`=0 problems、18 个测试全绿、`build-site.mjs` 通过） | https://github.com/WSK-build/awesome-dsh-mobile-plugins/pull/24 |
 | [deepseekplugin.org](https://deepseekplugin.org)（DeepSeek Harness 插件目录） | 目录 sitemap 8,593 条 · 2.67MB `registry/v1/catalog.json` | **自助 API 投稿**：`POST /api/submissions {url}`，识别后即时发布 | ✅ 已收录（2026-10-23 提交，`state=published`；解析出标题/中英描述/安装命令 `dsh plugin --profile web add dsh-mcp-tools`/tags/`installable=true`/`security.score=5`） | https://deepseekplugin.org/plugins/submitted?slug=hxlog-2f-dsh-2d-mcp-2d-tools |
 | [dsh-plugins-mp.com](https://dsh-plugins-mp.com)（`dsh-plugins-hub` npm 客户端的数据源） | 19,175 个插件条目（`/api/plugins` 分页 24/页） | 自动抓取 + 结构校验（`verificationState: structure_ok`） | ✅ 已含（API `?q=` 命中 `slug: hxlog--dsh-mcp-tools`，`license: MIT`、`profiles:[web]`、`categories:[tools,models]`；站点页 `/plugins/hxlog--dsh-mcp-tools` 200） | https://dsh-plugins-mp.com/plugins/hxlog--dsh-mcp-tools |
 | [dsh.qomob.ai](https://dsh.qomob.ai)（qomob 的 DSH 导航站，数据内嵌在 SPA bundle） | 1,700+ 条（bundle 内嵌全量 JSON） | 非自建目录：聚合 awesome 列表 + GitHub 元数据（`source: awesome-list`） | ✅ 已含（bundle 内 `id: hxlog/dsh-mcp-tools`，`category: terminal`、`score: 53`、`installCmd: dsh plugin add "github:hxlog/dsh-mcp-tools"`、topics/stars/license 与我们仓库一致，`updatedAt: 2026-10-23`） | https://dsh.qomob.ai/ |
@@ -227,6 +228,32 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.36 2026-10-23 移动端精选列表（WSK-build）：收录门槛与本地复现，已提 PR #24
+
+**来源**：npm 包 `dsh-mobile-plugin-catalog` 里读到站点 `https://wsk-build.github.io/awesome-dsh-mobile-plugins`；仓库 `WSK-build/awesome-dsh-mobile-plugins`（1★、CC0、45 条目）是「手机上用起来有意义」的插件精选，**每插件一个 `data/plugins/<owner>__<repo>.yml`**（元数据 only，代码留在作者仓库）。
+
+**收录门槛（读源码核实，比网页说法更细）**：
+
+- 定位：必须有**客户端界面**（侧栏/设置页/悬浮层）或手机上可用的核心能力；纯桌面/纯后端不收 —— 我们属于「设置页 UI」这一类；
+- `.yml` 只允许 `url / name / category / description{t.en,zh} / tarball` 五个键（多余键会报错，因为「没有任何代码读它」）；
+- `url` 必须 `https://github.com/owner/repo`；`name` 若写成 `owner/repo` 必须与 url 一致；文件名必须是 `slugFor(url)`；
+- `category` 必须在 23 个 ID 里（我们选 `tools`）；`description.en` 必填且单行，`: ` 必须加引号；
+- 可选 `tarball` 只接受 GitHub Releases 的 `.tgz`；
+- **提交闸（pr-gate，需要有 token 的 workflow_run）**：① package.json 任意位置声明 `dsh.bundle`；② 仓库年龄 ≥ `MIN_AGE_DAYS=1`（「时间无法伪造」，已取消 commit 数门槛）；③ 仓库存在且未归档；④ 不是 DSH 本体/官方包拷贝；每个 PR 最多加 3 条。
+
+**已提 [PR #24](https://github.com/WSK-build/awesome-dsh-mobile-plugins/pull/24)**，条目：
+
+```yaml
+url: https://github.com/hxlog/dsh-mcp-tools
+name: hxlog/dsh-mcp-tools
+category: tools
+description:
+  en: 'MCP tool manager in DSH Settings: add MCP servers, Postman-style request headers, connection test, and per-tool on/off switches — zero dependencies, no install scripts, settings-page UI.'
+  zh: 'DSH 设置页里的 MCP 工具管理器：添加 MCP 服务器、Postman 式请求头、连通性测试、逐工具开关。零依赖、无安装脚本，带设置页 UI。'
+```
+
+**本地复现（与 `pr-check.yml` 同命令）**：`npm install` → `readEntries()/validateEntries()` = **46 entries, 0 problems**；`node --test scripts/{added-dates,capabilities,adopt-discussions}.test.mjs` = **18/18 pass**；`SKIP_PUBLISH_CHECKS=1 node scripts/build-site.mjs` = 通过。PR 只加一个 yml，不动生成型 README（他们的规则：README 是合并后在 main 上重新生成的）。
 
 ### 6.35 2026-10-23 npm 反查第三波：dsh.qomob.ai 已含（第 29 个市场）＋ 两个审计型站点对上了「收录条件」
 
