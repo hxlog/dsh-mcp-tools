@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 18 个市场 + 34 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 20 个市场 + 34 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -25,6 +25,7 @@
 | [dsh.so](https://www.dsh.so)（ihuajiu/dsh.so） | 21,303 插件验证注册表 | npm/GitHub 自动收录 + L1–L5 扫描 | ✅ 已收录：<https://www.dsh.so/artifact/dsh-mcp-tools/>（**Verification L5 · Run tested**，LowRisk / Trust Gold，2026-10-21 复检）（2026-10-21 发布） | 自动抓取，无需提交（2026-10-23 复核：artifact 页 200 且含本插件） |
 | [DshMarketPlace/dshmarketplace](https://github.com/DshMarketPlace/dshmarketplace)（dshmarketplace.dev） | 3★ / 3,420 listing + **13,175 条 API 索引** | GitHub topic 自动 ingest + 沙箱验证安装命令 | ✅ 已收录：`/api/v1/index` 含 `hxlog/dsh-mcp-tools`（`category: tools` + install 命令；2026-10-23 复核，`generated` 10:38Z，`count: 13175`）；`path` 为 null（暂无人工精选详情页，非必需）。曾开 Issue #7 申请，复核后自行关闭并说明 |
 | [UntR/dsh-plugin-marketplace](https://github.com/UntR/dsh-plugin-marketplace)（`untr-dsh-marketplace`，1★，registry-backed） | 自有 registry v1（`index.json` 33.2MB + 每插件 JSON） | GitHub topic 自动 crawl（每小时/按需 enrich） | ✅ 已收录：`registry/v1/plugins/1427825895.json`（slug `hxlog/dsh-mcp-tools`、`bundle.detected=true`+`patch=./cordis.patch.yml`、`install.spec=dsh-mcp-tools@1.0.2`、`npm.repositoryMatches=true`、`requiresBuildApproval=false`、license MIT；2026-10-23 09:15Z enrich） | https://github.com/UntR/dsh-plugin-marketplace/tree/main/dsh-plugin-registry |
+| [ymck-x/dsh-plugin-index](https://github.com/ymck-x/dsh-plugin-index)（cj.codexve.cn） | 22,485 条 · 证据优先索引 | 服务端管道：topic 枚举 + code search + npm 关键词，**只认 `dsh.bundle.patch`** | ✅ 已收录：站点分片 `p/20261023-180504-25.json` 含 `hxlog/dsh-mcp-tools`（`n: dsh-mcp-tools`、`v: 1.0.2`、tag 固定安装地址、分类「模型接入」、证据 `e:2`；数据 `generated 2026-10-23T10:05Z`） | https://cj.codexve.cn/ |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
