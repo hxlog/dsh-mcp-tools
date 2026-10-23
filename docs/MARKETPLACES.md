@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 48 个市场 + 78 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 48 个市场 + 79 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1538,3 +1538,15 @@ DSH-Store 是「跑在 DSH 设置页里的第三方插件商城 + 安全生命�
 - 结论：这是**流程门禁**而非我们的格式问题，已按 guard 提示走完「先 push 重试 → 仍不跑则告知维护者」两步
 
 **全量检查巡检**（29 个在审 PR 的 check-runs）：除 WSK 这一处 `action_required`，其余 PR 都是 `无 workflow`（目标仓库本身没有 CI）或全部 success。真正需要我们改格式的 CI 失败：**0**。
+
+### 6.83 2026-10-24 凌晨：`Awesome-AI-Pedia/Awesome-AI-Pedia`（★492）新增插件文章 PR #20
+
+从 topic 全量扫描里捞到的最大星仓库（★492，「AI 知识库与博客平台」），站点 `https://awesome-ai-pedia.github.io/Awesome-AI-Pedia/` 有独立的 **`deepseek harness plugins/`** 目录，现存 18 篇「一个插件一篇文章」的中文介绍（如 `插件市场dsh-market.md`、`插件发现-dsh-find-plugin.md`），并被自动生成的 sidebar 收录、站内全文搜索可查。
+
+**它算不算市场**：严格说是「插件文章型目录」——不是可安装的 registry，但它给每个插件一个可被搜索引擎/站内搜索命中的介绍页，且接受外部 PR（近期外部 PR：#18 新增 dsh-next-hint、#11 新增 sofagent、#19 新增 datawebot MCP）。按「用户可发现 + 数据/页面里有我们」的口径，归入待审市场。
+
+**已提 PR：[Awesome-AI-Pedia#20](https://github.com/Awesome-AI-Pedia/Awesome-AI-Pedia/pull/20)**
+- 新增 `deepseek harness plugins/MCP工具管理器dsh-mcp-tools.md`（约 2KB，中文）
+- 结构对齐仓库既有文章：定位 / 核心功能 / 安装 / 安全性 / 技术栈 / 生态 / 一句话总结；并在「生态」里写清与 `dsh-mcp-manager` 的定位差异
+- 遵守 CONTRIBUTING：分支 `docs/add-dsh-mcp-tools`、Conventional Commit、**本地 `npm run build` 实测通过（57.84s，VitePress 渲染成功，新文章已进自动 sidebar）**
+- 小插曲： `npm ci` 被 npm 12 的 remote-tarball 策略拦（lockfile 指向 npmmirror），用 `--replace-registry-host=always` 解决后才跑通构建
