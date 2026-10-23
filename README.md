@@ -140,7 +140,7 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 
 ## 🌐 收录渠道
 
-本插件已被多个 DSH 插件市场/目录收录（截至 2026-10-23，17 个可复核平台）：
+本插件已被多个 DSH 插件市场/目录收录（截至 2026-10-23，18 个可复核平台）：
 
 - [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/)（20k★ 社区精选列表）
 - [dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop)（656★，18,000+ 插件，每日刷新）
@@ -151,6 +151,7 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 - [dshmarketplace.dev](https://dshmarketplace.dev)（3,420 listing / 13,175 条 API 索引，自动收录）
 - [dsh-plugin-marketplace](https://github.com/YELEBAI/dsh-plugin-marketplace)（21★ 自主扫描 registry，已验证 verified）
 - [dshmarket.com](https://dshmarket.com/browse/)（8,378★ DSH 站内市场，浏览器目录已收录）
+- [dsh-plugin.store](https://dsh-plugin.store/p/hxlog/dsh-mcp-tools)（14,082 插件目录，详情页已收录）
 - [dsh.so](https://www.dsh.so/artifact/dsh-mcp-tools/)（21,000+ 插件验证注册表）
 - [deepseek1024.com](https://deepseek1024.com)（312★，13,840 插件目录，收录 PR #669 已合并）
 - [dsh-plugin-catalog](https://www.npmjs.com/package/dsh-plugin-catalog)（npm 目录，6000+ 条）

@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 17 个市场 + 34 个待审/待跟进 PR/Issue/目录站（bruc3van 待每日重建后落地）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 18 个市场 + 34 个待审/待跟进 PR/Issue/目录站（bruc3van 待每日重建后落地）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -75,6 +75,7 @@
 | [Sanqi-normal/dsh-webui-market-plugin](https://github.com/Sanqi-normal/dsh-webui-market-plugin)（104★） | 浏览 awesome-dsh-plugin.com 目录 | ✅ 同上 |
 | [AwesomeHou/dsh-plugin-marketplace](https://github.com/AwesomeHou/dsh-plugin-marketplace)（33★） | 设置页内市场，运行时实时同步 GitHub `dsh-plugin` topic | ✅ topic 已打，用户端搜索即可见（无需提交） |
 | [anywhere-labs/dsh-desktop](https://github.com/anywhere-labs/dsh-desktop)（32.6k★）内置 Community Market | 从用户选择的目录源（含 awesome-dsh-plugin registry feed）发现插件 | ✅ 已随 registry feed 覆盖（无需单独提交） |
+| [dsh-plugin.store](https://dsh-plugin.store) | 14,082 个 GitHub 真实插件目录（Next.js） | 直接消费 `awesome-dsh-plugin.com/plugins.json` | ✅ 已收录：`/p/hxlog/dsh-mcp-tools` 详情页 200 | https://dsh-plugin.store/p/hxlog/dsh-mcp-tools |
 | [YELEBAI/dsh-plugin-marketplace](https://github.com/YELEBAI/dsh-plugin-marketplace)（21★） | 每日扫描 `dsh-plugin` topic 进中心 Registry | ⏳ topic 已打，下轮扫描自动进候选 |
 | [w2112515/dsh-plugin-marketplace](https://github.com/w2112515/dsh-plugin-marketplace)（17★） | 扫描 topic 后逐个证明可安装，再进入市场 | ⏳ 同上 |
 
@@ -88,6 +89,7 @@
 | [dsh.store](https://dsh.store)（AI-Scarlett/DSH-Store） | 5★ / 第三方市场 + 生命周期管理 | 每 8 小时自动 radar 扫描写入 `registry/catalog.json` | 🟡 机器人预检**已通过**（固定 commit `f245bca`、识别 `dsh-mcp-tools@1.0.2`、入口 `mcp-tools`、无生命周期脚本、13/13 文件扫描完整、1 条 shell 警告来自 `scripts/smoke.mjs`），等 8 小时 Catalog 策略复核 |
 | [dshplugins.org](https://dshplugins.org)「深鲸插件港」 | 聚合型（14000+） | 聚合 AdamPlatin123 / vvlife / libukai / 0xsline 等 awesome 列表 | ⏳ 随上游列表合并自动跟进 |
 | [dshplugin.app](https://dshplugin.app) | 注册表 + 审核提交 | `/submit` 表单（无需账号，但有 captcha）；提交后抓取仓库并分类 | 🟡 待人工/带 captcha 提交 |
+| [dshplugin.market](https://dshplugin.market) | 插件/技能/Agent 目录（含 MCP Servers 分类） | `/submit` 明确说明无表单：collector 按 GitHub topic 自动索引（`dsh-plugin` / `deepseek-harness` / `dsh` 等） | ⏳ topic 已打，等 collector 下一轮 |
 | [dsh-plugin.net](https://dsh-plugin.net) | 官方发布预检 + 注册表 | 按其「官方发布方式」：仓库加 `dsh-plugin` topic 即进入其 registry 同步 | ⏳ topic 已打，待其同步（当前 `/plugins` 未含） |
 | [dshmarketplace.com](https://dshmarketplace.com) | 人工审核目录（3,400+） | 邮件提交 `hello@dshmarketplace.com`；slug 形如 `owner--repo` | 🟡 待发邮件 |
 | [dshplugin.dev](https://dshplugin.dev)（arkyu2077/awesome-dsh-plugin） | 导航式说明书（5★） | 从该仓库 catalog 生成 | ⚪ 仓库自 2026-08-17 未更新，暂停投入 |
