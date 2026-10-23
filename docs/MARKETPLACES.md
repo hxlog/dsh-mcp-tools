@@ -240,6 +240,23 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.56 2026-10-23 下游 format-1 索引源自动覆盖审计（不计入 38 个市场，但用户可在 Discover 直接添加）
+
+这批仓库本身不是「有站点的市场」，而是别人生成/发布的 format-1 `index.json`，用户可在 DSH「插件 → 发现 → 添加索引源」直接填 raw URL。逐个实测其数据文件：
+
+| 索引源 | 生成方式 | 含我们 | 说明 |
+| --- | --- | :---: | --- |
+| `wangyutansheng/dsh-market-index` | 由 `awesome-dsh-plugin.com/plugins.json` 每日生成，仅收 npm 可装项，用 `@deepseek-ai/dsh-plugin-market-index` 校验 | ✅ | `index.json` 含 `dsh-mcp-tools`；安装解析走 npmmirror |
+| `p8054076283-del/dsh-market-index` | 同上（awesome 目录 → format 1，版本/时间取 npm 真值） | ✅ | `index.json` 含 `dsh-mcp-tools`；给出 jsDelivr 与 `cordis.patch.yml` 两种添加方式 |
+| `wink-run/dsh-plugin-store`（★3） | 自建静态商店源码，`data/plugins.json` 13.2MB 快照 | ✅ | 条目 `id: hxlog/dsh-mcp-tools`；无线上站点、需自托管，故不计市场 |
+| `chainCAI/dsh-plugins-store`（★0） | 构建时抓 topic，`src/data/catalog.json` 22.3MB | ❌ | 快照滞后，待下次构建 |
+| `wakeUpGitHub/dsh-plugin-market`（★0） | 内置 format-1 `site/index.json`（7MB） | ❌ | 快照滞后，待下次构建 |
+| `jialiang2509/dsh-plugin-index` | npm 包索引（`market.json`，约 5250 包） | ❌ | 未含我们 |
+| `Gcy580231/dsh-market-index` / `zhchzh11-tech` / `gitMFQ` / `f0909172434` / `stellvyr` / `hdh20080722-create` | 各自 format-1 索引 | ❌ | 均未见我们（生成时点或过滤差异） |
+| `CatGuard35/dsh-plugin-indexes` | 转换官方/第三方索引（awesome / dsh-plugin.org / dsh.so / lanshuagent） | ❌ | 四个 format1 文件均未含我们 |
+
+**结论**：至少 **2 个可添加的 format-1 索引源**已自动包含本插件（另加 wink-run 快照），无需任何提交动作；这说明「上 awesome-dsh-plugin 主 feed」这一步已把下游索引类市场基本自动化覆盖。后续只需定期重跑本表即可发现滞后项补齐。
+
 ### 6.55 2026-10-23 `dshmarketplace.dev`（38th）：API 已收录；确认收录判定用 `?q=` 搜索；另核 3 个 store 快照与 1 个 leaderboard
 
 **`dshmarketplace.dev`**（[DshMarketPlace/dsh-plugins-store](https://github.com/DshMarketPlace/dsh-plugins-store) ★8，npm `dshmarketplace-plugin`；目录数据另见 [DshMarketPlace/awesome-dsh-plugin](https://github.com/DshMarketPlace/awesome-dsh-plugin) ★4，其 README 已落后于站点）是「DSH 内安装 + 浏览器站」同一端点：CLI / 浏览器 / 插件都读 `https://dshmarketplace.dev/api/v1/plugins`（约 1.3 万条，目录每小时变）。收录基本自动，站点有 `/submit` 人工提交通道（粘贴仓库 URL，先读公开元数据——topic/licence/description/是否已收录——再人工复核）。
