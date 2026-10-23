@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 47 个市场 + 76 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 48 个市场 + 75 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1436,3 +1436,29 @@ node scripts/verify-listings.mjs --json  # 机器可读输出（CI/审计用）
 **顺带确认**：`cocofhu/skillhub`（★11）只做 skills 不做插件；`jli658942-web/dsh-market-skill` 是「教 Agent 找插件」的 skill，不是市场；`bruc3van/safer-dsh-market`、`losebird/dsh-plugin-market`、`2BingLing/dsh-market`、`imsai`、`LivXue`、`kejixiaoliang`、`hnjames` 等均已在册（§6.64 / 前面各节）。
 
 **方法论**：`topic:` 搜索和 `in:description` 是**互补**的两条路——前者命中「自己声明了市场身份」的仓库（Blue-Whale、dsh-plugin.market 都带 `dsh-plugin-market` topic），后者命中「名字/描述不像市场」的站点（xrj 的 dsh-market-site）。两条都跑一遍才算扫全。
+
+### 6.78 2026-10-24 凌晨：第 48 个市场 dsh-plugin.market —— **提交后 5 分钟完成扫描**，FORMAT_VERIFIED / security PASSED / risk LOW
+
+§6.77 里 `POST /api/submit` 排队后，我按 `scannedAt` 蹲了一次，结果比预期快得多：
+
+- 提交：`2026-10-24T00:0x +08`（202 queued）
+- 扫描入库：`scannedAt: 2026-10-23T15:50:23.104Z`（**约 5 分钟**）
+- 详情端点 `https://dsh-plugin.market/api/plugins/hxlog/dsh-mcp-tools` → **200**（之前 404）
+
+**trust profile 实测结果**：
+| 字段 | 值 |
+| --- | --- |
+| verificationStatus | **FORMAT_VERIFIED** |
+| compatibilityStatus | UNKNOWN |
+| securityStatus | **PASSED** |
+| maintenanceStatus | **ACTIVE** |
+| riskLevel | **LOW** |
+| packageName | `dsh-mcp-tools` |
+| licenseSpdx | MIT |
+| latestCommitSha | `c1f93e0`（与仓库 HEAD 一致，说明它是**按 commit 抓的**） |
+
+**两条 scanner finding（都是提示级，不是 fail）**：
+1. `FORMAT / NO_CORDIS_DEPENDENCY`（INFO）：「A DSH Plugin typically depends on @deepseek-ai/cordis」——我们是**刻意的零依赖**插件（bundle 由宿主提供 cordis），所以不会去伪造一个 `@deepseek-ai/cordis` 依赖；等级仍是 FORMAT_VERIFIED
+2. `COMPATIBILITY / NO_DSH_CONSTRAINT`（UNKNOWN）：「No DSH/Cordis dependency declared」——同理，没有版本约束可读，兼容性标 UNKNOWN 而不是 FAIL。要消除它只能声明一个假的 cordis 版本区间，**不做**（宁可 UNKNOWN 也不造假元数据）
+
+结论：这是本项目第一个**带完整 trust profile 的注册表**（format/security/maintenance/risk 四维都有明确结论），比只做「有/无」判断的市场更有分量。
