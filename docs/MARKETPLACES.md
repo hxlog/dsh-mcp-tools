@@ -214,6 +214,14 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.16 2026-10-23 1024 目录数据修正请求（issue #678）
+
+发现：`deepseek1024.com` 上我们的条目 `install` 被生成为 `dsh plugin --profile web add github:hxlog/dsh-mcp-tools`、`installMethods[0].kind = github`、`verification = unknown` —— 而其 CONTRIBUTING 明确写「1024 Store **只从 npm 安装**，manifest 的包发布到 npm 且带 `dsh.bundle` 声明后，目录会自动检测并给出 npm 安装命令」。同类条目（`perrylink/dsh-memento`、`dsh-github`、`dsh-auto-review`）均为 `kind: npm` + `verification: verified`。
+
+反证我们满足条件：npm `dsh-mcp-tools@1.0.2`（10-21 发布）、`repository.url` 与 id 一致、tarball 内 `dsh.bundle.patch: ./cordis.patch.yml` 且文件存在（实装验证过）、MIT、零依赖、无 lifecycle、`engines.node >=22.13`、`dsh-plugin` topic 已打。
+
+已开 issue **#678**（`[Catalog data] hxlog/dsh-mcp-tools: install falls back to github: though npm dsh-mcp-tools@1.0.2 declares dsh.bundle`），附三例对照与证据表，请其重跑 npm 检测，并请指出若缺某个 npm 侧信号我们会补。属数据修正，非重复投稿。
+
 ### 6.15 2026-10-23 合并落地复核（merge → listing 闭环）
 
 已合并的 4 个 PR 逐一回到目标仓库复核「条目真的落了地」，避免「PR 显示 merged 但数据未生效」：
