@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 28 个市场 + 41 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 29 个市场 + 42 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -34,6 +34,7 @@
 | [XingLingQAQ/dsh-plugin-registry](https://github.com/XingLingQAQ/dsh-plugin-registry) | 机器可读目录 `catalog.json`（451KB，每日刷新） | 自动抓取 | ✅ 已含（2026-10-23 抓 `catalog.json` 检索到 `dsh-mcp-tools`） | https://raw.githubusercontent.com/XingLingQAQ/dsh-plugin-registry/main/catalog.json |
 | [deepseekplugin.org](https://deepseekplugin.org)（DeepSeek Harness 插件目录） | 目录 sitemap 8,593 条 · 2.67MB `registry/v1/catalog.json` | **自助 API 投稿**：`POST /api/submissions {url}`，识别后即时发布 | ✅ 已收录（2026-10-23 提交，`state=published`；解析出标题/中英描述/安装命令 `dsh plugin --profile web add dsh-mcp-tools`/tags/`installable=true`/`security.score=5`） | https://deepseekplugin.org/plugins/submitted?slug=hxlog-2f-dsh-2d-mcp-2d-tools |
 | [dsh-plugins-mp.com](https://dsh-plugins-mp.com)（`dsh-plugins-hub` npm 客户端的数据源） | 19,175 个插件条目（`/api/plugins` 分页 24/页） | 自动抓取 + 结构校验（`verificationState: structure_ok`） | ✅ 已含（API `?q=` 命中 `slug: hxlog--dsh-mcp-tools`，`license: MIT`、`profiles:[web]`、`categories:[tools,models]`；站点页 `/plugins/hxlog--dsh-mcp-tools` 200） | https://dsh-plugins-mp.com/plugins/hxlog--dsh-mcp-tools |
+| [dsh.qomob.ai](https://dsh.qomob.ai)（qomob 的 DSH 导航站，数据内嵌在 SPA bundle） | 1,700+ 条（bundle 内嵌全量 JSON） | 非自建目录：聚合 awesome 列表 + GitHub 元数据（`source: awesome-list`） | ✅ 已含（bundle 内 `id: hxlog/dsh-mcp-tools`，`category: terminal`、`score: 53`、`installCmd: dsh plugin add "github:hxlog/dsh-mcp-tools"`、topics/stars/license 与我们仓库一致，`updatedAt: 2026-10-23`） | https://dsh.qomob.ai/ |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -226,6 +227,22 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.35 2026-10-23 npm 反查第三波：dsh.qomob.ai 已含（第 29 个市场）＋ 两个审计型站点对上了「收录条件」
+
+**新发现 1：dsh.qomob.ai（已收录，第 29 个）** —— 从 npm 包 `@czj-git/dsh-plugin-hub` 的仓库搜索里顺带看到 `qomob/dsh`（homepage `https://dsh.qomob.ai`）。站点是 SPA，详情路由不存在，但 **4.2MB 的 `assets/index-*.js` 里内嵌了全量插件 JSON**，直接命中：
+
+```text
+{id:`hxlog/dsh-mcp-tools`, fullName:`hxlog/dsh-mcp-tools`, stars:2, language:`JavaScript`, license:`MIT`,
+ topics:[…12 个我们仓库的 topics…], category:`terminal`, score:53, source:`awesome-list`,
+ installCmd:`dsh plugin add "github:hxlog/dsh-mcp-tools"`, updatedAt:`2026-10-23T02:34:47Z`}
+```
+
+**新发现 2：dsh-plugin-hub.com（echo719）＝「审计大厅」，有明确的 Issue 投稿协议** —— 站点首页写着「40 plugins, four checks each；Pass=四项全绿且权限人工复核、Pending=自动检查通过待人工、Watch=有红旗」，投稿入口是 `https://github.com/echo719/dsh-plugin-hub/issues/new?labels=plugin-submit&title=[Submit] owner/repo`。已按协议提交 **echo719/dsh-plugin-hub#1**，正文含：bundle 声明、`cordis.patch.yml` 顶层数组证据、**权限与数据流逐项自述表**（无自建网络请求/无遥测/无生命周期脚本/零依赖）、本地复现的 CI 命令与输出、DSH 0.2.1-rc.2 实机验证、以及已收录站点清单供交叉核对。
+
+**新发现 3：dshpluginhub.dev（czj-git 的 Plugin Hub，1,673 条已发布插件）** —— `@czj-git/dsh-plugin-hub` npm 客户端的数据源，公开只读 API `GET /api/v1/plugins/search`、`GET /api/v1/plugins/{owner}/{repo}`。实测：`?q=dsh-mcp-tools` → `total: 0`；`/api/v1/plugins/hxlog/dsh-mcp-tools` → 404 `PLUGIN_NOT_FOUND`，即**未收录**。其 `/zh/submit` 是「先检查，再进入插件市场」的候选雷达：只读公开元数据、不执行代码，**提交到候选雷达需要 GitHub 登录**（`submissionLoginRequired`），自动检查分 static / runtime 两档信任（「静态检查通过」vs「已在当前目录版本验证」）。→ 归入**用户手动操作**项（浏览器里用 GitHub 登录后提交）。
+
+**其它扫到但不算市场的**：`aust24lzy/dsh-plugin-hub`（3★，静态导航页 + 浏览器端机翻，数据非独立）、`wingsky-1/dsh-plugin-hub`（29★，是插件合集本体不是市场）、`tiyanziyang/DSH-Plugin-Hub`（已 404 改名）。
 
 ### 6.34 2026-10-23 从 DSH 源码确认兼容判定语义：**不要**给 manifest 加 `engines.dsh` / dsh peerDependencies
 
