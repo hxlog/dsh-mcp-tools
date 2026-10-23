@@ -107,6 +107,25 @@ DeepSeek Harness Web (dsh web)
 - Use a dedicated, least-privilege key for every MCP server.
 - No network requests beyond the MCP servers you configure, and no telemetry; deleting a server removes its tools from subsequent requests.
 
+
+## 📋 Prerequisites, permissions & known limitations
+
+Reviewed directories (e.g. dshplugins.com) ask plugins to document their runtime prerequisites, permissions and limitations explicitly — collected here.
+
+- **Runtime**: DeepSeek Harness **0.2.x** (Web `dsh web` or DSH Desktop), **Node.js ≥ 22.13**
+- **Platforms**: DSH Web (`--profile web`) and DSH Desktop (`--profile desktop`); verified on DSH 0.2.1-rc.2
+- **File access**: only its own state file `~/.dsh/dsh-mcp-tools/state.json`
+- **Network**: only the MCP endpoints you configure (streamable-http servers and the connectivity test); **no telemetry, nothing is uploaded**
+- **Processes**: a `stdio` server command is spawned by the MCP client only when you explicitly add one (command, args, env and cwd are all yours)
+- **UI**: adds the MCP panel under Settings, depends on `@deepseek-ai/dsh-client-ui-settings` and `@deepseek-ai/dsh-client-locale`
+
+**Known limitations**
+
+- MCP request headers are stored in **plaintext** in `state.json` (no OS keychain yet) — encrypt your backups
+- Only `streamable-http` and `stdio` transports are supported; legacy SSE is not
+- Manages MCP servers for the current DSH profile only; other profiles need their own setup
+- No background health check; use the connectivity test when needed
+
 ## 🛠 Development
 
 ```bash

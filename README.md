@@ -108,6 +108,25 @@ DeepSeek Harness Web (dsh web)
 - 给每个 MCP 服务器使用独立、最小权限的密钥。
 - 除你配置的 MCP 服务器外不发起任何网络请求，没有遥测；删除服务器后它的工具会从后续所有请求中移除。
 
+
+## 📋 前置要求与权限边界
+
+审核型目录（如 dshplugins.com）要求插件明确列出运行前提、权限与限制，这里统一列出。
+
+- **运行环境**：DeepSeek Harness **0.2.x**（Web `dsh web` 或 DSH Desktop），**Node.js ≥ 22.13**
+- **支持平台**：DSH Web（`--profile web`）、DSH Desktop（`--profile desktop`）；已在 DSH 0.2.1-rc.2 实机验证
+- **文件访问**：仅读写插件自身状态文件 `~/.dsh/dsh-mcp-tools/state.json`
+- **网络**：仅访问你自己填写的 MCP 端点（streamable-http 服务器与「测试连接」）；**无遥测、不上报任何数据**
+- **进程**：仅当你显式添加 `stdio` 服务器时，由 MCP 客户端启动你填写的命令（参数、环境变量、工作目录均由你填写）
+- **UI 注入**：设置页「设置 → MCP」面板，依赖 `@deepseek-ai/dsh-client-ui-settings` 与 `@deepseek-ai/dsh-client-locale`
+
+**已知限制**
+
+- MCP 请求头以**明文**保存在 `state.json`（尚未接入系统钥匙串），备份/同步时请自行加密
+- 仅支持 `streamable-http` 与 `stdio` 两种传输，不支持旧版 SSE
+- 只管理当前 DSH profile 里的 MCP 服务器；切换 profile 需在对应 profile 重新添加
+- 没有后台自动健康检查，需要时手动点「测试连接」
+
 ## 🛠 开发
 
 ```bash
