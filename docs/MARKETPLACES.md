@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 43 个市场 + 72 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 43 个市场 + 73 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1257,3 +1257,15 @@ render: wrote README.md + docs artifacts (20770 entries)
 3. **deepseekplugin.org**：全局 `/registry/v1/catalog.json` 的 `generated` 停在 **2026-09-22**（上游生成器停了），所以「catalog 里没有」≠「没收录」；我们的自助投稿走 `/api/submissions?slug=hxlog-2f-dsh-2d-mcp-2d-tools`，该端点 `generated: 2026-10-23T15:19Z`、`source: github-submission`、`installable: true`、`security.score: 5` —— 收录有效。
 
 **结论：43 口径维持不变**（本轮无下架、无新增计数）；另记一条待查线索 `hol.org/registry/plugins`（403，可能是又一个 registry）。
+
+### 6.69 2026-10-23 深夜：`hol.org`（HOL AI Plugin Registry）—— 第 44 个市场的入口，恰好就是我们已提的 hashgraph PR #949
+
+**是什么**：`hol.org` = 「AI agent and MCP plugin directory」（HOL Registry，Hedera 生态的开放 agent/plugin 基础设施），有独立站点、搜索、分类页（`/plugins/best-mcp-plugins`、`/plugins/best-deepseek-plugins`、`/plugins/best-claude-plugins`…）、`/registry/plugins` 目录与 `/registry/plugins/submit` 投稿页，现有条目里**已有大量 DSH 插件**（`dsh-memory-eternal`、`dsh-vision-router`、`dsh-config-manager`、`dsh-whale-girl-pet`…），分类明确包含 DeepSeek 系。
+
+**投稿机制（关键）**：`/registry/plugins/submit` 页面写明「List your plugin from GitHub, free. **Connect GitHub, pick the repository, and HOL opens the listing pull request on the public `awesome-ai-plugins` list**」——即：
+- 表单必须 **Connect GitHub（OAuth）** 选仓库，属浏览器内用户操作；
+- 它实际开 PR 的目标列表是 **`hashgraph-online/awesome-ai-plugins`** —— 也就是**我们已经提着的 PR #949**（`docs: add dsh-mcp-tools`，5/5 检查全过，等维护者合并）。
+
+**结论：不需要额外提交**。等 #949 合并后，HOL 会自动从该列表索引到我们（其站点即索引该 awesome 列表），届时成为第 44 个收录市场；在那之前它只能算「跟随 #949 的待生效项」。已把这条依赖关系记进 pending 清单（73）。
+
+**顺手排除**：`dshindex.dev`（标题「DeepSeek Harness Plugins (DSH) | DSH Index」，`lijma/dsh-plugin-marketplace` ★0、仓库 2026-08-15 后未再推送）——其 `/api/marketplace/v1/plugins` 的 snapshot 停在 **`date: 2026-09-04`**，口径写明「GitHub `dsh-plugin` topic universe, **ranked by most stars**、bounded to Top 1,000」，我们 2026-10-21 才建仓、3★，结构性不可能进榜；且已 7 周未更新 → 与 NanmiCoder/dshbase 同类，归入「停更/星标截断」，不追。
