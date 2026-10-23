@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 41 个市场 + 69 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 43 个市场 + 69 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1164,3 +1164,18 @@ render: wrote README.md + docs artifacts (20770 entries)
 - 其余为客户端/工具/极低星原型：`wink-run/dsh-plugin-store`（★3）、`Luaphes/dsh-plugins-market`（★3，实为插件 `lib/index.js`）、`yang051211/dsh-plugin-store`（★0，人工审核型、`catalog/scan/*.json` 逐插件扫描，后续可作投稿备选）、`oa1mgo/dshplugin`、`majiayu000` 之外的 `439436269-ctrl/dsh-preview-market`、`majiayu000` 同级 `f0909172434/stellvyr/doraasn/yansuui/2759069519` 等 format-1 微索引（0★，无站点/无投稿通道）。
 
 **经验**：本轮 12 个站里 9 个是「按 star 排序取 topic Top-N」的截断型聚合——3★ 项目在 1,500~25,000 条量级的目录里几乎不可能被自动发现；有官方 Issue 模板的站（majiayu000、TYEclipse）才是当前可推进的增量。
+
+### 6.64 2026-10-23 复盘：2 个「已收录但我们漏算」的站（42nd / 43rd），以及一次及时止损的错误 PR
+
+**42nd `TheYoungChen/dsh-plugin-market`**（★4，插件市场 bundle 插件：侧栏入口 + 设置内「插件市场」标签页，分页浏览 `topic:dsh-plugin` 全部插件、搜索、一键安装/更新、安装进度可终止）：`registry.json`（1.37MB，GitHub Action 每 2 小时生成、jsDelivr CDN 分发）已含本仓库条目 `type: plugin`、`stars: 3`、`updatedAt 2026-10-23T14:30:52Z`。属自动聚合型市场，无需提交。
+
+**43rd `DPH-1121/dsh-plugins`**（★3，DSH 插件「搜集面板」：采集 GitHub 上 DSH 插件仓库并展示描述/作者/star，安装交给官方「从 GitHub 安装插件」；每 6h 采集、`catalog/index.json` 15,278 条）：索引中本仓库 `firstSeenAt 2026-10-22T01:20:18Z`，`sources: [github-repo, github-search, public-index, seed]`。**早在 10-22 就已收录**（经 public-index 源），我们此前漏算。
+
+**本轮教训（重要，避免重复劳动）**：
+1. 我按「数据文件大小 < 6~12MB」过滤后判断「不含我们」，导致 13MB 的 `catalog/index.json`、以及把数据内嵌在 JS（`assets/*.js`）里的站被误判为 false negative。**正确做法**：先看对方站点实际请求的数据端点（/index.json、/registry.json、/api/*），或对候选文件不设大小上限地抓取 grep；判断完再决定是否投稿。
+2. 因此本轮一度给 `DPH-1121/dsh-plugins` 提了「加 `catalog/seed.json` include」的改动并跑了完整采集（15,278 条、527.9s），随后核对 `git show HEAD:catalog/index.json` 发现**我们本来就在索引里** → 立即 `git checkout -- .` 放弃该改动，避免给维护者送一份「无意义 + 821 条数据刷新」的噪音 PR。**投稿前先确认「你现在真的没被收录」**。
+
+**仍未收录但有明确投稿通道（下一批候选）**：
+- `oa1mgo/dshplugin`（★0，community discovery/verification registry，有 `.github/ISSUE_TEMPLATE/plugin.yml`）
+- `iasiv5/dsh-m`（★9，市场插件 + `registry.json`，有 `registry.yml` 校验 workflow）
+- `zjust7/dsh-plugin-market`（★1，带安全检测的市场，`data/reviews.json`）
