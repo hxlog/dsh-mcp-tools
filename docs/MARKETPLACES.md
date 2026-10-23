@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 22 个市场 + 34 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 22 个市场 + 36 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -58,6 +58,7 @@
 | [diegosouzapw/awesome-omni-dsh-plugins](https://github.com/diegosouzapw/awesome-omni-dsh-plugins) | 19★ / 3626 | PR #3723（catalog/plugins/hxlog-dsh-mcp-tools.yaml，每插件一 PR） | 🟡 待审（本地 `catalog validate` 3627 entries valid；已 re-pin 到最新 commit `65fc438`，semgrep 重跑中） | 创作者优先 PR；分类 coding-developer-tools · **本地已过 CI 门禁**（2026-10-23，按 workflow 同命令）：`catalog validate` → `3627 entries valid`；`docs-check --skip-count` → passed |
 | [polang233/dsh-plugin-index](https://github.com/polang233/dsh-plugin-index)（dshopen.org） | 35★ / Open Plugin Market，864 条 | 维护者**手工批量**把申请写进 `data/sources.json`（提交历史可见 "Add N submitted plugins"），非 PR 通道 | 🟡 Issue #58 已提交，并于 2026-10-23 补了一份**可直接粘贴的 `sources.json` 条目**（含 v1.0.2 的 `source.commit`/`integrity`/`publishedAt` + 与已收录 `@sunshaobei/dsh-mcp-manager` 的差异说明）：#issuecomment-6362814800 | 索引每 6h 重建（09:19Z 最新），等维护者下一批合入 |
 
+| [DshHunt/community](https://github.com/DshHunt/community)（[dshhunt.com](https://dshhunt.com)） | 独立目录站（静态结构证据 + 社区投稿） | Issue [#4](https://github.com/DshHunt/community/issues/4)（plugin-submission 表单） | 🟡 待审（2026-10-23 提交） | 站点 `/plugins` 已上线但未含我们；投稿要求固定 commit SHA + 公开证据，已按表单字段提交（SHA `6cb6342`、bundle path `.`、npm `dsh-mcp-tools`、分类 developer-tools、MIT） |
 > **合并节奏观察（2026-10-23）**：dsh-plugin-radar 只合并 `app/github-actions` 机器人生成的快照 PR，人工提交的 PR（本仓库 #968）不会被合并，收录以它每日快照为准；dshworks 由维护者 lroolle 批量合并，最近一次合并 2026-10-19（本仓库 #184 已 CLEAN 等其下个批次）。
 
 | [zhu1090093659/dsh-community-plugins](https://github.com/zhu1090093659/dsh-community-plugins) | 1★（dsh-market.com 创意工坊数据源，供给 9.3k★ dsh-web/Workshop） | PR #52（community.json 追加 1 条） | 🟡 待审（gate 144 entries OK + 9/9 单测；review 路由已通过；`ci.yml`（community:check+9 单测）待维护者批准首跑） | 合并后进入 dsh-market.com manifest 与 Workshop 商店 · **本地已过 gate**：`node scripts/community-index.cjs --check` → `OK (144 entries)`，`node --test scripts/community-index.test.mjs` → 9/9 通过（2026-10-23 在 PR 分支实测）；该仓库的 `community.json` 同时是 dsh-web（9,357★）创意工坊商店与 dsh-market.com manifest 的唯一数据源 |
@@ -214,6 +215,28 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.26 2026-10-23 新市场发现：DSH Hunt（dshhunt.com）+ 官方投稿表单已提交
+
+**发现路径**：以「投稿类仓库」为线索检索 GitHub（`dsh plugin submissions in:name` / `dsh submissions in:description`），命中 [`DshHunt/community`](https://github.com/DshHunt/community)（org 仅 2 个仓库：community + .github，无源码），官网 <https://dshhunt.com>。
+
+**站点与收录机制**
+
+- 官网 `https://dshhunt.com` 与 `/plugins` 列表页均正常（`/plugins` 页面 HTML 约 251KB），**当前列表中没有 `dsh-mcp-tools`**（未自动收录，需投稿）；
+- 社区仓库 `data/plugins/` 目前为空，`schemas/plugin-record.schema.json` 定义插件记录格式，`examples/plugin-record.{full,minimal}.json` 为样例；
+- 维护者可经 PR 添加记录，**作者可用公开 Issue 表单投稿**，提供：仓库 URL、bundle path（根目录填 `.`）、npm 包名、安装命令、固定 40 位 commit SHA、插件类型、与项目的关系、许可证、公开证据；
+- 其审查语义：`accepted` 只表示维护者已记录提交范围（≠ 站点已变），`published` 才表示页面已上线；「静态分析不是安全审计，收录不是安全背书」；该站**不做运行时兼容测试**，只用固定 revision 的结构证据。
+
+**已提交**：[DshHunt/community#4](https://github.com/DshHunt/community/issues/4)（标题 `[Plugin submission]: hxlog/dsh-mcp-tools`）
+
+按表单字段逐项填写，证据全部钉在固定 revision `6cb6342`（完整 SHA `6cb63420ef1c893cc0fe492e12915c18f5f06dc3`）：
+
+- Bundle Path `.`（`cordis.patch.yml` 在仓库根）、npm `dsh-mcp-tools`、安装命令 `dsh plugin --profile web add dsh-mcp-tools`；
+- Category Suggestion `developer-tools`、Plugin Type `DSH plugin`、Maintainer Relationship `Maintainer or owner`、License `MIT`；
+- 证据链：`package.json`（`dsh.bundle.patch` / `dsh.client.platform: web` / `engines.node >=22.13` / 零依赖 / 无生命周期脚本）、`cordis.patch.yml`、`lib/index.js`、`client/client.js`、`README.md`、`.github/workflows/ci.yml`、npm registry 元数据（latest 1.0.2）、三个 release 资产；
+- 三条确认项均已勾选（信息公开可核验 / 无密钥 / 理解收录非安全背书）。
+
+**意义**：这是本轮新增的第 23 个渠道，且是**目前唯一一个「官方投稿表单 + 固定 revision 证据链」完全匹配我方仓库能力**的市场 —— 我们的 CI 产物清单、bundle 契约、release 资产命名恰好就是它要求的结构证据。
 
 ### 6.25 2026-10-23 向 dsh.so 官方投稿队列补交登记（issue #17）+ 查明其投稿/修正通道
 
