@@ -157,45 +157,6 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 | 测试连接失败 | 检查 URL、服务器是否使用 `streamable-http`（而非普通 SSE）、请求头名称是否与服务端要求一致；网络 / 代理问题也会在这里暴露。 |
 | 状态文件在哪 | `~/.dsh/dsh-mcp-tools/state.json`；删除即重置为空，下次启动自动重建。 |
 
-
-## 🌐 收录渠道
-
-> 收录证据可一条命令复核：`npm run verify:listings`（轻量 19 项）/ `npm run verify:listings -- --full`（全量 26 项），全绿即代表各市场当前确实收录本插件。
-
-本插件已被多个 DSH 插件市场/目录收录（截至 2026-10-23，48 个可复核平台）：
-
-- [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/)（20k★ 社区精选列表）
-- [dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop)（656★，18,000+ 插件，每日刷新）
-- [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)（397★ 精选列表，MCP Servers 分区）
-- [dsh-plugin.org](https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools)（310★ 社区插件中心，站点详情页已上线）
-- [dsh.market](https://dsh.market)（168★，6000+ 插件目录）
-- [dsh-plugins.org](https://dsh-plugins.org/)（5★ 自动同步目录，747 插件，安装命令自动生成）
-- [dshmarketplace.dev](https://dshmarketplace.dev)（3,420 listing / 13,175 条 API 索引，自动收录）
-- [dsh-plugin-marketplace](https://github.com/YELEBAI/dsh-plugin-marketplace)（21★ 自主扫描 registry，已验证 verified）
-- [dshmarket.com](https://dshmarket.com/browse/)（8,378★ DSH 站内市场，浏览器目录已收录）
-- [dsh-plugin.store](https://dsh-plugin.store/p/hxlog/dsh-mcp-tools)（14,082 插件目录，详情页已收录）
-- [dsh.so](https://www.dsh.so/artifact/dsh-mcp-tools/)（21,000+ 插件验证注册表）
-- [dsh-plugin-index](https://github.com/ymck-x/dsh-plugin-index)（22,485 条，只认 `dsh.bundle.patch` 证据的索引，站点 cj.codexve.cn）
-- [dshfind.com](https://dshfind.com/zh/plugins/hxlog/dsh-mcp-tools)（四语言 DSH 插件超市，topic 全量同步 + 质量分）
-- [dsh-plugin-hub](https://github.com/helloHupc/dsh-plugin-hub)（22★ 多源聚合站，每小时刷新，站点 dsh-plugin-hub.hupc.site）
-- [UntR/dsh-plugin-marketplace](https://github.com/UntR/dsh-plugin-marketplace)（registry 自动 crawl，`bundle.detected=true` + npm 一致性校验通过）
-- [deepseek1024.com](https://deepseek1024.com)（312★，13,840 插件目录，收录 PR #669 已合并）
-- [dsh-plugin-catalog](https://www.npmjs.com/package/dsh-plugin-catalog)（npm 目录，6000+ 条）
-- [dshopen.org](https://dshopen.org/zh/)（Open Plugin Market 索引源 `index.json`）
-- [dshpluginhub.ai](https://dshpluginhub.ai/plugins/dsh-mcp-tools)
-- [dshhub.co](https://www.dshhub.co/en/plugin/hxlog/dsh-mcp-tools)
-- [dshhub.org](https://dshhub.org/plugins/hxlog/dsh-mcp-tools)
-- [dsh.pub](https://dsh.pub/en/plugins/dsh-mcp-tools/)（12,704 条、按固定 commit 可安装）
-- [dsh.qomob.ai](https://dsh.qomob.ai)（1,700+ 条导航站，数据内嵌 SPA）
-- [dsh-plugins-mp.com](https://dsh-plugins-mp.com/plugins/hxlog--dsh-mcp-tools)（19,175 条目标市场，结构校验通过）
-- [deepseekplugin.org](https://deepseekplugin.org)（自助投稿即时收录的插件目录，已解析出安装命令与安全分）
-- [realguan/dsh-plugin-market](https://realguan.github.io/dsh-plugin-market/) / [dsplugin.app](https://dsplugin.app) / [dsh-market-index](https://github.com/hoyyang/dsh-market-index) / [XingLingQAQ/dsh-plugin-registry](https://github.com/XingLingQAQ/dsh-plugin-registry) 等 format 1 订阅索引源（均已核验含本插件）
-- brade / imsai / fendouai / vvlife / 2BingLing 等 awesome 列表，以及 dsh-xray、mcp-servers-live 等索引站
-
-如果你在别的目录里看到它，欢迎提 PR 或 issue 告诉我们。
-
-> 完整清单与逐站证据：[docs/MARKETPLACES.md](./docs/MARKETPLACES.md) · 实时 PR/Issue 状态：[docs/PR-STATUS.md](./docs/PR-STATUS.md) · 需登录提交站的复制文案：[docs/SUBMISSION-KIT.md](./docs/SUBMISSION-KIT.md)
-
 ## 📄 License
 
 [MIT](LICENSE) · Powered by [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
