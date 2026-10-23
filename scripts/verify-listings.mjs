@@ -46,6 +46,7 @@ const FULL = [
   ["realguan dsh-index", "https://realguan.github.io/dsh-plugin-market/dsh-index.json"],
   ["dsh-go catalog", "https://raw.githubusercontent.com/coeasy/dsh-go/main/catalog/plugins.json"],
   ["xrj dsh-market 集市数据", "https://dsh-market.pages.dev/data.json"],
+  ["DSH-Plugin-Hub 静态索引数据", "https://raw.githubusercontent.com/usertianziyang/DSH-Plugin-Hub/main/public/plugins.json"],
 ];
 
 const args = new Set(process.argv.slice(2));

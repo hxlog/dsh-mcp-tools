@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 45 个市场 + 74 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 47 个市场 + 74 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1386,3 +1386,33 @@ node scripts/verify-listings.mjs --json  # 机器可读输出（CI/审计用）
 | `crane-you/dsh-plugin-index`、`TuWeiZhi`、`gitMFQ`、`zhchzh11-tech` 等 format-1 索引 | 自动派生/个人索引，非独立市场（按 §6.64 口径不计） |
 
 **方法论更新**：找市场别只看名字——`in:description` 能捞到站点名与仓库名完全不同名的项目（`dsh-market-site` 就是这么来的）；判定收录则必须打到**站点自己的数据端点**（§6.70 / §6.74 同样的坑）。
+
+### 6.76 2026-10-24 凌晨：第 46 个市场 dpharness.com（**自助提交 API 直接上架**）+ 第 47 个 DSH-Plugin-Hub（数据含我们、域名被污染）
+
+顺着 §6.75 的 `in:description` 扫描继续挖，这轮新增 2 个、排除 3 个：
+
+**① 第 46 个市场：`dpharness.com`（DeepSeek Harness Hub · DSH 实装验证与中文汉化）**
+- 站点自己就是市场：插件库 `/api/plugins`、严选榜 `/api/best`、套装 `/api/sets`、每插件页 `/plugin/<owner>/<repo>`
+- **有自助提交入口 `https://dpharness.com/submit`**：支持「GitHub 链接 / 上传 zip / 粘贴 README」三种方式，提交后由 DeepSeek 最新模型汉化 + 评分
+- 提交 API 是纯 JSON POST（无需登录）：`POST /api/submit`，body `{"mode":"github","githubUrl":"https://github.com/hxlog/dsh-mcp-tools","submitter":"hxlog","note":"..."}` → 返回 `ok:true` + `plugin.id: cmvib7vmz02g0sr2tsy05vebe`
+- **提交后立即上架**：[dpharness.com/plugin/hxlog/dsh-mcp-tools](https://dpharness.com/plugin/hxlog/dsh-mcp-tools) 返回 200，页面显示：
+  - 中文名「MCP 工具管家」，标签「MCP」，`hxlog · 0 天前有提交 · 已提供中文文档 · 扫描：未发现敏感能力`
+  - **实装验证 L4 · 真实安装**：「本站已在 dsh 0.2.1-rc.2 下真实安装成功（非静态推断）」
+  - 静态扫描 🟢：「最多只发网络请求、读取自身元数据或只读文件，未发现执行命令、文件写入或敏感信息读取」；证据 2 处（`client/client.js` 的 fetch 与 clipboard）
+  - 综合分 32.3/100（星标 3 + 活跃度 + 兼容性合成；星少所以分低，但**收录≠评分**）
+- 注意：`/api/plugins` 全量目录有缓存延迟，新提交先出详情页、后进列表（审核/重算时才刷新 catalog），所以判定收录看**详情页 200** 而不是列表
+
+**② 第 47 个市场：`usertianziyang/DSH-Plugin-Hub`（客户端静态索引站，按 stars 排序）**
+- 数据源 `public/plugins.json`（**14.8MB**）**含我们**；站点部署在 `https://dsh-plugin-hub-zeta.vercel.app`（README 与 GitHub homepage 都指向它）
+- 但本机 `dsh-plugin-hub-zeta.vercel.app` **DNS 被污染**（解析到 `31.13.84.2`，Vercel/静态托管在本地不可达，curl `000`）→ 站点可用性无法从这台机器证明
+- 仓库 README 的数据边界声明：「every public repository carrying the exact `dsh-plugin` topic that the GitHub REST Search API could return」→ 收录是**全量自动**的，不是人工策展，我们必然在列
+- 口径：数据源 = 站点部署产物（`public/` 即静态站根目录），**计入收录**，证据用仓库 `public/plugins.json`；站点本身列为「本地不可达，待境外网络复核」
+
+**③ 排除 3 个**
+| 仓库 | 结论 |
+| --- | --- |
+| `SCP-008-1/dshop`（★4，https://dsh-marketplace.laoba.me/） | 同步脚本只取 `topic:dsh-plugin&sort=stars` **单页 top-100**，3★ 结构性进不去；站点 200 但数据无我们 |
+| `tanle-mtr/dsh-plogin-plugin-recommender` | 见 §6.75，每小时 7 查询各取 stars top-50，结构性排除 |
+| `439436269-ctrl/dsh-preview-market` | 预览渲染类专用，非通用市场 |
+
+**方法论补充**：市场除了「提交 PR / 提交 issue / 等自动抓取」外，还有 **「自助提交 → 自动上架」** 这一类（dpharness）；还有 **「客户端静态索引」** 这类没有服务端、数据源就是仓库里的 json（DSH-Plugin-Hub）。前者要去找 `/submit` 页面背后的 API（Next.js chunk 里 grep `/api/` 即可），后者要认「仓库 public/*.json 就是站点数据」。
