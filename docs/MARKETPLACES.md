@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 48 个市场 + 75 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 48 个市场 + 76 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1462,3 +1462,24 @@ node scripts/verify-listings.mjs --json  # 机器可读输出（CI/审计用）
 2. `COMPATIBILITY / NO_DSH_CONSTRAINT`（UNKNOWN）：「No DSH/Cordis dependency declared」——同理，没有版本约束可读，兼容性标 UNKNOWN 而不是 FAIL。要消除它只能声明一个假的 cordis 版本区间，**不做**（宁可 UNKNOWN 也不造假元数据）
 
 结论：这是本项目第一个**带完整 trust profile 的注册表**（format/security/maintenance/risk 四维都有明确结论），比只做「有/无」判断的市场更有分量。
+
+### 6.79 2026-10-24 凌晨：`AdamPlatin123/dsh-plugin-radar`（★1485）登记 PR #974 —— 本生态最大的目录站，走「手动登记」而不是等自动扫描
+
+Radar 是 DSH 生态最大的插件目录（★1485）：站点 `https://adamplatin123.github.io/dsh-plugin-radar/`，全量记录 **9,105** 条 / 可用 5,751 / 不兼容 2,051 / 待定 961，提供浏览、筛选、精选整合包、机器可读数据接口。
+
+**为什么不是「等它自动收」**：
+- 它的官方说法是「未登记的仓库只要打 `dsh-plugin` / `dsh-external` topic，就会在**每日 02:00** 全量扫描时自动收录」
+- 但实测仓库内 `data/plugins-all.json`（2MB 全量数据）里**没有我们**，README 的快照仍停在 **`20261016T063437Z`**（2026-10-16）—— 自动扫描链路已经一周没出快照
+- 它的 PLUGINS.md 顶部写明「想更快被收录？在对应类别的表格追加一行并提 PR」→ 这是更可靠的路
+
+**已提 PR：[AdamPlatin123/dsh-plugin-radar#974](https://github.com/AdamPlatin123/dsh-plugin-radar/pull/974)**
+- 标题严格按模板：`docs: 登记 dsh-mcp-tools`
+- 行插在 **🔌 单插件** 表（`dsh-mcp-manager` 行之后，便于维护者对比同类插件）
+- 分类：先跑他们的预归类器 `python3 scripts/classify.py "dsh-mcp-tools" "<描述>"` → **「🛠 基建部署 / 命中规则: mcp」**（CATALOGING.md 明确「MCP/模型接入 → 基建部署」），PR 里标注了这条命令输出
+- 模板自检项逐条回应：topic ✅、零运行时依赖 ✅、CI/实装证据 ✅（CI smoke+manifest、dpharness L4 真实安装 dsh 0.2.1-rc.2、dsh-plugin.market FORMAT_VERIFIED）；**唯一没打勾的是「package.json 用 `@dsh-external/*` scope」**——我们在该约定之前就发布了 `dsh-mcp-tools@1.0.2`，改名会破坏已有安装，已在 PR 里说明并请求维护者示下
+- 备注里写清与表中已有 `zhengjy01/dsh-mcp-manager` 的**定位差异**（那个是 Web 设置页+Agent 工具管服务器；我们是全局 MCP 控制 + 逐工具开关，停用工具不进模型）
+
+**顺带核过、未投的**：
+- `EasonMWS/dsh-plugin-health`（★3）是兼容性矩阵，不是市场
+- `ywsldxk/dsh-plugin-stars`（★7）是按 stars 排的榜单，数据无我们，结构性排除
+- `PerryLink/dsh-plugin-certification`（0★）是发证型认证登记（`data/certified.json` 仅 3KB 几条），需要它的审计才进，非收录型市场
