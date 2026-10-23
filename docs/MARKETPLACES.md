@@ -17,7 +17,7 @@
 | [2BingLing/dsh-market](https://github.com/2BingLing/dsh-market)（dsh.market） | 168★ / 6000+ | topic 自动扫描写入 data/plugins.json | ✅ 已含（`sources: [topic]`，cordis-plugin，已生成中文简介） | https://dsh.market/ |
 | [unStone/dsh-xray](https://github.com/unStone/dsh-xray) | 7★ / 静态能力扫描注册表 | topic 自动收录（能力卡片 C3：runtime patch / exec / dev 网络） | ✅ 已收录：<https://unstone.github.io/dsh-xray/p/hxlog__dsh-mcp-tools.html> | 自动扫描，无需提交 |
 | [linny006/mcp-servers-live](https://github.com/linny006/mcp-servers-live) | 13★ / 15 分钟刷新 MCP 索引 | GitHub 全量 MCP 仓库自动索引 | ✅ 已收录：<https://linny006.github.io/mcp-servers-live/r/hxlog/dsh-mcp-tools/index.html> | 自动抓取，无需提交 |
-| [dshplugin/dsh-plugin-hub](https://github.com/dshplugin/dsh-plugin-hub)（dsh-plugin.org） | 310★ / 16.5k | Issue #391 官方核对 | ✅ 已收录（维护者确认目录数据含 npm 一键安装入口，应用内插件中心下一轮同步可见；issue 已关闭） | https://github.com/dshplugin/dsh-plugin-hub |
+| [dshplugin/dsh-plugin-hub](https://github.com/dshplugin/dsh-plugin-hub)（dsh-plugin.org） | 310★ / 16.5k | Issue #391 官方核对 + 站点同步 | ✅ 已收录并上线：https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools | https://dsh-plugin.org/ |
 
 ## 二、待审提交
 
@@ -52,7 +52,7 @@
 | --- | --- |
 | bruc3van/awesome-dsh-plugin（453★） | 作者自荐区要求 star > 10；等 star 增长后提交 SHOWCASE.md |
 | dsh-external/hub | 仓库私有/404，是其手选目录上游，无公开入口 |
-| walkinglabs / diegosouzapw / vvlife 等小列表 | 格式更重、收益有限，作为第二梯队按需再投 |
+| libukai（319★）、SihanTeng、ZeroPointRepo、uyq 等 | 维护者长期不活跃（libukai 自 2026-09-12 起无合并）或规模过小，收益有限；如需覆盖再按第二梯队处理 |
 | billLiao/awesome-dsh-plugin（15★） | 目录由 topic 自动生成（21k 条），本仓库已在 topic 内，等待下一轮刷新即可 |
 
 ## 四、经主市场分发的下游（无需单独提交）
