@@ -214,6 +214,20 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.17 2026-10-23 补上仓库自身 CI（提升各市场自动评分/人工复核可信度）
+
+发现本仓库**此前没有任何 GitHub Actions workflow**。而多个渠道的质量判据会看「构建卫生/门禁」：`dsh-plugin-certification` 的维度 B 明确检查 *lint/typecheck gates present*、`dshfind` 有质量评分、dsh.store 有安全扫描、人工 reviewer 也会看插件仓健康度。无 CI 是一个可修的真实短板。
+
+已新增（零依赖、约 20 行 YAML + 一个纯 node 校验脚本）：
+
+- `.github/workflows/ci.yml`：`push`/`PR`/手动触发，Node 22.x，三步——
+  1. `node scripts/ci-check.mjs`：校验 `dsh.bundle.patch` 声明且文件存在、`dsh.client.platform=web`、`engines.node` 存在、**无 lifecycle 脚本**、**无 runtime/optional/bundled 依赖**、`files[]` 每项都存在、`client/client.js` 可被 `vm.Script` 解析；
+  2. `npm test`（10 项 smoke）；
+  3. `npm pack --dry-run --json` 断言 tarball 必含 `cordis.patch.yml`、`lib/index.js`、`client/client.js`、`icon.svg`、README、LICENSE（防止 `files` 白名单回归把运行时文件漏掉）。
+- `package.json` 增加 `ci-check` 脚本；README 中英各加 CI 徽章。
+
+首次运行结果：**success**（commit `fa0d99d`，run 2026-10-23T10:58Z）。这正是把「我们满足各市场 bundle/依赖/无 postinstall 要求」从文字自证变成**每次提交自动复验**。
+
 ### 6.16 2026-10-23 1024 目录数据修正请求（issue #678）
 
 发现：`deepseek1024.com` 上我们的条目 `install` 被生成为 `dsh plugin --profile web add github:hxlog/dsh-mcp-tools`、`installMethods[0].kind = github`、`verification = unknown` —— 而其 CONTRIBUTING 明确写「1024 Store **只从 npm 安装**，manifest 的包发布到 npm 且带 `dsh.bundle` 声明后，目录会自动检测并给出 npm 安装命令」。同类条目（`perrylink/dsh-memento`、`dsh-github`、`dsh-auto-review`）均为 `kind: npm` + `verification: verified`。
