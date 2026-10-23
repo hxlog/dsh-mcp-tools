@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 35 个市场 + 57 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 35 个市场 + 58 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -234,6 +234,21 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.50 2026-10-23 DSH Go（coeasy/dsh-go）：发现层已在我们、可安装层要求 Manifest V2 + Release Descriptor V2
+
+从「topic:dsh-plugin-market 共 767 个仓库」扫到 [coeasy/dsh-go](https://github.com/coeasy/dsh-go)（★1，当日仍在推送）：口号是「原生包管理器 + Registry/Distribution + Marketplace」，API 入口 `https://dsh-go.pages.dev/`，registry revision 每小时级刷新。
+
+**它的两层结构**（读代码+契约文档确认）：
+
+1. **发现层（Discovery）**：扫 GitHub 仓库，产出 `catalog/plugins.json`（22,435 条）与 `registry-candidates-v1.json`。我们**已在**其中（`metadata_source: "github"`、`category: "mcp"`）。
+2. **可安装层（Registry V4）**：只认 **Manifest V2 根文件 `dsh-package.json`** + 每个版本在 GitHub Release 里发布的 **Release Descriptor V2**（`dsh-package-release.json`，绑定 type/id/version/channel/repository/commit/tag/published_at/manifest_file/package_path/manifest/artifact）；`artifact` 的 schema 只允许 `kind: release-archive`（GitHub 上的 tgz URL）、`digest: sha256-<64hex>`、`format: tgz`、`strip_components>=1`。当前 registry 只有 2 个包（都是它自己的），属于极早期项目。
+
+**已做的修正（格式对齐）**：在仓库根新增 `dsh-package.json`（Manifest V2，`type: plugin`、`id: hxlog/dsh-mcp-tools`、`version: 1.0.2`、`entrypoints.bundle: cordis.patch.yml`、`publisher.id: hxlog`、`source.repo: hxlog/dsh-mcp-tools`、`compatibility.node: >=22.13.0`、权限 `fs.read/fs.write/network`），本地对官方 schema 校验 **0 错误**，`npm test` 全过，commit `f803dea`。
+
+**待解决**：现有 tag `v1.0.2` 早于 manifest 文件，Release Descriptor 的 manifest binding 要求 descriptor（含 manifest 原文）指向的 commit 上 manifest 存在，故 1.0.2 无法回溯绑 descriptor。已开 [Issue #165](https://github.com/coeasy/dsh-go/issues/165) 问：npm 优先的插件能否用 `git archive`/`npm pack` 的 tgz 当 `release-archive`（root 包 `package_path: null`、`strip_components: 1`），以及下一个版本 tag 附 descriptor 后增量 sync 是否自动转正。**注意**：这不需要发布 npm 新版本也能做（GitHub release 独立），但版本号需与 manifest 对齐，等用户确认 1.0.3 发布节奏后再实施。
+
+**其它候选（本轮扫完）**：`Awesome-AI-Pedia`（★492，AI 资源百科含 `deepseek harness plugins/` 目录，PR 可加条目，非市场）、`coeasy/dsh-go` 之外的 767 个 topic 仓库绝大多是插件本体。
+
 ### 6.49 2026-10-23 全量审计「引用官方 feed 的 147 个仓库」：只多出 1 个真市场（已收录）
 
 用 GitHub code search 扫 `"awesome-dsh-plugin.com/plugins.json"`（4 页共 147 个去重仓库），逐个判定是「市场」还是「客户端/工具/文档」，结论：
@@ -422,6 +437,7 @@ DSH 官方 Web GUI 的 **Discover 页**（`packages/client/ui-plugin-market` + `
 | [Ericwong5021/deepseek-plugin-store](https://github.com/Ericwong5021/deepseek-plugin-store)（[deepseekplugin.store](https://deepseekplugin.store)） | 23★ / 1,000+ registry 条目 | 全自动：`plugin-submission` Issue → governance-bot 校验 → 自动开 PR 写 `registry/plugins/<owner>-<repo>.json` | ✅ 已提交 2026-10-23：[Issue #315](https://github.com/Ericwong5021/deepseek-plugin-store/issues/315) 已被标注 `type:submission, gov:approved, gov:pr-open`，机器人开出 [PR #316](https://github.com/Ericwong5021/deepseek-plugin-store/pull/316)（条目含 `verifiedCommitSha: 4c310a6`、`github:hxlog/dsh-mcp-tools`、中英 summary） | 等维护者合并（其 PR 有 `action_required` 工作流待批，10-20/10-22 的几条同类 PR 也仍未合并，属批量审核节奏） |
 | [cclank/dsh-plugin-hub](https://github.com/cclank/dsh-plugin-hub)（[dsh.lanshuagent.com](https://dsh.lanshuagent.com)） | 21★ / 655 条在线 registry（`/api/plugins`） | 纯自动：Cloudflare Cron 每 12h 扫 `topic:dsh-plugin` → 候选队列 → 源码/manifest 筛查 → D1；无投稿入口 | 🟡 未收录（`/api/plugins` 与 `plugins.json` 均无 `hxlog`）；其 automation `state: degraded`、`lastSuccessfulRunAt: 2026-10-07` | 只能等其 cron 恢复后自动发现（我们 topic + `dsh.bundle` 均满足其准入前提） |
 | [dshlib/dshlib](https://github.com/dshlib/dshlib)（[compliancehub.cn/store](https://compliancehub.cn/store/)） | 0★ / 实验性插件商店（CHA2A L0-L4 认证徽章） | Issue 模板投稿（`Add: <plugin>`）→ 自动验签（npm 官方 hash）+ 自动安全扫描（dshlib-scan + GuardDog 3.2.0 + OSV.dev）→ 1 个工作日内上架 | ✅ 已提交 2026-10-23：[Issue #4](https://github.com/dshlib/dshlib/issues/4)（npm `dsh-mcp-tools@1.0.2` + `github:hxlog/dsh-mcp-tools`、LICENSE、`dsh.bundle`、pinned commit `4c310a6`、安全说明） | 等维护者处理（仓库 8-27 后无提交，站点仍在线；若长期无响应再降级） |
+| [coeasy/dsh-go](https://github.com/coeasy/dsh-go)（[dsh-go.pages.dev](https://dsh-go.pages.dev)） | 1★ / 自建 Registry V4（当前仅 2 个包），要求 **Manifest V2 = 仓库根 `dsh-package.json`** + GitHub Release 里的 **Release Descriptor V2**（artifact 只收 `release-archive` tgz + `sha256-` digest） | 发现层自动扫 GitHub（`catalog/plugins.json` 22,435 条**已含我们**，`metadata_source: github`、category mcp）；可安装需 Manifest V2 + release descriptor；人工覆盖可 PR `catalog/overrides.json` | 🟡 已做一半：2026-10-23 已在仓库根加 `dsh-package.json`（对官方 schema 校验 0 错误，commit `f803dea`），并开 [Issue #165](https://github.com/coeasy/dsh-go/issues/165) 咨询 release-archive 规范（npm 优先的插件如何提供 tgz + descriptor） | 等维护者回复后，在下一个版本 tag 上附 `dsh-package-release.json` + tgz，其增量 sync 会自动转正 |
 | [dshindex.com](https://dshindex.com) | 8,316 URL | `/plugins/<slug>` | 未发现投稿入口 | 未收录（与 dshindex.dev 不是一回事） |
 | [dshplugin.dev](https://dshplugin.dev) | 1,136 仓库 / 740 URL | `/plugins/<owner>-<repo>` | `/submit` 表单（**带 Cloudflare Turnstile**） | 未收录；自动抓取（「Crawled daily from GitHub」） |
 | [dshhub.dev](https://dshhub.dev) | 2,000+ 插件 | `/plugins/<owner>-<repo>` | `/submit` 给文案模板，让贴到「Issue 或 PR on this repo」（仓库未公开） | 未收录 |
