@@ -268,6 +268,17 @@ node build-descriptor.mjs   # readDshManifest + validatePackageReleaseDescriptor
 node verify-published.mjs   # 从 Release URL 复核 + artifact digest 校验
 ```
 
+**4. 用官方 Builder 预演 Registry V4 摄入（决定性验证）**：调用 `scripts/registry-v4-source.mjs` 的 `buildRegistryV4FromDiscovery()`，两种输入都 **accepted**：
+
+- 显式 source 预演：`{ explicitSources: [{ repository: 'hxlog/dsh-mcp-tools', ref: 'main' }] }` → `accepted: 1 / quarantined: 0 / rejected: 0`
+- 模拟「下次 discovery sync 之后」的 catalog 记录（`verified: true`、`manifest_file: 'dsh-package.json'`、`metadata_source: 'dsh-package'`）→ `accepted: 1 / quarantined: 0 / rejected: 0`
+
+两次预演产出的 Registry 包一致：
+```json
+{ "type": "plugin", "id": "hxlog/dsh-mcp-tools", "releases": [ { "version": "1.0.2", "digest": "sha256-435d3239…bb219", "commit": "ddfb49a…", "tag": "v1.0.2" } ] }
+```
+
+即：**descriptor 本身已满足官方摄入管线**，唯一剩余变量是 discovery sync 把 catalog 记录从 `verified:false` 翻成 `verified:true`。
 **同步节奏**：`.github/workflows/sync.yml` 的 cron 为 `18 0/6/12/18 * * *`（UTC）→ 北京时间 **08:18 / 14:18 / 20:18 / 02:18**；另外 `push` 到 `scripts/*`、`config/registry-v4-sources.json`、`dsh-package.json` 等路径、`repository_dispatch: sync-plugins`、`workflow_dispatch` 也会触发。当前 `catalog/registry-v4.json` 统计：`discovery_count 22,435 / quarantined_count 22,226 / rejected_count 208 / package_count 2` —— 也就是说**几乎全部社区仓库都因缺 Release Descriptor V2 被隔离**（`quarantined: manifest-v2-required`），我们补齐后有望成为极少数可安装的社区包之一。
 **与 npm 的一致性**：Release 资产 `dsh-mcp-tools-1.0.2.tgz` 与 npm 上 `dsh-mcp-tools@1.0.2` 为同一 tarball（npm pack 产物），sha256 一致；因此 dsh-go 安装源（Release 归档）与 npm 安装源内容相同，不存在版本漂移。
 
