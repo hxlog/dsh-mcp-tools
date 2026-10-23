@@ -1526,3 +1526,15 @@ DSH-Store 是「跑在 DSH 设置页里的第三方插件商城 + 安全生命�
 站点侧数据 `https://dshtool.com/plugins`（575KB SSR HTML）当前**无我们**，等维护者按 issue 手工收录。
 
 **附带产出**：把 `dsh-badge` skill 的官方 badge 规范（Shields.io URL + linked markdown）应用到本次投稿，后续 PR/issue 统一用它。
+
+### 6.82 2026-10-24 凌晨：两处「看起来像 CI 失败」的排查 —— radar 重复 PR 去重 + WSK `action_required` 门禁
+
+**① `AdamPlatin123/dsh-plugin-radar` 重复 PR**：早先已开过 #968（`add-dsh-mcp-tools`，+2 行、body 更详细），凌晨又重新开了 #974。已关掉新的 #974 并留言指向 #968，避免维护者重复审核。**保留 #968 为唯一在审 PR**。
+
+**② `WSK-build/awesome-dsh-mobile-plugins#24` 的 `Repository config guard=failure`**：
+- 它不是格式错误，guard 原文就是「**No checks ran on this pull request**」——本 PR 上没有任何检查跑过，所以 guard 报警
+- 查 Actions：`PR check #26/#27` 均为 **`completed/action_required`** —— 这是 GitHub 对**首次贡献者** fork PR 的默认门禁：工作流必须维护者点 **Approve and run** 才会执行
+- 已做的处理：① 分支基于最新 `main@6baf0d6`（未落后，单条目 +6 行，无 `.github/` 改动）；② push 空提交 `12e55a9` 重新触发；③ 在 PR 留言说明 `action_required` 原因并请维护者点批准（附分支状态与「有格式问题我立刻改」）
+- 结论：这是**流程门禁**而非我们的格式问题，已按 guard 提示走完「先 push 重试 → 仍不跑则告知维护者」两步
+
+**全量检查巡检**（29 个在审 PR 的 check-runs）：除 WSK 这一处 `action_required`，其余 PR 都是 `无 workflow`（目标仓库本身没有 CI）或全部 success。真正需要我们改格式的 CI 失败：**0**。
