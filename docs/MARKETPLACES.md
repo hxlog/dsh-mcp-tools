@@ -149,6 +149,10 @@
 
 结论：下游自动索引里，**凡是按 feed 或 npm keywords 取数的都已收录我们**；未收录的都是 star 门槛型（需先把 star 做上去），没有可提交的入口。
 
+
+### 6.3 发布包可安装性自检（2026-10-23，供审核方复现）
+
+`npm i dsh-mcp-tools@1.0.2` 后检查：运行期文件齐全（`cordis.patch.yml`、`lib/*.js`、`client/client.js`、`locale/*.json`、LICENSE、双 README、截图），`package.json` 的 `dsh.bundle.patch = ./cordis.patch.yml` 存在，且包内自带的 `scripts/smoke.mjs` 在干净目录下 **6/6 项通过**（locale 元数据、client 字典键一致、header 编辑器为键值行而非 JSON 文本域、README 截图齐全、中文 README 为落地页、npm files 白名单含运行路径）。这是 1024Store / dshopen 等「npm-only 安装」市场审核时最容易被卡的一环，可随时重跑复现。
 ### 6.2 2026-10-23 新发现：3 个未登记目录站
 
 | 站点 | 规模 / 数据源 | 状态 | 动作 |
