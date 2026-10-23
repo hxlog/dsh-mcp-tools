@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 30 个市场 + 53 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 31 个市场 + 53 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -37,6 +37,7 @@
 | [dsh-plugins-mp.com](https://dsh-plugins-mp.com)（`dsh-plugins-hub` npm 客户端的数据源） | 19,175 个插件条目（`/api/plugins` 分页 24/页） | 自动抓取 + 结构校验（`verificationState: structure_ok`） | ✅ 已含（API `?q=` 命中 `slug: hxlog--dsh-mcp-tools`，`license: MIT`、`profiles:[web]`、`categories:[tools,models]`；站点页 `/plugins/hxlog--dsh-mcp-tools` 200） | https://dsh-plugins-mp.com/plugins/hxlog--dsh-mcp-tools |
 | [dsh.qomob.ai](https://dsh.qomob.ai)（qomob 的 DSH 导航站，数据内嵌在 SPA bundle） | 1,700+ 条（bundle 内嵌全量 JSON） | 非自建目录：聚合 awesome 列表 + GitHub 元数据（`source: awesome-list`） | ✅ 已含（bundle 内 `id: hxlog/dsh-mcp-tools`，`category: terminal`、`score: 53`、`installCmd: dsh plugin add "github:hxlog/dsh-mcp-tools"`、topics/stars/license 与我们仓库一致，`updatedAt: 2026-10-23`） | https://dsh.qomob.ai/ |
 | [dsh.pub](https://dsh.pub)（12,704 条，按固定 commit 可安装的插件注册表） | 12,704 条（`community.generated.json`） | GitHub Topic `dsh-plugin` 自动同步 + 静态契约校验（`topic-catalog-sync.yml`） | ✅ 已含（`id: github:hxlog/dsh-mcp-tools`、`slug: dsh-mcp-tools`、`version: 1.0.2`、`license: MIT`、`type: bundle`、`category: client-ui`；7 项静态校验全 true：pinnedCommit / bundleManifest / safeBundlePatch / committedRuntime / committedClient / readme / license；`discoveredVia: github-topic:dsh-plugin`，`status: verified`） | https://dsh.pub/en/plugins/dsh-mcp-tools/ |
+| [dshhub.org](https://dshhub.org)（`coderPerseus/dsh-hub`，README 自称静态目录 + CLI + Harness 原生工具，每日刷新） | 2,000+ 插件（站点 README） | 每日抓取 GitHub；Issue 投稿 `[Plugin] ...`；`data/catalog-enrichment.json` 10.7MB 带中文摘要 | ✅ 已含（`github:hxlog/dsh-mcp-tools` 在 enrichment 中；详情页 200，含中文描述「管理MCP服务器并按需开关MCP工具」、安装命令 `npx -p @deepseek-ai/dsh dsh plugin --profile web add github:hxlog/dsh-mcp-tools`、MIT；**版本字段仍显示 1.0.0 / 兼容性「待验证」，等每日刷新**） | https://dshhub.org/plugins/hxlog/dsh-mcp-tools |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -229,6 +230,15 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.39 2026-10-23 dshhub.org 已收录（第 31 个，版本字段待刷新）
+
+`dshhub.org` 和 `dshhub.dev` 是**两个不同项目**，别混：
+
+- **dshhub.org** = `coderPerseus/dsh-hub`（4★，README：「The Best DSH plugins」静态目录，每日抓取刷新；商品数据在 `data/catalog-enrichment.json` 10.7MB）。我们**已被收录**：`github:hxlog/dsh-mcp-tools` 条目在 enrichment 里（中文摘要 + 分析都在），详情页 200：https://dshhub.org/plugins/hxlog/dsh-mcp-tools 。页面显示的 `版本 1.0.0`、`兼容性 待验证`、`★ 0` 是抓取时的快照（我们 10-21 才发 1.0.0），等每日刷新应自动更新；它的投稿方式是 GitHub Issue `[Plugin] owner/repo — 短描述`（模板分「仓库链接 / 用途与安装方式」两栏，见 issue #72），另可直接提 issue 报 metadata 过期。
+- **dshhub.dev** = 另一个站（2,000+ 插件、`/plugins/<owner>-<repo>`、`/submit` 给模板让贴到 Issue/PR），**至今未收录我们**；我按 `/plugins/hxlog-dsh-mcp-tools` 探测 404（404 页正文会回显 URL slug，之前差点把它当命中，已排除）。
+
+**方法学教训（已两次踩到）**：404 页会回显请求 URL 里的 slug，`t.includes("dsh-mcp-tools")` 会假阳性。判定「是否收录」必须同时看三点：①二维是 200 ②页面 `<title>` 带插件名 ③正文里有真实描述或安装命令。dshhub.org 这次三条全中，才算数。
 
 ### 6.38 2026-10-23 ZeroPointRepo 列表按格式投稿（PR #27）；dsh.directory 投稿入口失效
 

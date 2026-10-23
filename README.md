@@ -160,7 +160,7 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 
 ## 🌐 收录渠道
 
-本插件已被多个 DSH 插件市场/目录收录（截至 2026-10-23，30 个可复核平台）：
+本插件已被多个 DSH 插件市场/目录收录（截至 2026-10-23，31 个可复核平台）：
 
 - [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/)（20k★ 社区精选列表）
 - [dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop)（656★，18,000+ 插件，每日刷新）
@@ -179,6 +179,7 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 - [UntR/dsh-plugin-marketplace](https://github.com/UntR/dsh-plugin-marketplace)（registry 自动 crawl，`bundle.detected=true` + npm 一致性校验通过）
 - [deepseek1024.com](https://deepseek1024.com)（312★，13,840 插件目录，收录 PR #669 已合并）
 - [dsh-plugin-catalog](https://www.npmjs.com/package/dsh-plugin-catalog)（npm 目录，6000+ 条）
+- [dshhub.org](https://dshhub.org/plugins/hxlog/dsh-mcp-tools)
 - [dsh.pub](https://dsh.pub/en/plugins/dsh-mcp-tools/)（12,704 条、按固定 commit 可安装）
 - [dsh.qomob.ai](https://dsh.qomob.ai)（1,700+ 条导航站，数据内嵌 SPA）
 - [dsh-plugins-mp.com](https://dsh-plugins-mp.com/plugins/hxlog--dsh-mcp-tools)（19,175 条目标市场，结构校验通过）
