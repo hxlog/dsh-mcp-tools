@@ -215,6 +215,18 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.20 2026-10-23 两个 PR 的格式复核（Zhiyuan-Fan #96 / Oh-My-DSH #43）
+
+**Zhiyuan-Fan/Awesome-DeepSeek-Harness-Plugins#96**（558★）：该仓库**没有** `.github/workflows`（API 404）、也没有 CONTRIBUTING，只有 `README.md` + `README.zh-CN.md`；PR 正好各改一份（`add-dsh-mcp-tools` 分支，`mergeStateStatus = CLEAN`），只能靠人工看排版。已按仓库既有条目风格：放在 Tools & Skills 末尾、单行、含仓库链接与一句话定位，`Closes #94`。无更多可机器校验的规则。
+
+**like-study1/Oh-My-DSH#43**（96★，4 小时同步）：按它 CONTRIBUTING 的两条路径——①给仓库打 `dsh-plugin` topic 由自动同步初筛（我们已打）②改唯一手改文件 `data/curated.json`。实测我们的 PR 分支：
+
+- `data/curated.json` **可解析**（338 个 overrides），我们的键位于 idx 128，`prev: dsh-loop`、`next: dsh-memory-evolve`，位置符合该文件的编排；
+- 字段与 CONTRIBUTING 示例一致：`repo`、`category: devtools`（属于其 11 个合法分类）、`note` 一句话中文、`keep: true`（强制收录）；
+- 该仓库的 `sync-plugins.yml` 只在 `push main` 与 4 小时 cron 触发（无 PR 校验 job），合并后由脚本重生成 `PLUGINS.md`/`data/plugins.json`。
+
+两个 PR 均无格式问题，等待人工合并。
+
 ### 6.19 2026-10-23 dshworks PR #184 按 CONTRIBUTING 逐条复核（含本地跑其校验器）
 
 dshworks 的 CONTRIBUTING 明确「注册表是 JSON，不是 README；所有贡献都是对 `data/plugins.json` 的 PR，README 由脚本再生」，并要求 `node scripts/validate.mjs` + `node scripts/render.mjs` 后同时提交数据与渲染产物。
