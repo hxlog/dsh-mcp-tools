@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 47 个市场 + 74 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 47 个市场 + 76 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1416,3 +1416,23 @@ node scripts/verify-listings.mjs --json  # 机器可读输出（CI/审计用）
 | `439436269-ctrl/dsh-preview-market` | 预览渲染类专用，非通用市场 |
 
 **方法论补充**：市场除了「提交 PR / 提交 issue / 等自动抓取」外，还有 **「自助提交 → 自动上架」** 这一类（dpharness）；还有 **「客户端静态索引」** 这类没有服务端、数据源就是仓库里的 json（DSH-Plugin-Hub）。前者要去找 `/submit` 页面背后的 API（Next.js chunk 里 grep `/api/` 即可），后者要认「仓库 public/*.json 就是站点数据」。
+
+### 6.77 2026-10-24 凌晨：按 topic 维度补扫 —— Blue-Whale 目录站（★197）投稿 + dsh-plugin.market 自助提交排队
+
+这轮不再按 `in:description`，而是把 **topic 维度**扫了一遍（`dsh-plugin-market` 768 个仓库、`dsh-market` 16 个、`deepseek-harness-plugin` 867 个），发现两个此前完全没进视野的目录站：
+
+**① `leenkcool/Blue-Whale-Harness`（★197）→ 已投稿 issue #183**
+- 站点「Blue-Whale-Harness · DSH 插件总表（中英双语）」`https://leenkcool.github.io`，目录口径 1958 个仓库 / 1819 个真插件；仓库内有 `catalog/intents.json`（2.6MB 权威数据源）+ `repos.txt` + 批次快照
+- 当前**未收录我们**（`catalog/batch-*.json` 与 `_new.json` 全部 grep 无 `hxlog`）
+- 官方投稿通道：issue 模板 `.github/ISSUE_TEMPLATE/catalog-intake.yml`（「收录插件 / 收录仓库」，维护者核对 `cordis.patch.yml` 信号后写入 `intents.json` 并重建站点）
+- 已按模板开：[leenkcool/Blue-Whale-Harness#183](https://github.com/leenkcool/Blue-Whale-Harness/issues/183)（分类选 `tools`，附 npm/Manifest/权限/CI/dpharness L4 证据）
+
+**② `0326/dsh-plugin-market`（★9）→ https://dsh-plugin.market，已提交排队**
+- 独立社区注册表（Cloudflare Workers + D1 + Hono），`/api/plugins` 已 13,049 个候选；有完整 trust scanner（format / compatibility / security / maintenance / semver，commit 绑定扫描历史）
+- 有 **Submit 页面**，底层是纯 JSON：`POST /api/submit` body `{"url":"https://github.com/hxlog/dsh-mcp-tools"}` → **202 `{owner:"hxlog",repo:"dsh-mcp-tools",status:"queued"}`**
+- 扫描是 Cloudflare Queue 异步的：`/api/plugins/hxlog/dsh-mcp-tools` 目前 404，等扫描完成后才有详情与 trust profile
+- README 未公开「多长时间入库」，按 cron + queue 节奏估计 1 小时内
+
+**顺带确认**：`cocofhu/skillhub`（★11）只做 skills 不做插件；`jli658942-web/dsh-market-skill` 是「教 Agent 找插件」的 skill，不是市场；`bruc3van/safer-dsh-market`、`losebird/dsh-plugin-market`、`2BingLing/dsh-market`、`imsai`、`LivXue`、`kejixiaoliang`、`hnjames` 等均已在册（§6.64 / 前面各节）。
+
+**方法论**：`topic:` 搜索和 `in:description` 是**互补**的两条路——前者命中「自己声明了市场身份」的仓库（Blue-Whale、dsh-plugin.market 都带 `dsh-plugin-market` topic），后者命中「名字/描述不像市场」的站点（xrj 的 dsh-market-site）。两条都跑一遍才算扫全。
