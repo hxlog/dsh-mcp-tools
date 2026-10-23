@@ -24,6 +24,7 @@
 | [LivXue/dsh-plugin-shop](https://github.com/LivXue/dsh-plugin-shop) | 656★ / 18,276 插件（每日刷新） | npm 关键词自动采集（`dsh-plugin`/`deepseek-harness`） | ✅ 已收录：`registry/first-seen.yml` 载明 `dsh-mcp-tools`（`added: 2026-10-21`；仓库已改造成 host 插件 + registry 数据仓，旧的 `LivXue.github.io` Pages 地址已 404，勿再引用） | https://github.com/LivXue/dsh-plugin-shop/tree/main/registry |
 | [dsh.so](https://www.dsh.so)（ihuajiu/dsh.so） | 21,303 插件验证注册表 | npm/GitHub 自动收录 + L1–L5 扫描 | ✅ 已收录：<https://www.dsh.so/artifact/dsh-mcp-tools/>（**Verification L5 · Run tested**，LowRisk / Trust Gold，2026-10-21 复检）（2026-10-21 发布） | 自动抓取，无需提交（2026-10-23 复核：artifact 页 200 且含本插件） |
 | [DshMarketPlace/dshmarketplace](https://github.com/DshMarketPlace/dshmarketplace)（dshmarketplace.dev） | 3★ / 3,420 listing + **13,175 条 API 索引** | GitHub topic 自动 ingest + 沙箱验证安装命令 | ✅ 已收录：`/api/v1/index` 含 `hxlog/dsh-mcp-tools`（`category: tools` + install 命令；2026-10-23 复核，`generated` 10:38Z，`count: 13175`）；`path` 为 null（暂无人工精选详情页，非必需）。曾开 Issue #7 申请，复核后自行关闭并说明 |
+| [UntR/dsh-plugin-marketplace](https://github.com/UntR/dsh-plugin-marketplace)（`untr-dsh-marketplace`，1★，registry-backed） | 自有 registry v1（`index.json` 33.2MB + 每插件 JSON） | GitHub topic 自动 crawl（每小时/按需 enrich） | ✅ 已收录：`registry/v1/plugins/1427825895.json`（slug `hxlog/dsh-mcp-tools`、`bundle.detected=true`+`patch=./cordis.patch.yml`、`install.spec=dsh-mcp-tools@1.0.2`、`npm.repositoryMatches=true`、`requiresBuildApproval=false`、license MIT；2026-10-23 09:15Z enrich） | https://github.com/UntR/dsh-plugin-marketplace/tree/main/dsh-plugin-registry |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -208,6 +209,14 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.11 2026-10-23 新发现：UntR registry-backed 市场（自动 crawl）
+
+通过 npm 搜索 `dsh-marketplace` 类关键词发现 `untr-dsh-marketplace`（repo `UntR/dsh-plugin-marketplace`，1★，8 月建仓、10-23 仍在更新）。它是**自带 registry 数据的市场**：`dsh-plugin-registry/registry/v1/index.json`（33.2MB）+ 每插件明细 JSON，由 GitHub topic 自动 crawl + enrich。
+
+我们的明细已生成（`plugins/1427825895.json`）：bundle 探测通过（`cordis.patch.yml` 存在）、npm 安装规格 `dsh-mcp-tools@1.0.2`、`repositoryMatches=true`、`requiresBuildApproval=false`、MIT、12 个 topics 全部识别。**无需任何提交动作**。
+
+方法论：`npm search`/registry search 用 `dsh-marketplace`、`dsh store plugin`、`dsh-plugin-index` 等词，可挖出尚未进矩阵的 registry-backed 市场；比 GitHub topic 搜索更早发现新市场。
 
 ### 6.10 2026-10-23 多渠道在线复核（第 2 批）
 
