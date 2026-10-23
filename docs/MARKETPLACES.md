@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 32 个市场 + 54 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 33 个市场 + 55 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -39,6 +39,7 @@
 | [dsh.pub](https://dsh.pub)（12,704 条，按固定 commit 可安装的插件注册表） | 12,704 条（`community.generated.json`） | GitHub Topic `dsh-plugin` 自动同步 + 静态契约校验（`topic-catalog-sync.yml`） | ✅ 已含（`id: github:hxlog/dsh-mcp-tools`、`slug: dsh-mcp-tools`、`version: 1.0.2`、`license: MIT`、`type: bundle`、`category: client-ui`；7 项静态校验全 true：pinnedCommit / bundleManifest / safeBundlePatch / committedRuntime / committedClient / readme / license；`discoveredVia: github-topic:dsh-plugin`，`status: verified`） | https://dsh.pub/en/plugins/dsh-mcp-tools/ |
 | [dshhub.org](https://dshhub.org)（`coderPerseus/dsh-hub`，README 自称静态目录 + CLI + Harness 原生工具，每日刷新） | 2,000+ 插件（站点 README） | 每日抓取 GitHub；Issue 投稿 `[Plugin] ...`；`data/catalog-enrichment.json` 10.7MB 带中文摘要 | ✅ 已含（`github:hxlog/dsh-mcp-tools` 在 enrichment 中；详情页 200，含中文描述「管理MCP服务器并按需开关MCP工具」、安装命令 `npx -p @deepseek-ai/dsh dsh plugin --profile web add github:hxlog/dsh-mcp-tools`、MIT；**版本字段仍显示 1.0.0 / 兼容性「待验证」，等每日刷新**） | https://dshhub.org/plugins/hxlog/dsh-mcp-tools |
 | [dshhub.co](https://www.dshhub.co)（Passcode Market，口令/付费插件市场） | 13,144 条 sitemap URL | 从 GitHub / awesome 目录抓取 + 站内 Publish | ✅ 已含（`/en/plugin/hxlog/dsh-mcp-tools`、`/zh/plugin/...` 均为 200，标题带插件名，正文含中文功能描述、分类「工具与能力」、`Added 2026-10-22`、★ 2、源仓库与 awesome-dsh-plugin 原页链接） | https://www.dshhub.co/en/plugin/hxlog/dsh-mcp-tools |
+| [dshpluginhub.ai](https://dshpluginhub.ai)（DSH Plugin Hub，有 CLI `pax-beehive/dsh-hub-cli` 277★、Profiles/Categories/News/Docs） | 站点 sitemap 331 条（插件页动态不入 sitemap） | 从 npm/GitHub 抓取 + 固定 commit 安装源 + README/兼容性/版本展示 | ✅ 已含（`/plugins/dsh-mcp-tools` 200，`<title>Mcp Tools — DSH Plugin…</title>`，正文有功能描述、`dsh plugin --profile web add github:hxlog/dsh-mcp-tools#9d0ac4551ad69e2c7844363c4e3a989f219bdefa` 固定 commit 安装命令、版本 1.0.2/1.0.0、MIT、README） | https://dshpluginhub.ai/plugins/dsh-mcp-tools |
 
 > **回归核验（2026-10-23）**：已收录渠道逐一在线复核，全部仍含 `hxlog/dsh-mcp-tools`——awesome-dsh-plugin feed（7.47MB）、npm `dsh-plugin-catalog@2026.1023.9552`、dsh.so（L5）、deepseek1024 API、bradeGithub registry（19MB）、2BingLing data/plugins.json（39.8MB，master）、dsh-xray 能力卡、linny006 MCP 索引页、lwmxiaobei catalog、imsai `catalog/plugins/hxlog--dsh-mcp-tools.json`、fendouai README、vvlife README、dsh-plugin.org 详情页、dshmarketplace.dev API。bruc3van 待每日 14:17Z 重建。
 
@@ -231,6 +232,19 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.42 2026-10-23 Topic 榜扫街：dshpluginhub.ai 已收录（第 33 个）＋ libukai 精选插件 PR #153
+
+把 `topic:dsh-plugin` 按 star 排序取前 300 个仓库，用 `market|directory|hub|catalog|index|registry|store|awesome|list|discover` 过滤得 41 个候选，再对没见过的逐个查站点：
+
+| 发现 | 性质 | 结论 |
+| --- | --- | --- |
+| **pax-beehive/dsh-hub-cli**（277★，homepage `dshpluginhub.ai`） | DSH Plugin Hub 的 CLI/schema/resolver；站点有 Plugins / Profiles / Categories / News / Docs，插件页带固定 commit 安装命令 | ✅ **已收录我们**（详见上表）；`/plugins/hxlog/dsh-mcp-tools` 404 是 slug 规则不同，实际 slug 是 `dsh-mcp-tools` |
+| **libukai/awesome-deepseek-harness**（321★，三语 README，`### 精选插件` 分类） | 维护很勤的「终极指南」；插件条目是证据型长句（每行带 license/npm/兼容性/风险），近期 PR #145–#152 全是加插件 | ⏳ 已提 **[PR #153](https://github.com/libukai/awesome-deepseek-harness/pull/153)**：三个 README 各加一行（简中/EN/JA），分类放 `### 工作流与 Agent`；PR 正文按 #150 的样式写「我是作者 + `dsh.bundle.patch` + `cordis.patch.yml` + npm 名 + 零依赖」 |
+| Awesome-AI-Pedia/Awesome-AI-Pedia（492★） | 泛 AI 资源百科，含 DSH 插件小节 | 待跟进（不是专门插件市场，价值低） |
+| leenkcool/Blue-Whale-Harness（197★） | 「插件总目录 1958 仓库 / 1819 真插件」 | 已在 §6.x 有 issue #181 待审，非新目标 |
+
+**扫街口径**：`sort=stars` 抓 300 个 repo 后过滤名字/描述含 market/directory/hub/catalog/index/registry/store/awesome/list/discover 的词，再与已知 33 个市场 + 待审清单对表，只把「没出现过且有自己的站点/数据文件」的当新目标——这样能把 `cc-safety-net`、`iflytek/skillhub`、`PicGo` 这类蹭 topic 的噪声滤掉。
 
 ### 6.41 2026-10-23 npm 反查市场客户端：新增 2 个站点（1 已收录、1 待跟进）、1 个暂不追
 
