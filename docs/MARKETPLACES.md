@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 43 个市场 + 71 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 43 个市场 + 72 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1192,3 +1192,17 @@ render: wrote README.md + docs artifacts (20770 entries)
 - 按模板填：canonical repo / name / type=Plugin / 功能描述 / 勾满 3 条 check；附 npm·Release·Manifest V2 证据链接
 
 **方法论补充**：curated 型（人工清单）市场的正确姿势是「**先把对方 CI 在本地跑通再提 PR**」，尤其注意对方测试里写死的条目数断言（本轮 `21 !== 20` 就是它）；自动聚合型市场不需要提交。
+
+### 6.66 2026-10-23 深夜：`review.lingshulab.com`（DSH 插件评测目录）—— 收录需 OAuth 登录，转为用户操作项；`zjust7` 市场确认为上游数据**已覆盖**
+
+**新市场 `review.lingshulab.com`**（标题「DSH 插件评测」，即 `zjust7/dsh-plugin-market` 评测数据的上游）
+- 形态：插件目录 + 社区评测（Next.js 站，`/plugins` 可搜索/分类/按评测筛选，`/reviews`、`/spec`），当前**仅 35 个插件**，人工/评测驱动，不是 topic 海量聚合。
+- 我们**未收录**：`/plugins?q=dsh-mcp` 结果中 `dsh-mcp-tools` 出现 0 次（只有查询串回显）。
+- 投稿通道：`/plugins/new`「提交插件」，表单只要求一个 **GitHub 仓库链接**；页面明示检查要求「仓库可访问、`package.json` 声明 `dsh.bundle`、且引用的配置文件存在」——**三条我们都满足**。
+- **阻塞点**：`/plugins/new` 提示「提交插件需要登录。请使用页面顶部的登录入口」，登录走 GitHub OAuth（浏览器内完成）→ 属**用户操作项**，无法由脚本代提。
+
+**`zjust7/dsh-plugin-market`（★1，带独立测评/安全红线的市场插件）→ 判定为「上游数据已覆盖」**
+- 其 README「数据来源与新鲜度」写明：**插件目录 = `awesome-dsh-plugin.com/plugins.json`**（上游每天重建）—— 该 feed 已包含我们（PR #8407 已合并），所以这个市场的「精选目录」里我们已经可见；它额外展示的「测评判定」来自 lingshulab 快照，属可选增强，不构成独立收录计数。
+- 结论：不单列计数，不投稿。
+
+**用户操作项（累计 10 个）**：cordis.run `/submit`、dshplugin.app、dshpluginhub.dev `/zh/submit`、dshplugin.dev `/submit`、dshplugins.com、dsh.fish `/submit`、dsh-plugin.org claim、dshmarketplace.com、dshhub.dev、**review.lingshulab.com `/plugins/new`**。
