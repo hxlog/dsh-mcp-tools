@@ -1225,3 +1225,35 @@ render: wrote README.md + docs artifacts (20770 entries)
 | `@iasiv5/dsh-m` | 人工 curated 20 条 | 已单独投稿 → PR #5 | 🟡 待审 |
 
 **方法论**：npm 包名里的 market/store/index 大多是同一套代码的 fork（`dshmarket` 系 7+ 个、`dsh-market` 系 5+ 个），**真正独立的 curated 清单极少**；判断一个包值不值得投稿，看它把目录数据**写死在仓库里**（`data/*.json`）还是**运行时回源**——前者才可能有独立收录差异。
+
+### 6.68 2026-10-23 深夜：43 收录口径的在线回归核验（20 个端点实查，含 3 个「看错自己」的坑）
+
+为确认 43 这个数字不是旧快照，本轮直接对文档里的**机器可读端点 + 详情页**做在线复查：
+
+**机器端点（15 个，全部 200）**
+| 端点 | 状态 | 含我们 |
+| --- | --- | --- |
+| awesome-dsh-plugin `plugins.json`（7.47MB） | 200 | ✅ |
+| npm `dsh-plugin-catalog`（unpkg index.json 2.27MB） | 200 | ✅ |
+| hoyyang `registry.json`（29.6MB） | 200 | ✅ |
+| XingLingQAQ `catalog.json`（451KB） | 200 | ✅ |
+| vbarter `data/plugins.json`（25.5MB） | 200 | ✅ |
+| dshopen.org `index.json`（1.23MB） | 200 | ✅ |
+| ukinch605 `registry/plugins.json`（19.9MB） | 200 | ✅ |
+| dshmarket.com `index.json`（2.27MB） | 200 | ✅ |
+| dsh.pub `plugins.json`（11.8MB） | 200 | ✅ |
+| realguan `dsh-index.json`（7.7MB） | 200 | ✅ |
+| bruc3van `index.json`（1.76MB） | 200 | ❌（**预期**：其索引固定 Top1000，见下表说明） |
+| dshmarketplace.dev `/api/v1/plugins`（分页，首页 20 条） | 200 | ❌（**分页所致**；`?q=dsh-mcp-tools` → 返回 1 条命中 ✅） |
+| dsh-pluginmarket.github.io `/registry/`（186B SPA 壳） | 200 | ❌（**壳**，数据在 assets/*.js） |
+| deepseekplugin.org `/registry/v1/catalog.json`（2.67MB） | 200 | ❌（**全局 catalog `generated: 2026-09-22` 已停更**；我们的收录走 `/api/submissions?slug=…`，见下） |
+| hol.org `/registry/plugins` | 403 | —（Cloudflare 拦截，待明查） |
+
+**详情页（12 个，全部 200 且含 slug）**：awesome-dsh-plugin `/p/hxlog/dsh-mcp-tools/`、dsh-plugin.org、dsh.so、dsh-plugin.store、dshfind.com、dshpluginhub.ai、dshhub.org、dshhub.co、dsh.pub、dsh-plugins-mp.com、unstone dsh-xray 能力卡、linny006 mcp-servers-live。
+
+**3 个「差点误判下架」的坑（重要方法论）**
+1. **bruc3van**：`index.json` 固定 Top1000（star/热度排序）不含 3★ 仓库——但它的 `data/approved.json` 已核准我们（2026-10-23），属「核准≠进榜」，本就不在 43 口径内（文档早已标注）。
+2. **dshmarketplace.dev**：`/api/v1/plugins` 默认分页 `count: 20 / total: 13175`；必须用 **`?q=dsh-mcp-tools`**（`search=` 无效）才能查到，命中 1 条。
+3. **deepseekplugin.org**：全局 `/registry/v1/catalog.json` 的 `generated` 停在 **2026-09-22**（上游生成器停了），所以「catalog 里没有」≠「没收录」；我们的自助投稿走 `/api/submissions?slug=hxlog-2f-dsh-2d-mcp-2d-tools`，该端点 `generated: 2026-10-23T15:19Z`、`source: github-submission`、`installable: true`、`security.score: 5` —— 收录有效。
+
+**结论：43 口径维持不变**（本轮无下架、无新增计数）；另记一条待查线索 `hol.org/registry/plugins`（403，可能是又一个 registry）。
