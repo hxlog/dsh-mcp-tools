@@ -215,6 +215,30 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.22 2026-10-23 剩余 PR 模板全部对齐（omni / zhu / Alex / beancookie / keji）
+
+### ① `diegosouzapw/awesome-omni-dsh-plugins#3723` —— 16 字段「Plugin scope and source」清单
+
+按模板逐项填全（此前只有 Summary）：Plugin ID `hxlog-dsh-mcp-tools`、专用分支 `add-hxlog-dsh-mcp-tools`（单插件/单文件）、submission type `creator`、node ID `R_kgDOVRrk5w`、**source commit 40 位** `65fc43897fec7d66d19053e21012e789dbb36dc6`、subpath `null`（仓库根插件）、kind/primaryCategory/tags、描述证据路径 `README.en.md`、SPDX 证据 `LICENSE`、精确版本包 `dsh-mcp-tools@1.0.2` + sha512 integrity、DSH 集成证据 `cordis.patch.yml`、smoke `not run`（对应 `eligible` + `smokeTest: null`）、star 证据（exact-repository，3★）、碰撞检索结果（代码检索无其他条目引用该仓库；开放 PR 检索只有本 PR）、creator PR 故 creator-mention 字段 N/A；Checklist 全部 `[x]`；结尾保留其官方免责声明。另外把 catalog yaml 的 `popularity.stars` 从 2 更新为 3 并重跑其本地校验：`node cli/dist/bin.js catalog validate --catalog .` → `3627 entries valid`。
+
+### ② `zhu1090093659/dsh-community-plugins#52` —— Index checklist
+
+补齐 What / Plugin（仓库 URL + 描述 + **依赖与已知限制**：零运行时依赖、DSH 0.2.x + Node ≥ 22.13、请求头明文存本地 state.json 的限制）/ Index checklist（四项逐个回应）/ Verification（命令与输出）。其中模板提到「next free `rank`」但当前 `community.json` 实际**没有 `rank` 字段**（全文 0 次出现），故如实说明「本条目按数组顺序追加为第 144 条，十个必填字段齐全」。
+
+### ③ `Alex-Yanggg/awesome-DSH-plugin#162` —— Plugin submission checklist
+
+五项勾选；并在本地实跑其校验器：`python scripts/generate_readmes.py --check` → **`Catalog is valid and generated pages are current.`**
+
+### ④ `beancookie/awesome-dsh-plugin#236` —— 提交前快速自查
+
+四项必查（`dsh.bundle` 声明、双 README 各一行、描述无营销词、`dsh-plugin` topic）+ 推荐项（已发 npm 且预构建免 `allowBuilds`；零 deps、经 `dsh.inject` 与官方包协作，故无需 peerDependencies）。
+
+### ⑤ `kejixiaoliang/awesome-dsh-plugins#150` —— 提交前逐项确认 + 变更类型
+
+四项确认（未重复：同类目已有他人的 `dsh-mcp-manager` 但为不同仓库/实现；分类符合 taxonomy；一句话说明；公开仓库）+ 变更类型勾「新增插件」+ 说明。
+
+至此**所有带 PR 模板的目标仓库，其 PR 正文均已按各自模板填写**。
+
 ### 6.21 2026-10-23 发现并修正「PR 模板」类格式问题（radar #968 / white0dew #21）
 
 检查 17 个目标仓库的 `.github/` 后，发现有 **6 个仓库带 PR 模板**（`PULL_REQUEST_TEMPLATE.md` / `pull_request_template.md`），其中两个我们此前的 PR 未按模板填写，已修正：
