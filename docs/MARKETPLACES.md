@@ -215,6 +215,26 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.21 2026-10-23 发现并修正「PR 模板」类格式问题（radar #968 / white0dew #21）
+
+检查 17 个目标仓库的 `.github/` 后，发现有 **6 个仓库带 PR 模板**（`PULL_REQUEST_TEMPLATE.md` / `pull_request_template.md`），其中两个我们此前的 PR 未按模板填写，已修正：
+
+**AdamPlatin123/dsh-plugin-radar#968**（模板强制标题 `docs: 登记 <插件名>`，正文含「插件信息」表 + 自检清单 + 改动内容表）
+
+- 标题由 `Register dsh-mcp-tools in single-plugin list` → **`docs: 登记 dsh-mcp-tools`**；
+- 正文按模板重写：插件信息表（含**分类**字段）、自检清单逐项、自检结果（打包内容校验 / `npm test` 10/10 / DSH 0.2.1-rc.2 实机运行）、改动内容表、备注；
+- 分类用其自带预归类器实测：`scripts/classify.py` → **🛠 基建部署**（命中 `mcp`），与 `docs/CATALOGING.md` 边界「MCP/模型接入 → 基建部署」一致；为此把行描述里的「连通性测试」改为「连通性检查（initialize → tools/list…）」，避免误命中「测试」被判成 💻 编码开发；
+- 行内多余空行清掉（diff 变为纯 1 行增删）；`maintainerCanModify = true` 已在清单勾选。
+
+**white0dew/awesome-dsh-plugins#21**（`CONTRIBUTING.md` 的 listing policy 明文规定安装命令必须为 `dsh plugin --profile web add github:owner/repo`；PR 模板要求 Summary / Listing checks / Local checks 三段）
+
+- 数据源 `data/sources/reviewed-catalog-additions.json` 里 `primaryAction.command` 由 `... add dsh-mcp-tools` 改为 **`... add github:hxlog/dsh-mcp-tools`**（对齐其 listing policy），`stars` 同步为 3；
+- 分支 **rebase 到最新 main** 后重跑 `node scripts/generate-content.mjs`（10777 plugins）与 `node scripts/validate-content.mjs`（exit 0），diff 收敛为 10 个文件（1 条数据 + 重新生成产物 + 两处硬编码计数断言 `records.length`/`expectedPluginCount`/唯一仓库数，均只改数字）；
+- 顺手清掉误提交的临时脚本，分支只剩一个干净 commit；
+- 正文改成模板三段 + 备注（说明脚本改动仅为计数、安装命令按 policy 用 `github:` 形式、如需 npm 形式可调整、lint/build 未在本地跑）。
+
+**仍待按模板复核的 4 个**（下轮处理）：`diegosouzapw/awesome-omni-dsh-plugins#3723`（模板是 16 字段的「Plugin scope and source」清单，我们目前只有 Summary）、`zhu1090093659/dsh-community-plugins#52`（Index checklist）、`Alex-Yanggg/awesome-DSH-plugin#162`、`beancookie/awesome-dsh-plugin#236`、`kejixiaoliang/awesome-dsh-plugins#150`（后三者模板较短，补 checklist 段落即可）。
+
 ### 6.20 2026-10-23 两个 PR 的格式复核（Zhiyuan-Fan #96 / Oh-My-DSH #43）
 
 **Zhiyuan-Fan/Awesome-DeepSeek-Harness-Plugins#96**（558★）：该仓库**没有** `.github/workflows`（API 404）、也没有 CONTRIBUTING，只有 `README.md` + `README.zh-CN.md`；PR 正好各改一份（`add-dsh-mcp-tools` 分支，`mergeStateStatus = CLEAN`），只能靠人工看排版。已按仓库既有条目风格：放在 Tools & Skills 末尾、单行、含仓库链接与一句话定位，`Closes #94`。无更多可机器校验的规则。
