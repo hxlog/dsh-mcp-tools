@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "type": "plugin",
+  "id": "hxlog/dsh-mcp-tools",
+  "version": "1.0.2",
+  "channel": "stable",
+  "name": "dsh-mcp-tools",
+  "description": "MCP server manager for DeepSeek Harness: add streamable-HTTP or stdio MCP servers in Settings, configure request headers, test connectivity, and toggle each MCP tool so disabled tools never reach the model.",
+  "runtime": {
+    "type": "plugin"
+  },
+  "entrypoints": {
+    "bundle": "cordis.patch.yml"
+  },
+  "capabilities": [
+    "mcp.server-management",
+    "mcp.tool-toggle",
+    "settings.panel",
+    "connectivity-test"
+  ],
+  "permissions": [
+    "fs.read",
+    "fs.write",
+    "network"
+  ],
+  "dependencies": [],
+  "compatibility": {
+    "os": [
+      "linux",
+      "darwin",
+      "win32"
+    ],
+    "node": ">=22.13.0"
+  },
+  "publisher": {
+    "id": "hxlog",
+    "provider": "github",
+    "url": "https://github.com/hxlog"
+  },
+  "security": {},
+  "metadata": {
+    "category": "tools",
+    "tags": [
+      "mcp",
+      "mcp-manager",
+      "tools",
+      "settings",
+      "dsh-plugin"
+    ],
+    "repository": "hxlog/dsh-mcp-tools",
+    "homepage": "https://github.com/hxlog/dsh-mcp-tools"
+  },
+  "source": {
+    "provider": "github",
+    "repo": "hxlog/dsh-mcp-tools",
+    "url": "https://github.com/hxlog/dsh-mcp-tools"
+  }
+}
