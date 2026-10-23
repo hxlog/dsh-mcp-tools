@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-24（已收录 49 个市场 + 79 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-24（已收录 50 个市场 + 79 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1637,3 +1637,31 @@ capabilities    : mcp.server-management, mcp.tool-toggle, settings.panel, connec
 也就是说走通了它要求的两层契约：发现层（`catalog/plugins.json` → `verified: true`）+ 安装层（`registry-v4.json` → Release `v1.0.2` 与 `dsh-package-release.json` descriptor）。已回帖 [Issue #165 #issuecomment-6371913515](https://github.com/coeasy/dsh-go/issues/165#issuecomment-6371913515) 附完整证据并致谢。
 
 **验证脚本同步升级**：`scripts/verify-listings.mjs` 的 FULL 组新增 `dsh-go registry-v4` 一项 → 全量由 30 项变 **31 项，本次实跑 31/31 ✅**（轻量仍 21 项，21/21 ✅）。README 中「轻量 19 / 全量 26」的旧数字一并修正为 21/31。
+
+### 6.89 ✅ 第 50 个市场：`ZASENJC/dsh-plugins-store` → **dshmk.com 已验证收录（level 4 / 沙箱实跑通过）**
+
+03:40 复核：**验证通过并已发布**。
+
+**分类归档**（`source-classification.json`，`generatedAt 2026-10-23T18:52:19Z`）：
+```json
+"sourceSha": "95ab65a7236fbf2186babbeb7fbbf62e49fa5cd8",
+"disposition": "include",
+"validation": { "status": "passed", "disposition": "verified", "stage": "sandbox",
+                 "dshVersion": "0.1.0-rc.6", "platform": "linux-x64",
+                 "validatorVersion": "0.1.2", "executionType": "web", "durationMs": 341437 }
+```
+（上一轮失败原因 `SOURCE_CHANGED_DURING_RUN` 已消失——保持 SHA 稳定起作用了；`executionType: web` 说明它是在真实 Web 宿主里跑完 341 秒的沙箱验证。）
+
+**线上目录**（`https://dshmk.com/catalog.json`，`generatedAt 2026-10-23T19:35:58Z`，2500 条，`validationStatuses: {verified: 2500}`）已含我们：
+```json
+{ "id": "github:1427825895", "fullName": "hxlog/dsh-mcp-tools",
+  "projectType": "plugin", "category": "model-mcp", "classificationConfidence": "high",
+  "verified": true,
+  "validation": { "overall": "verified", "label": "已验证", "level": 4, "eligible": true,
+                  "dshVersion": "0.1.0-rc.6", "validatorVersion": "0.1.2",
+                  "stages": { "discovery": passed, "identification": passed, "structure": passed, "sandbox": passed } } }
+```
+
+**详情页：https://dshmk.com/plugins/1427825895** （HTTP 200，74KB，含本插件卡片）
+
+**顺带把脚本站稳**：`scripts/verify-listings.mjs` 轻量组新增 `dshmk.com 插件详情页` → 轻量 **22/22 ✅**、全量 **32/32 ✅**（本轮实跑）。已回帖 [issue #13](https://github.com/ZASENJC/dsh-plugins-store/issues/13) 报结果并道谢。
