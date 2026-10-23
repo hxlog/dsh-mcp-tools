@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 23 个市场 + 37 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 23 个市场 + 38 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，受 market.json 体积上限暂未渲染）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -60,6 +60,7 @@
 | [polang233/dsh-plugin-index](https://github.com/polang233/dsh-plugin-index)（dshopen.org） | 35★ / Open Plugin Market，864 条 | 维护者**手工批量**把申请写进 `data/sources.json`（提交历史可见 "Add N submitted plugins"），非 PR 通道 | 🟡 Issue #58 已提交，并于 2026-10-23 补了一份**可直接粘贴的 `sources.json` 条目**（含 v1.0.2 的 `source.commit`/`integrity`/`publishedAt` + 与已收录 `@sunshaobei/dsh-mcp-manager` 的差异说明）：#issuecomment-6362814800 | 索引每 6h 重建（09:19Z 最新），等维护者下一批合入 |
 | [DshHunt/community](https://github.com/DshHunt/community)（[dshhunt.com](https://dshhunt.com)） | 独立目录站（静态结构证据 + 社区投稿） | Issue [#4](https://github.com/DshHunt/community/issues/4)（plugin-submission 表单） | 🟡 待审（2026-10-23 提交） | 站点 `/plugins` 已上线但未含我们；投稿要求固定 commit SHA + 公开证据，已按表单字段提交（SHA `6cb6342`、bundle path `.`、npm `dsh-mcp-tools`、分类 developer-tools、MIT） |
 | [REALOIYO/dsh-plugin-market](https://github.com/REALOIYO/dsh-plugin-market) | 7,123 个插件 / 58,629 个版本 · 自建 format 1 索引 | Issue [#1](https://github.com/REALOIYO/dsh-plugin-market/issues/1)（召回缺口报告 + 建议补种子） | 🟡 待回复（2026-10-23 提交） | 索引源 `realoiyo.github.io/dsh-plugin-market/index.json`；每 6 小时重建（10-23T10:55Z success），但我们这个**声明了 `dsh.bundle` 且带 `dsh-plugin` 关键字**的包仍未被召回 → 判断为其切片式 npm 搜索召回缺口，建议把包名加进 `seeds/dsh-so.json` |
+| [dsh-pluginmarket/metadata](https://github.com/dsh-pluginmarket/metadata)（DSH Registry，站点 `dsh-pluginmarket.github.io/registry/`） | 82 条元数据 · plugin/skill/preset/theme 注册表 | Issue [#6809](https://github.com/dsh-pluginmarket/metadata/issues/6809) → 机器人自动开 PR [#6810](https://github.com/dsh-pluginmarket/metadata/pull/6810) | 🟡 待合并（2026-10-23 提交，issue→PR 全自动链路已跑通） | 投稿用 `Add:` issue 模板；Actions 校验后由 `issue-to-entry.mjs` 生成 `entries/github_hxlog_dsh-mcp-tools.json` 并开 PR，维护者合并即上架；已验证 workflow 两次 run 均 success、bot 已回「Metadata validated and a pull request was opened」 |
 
 > **合并节奏观察（2026-10-23）**：dsh-plugin-radar 只合并 `app/github-actions` 机器人生成的快照 PR，人工提交的 PR（本仓库 #968）不会被合并，收录以它每日快照为准；dshworks 由维护者 lroolle 批量合并，最近一次合并 2026-10-19（本仓库 #184 已 CLEAN 等其下个批次）。
 
@@ -217,6 +218,31 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 | `dshmarket.app`（curated） | 95 个插件 / 11 类，编辑精选制 | 未含我们 | 页脚 submit 链指向 `dshmarket.ai/submit`，但该域名该路由已 **404**；无可行动入口，仅记录 |
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
+
+### 6.28 2026-10-23 新渠道：DSH Registry（dsh-pluginmarket/metadata）——issue 自动生成 PR
+
+**发现路径**：搜 `"dsh-plugin-market-index" in:readme` 时命中 `dsh-pluginmarket/metadata#6252`，顺藤发现 `dsh-pluginmarket` 组织（2 个仓库：`metadata` 元数据源 + `registry` 静态前台）。
+
+**体系结构**
+
+- `dsh-pluginmarket/metadata`：**DSH Registry 的唯一数据源**，`entries/*.json` 共 **82 条**（plugin / skill / preset / theme 四类）；
+- `dsh-pluginmarket/registry`：纯静态前端（无 API/数据库），浏览器直接读 metadata 仓库的 `entries/*.json`，部署在 <https://dsh-pluginmarket.github.io/registry/>（2026-10-23 复核 200）；
+- 治理：仓库 README 明确「Registry 只发布默认分支的元数据」，合并 PR = 唯一的上架闸门。
+
+**自动化链路（本轮实测跑通）**
+
+1. 按 `.github/ISSUE_TEMPLATE/add-entry.yml` 提交标题以 `Add:` 开头的 issue；
+2. `validate-and-pr.yml` 触发 → `scripts/issue-to-entry.mjs` 解析 issue 正文（`### Kind` / `### Name` / `### GitHub repository` / `### npm package` / `### Description` / `### Tags` / `### Submitter GitHub username`）生成 `entries/<id>.json`；
+3. `pnpm validate`（`scripts/validate.mjs`：必填字段、kind/source 枚举、tags 字符串数组、github 条目必须 `owner/repo`、id 去重）→ 通过后由 `peter-evans/create-pull-request` 自动开 PR，并回评 issue；
+4. 维护者合并 PR 后条目才对外可见。
+
+**已提交**：[metadata#6809](https://github.com/dsh-pluginmarket/metadata/issues/6809)（`Add: hxlog/dsh-mcp-tools`）
+
+- 实测结果：issue 提交后 **workflow 两次 run 均 success**（`issues` 与 `pull_request` 事件各一次），bot 回评「Metadata validated and a pull request was opened」，自动开出 **[PR #6810](https://github.com/dsh-pluginmarket/metadata/pull/6810)**（分支 `metadata/issue-6809`）；
+- 生成条目字段：`id: github:hxlog/dsh-mcp-tools`、`kind: plugin`、`source: github`、`sources: [github, npm]`、`githubRepo: hxlog/dsh-mcp-tools`、`npmPackage: dsh-mcp-tools`、`tags: [mcp, tooling, settings]`、`status: active`、`official: false`、`submittedBy: hxlog`；
+- 当前状态：PR 待维护者合并；合并后 `https://dsh-pluginmarket.github.io/registry/` 即出现我们的条目。
+
+**意义**：这是**第一个「提交 issue → CI 校验 → 机器人自动开 PR → 维护者合并」全自动闭环**的渠道，与用户关心的「git ci workflow（review）＋PR 流程」完全一致，也验证了该 Registry 侧的门禁是可靠的。
 
 ### 6.27 2026-10-23 两个新索引源一正一负：realguan 已含我们 / REALOIYO 召回缺口已报
 
