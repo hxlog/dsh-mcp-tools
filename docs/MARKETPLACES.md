@@ -214,6 +214,18 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.15 2026-10-23 合并落地复核（merge → listing 闭环）
+
+已合并的 4 个 PR 逐一回到目标仓库复核「条目真的落了地」，避免「PR 显示 merged 但数据未生效」：
+
+| 目标 | 复核证据 |
+| --- | --- |
+| `awesome-dsh-plugin/awesome-dsh-plugin` | 条目文件 `data/plugins/hxlog__dsh-mcp-tools.yml` 存在；站点详情页 `/p/hxlog/dsh-mcp-tools/` 200 |
+| `imsai-sh/awesome-deepseek-harness-plugins` | `catalog/plugins/hxlog--dsh-mcp-tools.json` 存在；线上 `GET /api/v1/plugins/hxlog/dsh-mcp-tools` 返回条目 |
+| `vvlife/awesome-deepseek-harness-plugins` | `README.md` 含 `[hxlog/dsh-mcp-tools]` 行（含 ★2 与描述） |
+| `Dominic789654/awesome-deepseek-harness` | `README.md`（1.68MB）MCP Servers 分区含 `[hxlog/dsh-mcp-tools]` 行 |
+| `awesome-deepseekharness/awesome-deepseek-harness` | 仍 **MISS**（PR #186 reviewDecision=APPROVED，等维护者点 merge，非数据问题） |
+
 ### 6.14 2026-10-23 新发现：dshfind.com（topic 全量自动同步，含质量分）
 
 线索来自 `PerryLink/dsh-plugin-doctor` 的 `OUTREACH.md` §F——其中点名「`dshfind` / `dsh.market` / `dsh.directory` 各有提交规则，提交前先读 contributing」。沿此核验 `dshfind.com`：
