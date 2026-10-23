@@ -59,6 +59,7 @@
 
 | 下游 | 分发方式 | 状态 |
 | --- | --- | --- |
+| [dsh-market.com / DSH Workshop 商店](https://dsh-market.com) | zhu1090093659/dsh-community-plugins 的 community.json → manifest/plugins.json（9.3k★ dsh-web 生态） | 🟡 待 zhu PR 合并（条目已过 gate + 9 项单测；fork 限流中） |
 | [dsh-market/dsh-market](https://github.com/dsh-market/dsh-market)（8.3k★，应用内市场） | 直接读 awesome-dsh-plugin.com 的 index.json | ✅ index.json 已含本插件 |
 | [Sanqi-normal/dsh-webui-market-plugin](https://github.com/Sanqi-normal/dsh-webui-market-plugin)（104★） | 浏览 awesome-dsh-plugin.com 目录 | ✅ 同上 |
 | [YELEBAI/dsh-plugin-marketplace](https://github.com/YELEBAI/dsh-plugin-marketplace)（21★） | 每日扫描 `dsh-plugin` topic 进中心 Registry | ⏳ topic 已打，下轮扫描自动进候选 |
