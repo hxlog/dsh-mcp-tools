@@ -137,6 +137,20 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 | 测试连接失败 | 检查 URL、服务器是否使用 `streamable-http`（而非普通 SSE）、请求头名称是否与服务端要求一致；网络 / 代理问题也会在这里暴露。 |
 | 状态文件在哪 | `~/.dsh/dsh-mcp-tools/state.json`；删除即重置为空，下次启动自动重建。 |
 
+
+## 🌐 收录渠道
+
+本插件已被多个 DSH 插件市场/目录收录：
+
+- [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/)（20k★ 社区精选列表）
+- [dsh-plugin.org](https://dsh-plugin.org)（310★ DSH 社区内置插件中心）
+- [dsh.market](https://dsh.market)（168★，6000+ 插件目录）
+- [dshmk.com](https://dshmk.com)（72★，topic 自动验证目录）
+- [deepseek1024.com](https://deepseek1024.com)
+- imsai / fendouai / vvlife / brade 等 awesome 列表与自动索引
+
+如果你在别的目录里看到它，欢迎提 PR 或 issue 告诉我们。
+
 ## 📄 License
 
 [MIT](LICENSE) · Powered by [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)

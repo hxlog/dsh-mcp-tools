@@ -136,6 +136,20 @@ mklink /J "C:\Users\<you>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 | Connection test fails | Check the URL, that the server speaks `streamable-http` (not plain SSE), and the header names; network/proxy problems surface here too. |
 | Where is the state file? | `~/.dsh/dsh-mcp-tools/state.json`; delete it to reset to empty — it is recreated on next start. |
 
+
+## 🌐 Where it is listed
+
+This plugin is listed in several DSH plugin marketplaces and directories:
+
+- [awesome-dsh-plugin](https://awesome-dsh-plugin.com/p/hxlog/dsh-mcp-tools/) (20k★ community list)
+- [dsh-plugin.org](https://dsh-plugin.org) (310★ community plugin hub)
+- [dsh.market](https://dsh.market) (168★, 6000+ plugin directory)
+- [dshmk.com](https://dshmk.com) (72★, topic-verified directory)
+- [deepseek1024.com](https://deepseek1024.com)
+- awesome lists and auto-indexes such as imsai, fendouai, vvlife and brade
+
+If you spot it in another directory, a PR or issue telling us is welcome.
+
 ## 📄 License
 
 [MIT](LICENSE) · Powered by [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
