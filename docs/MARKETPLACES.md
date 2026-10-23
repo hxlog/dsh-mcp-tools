@@ -284,6 +284,21 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 **bruc3van 复核（22:17 cron 后）**：`https://bruc3van.com/dsh-plugins/index.json` 在 2026-10-23 22:17 UTC+8 定时任务后仍为 **1,000 条 Top1000（stars 截断）且不含我们**（`hasUs=false`），与预期一致——该站点按 stars 取前 1000，我们 3★ 排在截断线外；保持「已批准但 star 门槛未过」状态，随 stars 增长自动覆盖。
 **计数：收录 39 → 40，待审保持 64。**
 
+**discovery 侧端到端复现（官方 main@d3b1059，2026-10-23 22:35 +08）**：不只是「模拟一条 verified=true 记录」，而是**直接调用官方 scripts/discovery-sync.mjs 的 observeDshManifest() + applyManifestObservation()** 处理我们真实的 catalog 条目，再喂给 buildRegistryV4FromDiscovery()：
+
+```
+BEFORE: { verified:false, manifest_file:null, package_id:null, category:'mcp', rank:1217 }
+observeDshManifest('hxlog/dsh-mcp-tools','main') -> observed:true, status:200, file:'dsh-package.json'
+AFTER : { verified:true, manifest_file:'dsh-package.json', package_type:'plugin', package_version:'1.0.2',
+          category:'mcp', permissions:['fs.read','fs.write','network'], metadata_source:'dsh-package' }
+BUILD : accepted:1 / quarantined:0 / rejected:0
+PKGS  : plugin hxlog/dsh-mcp-tools -> release v1.0.2, tag v1.0.2,
+        digest sha256-435d32393e4f73d04b7b77a76b7bae3770169805c44111278c47f5727bfbb219,
+        commit ddfb49acb3cb850b84b9be1a2fe9d85b25430359
+```
+
+即：**当前 catalog 里我们仍是 verified:false（因为 catalog 在 11:39Z 同步时 dsh-package.json 尚未提交，仓库 13:10Z 才加）**，但只要下一次增量 sync 扫到我们（脚本 scripts/simulate-discovery.mjs 可复现），就会自动翻成 verified:true 并进入 registry-v4.json。cron = 18 0/6/12/18 * * * UTC（+08 的 08:18/14:18/20:18/02:18），下一次 **02:18**。注意 id hxlog/dsh-mcp-tools 因 sanitize 只接受 ^[A-Za-z0-9_.-]+$（不含 /）被丢成 package_id:null，不影响 accepted；release_tag:null 也一样，builder 会从 Release Descriptor V2 资产反查替代。
+
 ### 6.59 2026-10-23 DSH Go Registry V4：补齐 Release Descriptor V2（可安装发布记录），已用官方协议核验器验证
 
 `coeasy/dsh-go` 的 **Registry V4** 不是「仓库被发现就能装」：契约要求 **Manifest V2**（根目录 `dsh-package.json`）+ 每个 GitHub Release 内的 **Release Descriptor V2**（`dsh-package-release.json`），且 artifact 必须是 GitHub Release 归档（`kind: release-archive`、`format: tgz`、`digest: sha256-<64hex>`、`strip_components`）。我们此前只有 Manifest V2（`f803dea`），所以 catalog 里一直是 `verified: false / manifest_file: null`。
