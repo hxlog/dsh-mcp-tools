@@ -41,6 +41,7 @@
 | [like-study1/Oh-My-DSH](https://github.com/like-study1/Oh-My-DSH) | 96★ | PR #43（data/curated.json override，`keep: true` 绕过 min_stars=3 初筛） | 🟡 待审 | 4 小时自动同步，2★ 低于门槛，按 CONTRIBUTING 走人工 override |
 | [whyihaveyou/dsh-suite](https://github.com/whyihaveyou/dsh-suite) | 44★ / 2103 | Issue #76（plugin-submission 模板） | 🟡 待审核 | 目录按 topic 抓取但只收 top-N，需人工提名；目录每小时刷新 |
 | [zp-home/dsh-recommend](https://github.com/zp-home/dsh-recommend) | 19★ | Issue #41（submit-plugin 模板 + 精选认证申请） | 🟡 待审核 | 每日同步 topic；`dsh.bundle` 可安装，申请 🏅 精选认证 |
+| [diegosouzapw/awesome-omni-dsh-plugins](https://github.com/diegosouzapw/awesome-omni-dsh-plugins) | 19★ / 3626 | PR 到 catalog/plugins/hxlog-dsh-mcp-tools.yaml（每插件一 PR，需 pinned commit/node id/npm SRI） | 🟡 已准备（`catalog validate` 3627 entries valid），GitHub fork 限流暂无法建 fork | 创作者优先 PR；分类 coding-developer-tools |
 | [zhu1090093659/dsh-community-plugins](https://github.com/zhu1090093659/dsh-community-plugins) | 1★（dsh-market.com 创意工坊数据源） | PR（community.json 追加 1 条，gate `community-index: OK (144 entries)`） | 🟡 待提交（GitHub fork 限流，稍后重试） | community.json 同时供 dsh-market.com 插件清单 |
 
 ## 三、暂不提交
