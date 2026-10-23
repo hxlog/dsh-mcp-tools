@@ -146,6 +146,7 @@ This plugin is listed in several DSH plugin marketplaces and directories (14 ver
 - [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness) (397★ curated list, MCP Servers section)
 - [dsh-plugin.org](https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools) (310★ community plugin hub, live detail page)
 - [dsh.market](https://dsh.market) (168★, 6000+ plugin directory)
+- [dsh-plugins.org](https://dsh-plugins.org/) (5★ auto-synced directory, 747 plugins, install command generated)
 - [dsh.so](https://www.dsh.so/artifact/dsh-mcp-tools/) (21,000+ plugin verified registry)
 - [deepseek1024.com](https://deepseek1024.com) (312★, 13,840-plugin directory, catalog PR #669 merged)
 - [dsh-plugin-catalog](https://www.npmjs.com/package/dsh-plugin-catalog) (npm catalog, 6000+ entries)

@@ -147,6 +147,7 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 - [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)（397★ 精选列表，MCP Servers 分区）
 - [dsh-plugin.org](https://dsh-plugin.org/plugins/hxlog/dsh-mcp-tools)（310★ 社区插件中心，站点详情页已上线）
 - [dsh.market](https://dsh.market)（168★，6000+ 插件目录）
+- [dsh-plugins.org](https://dsh-plugins.org/)（5★ 自动同步目录，747 插件，安装命令自动生成）
 - [dsh.so](https://www.dsh.so/artifact/dsh-mcp-tools/)（21,000+ 插件验证注册表）
 - [deepseek1024.com](https://deepseek1024.com)（312★，13,840 插件目录，收录 PR #669 已合并）
 - [dsh-plugin-catalog](https://www.npmjs.com/package/dsh-plugin-catalog)（npm 目录，6000+ 条）
