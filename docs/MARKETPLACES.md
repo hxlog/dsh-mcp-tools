@@ -32,7 +32,7 @@
 | 市场 | 规模 | 提交 | 状态 | 说明 |
 | --- | --- | --- | --- | --- |
 | [dshworks/awesome-dsh-plugins](https://github.com/dshworks/awesome-dsh-plugins)（dsh.works） | 24★ / 20.7k | PR #184（data/plugins.json） | 🟡 待审（2026-10-23 已 rebase 解决 DIRTY 冲突，`check` CI 通过，等待合并） | 维护者按 Sweep 批量 fold 贡献者 PR | 队列机制：`coverage.json`（2026-10-23）显示 topic 唯一仓库 25,430 / 已决定 22,456 / **队列 472**，本仓库可通过 `topic:dsh-plugin` 检索到（GitHub search 命中 1）→ 由 sweep 决定批次收录；PR #184 为并行路径。
-| [0xsline/awesome-deepseek-harness](https://github.com/0xsline/awesome-deepseek-harness) | 1.2k★ | PR #737（README + README.zh-CN 的 Tools & Utilities） | 🟡 待审 | 手选列表；CATALOG 由 topic 自动生成，后续可能自动出现 |
+| [0xsline/awesome-deepseek-harness](https://github.com/0xsline/awesome-deepseek-harness) | 1.2k★ | PR #737（README + README.zh-CN 的 Tools & Utilities） | 🟡 待审 | 手选列表；CATALOG 由 topic 自动生成，后续可能自动出现 · **lint 基线相同**（2026-10-23 本地复跑 workflow 同命令）：`main` 与 PR 分支均 exit 1 / **21 个相同 issue**，本 PR 新增 0 个；维护者 2026-10-16 后未再处理 PR（仓库现有 22 个 PR 全部 `action_required`） |
 | [AdamPlatin123/dsh-plugin-radar](https://github.com/AdamPlatin123/dsh-plugin-radar) | 1.5k★ | PR #968（PLUGINS.md 单插件表登记） | 🟡 待审 | 未登记也会每日 02:00 扫 topic 自动收录 |
 | [kejixiaoliang/awesome-dsh-plugins](https://github.com/kejixiaoliang/awesome-dsh-plugins) | 64★ | PR #150（plugins/mcp.md） | 🟡 待审 | 14 类目录，归 mcp 分类 |
 | [beancookie/awesome-dsh-plugin](https://github.com/beancookie/awesome-dsh-plugin) | 171★ | PR #236（README + README.en 的工具与能力） | 🟡 待审 | 504 个插件的中文目录 |
@@ -88,7 +88,7 @@
 | [dsh-plugins.net](https://dsh-plugins.net) | 带验证方法论的社区目录 | 表单生成 Markdown，发到 deepseek-harness GitHub Discussions 由维护者审核 | 🟡 已发 [Discussion #10768](https://github.com/deepseek-ai/deepseek-harness/discussions/10768)（Show Your Plugins! 分类） |
 | [dshplugin.net](https://dshplugin.net)（coolbat/awesome-dsh-plugins） | 1★ / 双语证据式目录 | GitHub Issue `plugin-submission` 模板（需固定 commit） | 🟡 已提交 Issue #34 |
 | [dsh.store](https://dsh.store)（AI-Scarlett/DSH-Store） | 5★ / 第三方市场 + 生命周期管理 | 每 8 小时自动 radar 扫描写入 `registry/catalog.json` | 🟡 机器人预检**已通过**（固定 commit `f245bca`、识别 `dsh-mcp-tools@1.0.2`、入口 `mcp-tools`、无生命周期脚本、13/13 文件扫描完整、1 条 shell 警告来自 `scripts/smoke.mjs`），等 8 小时 Catalog 策略复核 |
-| [dshplugins.org](https://dshplugins.org)「深鲸插件港」 | 聚合型（14000+） | 聚合 AdamPlatin123 / vvlife / libukai / 0xsline 等 awesome 列表 | ⏳ 随上游列表合并自动跟进 |
+| [dshplugins.org](https://dshplugins.org)「深鲸插件港」 | 聚合型（14000+） | 聚合 AdamPlatin123 / vvlife / libukai / 0xsline 等 awesome 列表 | ⏳ 随上游列表合并自动跟进 · **lint 基线相同**（2026-10-23 本地复跑 workflow 同命令）：`main` 与 PR 分支均 exit 1 / **21 个相同 issue**，本 PR 新增 0 个；维护者 2026-10-16 后未再处理 PR（仓库现有 22 个 PR 全部 `action_required`） |
 | [dshplugin.app](https://dshplugin.app) | 注册表 + 审核提交 | `/submit` 表单（无需账号，但有 captcha）；提交后抓取仓库并分类 | 🟡 待人工/带 captcha 提交 |
 | [dshplugin.market](https://dshplugin.market) | 插件/技能/Agent 目录（含 MCP Servers 分类） | `/submit` 无表单：collector 按 GitHub topic 索引 | ⚪ 停止跟进：sitemap 的 lastmod 停在 **2026-08-15**，collector 已 2 个月未跑 |
 | [dsh-store.com](https://dsh-store.com) | 域名重定向到「DSHalpha」法语衣架商店 | 与本生态无关 | ⚪ 排除（域名混淆） |
@@ -106,7 +106,7 @@
 | DSH-Plugins-Marketplace registry | 2 小时增量 | 已收录 |
 | dshmk.com API | 30 分钟 | 已收录 |
 | dsh-plugin-radar 快照 | 每日 02:00 | PR 合并或下一次扫描 |
-| 0xsline CATALOG（topic） | 每次快照生成 | 下一轮 |
+| 0xsline CATALOG（topic） | 每次快照生成 | 下一轮 · **lint 基线相同**（2026-10-23 本地复跑 workflow 同命令）：`main` 与 PR 分支均 exit 1 / **21 个相同 issue**，本 PR 新增 0 个；维护者 2026-10-16 后未再处理 PR（仓库现有 22 个 PR 全部 `action_required`） |
 | dsh-plugin.org | 每周/按审核队列 | Issue 处理前后 |
 
 ## 六、后续动作
