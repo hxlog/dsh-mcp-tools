@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-23（已收录 48 个市场 + 76 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-23（已收录 48 个市场 + 77 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1483,3 +1483,26 @@ Radar 是 DSH 生态最大的插件目录（★1485）：站点 `https://adampla
 - `EasonMWS/dsh-plugin-health`（★3）是兼容性矩阵，不是市场
 - `ywsldxk/dsh-plugin-stars`（★7）是按 stars 排的榜单，数据无我们，结构性排除
 - `PerryLink/dsh-plugin-certification`（0★）是发证型认证登记（`data/certified.json` 仅 3KB 几条），需要它的审计才进，非收录型市场
+
+### 6.80 2026-10-24 凌晨：`AI-Scarlett/DSH-Store`（★5）投稿 issue #1555 —— **自动预检通过（11/11 文件、0 findings），等 8 小时 Catalog 策略门禁**
+
+DSH-Store 是「跑在 DSH 设置页里的第三方插件商城 + 安全生命周期管理器」，三站点：`dsh.store`（国际）、`dsh-store.cn`（国内）、GitHub Pages；并且它的目录可以用来给 DSH 原生「发现 → 添加索引源」用：
+- `https://dsh.store/plugin-market.json`（官方 `format: 1`，仅含已批准条目）
+- `https://dsh-store.cn/plugin-market.json`
+
+**投稿方式**：GitHub issue 模板（`plugin-submission.yml`，只填一个公开仓库地址），仓库内 `.github/workflows/plugin-submission.yml` 自动跑「固定 Commit + 有界静态安全扫描」。
+
+**已提交：[AI-Scarlett/DSH-Store#1555](https://github.com/AI-Scarlett/DSH-Store/issues/1555)**，机器人预检结果（从 Actions artifact 读到的完整报告）：
+
+| 项 | 结果 |
+| --- | --- |
+| 状态 | **passed** |
+| 固定来源 | `a106024cd99aec…`（= 仓库当时 HEAD） |
+| 识别 | `dsh-mcp-tools@1.0.2`，manifest `package.json`，Bundle Patch `cordis.patch.yml`，入口 `mcp-tools` |
+| 生命周期脚本 | 无 |
+| 静态安全扫描 | **通过**，已扫 11/11 文件（扫描面完整），Critical 0 / Warning 0 / Info 0 |
+| capability 证据（reviewer 级，非阻断） | `network`（client.js:1316，连通性探测）· `credentials`（manager.js:215，请求头/凭证相关）· `files`（profile-modules.js:5，读写 profile 配置） |
+
+**后续**：按 registry/README.md，预检通过后「**八小时 Catalog 策略**会重新固定源码并执行更严格的许可证/依赖/生命周期/Bundle/完整有界运行时源码/权限信号门禁，全部通过才自动上架」。我们 `network` 能力证据在受保护清单里，**可能落入「blocked/需人工复核」**而不是自动合并——这一点如实记录，等 8 小时窗口出结果。
+
+注意：它的「自动上架」严格版要求「无网络/文件/命令/凭据信号」，而 MCP 管理器必然有网络探测——所以更现实的结果是**进人工复核队列**。这不是我们格式有问题，是这类插件的能力光谱决定的。
