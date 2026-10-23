@@ -233,6 +233,23 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.48 2026-10-23 搞清官方 Discover 的收录机制（format-1 index），并核对主流 index 是否含我们
+
+DSH 官方 Web GUI 的 **Discover 页**（`packages/client/ui-plugin-market` + `packages/boot/plugin-market`）并不维护中心化官方榜单：`Config.indexes` 默认 `[]`，用户手动添加 market index URL 才发请求；格式由 `@deepseek-ai/dsh-plugin-market-index` 定义（`format: 1`，含 `title`/`plugins[].versions[]`/`install target` 等）。官方仓库自带 `apps/plugin-market-generator`（读 npm/git 清单生成 `index.json`）但**没有默认 index 源**，因此「被官方收录」= 出现在用户会添加的那些 `index.json` 里。
+
+实测各市场 index 源是否含我们（2026-10-23）：
+
+| index 源 | 状态 | 含本插件 |
+| --- | --- | --- |
+| `https://awesome-dsh-plugin.com/index.json` | format 1，2.27MB | ✅ |
+| `https://dshopen.org/index.json` | format 1，1.23MB（Open Plugin Market） | ✅ |
+| `https://dshmarket.com/index.json` | format 1，2.27MB（awesome feed 的镜像） | ✅ |
+| `https://dsh.pub/plugins.json` | 11.8MB 自有 schema（非 format 1） | ✅ |
+| `https://dsh.lanshuagent.com/plugins.json` | 自有 schema（cclank） | ❌ 见 §6.46 |
+| `https://vlln/plugin-registry`（`raw.../vlln/plugin-registry/main/index.json`） | format 1 个人索引（README："Plugins I build for dsh"），★59 | ❌ 设计上只收作者自己的插件，非社区市场，不作为目标 |
+
+结论：**能进 Discover 的主流 index 源都已覆盖**；`/index.json` 路径还探测过 dshfind、deepseek1024、dshpluginhub.ai、dshhub.co/org、dsh-plugin.store、dsh.so、dshmarket.com、dshplugins.org、dsh.directory、dshplugin.app、dshhub.dev 等 20+ 域名，除 cclank 外均已含我们或使用自有 schema（`/plugins.json`）且已含我们。
+
 ### 6.47 2026-10-23 dshlib 插件商店投稿 + 认证体系（PerryLink）识别
 
 **dshlib/dshlib（compliancehub.cn/store）**：代码搜 `dshlib` 商店，实验性插件商店，投稿用 Issue 模板 `Add: <plugin>`，要求 `dsh-plugin` topic + LICENSE + bundle manifest；上架前自动做内容完整性校验（npm 官方 hash）、dshlib-scan + GuardDog 第三方复扫、OSV.dev 依赖检查，并给 CHA2A（L0-L4）认证徽章。已按模板提交 [Issue #4](https://github.com/dshlib/dshlib/issues/4)（附 npm 版本、pinned commit、豁免/安全说明）。注意其仓库自 2026-08-27 无新提交、站内 3 条历史投稿也未处理，属「低活跃实验项目」，不作为主力预期。
