@@ -1207,3 +1207,21 @@ render: wrote README.md + docs artifacts (20770 entries)
 - 结论：不单列计数，不投稿。
 
 **用户操作项（累计 10 个）**：cordis.run `/submit`、dshplugin.app、dshpluginhub.dev `/zh/submit`、dshplugin.dev `/submit`、dshplugins.com、dsh.fish `/submit`、dsh-plugin.org claim、dshmarketplace.com、dshhub.dev、**review.lingshulab.com `/plugins/new`**。
+
+### 6.67 2026-10-23 深夜：npm 生态「市场包」全量排查 —— 独立静态清单只剩 2 个且都已停更
+
+用 `registry.npmjs.org/-/v1/search` 抓 `keywords:dsh-plugin` / `keywords:deepseek-harness` / `dsh market` / `dsh plugin store` / `dsh plugin index` / `dsh directory` 六个查询（去重 **787 个包**，其中名字/描述含 market/store/index/catalog/registry/hub/shop/discover 的 **191 个**，人工归并到约 30 个 DSH 市场实现），逐个查数据文件/数据源：
+
+**结论：除 2 个停更的静态清单外，其余全部回源到「awesome-dsh-plugin 目录 / npm 关键词 / GitHub topic」——上游已覆盖我们。**
+
+| 市场包 | 形态 | 数据源（实测） | 判定 |
+| --- | --- | --- | --- |
+| `dsh-store@0.5.2`（huguangyu666/dsh-store，★4） | 550+ 插件、npm 权威源 + awesome 精选 + 自动雷达 | 代码里直接写死 `registry.npmjs.org/-/v1/search?text=keywords:dsh-plugin`、`api.github.com/search/repositories?q=topic:dsh-plugin`、`awesome-dsh-plugin/README.md` | ✅ 上游覆盖（三源都含我们） |
+| `dsh-unified-market`（jing-hy，★2） | 统一市场 | `data/catalog-snapshot.json`（119KB）的 `source` = awesome-dsh-plugin | ✅ 上游覆盖 |
+| `dshmarket` / `@dsh-market/plugin` / `@gausszhou` / `aiko-dsh-market` / `@x1a0f3n9` / `@chatcode` … 同名 fork 生态 | 内嵌市场 | 社区目录来自 dsh-plugin-catalog / dshmarket.com | ✅ 上游覆盖（dshmarket.com 已在 43 收录内） |
+| `@nanmicoder/dsh-plugin-market@0.2.0`（★7，Vercel 站） | **静态** `data/v1/catalog.json` 5,908 条 | `meta.generatedAt = 2026-08-16T20:08:42Z`，**冻结近 2 个月**，无我们 | ⏸ 停更静态快照，无投稿通道，暂不追 |
+| `dshbase-catalog@0.3.61`（dshbase.com，`/api/plugins.json`） | 静态 103 条 + 站点宣称 2 万 | `updated: 2026-08-14`，**冻结于 8-14**，目录页也无我们；无提交入口（只有 /contact） | ⏸ 停更站点，暂不追 |
+| `dsh-lumen-market`、`dsh-extension-hub`、`@max-null/dsh-plugin-center`、`dsh-plugin-market-bridge` 等 | 运行时抓取型 | 代码内无固定目录 URL（走 npm search / 宿主 API） | ✅ 视为覆盖 |
+| `@iasiv5/dsh-m` | 人工 curated 20 条 | 已单独投稿 → PR #5 | 🟡 待审 |
+
+**方法论**：npm 包名里的 market/store/index 大多是同一套代码的 fork（`dshmarket` 系 7+ 个、`dsh-market` 系 5+ 个），**真正独立的 curated 清单极少**；判断一个包值不值得投稿，看它把目录数据**写死在仓库里**（`data/*.json`）还是**运行时回源**——前者才可能有独立收录差异。
