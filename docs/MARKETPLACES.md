@@ -154,6 +154,27 @@
 
 canonical feed 仓库 `awesome-dsh-plugin/awesome-dsh-plugin`（20.3k★）已生成我们的条目：`data/plugins/hxlog__dsh-mcp-tools.yml`（`name: hxlog/dsh-mcp-tools`，`category: tools`，中英描述齐全，`url` 指向仓库）。这条是绝大多数下游市场（dshmarket / @99galaxy / dsh-find-plugin / dsh.so / 多个 format-1 索引）的**唯一上游**，条目存在即代表下游可继承；`data/added-dates.json` 只记近期新增、不含我们属正常（我们发布时间早于该文件的滚动窗口）。
 
+### 6.8 dsh.store 自动准入条件逐条核对（2026-10-23）
+
+读了 `AI-Scarlett/DSH-Store` 的 `scripts/automate-catalog.mjs`（`automaticApproval` 契约）后逐条核对，我们**全部满足**：
+
+| 条件 | 我们的情况 |
+| --- | --- |
+| `manifest repository` == 规范 GitHub 仓库 | `package.json` `repository.url = git+https://github.com/hxlog/dsh-mcp-tools.git` ✅ |
+| 仓库 license 元数据与 manifest 一致 | GitHub 检测 MIT、`package.json` `license: MIT` ✅ |
+| `files` 声明非空的可分发清单 | 有（lib / client / locale / patch / icon / screenshots / README）✅ |
+| 显式声明 DSH 兼容 | `dsh.bundle.patch` + `dsh.client.platform` ✅ |
+| 显式声明 Node 兼容 | `engines.node >= 22.13` ✅ |
+| 无 install lifecycle 脚本 | 无 pre/install/postinstall/prepare ✅ |
+| **无 runtime/optional 依赖** | `dependencies`/`optionalDependencies` **整项不存在** ✅（这条最常刷人） |
+| 无 bundledDependencies | 无 ✅ |
+
+结论：预检里的 1 条 Warning 只是静态启发式提示（文档里也写明「不是安全审计/阻断」），**不影响自动准入**；下一次 catalog 自动化跑起来应能直接 approved，无需等发版。
+
+### 6.9 百通插件广场（@baitongserver）核验结论：不适用
+
+`@baitongserver/dsh-plugin-market` 的目录来自其自有后端 `https://s.1100111.cn/baitong_ai/api/bt/dsh/plugins`；实测**全站仅 3 个插件**（`Aisland-SJL/dsh-worktable` 等），无公开提交入口、非 topic 自动扫描。属早期内部目录，**不投入**。
+
 ### 6.7 2026-10-23 发布面加固（为通过 dsh.store 静态扫描）
 
 dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scripts/smoke.mjs`——dev 测试脚本里的 `execFileSync(node --check)`。已做两处收紧（commit `14d5be1`）：
