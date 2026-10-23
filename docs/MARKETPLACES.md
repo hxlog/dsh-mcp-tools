@@ -215,6 +215,33 @@ dsh.store 预检的唯一 Warning（`warning/shell/child-process`）来自 `scri
 
 （另：`dshplugin.net` 实为 `coolbat/awesome-dsh-plugins` 的镜像站，提交入口就是 coolbat 的 issue #34，已在处理中。）
 
+### 6.23 2026-10-23 全量 PR 状态复核 + bruc3van 渲染闸口 + 上游 feed 数据核对
+
+**① 17 个开放 PR 全部 `MERGEABLE`（无冲突、无格式残留）**
+
+| 状态 | 数量 | 含义 |
+| --- | --- | --- |
+| `CLEAN` | 8 | 可直接合并，只等维护者点 merge（Zhiyuan-Fan#96、walkinglabs#121、like-study1#43、xianyu110#126、awesome-deepseekharness#186（已 APPROVED）、cccakeee#38、GordenSun#6、Anil-matcha#13、dshworks#184、radar#968 —— 其中 186 为 APPROVED） |
+| `UNSTABLE` | 6 | 分支干净、可合并，但首次贡献者的 workflow 等待维护者点「Approve and run」 |
+| `BLOCKED` | 2 | 分支干净，但仓库 ruleset 要求 ≥1 个 approve（omni#3723、zhu#52） |
+
+另：losebird#54 刚推送后处于 `UNKNOWN`（GitHub 重算中），分支内容此前已本地校验通过。结论：**格式层面已无待修项**，剩下全是维护者动作。
+
+**② bruc3van 市场（官方「发现」页可订阅索引）闸口确认**
+
+- 仓库已确认是 [`bruc3van/awesome-dsh-plugin`](https://github.com/bruc3van/awesome-dsh-plugin)（458★，此前记录的 `dsh-marketplace` 已 404 —— 该仓库已改名为现在这个，matrix 引用无需再改）；
+- 其对外索引为 **`https://bruc3van.com/dsh-plugins/index.json`**（1.76MB），DSH ≥ 0.2.1-rc.2 可在「发现 → 添加索引源」直接订阅；
+- `data/approved.json` 已有 `"hxlog/dsh-mcp-tools": "2026-10-23"`，`data/repositories.json` 也有我们，但 **live index.json 仍无我们的条目** —— 属其 `market.json` 体积上限导致的渲染滞后；
+- 其抓取工作流 `update-catalog.yml` cron = **`17 14 * * *`（14:17Z / 22:17 北京）**，最近三次运行均 success（10-22 18:31Z、10-21 18:37Z、10-20 18:27Z，为调度漂移后的实际落点）；下一次运行后需复核 index.json 是否渲染出我们。
+
+**③ 上游 canonical feed 数据核对（权威源）**
+
+`https://awesome-dsh-plugin.com/plugins.json`（7.47MB）中我们的条目：`version: 1.0.2`、`npm: dsh-mcp-tools`、`install: dsh plugin --profile web add dsh-mcp-tools`、`category: tools`、`added: 2026-10-22`、`page` 200 —— **数据正确**（`stars: 2` 为 feed 抓取滞后，GitHub 现为 3）。
+
+**④ dsh.so 的 github 安装串仍钉在 `v1.0.0`（第三方缓存问题，非阻断）**
+
+`https://dsh.so/artifact/dsh-mcp-tools/` 页面同时显示 1.0.2 版本信息，但一键安装命令为 `dsh plugin --profile web add github:hxlog/dsh-mcp-tools#v1.0.0`（钉死旧 tag）；canonical feed 给的 npm 安装串是对的，故这是 dsh.so 自身按「首次抓到的 release tag」生成且未刷新所致。该站未找到公开仓库/反馈入口，暂无法提 issue，记录为已知展示瑕疵（用户若复制该命令会装到 1.0.0）。
+
 ### 6.22 2026-10-23 剩余 PR 模板全部对齐（omni / zhu / Alex / beancookie / keji）
 
 ### ① `diegosouzapw/awesome-omni-dsh-plugins#3723` —— 16 字段「Plugin scope and source」清单
