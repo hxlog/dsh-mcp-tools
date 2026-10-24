@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-24（已收录 50 个市场 + 79 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-24（已收录 51 个市场 + 78 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1674,3 +1674,20 @@ capabilities    : mcp.server-management, mcp.tool-toggle, settings.panel, connec
 - **不要**再往 `README.md` / `README.en.md` 加收录清单或 `verify:listings` 的计数说明；收录状态只维护在 `docs/MARKETPLACES.md`（本文件）与 `docs/PR-STATUS.md`
 - 本轮 rebase 已按上游版本解决冲突（README 取上游、只保留 docs 与脚本改动），最终推送 `445ebd2`
 - 如果以后要给用户看收录情况，指向 `docs/MARKETPLACES.md`，不要改 README
+
+### 6.91 ✅ 第 51 个市场：`hashgraph-online/awesome-ai-plugins`（★844，站点 hol.org/plugins）**PR #949 已合并**
+
+早上巡检出 **PR #949「docs: add dsh-mcp-tools」已于 `2026-10-23T16:39:36Z` 合并**（该仓库 ★844，是 HOL / Hashgraph Online 维护的 AI 插件目录，站点 `https://hol.org/plugins`）。
+
+**合并后 README 实测含我们**（228KB 大列表，按字母序插入）：
+```markdown
+- [dsh-mcp-tools](https://github.com/hxlog/dsh-mcp-tools) - MCP server manager for the DeepSeek Harness settings page: add streamable-HTTP or stdio MCP servers, paste Postman-style request headers, test connectivity, and toggle individual MCP tools so disabled ones never reach the model.
+```
+
+**说明**：站点 `hol.org/plugins` 对我们这种无浏览器 UA 的请求返回 **403（Cloudflare 防爬）**，但仓库 README 就是它的目录数据源（site 由其构建），且 PR 走完了它的 `validate-contribution` / `validate-plugins` / `alphabetical-check` 全部 CI —— 按「数据文件实查含我们」口径记入。
+
+**验证脚本**：轻量组新增 `hashgraph awesome-ai-plugins README` → 轻量 **23/23 ✅**、全量 **32/32 ✅**。
+
+### 6.92 `HackSing/dsh-plugins#339` 进入自动复核
+
+投稿 issue 被 bot 打上 `plugin-submission` + `submission:reviewing` 标签并回复：系统会从主仓库可信工作流**定向复核**我们的仓库（只读公开元数据/目录结构/README，不执行代码），通过后自动更新正式目录、双语 README 与 CHANGELOG，再回帖并关闭。等待即可。

@@ -31,6 +31,7 @@ const LIGHT = [
   ["mydsh.dev 目录数据", "https://mydsh.dev/assets/catalog-index.json"],
   ["dpharness 详情页", "https://dpharness.com/plugin/hxlog/dsh-mcp-tools"],
   ["dshmk.com 插件详情页", "https://dshmk.com/plugins/1427825895"],
+  ["hashgraph awesome-ai-plugins README", "https://raw.githubusercontent.com/hashgraph-online/awesome-ai-plugins/main/README.md"],
   ["dsh-plugin.market 详情 API", "https://dsh-plugin.market/api/plugins/hxlog/dsh-mcp-tools"],
   ["dshmarketplace.dev 搜索 API", "https://dshmarketplace.dev/api/v1/plugins?q=dsh-mcp-tools"],
   ["deepseekplugin.org 投稿 API", "https://deepseekplugin.org/api/submissions?slug=hxlog-2f-dsh-2d-mcp-2d-tools"],
