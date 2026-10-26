@@ -1736,7 +1736,7 @@ https://github.com/TYEclipse/dsh-plugins-hub/issues/65#issuecomment-6406908535
 - 中英 README 补「`dsh plugin add` 不会自动启用 bundle」
 
 **新发现的收录回退与处理**：
-1. **dshmk.com 条目临时消失**：10-26 02:31Z 我们推 `636f247`，02:38Z catalog 构建时该 SHA 尚未通过沙箱验证 → 被剔除（分类归档中仍是 `verified`）。等下一轮 classify→validate 自动恢复；恢复后本文件与 PR-STATUS 再更新。
+1. **dshmk.com 条目临时消失 → 已恢复**：10-26 02:31Z 我们推 `636f247`，02:38Z catalog 构建时该 SHA 尚未通过沙箱验证 → 被剔除。06:04Z classify → 06:09Z validate（覆盖 `de5877c`，`passed`）→ 06:53Z catalog 重新包含本插件；详情页 https://dshmk.com/plugins/1427825895 返回 200，`verify:listings` 轻量 22/23、全量 32/33（唯一 ❌ 为 XingLingQAQ，见下条）。经验：**任何 push 都会让条目在下一轮验证前临时下线**，后续 docs 改动攒批、随发版一次性推。
 2. **XingLingQAQ/dsh-plugin-registry 漏收**：已提 issue https://github.com/XingLingQAQ/dsh-plugin-registry/issues/1 ，附 `dsh.client`/`exports["./client"]`/`dsh.bundle` 证据与「候选只取 star/updated 各 3 页 ≈600 条」的抽样上限分析，请求放宽或加 allowlist。
 
 **纪律**：本轮不再 push main（除了最后一次性推送 docs），避免再次打断 dshmk 验证窗口；后续 docs 改动先攒着。
