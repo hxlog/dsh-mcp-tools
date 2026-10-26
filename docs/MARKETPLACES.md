@@ -1722,3 +1722,21 @@ https://github.com/TYEclipse/dsh-plugins-hub/issues/65#issuecomment-6406908535
 | polang233/dsh-plugin-index | Issue #58 已加入收录配置，`data/sources.json` 实测 ✅ |
 
 **⑤ 现状**：在审 **26 个 PR + 22 个收录 Issue**；0 个 PR 存在失败/挂起的 check；0 条未回复的维护者提问（唯一提问已回）。
+
+### 6.94 2026-10-26 复核与推进：**零拒绝**、3 个冲突 PR 已 rebase 修复、两处收录回退在恢复
+
+**审计结论（36 PR + 33 Issue 全量）**：没有任何维护者「拒绝」；回复只有「已收录/已合并」「重复但已收录」「自动管线处理中」「我们自关」四类。唯一需要回答的疑问是 TYEclipse 问 Install 列是否改 `github:` 形式 —— 已回「保持 npm pin」，并在同帖说明其两条建议的处理。
+
+**自助修复（已完成）**：
+- 3 个 `mergeable=false/dirty` 的 PR 全部 rebase 到各自 upstream 最新 main，只保留「新增条目」最小 diff 后 force-push：
+  - `StarPivotNet/dsh-plugin-catalog#2` → `26bb940`（1 文件 +9）→ 已变 `clean`
+  - `cccakeee/awesome-dsh-plugins#38` → `6f6da5a`（3 文件 +3，去掉会被生成器覆盖的计数/日期行）→ 已变 `clean`
+  - `dshworks/awesome-dsh-plugins#184` → `5f9bafe`（条目 + 用 `node scripts/render.mjs` 重生成 `docs/stats.json`/`docs/plugins-embed.js`，CI `render --check` 转绿）→ 已变 `clean`
+- `package.json` 的 `files` 去掉 `docs/screenshots`（779KB→52KB，未发布）
+- 中英 README 补「`dsh plugin add` 不会自动启用 bundle」
+
+**新发现的收录回退与处理**：
+1. **dshmk.com 条目临时消失**：10-26 02:31Z 我们推 `636f247`，02:38Z catalog 构建时该 SHA 尚未通过沙箱验证 → 被剔除（分类归档中仍是 `verified`）。等下一轮 classify→validate 自动恢复；恢复后本文件与 PR-STATUS 再更新。
+2. **XingLingQAQ/dsh-plugin-registry 漏收**：已提 issue https://github.com/XingLingQAQ/dsh-plugin-registry/issues/1 ，附 `dsh.client`/`exports["./client"]`/`dsh.bundle` 证据与「候选只取 star/updated 各 3 页 ≈600 条」的抽样上限分析，请求放宽或加 allowlist。
+
+**纪律**：本轮不再 push main（除了最后一次性推送 docs），避免再次打断 dshmk 验证窗口；后续 docs 改动先攒着。
