@@ -68,6 +68,8 @@ dsh plugin --profile desktop add dsh-mcp-tools  # Desktop
 ```
 
 > 升级包版本后需要重启 `dsh web` / 重启 DSH Desktop。
+>
+> `dsh plugin add` 只负责把包装进 profile，**不会自动启用 bundle**：装完请在插件页启用一次（这一步会把 `dsh-mcp-tools` 写进 profile 的 `dsh.profile.bundles`），或手动确认该列表已包含它，再重启 `dsh web`。
 
 ## ⚡ 快速开始
 

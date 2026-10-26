@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-24（已收录 51 个市场 + 78 个待审/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-26（已收录 58 个市场 + 48 个待跟进（26 个在审 PR + 22 个收录 Issue）/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1691,3 +1691,34 @@ capabilities    : mcp.server-management, mcp.tool-toggle, settings.panel, connec
 ### 6.92 `HackSing/dsh-plugins#339` 进入自动复核
 
 投稿 issue 被 bot 打上 `plugin-submission` + `submission:reviewing` 标签并回复：系统会从主仓库可信工作流**定向复核**我们的仓库（只读公开元数据/目录结构/README，不执行代码），通过后自动更新正式目录、双语 README 与 CHANGELOG，再回帖并关闭。等待即可。
+
+### 6.93 2026-10-26 全面复核：**没有任何「拒绝」回复**，新增 7 个收录，并处理掉审核方提的两条格式/文档建议
+
+用 GitHub API 把 `author:hxlog created:>2026-10-15` 的 **36 个 PR + 33 个 Issue** 全量扫了一遍（含 comment / inline review / review 状态 / check-runs），结论：
+
+**① 零拒绝**。所有带回复的线程只有四类：
+- **已收录/已合并**：walkinglabs #120→PR #121（10-24 合并）、iasiv5/dsh-m #5（10-24 合并）、like-study1/Oh-My-DSH #43（10-24 合并）、leenkcool/Blue-Whale-Harness #183「已收录 ✅」(10-25)、TYEclipse/dsh-plugins-hub #65「Verified and added to the Featured table」(10-24)、majiayu000/dsh-plugin-registry #88「listed through automatic discovery, manifest_verified」(10-24)、polang233/dsh-plugin-index #58「已核查并加入收录配置」
+- **重复关闭但已收录**：#181（dup of #183）、#66（dup of #65）、#91（dup of #88）、metadata #6811（dup of #6809）
+- **自动管线**：`HackSing/dsh-plugins#339` 处于 `submission:reviewing` 自动复核；`dsh-pluginmarket/metadata#6809` bot 已开 PR 等维护者合并；`Ericwong5021/deepseek-plugin-store#316` 由 bot 提 PR、`validate` 已 success，等维护者 merge
+- **我们自己的关闭**：`dsh-pub#156`（topic 自动同步已收录 → 自关）、`dsh-plugin-radar#974`（重复 → 自关）
+
+**② 只有 1 个「疑问」需要我们回**：TYEclipse 在 #65 里问 Install 列要不要改 `github:` 形式。已回：**保持 npm pin 形式**，另附两条说明（见 ③）。
+https://github.com/TYEclipse/dsh-plugins-hub/issues/65#issuecomment-6406908535
+
+**③ 审核方提的两条建议 → 已落到项目里**（这是本轮唯一的项目改动）：
+1. **`files` 白名单含 `docs/screenshots`**（TYEclipse 指出 tarball 太重）：从 `package.json` 的 `files` 去掉截图目录（README 里截图走 jsDelivr CDN，不影响 npm 页面渲染）。`npm pack --dry-run` 实测 **779KB/31 个文件 → 52KB/15 files**（unpacked 209KB）。**不发布**：当前 npm 仍是 1.0.2，改动随下个版本生效。
+2. **`dsh plugin add` 不会自动启用 bundle**（TYEclipse 实测点）：中英 README 的 CLI 安装块下都加了一段：装完需在插件页启用一次（该步骤会把 `dsh-mcp-tools` 写进 profile 的 `dsh.profile.bundles`），或手动确认后重启 `dsh web`。
+3. **明文凭据提示**（dshplugin/dsh-plugin-hub #391 提的安全建议）：查证已在此前 commit `1b74add` 完成（README「🔒 安全说明」醒目段落 + FAQ + 权限声明各一处），无需再改；系统钥匙串仍只是 roadmap、未宣称支持。
+
+**④ 收录数 51 → 58**：新增 7 个（均已实测数据源含我们）：
+| 市场 | 证据 |
+| --- | --- |
+| walkinglabs/awesome-deepseek-harness-plugins | PR #121 合并（10-24），README 实测 ✅ |
+| iasiv5/dsh-m | PR #5 合并（10-24），`registry.json` 含 `dsh-mcp-tools` ✅ |
+| like-study1/Oh-My-DSH | PR #43 合并（10-24），`PLUGINS.md` 实测 ✅ |
+| leenkcool/Blue-Whale-Harness | Issue #183 已收录，`plugins.zh.html` 实测 ✅ |
+| TYEclipse/dsh-plugins-hub | Issue #65 已验证入 Featured 表，README 实测 ✅ |
+| majiayu000/dsh-plugin-registry → dshdesk | Issue #88，`plugin.dshdesk.com/data/plugins.json` 实测 ✅ |
+| polang233/dsh-plugin-index | Issue #58 已加入收录配置，`data/sources.json` 实测 ✅ |
+
+**⑤ 现状**：在审 **26 个 PR + 22 个收录 Issue**；0 个 PR 存在失败/挂起的 check；0 条未回复的维护者提问（唯一提问已回）。

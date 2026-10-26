@@ -67,6 +67,8 @@ dsh plugin --profile desktop add dsh-mcp-tools  # Desktop
 ```
 
 > Upgrading the package requires a restart of `dsh web` / reopening DSH Desktop.
+>
+> `dsh plugin add` only wires the package into the profile — it **does not enable the bundle by itself**. Enable it once from the Plugins page (that step appends `dsh-mcp-tools` to the profile's `dsh.profile.bundles`), or add it there manually, then restart `dsh web`.
 
 ## ⚡ Quick start
 
