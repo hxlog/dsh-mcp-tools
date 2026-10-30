@@ -1,6 +1,6 @@
 # 插件市场收录矩阵 / Marketplace Listings
 
-> 最后核验：2026-10-26（已收录 58 个市场 + 48 个待跟进（26 个在审 PR + 22 个收录 Issue）/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
+> 最后核验：2026-10-30（已收录 **61** 个市场 + 48 个待跟进（26 个在审 PR + 22 个收录 Issue）/待跟进 PR/Issue/目录站（bruc3van 已 approved 2026-10-23，但站点 index 实测固定 1000 条（star/热度排序），未进榜）；dshmk 条目待重新采集）。状态说明：✅ 已确认收录 · 🟢 PR 已合并 · 🟡 PR/Issue 待审 · ⏳ 自动采集待生效 · ⚪ 未提交。
 
 ## 一、已确认收录
 
@@ -1740,3 +1740,24 @@ https://github.com/TYEclipse/dsh-plugins-hub/issues/65#issuecomment-6406908535
 2. **XingLingQAQ/dsh-plugin-registry 漏收**：已提 issue https://github.com/XingLingQAQ/dsh-plugin-registry/issues/1 ，附 `dsh.client`/`exports["./client"]`/`dsh.bundle` 证据与「候选只取 star/updated 各 3 页 ≈600 条」的抽样上限分析，请求放宽或加 allowlist。
 
 **纪律**：本轮不再 push main（除了最后一次性推送 docs），避免再次打断 dshmk 验证窗口；后续 docs 改动先攒着。
+
+### 6.95 2026-10-30 复核：新增 3 个已合并收录（dshworks / losebird / Herdeny），未收录清单按阻塞原因归档
+
+**自 10-26 以来的变化**（GitHub API 实查）：
+- ✅ `dshworks/awesome-dsh-plugins#184` **被维护者以 #196 采纳**（10-26T12:38Z，"Admitted in #196 with your text, tags and npm name"）→ `data/plugins.json`（13.2MB）实查含本插件
+- ✅ `losebird/dsh-plugin-market#54` **合并**（10-29T15:18Z）→ `registry/curated/dsh-mcp-tools.json` 已生成
+- ✅ `Herdeny/awesome-dsh-plugins-2026#9` **合并**（10-28T07:58Z）→ README 实查含本插件
+- ⚪ 其余在审项**零新回复、零拒绝**；`StarPivotNet#2` / `cccakeee#38` 仍 open；`XingLingQAQ#1` 4 天无回应（其目录 10-29 刷新到 350 条，仍不含我们）；`HackSing#339` 自动复核自 10-23 起停滞
+- `verify:listings`：轻量 **22/23**、全量 **32/33**，唯一 ❌ 仍是 XingLingQAQ（预期内）
+
+**未收录现状（45 个渠道）**：23 个 open PR + 18 个 Issue 通道 + 4 个只能由本人浏览器/邮箱完成的渠道。分类见下表；本轮同样**不发推进评论**（用户要求），只做事实归档。
+
+| 类别 | 数量 | 阻塞原因 |
+| --- | --- | --- |
+| PR 待合并（维护者活跃，仓库 3 天内有 push） | 12 | 纯等 review/merge；其中 `fjzzwxp#2` 的 Vercel 部署需团队授权，`zhu1090093659#52` 的 CI 首跑需维护者批准 |
+| PR 待合并（仓库休眠 12–76 天） | 11 | 维护者长期不活跃（`jiji262#48` 72d、`Alex-Yanggg#162` 76d 等），无动作空间 |
+| Issue 通道（维护者未处理） | 14 | `phil616#4`、`AI-Scarlett#1555/#1551`、`oa1mgo#12`、`tanle-mtr#1`、`dshlib#4`、`echo719#1`、`tuofangzhe#15`、`DshHunt#4`、`dsh-so#17`、`coolbat#34`、`whyihaveyou#76`、`zp-home#41`、`REALOIYO#1` |
+| 自动管线停滞/上游 bug | 4 | `HackSing#339`（reviewing 7 天）、`XingLingQAQ`（false negative，已提 #1）、`dsh-pluginmarket/metadata#6809` 与 `Ericwong#316`（bot PR 已开、等维护者 merge）、`YureWright/dsh-plgstore#1`（其 GitHub 候选缓存冻结，非我方问题） |
+| 只能本人完成 | 4 | `dshplugins.com/submit`（GitHub 登录审核）、`dshplugin.app/submit`（captcha）、`dshmarketplace.com`（邮件 `hello@`）、`review.lingshulab.com`（OAuth）；`dsh.directory` 提交入口已失效、只能等爬取 |
+
+**口径**：已收录 61 = 上轮 58 + dshworks（#196）+ losebird（#54）+ Herdeny（#9）。`dshmarket.com`（9.7k★）与 `dsh-plugin.store` 等下游走 awesome 官方 feed，我们的 feed 条目在架，故不单列。

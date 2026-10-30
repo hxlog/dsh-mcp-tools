@@ -6,8 +6,8 @@
 
 | 指标 | 数量 | 说明 |
 | --- | --- | --- |
-| ✅ 已收录（可复核） | **58** | 站点/注册表数据文件或 API 中实查含 `hxlog/dsh-mcp-tools` |
-| 🟡 已提交待合并 PR | **28** | 全部 CI 无真失败；其中 12 个 `clean`、3 个 `blocked`（需维护者动作）、13 个待 review |
+| ✅ 已收录（可复核） | **61** | 站点/注册表数据文件或 API 中实查含 `hxlog/dsh-mcp-tools` |
+| 🟡 已提交待合并 PR | **23** | 全部 CI 无真失败；其中 12 个 `clean`、3 个 `blocked`（需维护者动作）、13 个待 review |
 | ✅ 已合并 PR | **8** | vvlife #168、Dominic789654 #671、imsai #669 等 |
 | 🟡 待回复 Issue | **5** | majiayu000 #91、TYEclipse #66、oa1mgo #12、YureWright #1、dsh-go #165 |
 | 👤 需用户 OAuth 提交 | **10** | 见 SUBMISSION-KIT.md「各市场填写提示」 |
