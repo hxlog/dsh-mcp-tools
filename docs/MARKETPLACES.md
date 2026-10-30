@@ -1761,3 +1761,12 @@ https://github.com/TYEclipse/dsh-plugins-hub/issues/65#issuecomment-6406908535
 | 只能本人完成 | 4 | `dshplugins.com/submit`（GitHub 登录审核）、`dshplugin.app/submit`（captcha）、`dshmarketplace.com`（邮件 `hello@`）、`review.lingshulab.com`（OAuth）；`dsh.directory` 提交入口已失效、只能等爬取 |
 
 **口径**：已收录 61 = 上轮 58 + dshworks（#196）+ losebird（#54）+ Herdeny（#9）。`dshmarket.com`（9.7k★）与 `dsh-plugin.store` 等下游走 awesome 官方 feed，我们的 feed 条目在架，故不单列。
+
+### 6.96 2026-10-30 fork 清理：**26 个提交用 fork 全部删除**，对应 23 个在审 PR 一并关闭
+
+按用户要求清空 GitHub 账号下所有为提交本插件而创建的 fork：
+- 删除清单（26 个）：`Awesome-AI-Pedia`、`awesome-deepseek-harness`(-2/-3/-4/-5)、`Awesome-DeepSeek-Harness-Plugins`、`awesome-dsh-mobile-plugins`、`awesome-dsh-plugin-1`、`awesome-DSH-plugin-2`、`awesome-dsh-plugin-3`、`awesome-dsh-plugins`(-1/-2/-3/-4/-5/-6)、`awesome-dsh-plugins-2026`、`awesome-omni-dsh-plugins`、`dsh-community-plugins`、`dsh-plugin-catalog`、`dsh-plugin-market`、`dsh-plugin-radar`、`dsh-update-center`、`dshplugin`
+- 结果：26/26 `204` 删除成功，账号下 **fork 数归零**（剩余 5 个非提交仓库）
+- 连带效果：**23 个在审 PR 全部被关闭**（open PR = 0；历史 closed/merged = 42）；23 个投稿 Issue 不受影响、仍在原仓库打开
+- 影响评估：已合并的 61 个收录不受影响（收录证据在对方仓库/站点）；原本靠 PR 合并的 23 个市场从此只能在维护者自动扫描时进入（如 `dsh-plugin-radar` 每日快照、topic 扫描类站点），不再有我们可推进的人工通道
+- 仍需跟进的只剩：**23 个 Issue 通道** + **4 个只能本人操作的站点**（dshplugins.com / dshplugin.app / dshmarketplace.com / review.lingshulab.com）+ 自动管线（HackSing、XingLing 等）
