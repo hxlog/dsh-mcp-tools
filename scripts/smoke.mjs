@@ -72,6 +72,32 @@ check('npm files whitelist contains runtime paths', () => {
   }
 })
 
+check('tooltip bubble is content-sized', () => {
+  const rule = client.match(/\.mcpm-tip \{[^}]*\}/)
+  assert(rule, '.mcpm-tip rule missing')
+  assert(rule[0].includes('width: max-content'), 'tooltip must size to its content')
+  assert(!/width:\s*320px/.test(rule[0]), 'tooltip still pins a fixed 320px width')
+  assert(rule[0].includes('max-width: min(320px'), 'tooltip lost the 320px cap')
+})
+
+check('stdio form keeps args/env compact', () => {
+  assert(client.includes('.mcpm-textarea.mcpm-code { min-height: 64px'), 'compact args/env rule missing')
+  assert(client.includes('.mcpm-textarea.mcpm-jsonEditor { min-height: 168px'), 'JSON editor rule missing')
+  const rows = Array.from(client.matchAll(/textArea\(dialogId \+ "-(args|env)", "\w+", (\d+)/g))
+  assert(rows.length === 2, 'args/env textareas not found: ' + rows.length)
+  for (const match of rows) assert(Number(match[2]) <= 2, match[1] + ' rows too tall: ' + match[2])
+})
+
+check('disabled servers keep management actions', () => {
+  assert(!client.includes('var locked = isOff'), 'ServerCard still locks disabled servers')
+  assert(client.includes('onRefreshTools'), 'refresh-tools action missing')
+  assert(client.includes('disabledTestPassed'), 'disabled test outcome missing')
+})
+
+check('test failures are not double-prefixed', () => {
+  assert(!client.includes('tRef.current("connectFailed", { reason: result.error })'), 'host reason is wrapped a second time')
+})
+
 if (failures.length > 0) {
   console.error('\n' + failures.length + ' check(s) failed')
   process.exit(1)

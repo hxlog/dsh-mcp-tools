@@ -103,6 +103,8 @@ window.__ModuleLoader__.load({
         timeout: "连接超时，请检查 URL 或网络",
         enabled: "已启用",
         disabled: "已停用",
+        disabledTestPassed: "已停用 · 测试通过 · {count} 个工具",
+        disabledTestFailed: "已停用 · {reason}",
         connecting: "连接中…",
         configInvalid: "配置有误：{message}",
         configErrorShort: "配置有误",
@@ -111,6 +113,8 @@ window.__ModuleLoader__.load({
         toolsSummary: "已启用 {on}/{total} 个工具",
         toolsTotal: "共 {count} 个",
         toolsOff: "{count} 个已停用",
+        refreshTools: "刷新工具",
+        refreshingTools: "刷新中…",
         selectAll: "全选",
         invert: "反选",
         disableAll: "全部停用",
@@ -184,6 +188,7 @@ window.__ModuleLoader__.load({
         failedWith: "未能完成操作：{reason}，请重试",
         bulkFailed: "未能批量更新工具，请重试",
         toolToggleFailed: "未能切换工具，请重试",
+        refreshToolsFailed: "未能刷新工具，请重试",
         loadFailedShort: "读取失败"
       },
       en: {
@@ -214,6 +219,8 @@ window.__ModuleLoader__.load({
         timeout: "Connection timed out. Check the URL or your network",
         enabled: "Enabled",
         disabled: "Disabled",
+        disabledTestPassed: "Disabled · test passed · {count} tools",
+        disabledTestFailed: "Disabled · {reason}",
         connecting: "Connecting…",
         configInvalid: "Invalid configuration: {message}",
         configErrorShort: "Invalid config",
@@ -222,6 +229,8 @@ window.__ModuleLoader__.load({
         toolsSummary: "Enabled {on}/{total} tools",
         toolsTotal: "{count} total",
         toolsOff: "{count} disabled",
+        refreshTools: "Refresh tools",
+        refreshingTools: "Refreshing…",
         selectAll: "Select all",
         invert: "Invert",
         disableAll: "Disable all",
@@ -295,6 +304,7 @@ window.__ModuleLoader__.load({
         failedWith: "Couldn't finish: {reason}. Please try again",
         bulkFailed: "Couldn't update the tools in bulk. Please try again",
         toolToggleFailed: "Couldn't switch the tool. Please try again",
+        refreshToolsFailed: "Couldn't refresh the tools. Please try again",
         loadFailedShort: "Read failed"
       }
     };
@@ -487,15 +497,13 @@ window.__ModuleLoader__.load({
 .mcpm-chipDot[data-on="false"] { background: transparent; box-shadow: inset 0 0 0 1px var(--dsw-alias-border-l3); }
 .mcpm-chipOff { color: var(--dsw-alias-label-caption); opacity: .55; }
 .mcpm-chipOff:hover { color: var(--dsw-alias-label-secondary); opacity: 1; }
-.mcpm-chipLocked { opacity: .4; cursor: not-allowed; }
-.mcpm-chipLocked:hover { background: var(--dsw-alias-interactive-bg-hover); color: var(--dsw-alias-label-caption); }
 .mcpm-chipName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* self-drawn tooltip */
 .mcpm-tipWrap { position: relative; display: inline-flex; max-width: 100%; }
 .mcpm-tip {
   position: absolute; z-index: 60; box-sizing: border-box;
-  width: 320px; max-width: calc(100vw - 16px); max-height: 220px; overflow: hidden;
+  width: max-content; max-width: min(320px, calc(100vw - 16px)); max-height: 220px; overflow: hidden;
   background: var(--dsw-alias-bg-layer-3, var(--dsw-alias-bg-layer-2));
   color: var(--dsw-alias-label-secondary);
   border: var(--mcpm-hairline, .5px) solid var(--dsw-alias-border-l2);
@@ -510,7 +518,7 @@ window.__ModuleLoader__.load({
 .mcpm-tipName { display: block; color: var(--dsw-alias-label-primary); font-size: var(--mcpm-fs-caption); font-weight: 600; line-height: var(--mcpm-line-desc); }
 .mcpm-tipDesc {
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 8;
-  overflow: hidden; margin-top: 2px;
+  overflow: hidden; margin-top: 2px; overflow-wrap: anywhere; white-space: normal;
 }
 .mcpm-empty { margin: 0; color: var(--dsw-alias-label-tertiary); font-size: var(--mcpm-fs-desc); line-height: var(--mcpm-line-body); }
 .mcpm-errorBox {
@@ -563,7 +571,7 @@ window.__ModuleLoader__.load({
 .mcpm-modalContent > :nth-child(2) { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding-bottom: 12px; }
 .mcpm-modalContent > .mcpm-modalContent { flex: 1 1 auto; min-height: 0; }
 .mcpm-modalContent > .mcpm-modalContent ~ * { flex: 0 0 auto; min-height: auto; overflow: visible; padding-bottom: 0; }
-.mcpm-form { display: flex; flex-direction: column; gap: 16px; padding-top: 16px; }
+.mcpm-form { display: flex; flex-direction: column; gap: 12px; padding-top: 12px; }
 .mcpm-form .mcpm-form { padding-top: 0; }
 .mcpm-field { display: flex; flex-direction: column; gap: 6px; }
 .mcpm-label { color: var(--dsw-alias-label-secondary); font-size: var(--mcpm-fs-desc); line-height: var(--mcpm-line-body); font-weight: 500; }
@@ -622,10 +630,13 @@ window.__ModuleLoader__.load({
 .mcpm-textarea:focus-visible { outline: var(--mcpm-focus); outline-offset: 2px; }
 .mcpm-textarea::placeholder { color: var(--dsw-alias-label-caption); }
 .mcpm-code {
-  min-height: 168px; white-space: pre; overflow: auto;
+  white-space: pre; overflow: auto;
   font-family: var(--ds-font-family-code, var(--dsw-font-family, monospace));
   font-size: var(--mcpm-fs-desc); line-height: var(--mcpm-line-body);
 }
+/* args/env textareas stay compact; only the JSON editor keeps the tall canvas */
+.mcpm-textarea.mcpm-code { min-height: 64px; white-space: pre-wrap; }
+.mcpm-textarea.mcpm-jsonEditor { min-height: 168px; white-space: pre; }
 .mcpm-code:disabled { opacity: .6; }
 .mcpm-jsonPreview {
   min-height: 0; max-height: 160px; margin: 0; padding: 8px 10px;
@@ -1043,18 +1054,19 @@ window.__ModuleLoader__.load({
     // ── Tooltips: self-drawn, independent of primitive hover behaviour ────
     var tipSeq = 0;
 
-    // Pure placement helper. The width comes from the viewport, never from the
-    // trigger: 320px cap on normal screens, the full available width on narrow
-    // (<480px) screens, i.e. viewport - 16 with 8px on each side. Because the
-    // cap is 320 the only time the width drops below 220 is an available width
-    // that is itself narrower than 220.
+    // Pure placement helper. The width now follows the tooltip's own content:
+    // short labels stay compact, long descriptions are capped at 320px (or the
+    // available viewport width on narrow screens). `tipSize.width` is the
+    // measured content width, so placement always matches what is painted.
     function computeTipPosition(anchor, viewport, tipSize) {
       var gap = 6;
       var margin = 8;
       var viewportWidth = numOr(viewport && viewport.width, 1280);
       var viewportHeight = numOr(viewport && viewport.height, 800);
       var available = Math.max(viewportWidth - margin * 2, 120);
-      var width = viewportWidth < 480 ? available : Math.min(320, available);
+      var cap = viewportWidth < 480 ? available : Math.min(320, available);
+      var measured = numOr(tipSize && tipSize.width, 0);
+      var width = measured > 0 ? Math.min(Math.ceil(measured), cap) : cap;
       var height = Math.max(numOr(tipSize && tipSize.height, 0), 0);
       var anchorTop = numOr(anchor && anchor.top, 0);
       var anchorBottom = numOr(anchor && anchor.bottom, anchorTop);
@@ -1153,20 +1165,22 @@ window.__ModuleLoader__.load({
       return node;
     }
 
-    // Attach the node to the body-level portal and place it in viewport
-    // coordinates: pin the viewport-derived width first, then measure the
-    // resulting height and set fixed left/top (no anchor offsets).
+    // Attach the node to the body-level portal, let it size itself to its
+    // content, then measure and place it. Only the max-width cap is viewport
+    // derived; the actual width always comes from the rendered content so a
+    // short label never paints a 320px-wide bubble.
     function mountTipNode(doc, node, anchor, viewport) {
       if (!node || !doc || !doc.body) return null;
       doc.body.appendChild(node);
-      var probe = computeTipPosition(anchor, viewport, { height: 0 });
-      node.style.width = probe.width + "px";
-      var height = 0;
-      if (typeof node.getBoundingClientRect === "function") {
-        var rect = node.getBoundingClientRect();
-        height = numOr(rect && rect.height, 0);
-      }
-      var position = computeTipPosition(anchor, viewport, { width: probe.width, height: height });
+      var viewportWidth = numOr(viewport && viewport.width, 1280);
+      var available = Math.max(viewportWidth - 16, 120);
+      var cap = viewportWidth < 480 ? available : Math.min(320, available);
+      node.style.maxWidth = cap + "px";
+      node.style.width = "max-content";
+      var rect = typeof node.getBoundingClientRect === "function" ? node.getBoundingClientRect() : null;
+      var width = Math.min(numOr(rect && rect.width, cap), cap);
+      var height = Math.max(numOr(rect && rect.height, 0), 0);
+      var position = computeTipPosition(anchor, viewport, { width: width, height: height });
       node.style.left = position.left + "px";
       node.style.top = position.top + "px";
       return position;
@@ -1609,6 +1623,17 @@ window.__ModuleLoader__.load({
       var configMessage = validateServerConfig(server, t);
       var isDisabled = !server || server.enabled === false || server.status === "disabled";
       if (isDisabled) {
+        // The switch only gates model registration; testing still works and its
+        // outcome stays visible on the row while the server is off.
+        if (testing) {
+          return { dot: "ongoing", tone: "warning", tagText: t("disabled"), line: t("testing"), lineTone: "muted", shimmer: true };
+        }
+        if (testResult && testResult.ok === true) {
+          return { dot: "done", tone: "success", tagText: t("disabled"), line: t("disabledTestPassed", { count: numOr(testResult.toolCount, 0) }), lineTone: "success" };
+        }
+        if (testResult && testResult.ok === false) {
+          return { dot: "error", tone: "danger", tagText: t("disabled"), line: t("disabledTestFailed", { reason: testResult.error || "" }), lineTone: "error" };
+        }
         return { dot: "idle", tone: "neutral", tagText: t("disabled"), line: t("disabled"), lineTone: "muted" };
       }
       if (testing) {
@@ -2022,10 +2047,13 @@ window.__ModuleLoader__.load({
           setServerBusy(server.id, "test", false);
           if (handleAuthFailure(result)) return;
           if (!result.ok) {
+            // The host already returns a human-readable, prefixed reason
+            // ("连接失败：…"), so surface it verbatim instead of wrapping it a
+            // second time into "连接失败：连接失败：…".
             var message = result.unavailable
               ? tRef.current("testFailedNetwork")
               : result.error
-                ? tRef.current("connectFailed", { reason: result.error })
+                ? result.error
                 : tRef.current("testFailedNetwork");
             setTestResults(function (current) {
               var next = Object.assign({}, current);
@@ -2051,6 +2079,27 @@ window.__ModuleLoader__.load({
             };
             return next;
           });
+          // The host caches what the probe discovered for a server that has no
+          // live connection (e.g. it is switched off), so pull the fresh view
+          // to reveal every tool in the panel right away.
+          loadState({ silent: true });
+        });
+      }
+
+      function handleRefreshTools(server) {
+        if (!server || !server.id) return;
+        if (busy[server.id] && busy[server.id].tools) return;
+        setCardError(server.id, null);
+        setServerBusy(server.id, "tools", true);
+        apiPost("/servers/refresh", { id: server.id }).then(function (result) {
+          if (!mountedRef.current) return;
+          setServerBusy(server.id, "tools", false);
+          if (handleAuthFailure(result)) return;
+          if (!result.ok) {
+            setCardError(server.id, result.unavailable ? tRef.current("readFailed") : copyFailureText(tRef.current, "refreshToolsFailed", result.error));
+            return;
+          }
+          applyReturnedServer(result);
         });
       }
 
@@ -2228,6 +2277,9 @@ window.__ModuleLoader__.load({
                 onTest: function () {
                   handleTest(server);
                 },
+                onRefreshTools: function () {
+                  handleRefreshTools(server);
+                },
                 onEdit: function () {
                   setDialog({ mode: "edit", server: server });
                 },
@@ -2316,7 +2368,11 @@ window.__ModuleLoader__.load({
       var status = deriveStatus(server, props.testResult || null, t, !!busy.test);
       var configMessage = validateServerConfig(server, t);
       var isOff = server.enabled === false || server.status === "disabled";
-      var locked = isOff || !!configMessage;
+      // The switch only controls whether the tools are registered for the
+      // model. Testing, refreshing and per-tool switches must stay available
+      // while the server is off; only an invalid config blocks network actions
+      // because they cannot succeed.
+      var configInvalid = !!configMessage;
       var description = serverDescription(server);
 
       return h("li", { className: "mcpm-row", "data-off": isOff ? "true" : "false" },
@@ -2355,9 +2411,9 @@ window.__ModuleLoader__.load({
                 className: "mcpm-iconButton mcpm-testButton",
                 "aria-label": busy.test ? t("testing") : t("test"),
                 "aria-busy": busy.test ? "true" : "false",
-                "aria-disabled": busy.test || locked ? "true" : "false",
+                "aria-disabled": busy.test || configInvalid ? "true" : "false",
                 onClick: function () {
-                  if (busy.test || locked) return;
+                  if (busy.test || configInvalid) return;
                   props.onTest();
                 }
               }, busy.test ? h(IconLoading, { size: 16, className: "mcpm-spin" }) : h(IconPulse, { size: 16 }))),
@@ -2373,7 +2429,8 @@ window.__ModuleLoader__.load({
             server: server,
             tools: tools,
             query: props.query,
-            locked: locked,
+            refreshing: !!(busy && busy.tools),
+            onRefreshTools: props.onRefreshTools,
             onQueryChange: props.onQueryChange,
             onToolToggle: props.onToolToggle,
             onBulk: props.onBulk
@@ -2388,7 +2445,7 @@ window.__ModuleLoader__.load({
       var t = props.t;
       var server = props.server || {};
       var tools = asArray(props.tools);
-      var locked = !!props.locked;
+      var refreshing = !!props.refreshing;
       var query = typeof props.query === "string" ? props.query : "";
       var idRef = useRef(null);
       if (idRef.current == null) {
@@ -2418,27 +2475,36 @@ window.__ModuleLoader__.load({
             h("button", {
               type: "button",
               className: "mcpm-textButton",
-              "aria-disabled": locked || tools.length === 0 ? "true" : "false",
+              "aria-disabled": refreshing ? "true" : "false",
               onClick: function () {
-                if (locked || tools.length === 0) return;
+                if (refreshing) return;
+                if (typeof props.onRefreshTools === "function") props.onRefreshTools();
+              }
+            }, refreshing ? t("refreshingTools") : t("refreshTools")),
+            h("button", {
+              type: "button",
+              className: "mcpm-textButton",
+              "aria-disabled": tools.length === 0 ? "true" : "false",
+              onClick: function () {
+                if (tools.length === 0) return;
                 props.onBulk("all");
               }
             }, t("selectAll")),
             h("button", {
               type: "button",
               className: "mcpm-textButton",
-              "aria-disabled": locked || tools.length === 0 ? "true" : "false",
+              "aria-disabled": tools.length === 0 ? "true" : "false",
               onClick: function () {
-                if (locked || tools.length === 0) return;
+                if (tools.length === 0) return;
                 props.onBulk("invert");
               }
             }, t("invert")),
             h("button", {
               type: "button",
               className: "mcpm-textButton",
-              "aria-disabled": locked || tools.length === 0 ? "true" : "false",
+              "aria-disabled": tools.length === 0 ? "true" : "false",
               onClick: function () {
-                if (locked || tools.length === 0) return;
+                if (tools.length === 0) return;
                 props.onBulk("none");
               }
             }, t("disableAll")))),
@@ -2451,7 +2517,6 @@ window.__ModuleLoader__.load({
               placeholder: t("searchTools"),
               "aria-label": t("searchTools"),
               value: query,
-              disabled: locked,
               onChange: function (event) {
                 props.onQueryChange(event.target.value);
               }
@@ -2475,13 +2540,10 @@ window.__ModuleLoader__.load({
                   h(Tip, { label: name, description: description },
                     h("button", {
                       type: "button",
-                      className: cx("mcpm-chip", enabled ? "" : "mcpm-chipOff", locked ? "mcpm-chipLocked" : ""),
+                      className: cx("mcpm-chip", enabled ? "" : "mcpm-chipOff"),
                       "aria-pressed": enabled ? "true" : "false",
-                      "aria-disabled": locked ? "true" : "false",
-                      "data-locked": locked ? "true" : "false",
                       "aria-label": enabled ? t("disableTool", { name: name }) : t("enableTool", { name: name }),
                       onClick: function () {
-                        if (locked) return;
                         props.onToolToggle(tool);
                       }
                     },
@@ -2877,10 +2939,10 @@ window.__ModuleLoader__.load({
           ? field(dialogId + "-command", t("fieldCommand"), textInput(dialogId + "-command", "command", "npx"), t("fieldCommandHint"), errors.command, { required: true })
           : null,
         form.transport === "stdio"
-          ? field(dialogId + "-args", t("fieldArgs"), textArea(dialogId + "-args", "argsText", 3, "mcpm-code", "-y\n@modelcontextprotocol/server-filesystem"), t("fieldArgsHint"))
+          ? field(dialogId + "-args", t("fieldArgs"), textArea(dialogId + "-args", "argsText", 2, "mcpm-code", "-y\n@modelcontextprotocol/server-filesystem"), t("fieldArgsHint"))
           : null,
         form.transport === "stdio"
-          ? field(dialogId + "-env", t("fieldEnv"), textArea(dialogId + "-env", "envText", 3, "mcpm-code", "API_KEY=…"), t("fieldEnvHint"), errors.env)
+          ? field(dialogId + "-env", t("fieldEnv"), textArea(dialogId + "-env", "envText", 2, "mcpm-code", "API_KEY=…"), t("fieldEnvHint"), errors.env)
           : null,
         form.transport !== "stdio"
           ? field(dialogId + "-url", t("fieldUrl"), textInput(dialogId + "-url", "url", "https://example.com/mcp", false, !!errors.url), null, errors.url, { required: true })
@@ -2903,7 +2965,7 @@ window.__ModuleLoader__.load({
 
       var jsonPanel = h("div", { className: "mcpm-form", role: "tabpanel", id: dialogId + "-panel-json", "aria-labelledby": dialogId + "-tab-json" },
         h("textarea", {
-          className: "mcpm-textarea mcpm-code",
+          className: "mcpm-textarea mcpm-code mcpm-jsonEditor",
           "aria-label": t("tabJson"),
           "data-modal-autofocus": "true",
           placeholder: t("jsonPlaceholder"),

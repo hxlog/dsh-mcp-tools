@@ -30,6 +30,9 @@ jobs:
       - name: Smoke tests
         run: npm test
 
+      - name: Manager integration (skips without a local MCP SDK)
+        run: npm run test:manager
+
       - name: Packed tarball contains the runtime files
         run: |
           npm pack --dry-run --json > pack.json

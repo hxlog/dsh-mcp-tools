@@ -38,8 +38,8 @@
 | **Server management** | Two transports: `streamable-http` (URL + headers) and `stdio` (command / args / env / cwd); fill fields or paste `{"mcpServers": { ... }}` to import many at once. |
 | **Postman-style secrets** | Headers are key/value rows, not a JSON textarea; a default `x-mcp-key` row is provided, values are masked and can be revealed per row, duplicate names error inline. |
 | **Real per-tool control** | Every tool is a chip; disable it and it disappears from the model's tool list entirely (not "registered then errors"). Search, select all, invert, disable all — hover for the full description. |
-| **Connectivity test & event log** | Temporary connection: `initialize → tools/list → close`, reporting latency / protocol version / tool count without touching the live server. The "Recent events" log records connects, reloads, tests and failures. |
-| **Server toggle & config copy** | Turning a server off disconnects it and unregisters all its tools (config kept); one click copies that server's `mcpServers` snippet. |
+| **Connectivity test & tool discovery** | Temporary connection: `initialize → tools/list → close`, reporting latency / protocol version / tool count. **A disabled server can still be tested, refreshed and curated** without touching a live instance; the "Recent events" log records connects, reloads, tests and failures. |
+| **Server toggle & config copy** | The switch only decides whether tools are registered for the model: turning a server off disconnects it and unregisters its tools, but the config and per-tool switches are kept for later testing, refreshing and curation. One click copies that server's `mcpServers` snippet. |
 | **Native DSH look** | Reuses `--dsw-*` design tokens, flat rows and 32px inputs; light/dark and zh/en adapt automatically. The client is a classic script — no build step. |
 
 <p align="center">
@@ -73,8 +73,8 @@ dsh plugin --profile desktop add dsh-mcp-tools  # Desktop
 ## ⚡ Quick start
 
 1. **Settings → MCP → Add server**: for remote servers enter the URL and paste the secret into the header row (default `x-mcp-key`).
-2. Hit **Test connection** — expect something like `connected · 95 tools · 478 ms` — then save and flip the server switch on.
-3. Let the model call the tools; DSH registers them as `mcp__<server>__<tool>`. Disable unused tools to shrink the tool schema in every request.
+2. Hit **Test connection** — expect something like `connected · 95 tools · 478 ms` — then save. **You can test and curate tools before enabling the server**: while it is off the row still reports the test result and the tool list is populated.
+3. Flip the server switch on and DSH registers the enabled tools as `mcp__<server>__<tool>`. Disable unused tools to shrink the tool schema in every request; switches changed while the server is off apply on the next enable.
 
 ## 🖼 More screenshots
 
@@ -128,6 +128,8 @@ Reviewed directories (e.g. dshplugins.com) ask plugins to document their runtime
 - Only `streamable-http` and `stdio` transports are supported; legacy SSE is not
 - Manages MCP servers for the current DSH profile only; other profiles need their own setup
 - No background health check; use the connectivity test when needed
+- Testing / refreshing a disabled server opens one temporary connection (a stdio server is spawned once) to discover tools; nothing is registered for the model
+- A single tooltip is at most 320px wide (narrower on small viewports); long descriptions wrap inside the bubble
 
 ## 🛠 Development
 
@@ -135,7 +137,8 @@ Reviewed directories (e.g. dshplugins.com) ask plugins to document their runtime
 git clone https://github.com/hxlog/dsh-mcp-tools.git
 cd dsh-mcp-tools
 node --check client/client.js
-npm run selftest
+npm test            # static checks
+npm run test:manager # offline manager integration test (SKIPs when no local DSH install)
 ```
 
 Link the source tree into a profile instead of installing a copy (Windows example):

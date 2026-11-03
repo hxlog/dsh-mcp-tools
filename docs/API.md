@@ -53,8 +53,9 @@
 }
 ```
 
-- `status=disabled` 时 `tools` 保留上次发现结果（可展示但全部置灰），`registeredToolCount=0`。
-- 工具开关语义：`enabled=false` 的工具**不注册**，模型完全看不到；服务器 `enabled=false` 时该服务器所有工具都不注册。
+- `status=disabled` 时 `tools` 保留上次发现结果，**可展示、可搜索、可逐个开关**；`registeredToolCount=0`。停用只影响注册，不影响管理与发现。
+- 工具开关语义：`enabled=false` 的工具**不注册**，模型完全看不到；服务器 `enabled=false` 时该服务器所有工具都不注册，但工具开关仍会持久化，重新启用时按开关注册。
+- `lastTest` 是最近一次「测试连接」的结果（成功 / 失败都会记录）；停用服务器测试成功后，`tools` 会用本次发现结果刷新。
 
 ## 1. 读取
 
@@ -86,7 +87,8 @@
 ## 2. 连通性测试
 
 ### POST `/mcp-tools/api/servers/test`
-不改变任何状态、不注册工具；临时连接 → initialize → tools/list → 关闭。
+不注册工具、不影响运行中的连接；临时连接 → initialize → tools/list → 关闭。
+若目标服务器已保存但当前没有 live 连接（停用 / 断线 / 出错），测试**成功时会把工具写入 `knownTools` 缓存**，让设置面板立刻展示并可整理所有工具；服务器仍保持停用。
 请求二选一：
 ```jsonc
 { "server": { "name": "x", "transport": "streamable-http", "url": "https://…", "headers": {…} } }
@@ -123,7 +125,8 @@
 - enabled=true：连接并注册所有 enabled 的工具。
 
 ### POST `/mcp-tools/api/servers/refresh`
-`{ "id" }` → 重新 tools/list（已连接）或重连（断线时），刷新工具列表与状态 → `{ "ok": true, "server": ServerView }`
+`{ "id" }` → 重新 tools/list（已连接）或重连（已启用但断线时），刷新工具列表与状态 → `{ "ok": true, "server": ServerView }`。
+**停用服务器同样可用**：用临时连接 tools/list 刷新 `knownTools` 缓存后关闭，不注册任何工具；失败返回 `{ ok:false, error:"刷新失败：…" }`。
 
 ### POST `/mcp-tools/api/reload`
 从磁盘重新读取 state.json 并全量重启连接（自动化/验证用）→ `{ "ok": true, "servers": [ServerView] }`
@@ -132,7 +135,7 @@
 
 ### POST `/mcp-tools/api/tools/toggle`
 `{ "id": "srv_xxx", "tool": "document_search", "enabled": false }` → `{ ok:true, server: ServerView }`
-- 立即注册/注销该单个工具（不需要重连）。
+- 已连接时立即注册/注销该单个工具（不需要重连）；服务器停用或断线时只持久化开关，重新启用/连接时按开关注册。
 
 ### POST `/mcp-tools/api/tools/bulk`
 `{ "id": "srv_xxx", "action": "all" | "none" | "invert" }` → `{ ok:true, server: ServerView }`
@@ -162,3 +165,4 @@
 5. 删除服务器会立即注销其全部工具。
 6. 工具名、顺序以 `tools[].name` 为唯一键；**顺序不稳定，禁止按下标存状态**。
 7. headers / env 属于敏感信息：前端只在编辑表单里回显，列表卡片只显示 URL/备注，不做日志输出。
+8. 服务器开关与工具管理是**正交**的：`enabled=false` 只表示「不注册给模型」，测试 / 刷新 / `tools.toggle` / `tools.bulk` 仍可用且会写入 state；只有配置本身非法时才阻止网络动作。
