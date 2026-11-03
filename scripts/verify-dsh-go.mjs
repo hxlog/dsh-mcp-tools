@@ -13,7 +13,7 @@
  */
 const OWNER = "hxlog";
 const NAME = "dsh-mcp-tools";
-const EXPECTED = { verified: true, manifest_file: "dsh-package.json", package_version: "1.0.2" };
+const EXPECTED = { verified: true, manifest_file: "dsh-package.json", package_version: "1.0.3" };
 const RAW = "https://raw.githubusercontent.com/coeasy/dsh-go/main/catalog";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

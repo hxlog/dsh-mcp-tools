@@ -1,6 +1,6 @@
 {
   "name": "dsh-mcp-tools",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "Manage your MCP servers and toggle MCP tools on demand inside DeepSeek Harness settings",
   "icon": "icon.svg",
@@ -44,6 +44,7 @@
   },
   "scripts": {
     "test": "node scripts/smoke.mjs",
+    "test:manager": "node scripts/manager-test.mjs",
     "selftest": "node scripts/selftest.mjs",
     "ci-check": "node scripts/ci-check.mjs",
     "verify:dsh-go": "node scripts/verify-dsh-go.mjs",

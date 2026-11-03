@@ -284,3 +284,55 @@ npm 页面（1.0.0）暴露的问题与处理：
 跳过：bruc3van（自荐区要求 star > 10，当前 2★）、dsh-external/hub（私有）、MCP server 目录（分类不符）。
 
 追踪文档：`docs/MARKETPLACES.md`。所有提交 PR 描述末尾使用官方 powered-by-dsh 徽章。
+## 21. 交互修复：tooltip / 停用态工具管理 / stdio 表单（1.0.3）
+
+针对三条反馈修复并验证：hover tooltip 过宽、服务器停用后不能测试与整理工具、新增 stdio 服务器表单过高。
+
+### 21.1 根因与修复
+
+| 现象 | 根因 | 修复 |
+| --- | --- | --- |
+| hover「测试连接 / 更多操作」气泡特别宽 | `.mcpm-tip` 固定 `width: 320px`，`computeTipPosition` 只按视口算宽度、`mountTipNode` 强制写宽，与 label 长度无关 | 改为 `width: max-content; max-width: min(320px, 100vw - 16px)`；挂载后测量真实宽度再定位并按 8px 边距夹紧；长描述 320px 上限内换行 |
+| 停用服务器不能测试 / 管理工具 | `ServerCard` 用 `locked = isOff || configInvalid` 同时锁住测试按钮与工具面板；host `refreshServer` 对停用直接抛「请先启用」；测试成功不更新 `knownTools` | 停用只影响注册，管理能力保留：测试/刷新在停用态走临时连接并写入 `knownTools` 缓存（不注册）；工具面板解锁并提供「刷新工具」；状态行显示停用态测试结论；配置非法时才禁用网络动作 |
+| stdio 表单太高、弹窗内部滚动 | `.mcpm-code` 统一 `min-height: 168px`，同时作用于 args/env 两个 textarea；表单间距 16px | args/env 降为 `min-height:64px` + rows 2；新增 `.mcpm-jsonEditor` 单独保留 168px；表单 gap/padding 16→12px |
+
+### 21.2 离线测试
+
+| 检查 | 结果 |
+| --- | --- |
+| `node --check`（client / manager / fixture） | 通过 |
+| `npm test`（smoke，新增 4 条静态守卫） | 13/13 通过（tooltip 不固定 320、args/env 紧凑、JSON 编辑器 168、停用不被锁、测试失败不重复前缀） |
+| `npm run ci-check` | manifest 契约通过（0 deps、0 lifecycle、8 个发布路径） |
+| `npm run test:manager`（新增） | 11/11 通过：停用服务器可测试并缓存 3 个工具且注册 0；停用可刷新；chip / 批量开关落库且注册 0；启用只注册启用项（2/3）；停用注销全部；坏命令测试返回 ok:false、「刷新失败：…」 |
+
+### 21.3 隔离真机验证
+
+环境：临时 `DSH_HOME` + `dsh --profile verify`（web 模板 + 本地以 `file:` 安装的插件），Playwright 1280×917，测试服务器为禁用状态的 fake stdio MCP。
+
+| 检查项 | 修复前（1.0.2 真实 GUI） | 修复后（1.0.3 隔离实例） |
+| --- | --- | --- |
+| 「测试连接」tooltip | 320×36 | **70×36** |
+| 「更多操作」tooltip | 320×36 | **70×36** |
+| 顶部「刷新」tooltip | 320×36 | **46×36** |
+| 长工具描述 tooltip | — | 320×128，气泡内换行，right 602 < 929 |
+| 窄屏 480 下「更多操作」 | — | 70 宽，right 453 < 480，无越界 |
+| 停用服务器「测试连接」按钮 | `[disabled]` | **可点击** |
+| 停用态测试结论 | 仅显示「已停用」 | **已停用 · 测试通过 · 3 个工具** |
+| 停用态工具面板 | 全灰 / 锁定 | chips 可点、搜索可用、刷新工具 / 全选 / 反选 / 全部停用可用 |
+| 停用态 chip / 批量开关 | 不生效 | 立即更新并写入 state.json；`registeredToolCount=0` |
+| 停用态「刷新工具」 | 抛「请先启用再刷新」 | 成功，「已刷新 · 3 个工具（已停用）」，日志留痕 |
+| 启用 / 停用注册数 | 正常 | 启用注册 3；停用注册 0 |
+| stdio 弹窗内容滚动 | 内容 869 / body scrollHeight 928 > clientHeight 715 | 内容 692 = client 692，**无内部滚动**；dialog 846 < 917 |
+| args / env 文本域高度 | 168px | **64px**（rows 2，可手动拉伸） |
+| JSON 编辑器高度 | 168px | 168px（保留） |
+| 保存按钮 | — | 在视口内（bottom 645 < 917） |
+| 停用失败行 | （不可测） | 已停用 · 连接失败：Connection closed（单次前缀） |
+| 页面控制台 | — | 0 error / 0 warning |
+
+验证后已终止隔离实例并删除临时 `DSH_HOME`；真实 `~/.dsh` 状态与当前 Desktop 实例未改动。
+
+### 21.4 回归确认
+
+- 服务器启用 / 停用、工具 chip、批量开关、搜索、复制配置、事件日志行为不变。
+- 停用服务器测试/刷新会临时启动一次 stdio 进程（用户显式点击），不注册工具；已写入 README 已知限制。
+- 桌面 profile 仍安装 1.0.2，需升级到 1.0.3 后生效。
