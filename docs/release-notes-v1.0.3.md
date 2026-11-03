@@ -9,13 +9,15 @@
 - **stdio 表单更紧凑**：参数 / 环境变量文本框高度从 168px 降到 64px（仍可手动拉伸），JSON 编辑器保留 168px；表单间距收紧。1280×917 下新增 stdio 服务器不再出现弹窗内部滚动。
 - 修复停用服务器测试失败时状态行重复前缀（「连接失败：连接失败：…」）。
 
-## 升级
+## 安装 / 升级
+
+已发布到 npm：**`dsh-mcp-tools@1.0.3`**（<https://www.npmjs.com/package/dsh-mcp-tools>，`latest`）。
 
 ```bash
 dsh plugin --profile web add dsh-mcp-tools      # Web
 dsh plugin --profile desktop add dsh-mcp-tools  # Desktop
 ```
 
-装好后重启 `dsh web` / DSH Desktop 生效。
+装好后重启 `dsh web` / DSH Desktop 生效；已装旧版本的 profile 重新执行上面的 add 即可升级。
 
 **Full Changelog**: https://github.com/hxlog/dsh-mcp-tools/compare/v1.0.2...v1.0.3

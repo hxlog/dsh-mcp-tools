@@ -329,10 +329,57 @@ npm 页面（1.0.0）暴露的问题与处理：
 | 停用失败行 | （不可测） | 已停用 · 连接失败：Connection closed（单次前缀） |
 | 页面控制台 | — | 0 error / 0 warning |
 
-验证后已终止隔离实例并删除临时 `DSH_HOME`；真实 `~/.dsh` 状态与当前 Desktop 实例未改动。
+验证后已终止隔离实例并删除临时 `DSH_HOME`；验证期间未改动真实 `~/.dsh`（随后为让当前桌面实例立即生效，按 §22.4 对 desktop profile 做了 1.0.3 热替换）。
 
 ### 21.4 回归确认
 
 - 服务器启用 / 停用、工具 chip、批量开关、搜索、复制配置、事件日志行为不变。
 - 停用服务器测试/刷新会临时启动一次 stdio 进程（用户显式点击），不注册工具；已写入 README 已知限制。
-- 桌面 profile 仍安装 1.0.2，需升级到 1.0.3 后生效。
+- 桌面 profile 原为 1.0.2；发布后已热替换为 1.0.3（§22.4），重启 DSH Desktop 后 host 侧改动完全生效。
+
+## 22. 发布记录（1.0.3）
+
+### 22.1 npm
+
+| 项目 | 值 |
+| --- | --- |
+| 包 / 版本 | `dsh-mcp-tools@1.0.3` |
+| 发布时间 | 2026-11-03T11:54:34Z（`npm view time.1.0.3`）；发布后约 35s 可查 |
+| 发布者 | `xingyuliu <xingyuliu@outlook.sg>`（npm 12.0.1，浏览器 web 2FA 授权，`exit 0`） |
+| dist-tags | `latest = 1.0.3` |
+| shasum | `981c0b1e4ccb91d1b0d61101d0204fefc235ce89`（与本地 `npm pack` 一致） |
+| integrity | `sha512-VARuMJOJkcMqSgVDS/WoZ05FQdWqlkV/EVn0iY9+a2tKELrzdAnqODo5pPJ9ybDN2DRSUPMWACbUxb9lJ1YtpA==` |
+| 发布包 | 15 files / 220,729 B unpacked（README.md、README.en.md、client/client.js、cordis.patch.yml、icon.svg、lib/*、locale/*、package.json、LICENSE） |
+
+从 registry 重新下载并解包校验：`package.json` 版本 1.0.3；`client/client.js` 含 `width: max-content`、`refreshTools`、`disabledTestPassed`；`lib/manager.js` 含 `async probe(server)` 与停用态刷新日志。与本地构建逐字节同 shasum。
+
+### 22.2 GitHub
+
+| 项目 | 值 |
+| --- | --- |
+| 提交 | `def260e`（修复）、`bcb9c04`（版本号 / 文档） |
+| Tag | `v1.0.3`（annotated，指向 `bcb9c04`） |
+| Release | https://github.com/hxlog/dsh-mcp-tools/releases/tag/v1.0.3 |
+| 附件 | `dsh-mcp-tools-1.0.3.tgz`（54,950 B，sha256 `369c0c06f306de4f2c56d2417efa15e989a6f5adbd4c939efe8d5dc4355a132e`，与本地 tarball 一致） |
+
+### 22.3 发布前门禁
+
+`node --check`、`npm test`（13/13）、`npm run ci-check`、`npm run test:manager`（11/11）、`npm pack --dry-run`（15 files / 54,950 B）全部通过；发布 tarball 与门禁时 tarball 同 shasum（`981c0b1e…`）。
+
+### 22.4 桌面实例生效（59588）
+
+为让当前运行的 Desktop 立即验证，将 `~/.dsh/profiles/desktop/node_modules/dsh-mcp-tools` 的 `client/client.js`、`lib/manager.js`、`package.json` 热替换为 1.0.3（原文件备份于 `%TEMP%\dsh-desktop-backup-103\`；文件为 pnpm 硬链接，采用「临时文件 + unlink + rename」写入，未污染全局 store）。59588 下发的 bundle rev 由 `708263898176` 变为 `762e36fefa0c`。
+
+在真实 59588 实例上复测（Playwright，1280×917 与 480×800 两档）：
+
+| 检查项 | 结果 |
+| --- | --- |
+| 「测试连接」tooltip | 70×36 |
+| 「更多操作」tooltip | 70×36 |
+| 「刷新」tooltip | 46×36 |
+| 长工具描述 tooltip | 320×110，right 702 < 1280 |
+| 480 窄屏「更多操作」 | 70×36，right 453 < 480 |
+| stdio 弹窗 | dialog 846 < 917；内容区 scrollHeight 692 = clientHeight 692；args/env 64px |
+| 控制台 | 0 error / 0 warning |
+
+刷新页面即加载新客户端；host 侧（停用态测试缓存 `knownTools`、停用态「刷新工具」）需重启 DSH Desktop 后由内存中的 1.0.3 模块接管。
