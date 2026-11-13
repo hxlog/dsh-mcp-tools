@@ -1,6 +1,6 @@
 {
   "name": "dsh-mcp-tools",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "description": "Manage your MCP servers and toggle MCP tools on demand inside DeepSeek Harness settings",
   "icon": "icon.svg",

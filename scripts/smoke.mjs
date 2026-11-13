@@ -54,6 +54,12 @@ check('header editor is key/value rows, not a JSON textarea', () => {
   assert(client.includes('addHeader'), 'add-row action missing')
   assert(!client.includes('fieldHeadersJson'), 'legacy JSON header field still present')
 })
+check('add dialog can test an unsaved server', () => {
+  assert(client.includes('function runTest()'), 'runTest missing')
+  assert(client.includes('apiPost("/servers/test", { server: payload })'), 'test must send the unsaved form payload')
+  assert(client.includes('testPassedDetail'), 'pass/fail status line missing')
+  assert(client.includes('mcpm-modalFooterStart'), 'footer start slot missing')
+})
 check('README screenshots exist (zh primary + en)', () => {
   for (const file of ['README.md', 'README.en.md']) {
     const refs = Array.from(read(file).matchAll(/docs\/screenshots\/[^)\s]+\.png/g)).map((m) => m[0])

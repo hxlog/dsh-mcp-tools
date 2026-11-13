@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "type": "plugin",
   "id": "hxlog/dsh-mcp-tools",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "channel": "stable",
   "name": "dsh-mcp-tools",
   "description": "MCP server manager for DeepSeek Harness: add streamable-HTTP or stdio MCP servers in Settings, configure request headers, test connectivity, and toggle each MCP tool so disabled tools never reach the model.",

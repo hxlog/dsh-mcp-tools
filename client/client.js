@@ -95,6 +95,7 @@ window.__ModuleLoader__.load({
         retry: "重试",
         test: "测试连接",
         testing: "测试中…",
+        testPassedDetail: "连接成功 · {latency} ms · {count} 个工具",
         connected: "已连接 · {count} 个工具",
         connectedPartial: "已连接 · {count} 个工具 · {off} 个已停用",
         connectedShort: "已连接",
@@ -211,6 +212,7 @@ window.__ModuleLoader__.load({
         retry: "Retry",
         test: "Test connection",
         testing: "Testing…",
+        testPassedDetail: "Connected · {latency} ms · {count} tools",
         connected: "Connected · {count} tools",
         connectedPartial: "Connected · {count} tools · {off} disabled",
         connectedShort: "Connected",
@@ -645,7 +647,9 @@ window.__ModuleLoader__.load({
   background: var(--dsw-alias-bg-layer-3, var(--dsw-alias-interactive-bg-hover));
 }
 .mcpm-modalFooter { display: flex; align-items: center; justify-content: space-between; gap: var(--mcpm-gap-sm, 8px); width: 100%; }
+.mcpm-modalFooterStart { display: flex; align-items: center; gap: var(--mcpm-gap-sm, 8px); }
 .mcpm-modalFooterEnd { display: flex; align-items: center; gap: var(--mcpm-gap-sm, 8px); margin-left: auto; }
+.mcpm-status[data-tone="success"] { color: var(--dsw-alias-state-success-primary); }
 .mcpm-root .mcpm-danger { color: var(--dsw-alias-state-error-primary); }
 .mcpm-dangerText { color: var(--dsw-alias-state-error-primary); }
 
@@ -2658,6 +2662,8 @@ window.__ModuleLoader__.load({
       });
       var [jsonError, setJsonError] = useState(null);
       var [saving, setSaving] = useState(false);
+      var [testing, setTesting] = useState(false);
+      var [testStatus, setTestStatus] = useState(null);
       var [headerRows, setHeaderRows] = useState(function () {
         var initialHeaders = initial.headers && typeof initial.headers === "object" && !Array.isArray(initial.headers) ? initial.headers : null;
         var hasInitialHeaders = !!initialHeaders && Object.keys(initialHeaders).length > 0;
@@ -2665,6 +2671,7 @@ window.__ModuleLoader__.load({
       });
 
       function update(key, value) {
+        setTestStatus(null);
         setForm(function (current) {
           var next = Object.assign({}, current);
           next[key] = value;
@@ -2706,8 +2713,47 @@ window.__ModuleLoader__.load({
       }
 
       function close() {
-        if (saving) return;
+        if (saving || testing) return;
         props.onClose();
+      }
+
+      function validateForTest() {
+        var checked = validate();
+        var nextErrors = Object.assign({}, checked.errors);
+        // A name is not needed to probe an endpoint; only connection fields matter here.
+        delete nextErrors.name;
+        setErrors(nextErrors);
+        setFormError(null);
+        setTestStatus(null);
+        if (Object.keys(nextErrors).length > 0) return null;
+        return checked.payload;
+      }
+
+      function runTest() {
+        if (saving || testing) return;
+        var payload = validateForTest();
+        if (!payload) return;
+        setTesting(true);
+        apiPost("/servers/test", { server: payload }).then(function (result) {
+          if (!aliveRef.current) return;
+          setTesting(false);
+          if (!result.ok) {
+            setTestStatus({
+              tone: "error",
+              text: result.unavailable ? t("testFailedNetwork") : (result.error || t("testFailedNetwork"))
+            });
+            return;
+          }
+          var data = result.data || {};
+          if (data.ok !== true) {
+            setTestStatus({ tone: "error", text: data.error || t("testFailedNetwork") });
+            return;
+          }
+          setTestStatus({
+            tone: "success",
+            text: t("testPassedDetail", { latency: numOr(data.latencyMs, 0), count: numOr(data.toolCount, 0) })
+          });
+        });
       }
 
       function saveFields() {
@@ -2818,6 +2864,7 @@ window.__ModuleLoader__.load({
       }
 
       function updateHeaderRow(id, patch) {
+        setTestStatus(null);
         setHeaderRows(function (current) {
           return current.map(function (row) {
             if (row.id !== id) return row;
@@ -2835,6 +2882,7 @@ window.__ModuleLoader__.load({
 
       function addHeaderRow() {
         if (saving) return;
+        setTestStatus(null);
         setHeaderRows(function (current) {
           return current.concat(headerRowsWithIds([{ key: "", value: "" }]));
         });
@@ -2842,6 +2890,7 @@ window.__ModuleLoader__.load({
 
       function removeHeaderRow(id) {
         if (saving) return;
+        setTestStatus(null);
         setHeaderRows(function (current) {
           return current.filter(function (row) {
             return row.id !== id;
@@ -2850,6 +2899,7 @@ window.__ModuleLoader__.load({
       }
 
       function toggleHeaderRow(id) {
+        setTestStatus(null);
         setHeaderRows(function (current) {
           return current.map(function (row) {
             if (row.id !== id) return row;
@@ -2961,7 +3011,8 @@ window.__ModuleLoader__.load({
           ? field(dialogId + "-headers", t("fieldHeaders"), headerEditor(), t("headerHint"), errors.headers)
           : null,
         field(dialogId + "-note", t("fieldNote"), textArea(dialogId + "-note", "note", 2, "", undefined), t("fieldNoteHint")),
-        formError ? h("p", { className: "mcpm-formError", role: "alert" }, formError) : null);
+        formError ? h("p", { className: "mcpm-formError", role: "alert" }, formError) : null,
+        testStatus ? h("p", { className: "mcpm-status", "data-tone": testStatus.tone, role: "status" }, testStatus.text) : null);
 
       var jsonPreview = null;
       var trimmedJson = jsonText.trim();
@@ -2999,8 +3050,17 @@ window.__ModuleLoader__.load({
         className: "mcpm-modalContent",
         contentClassName: "mcpm-modalContent",
         footer: h("div", { className: "mcpm-modalFooter" },
-          isEdit
-            ? h(Button, {
+          h("div", { className: "mcpm-modalFooterStart" },
+            tab === "fields"
+              ? h(Button, {
+                variant: "outline",
+                size: "sm",
+                disabled: saving || testing,
+                onClick: runTest
+              }, testing ? t("testing") : t("test"))
+              : null,
+            isEdit
+              ? h(Button, {
               variant: "outline",
               size: "sm",
               className: "mcpm-danger",
@@ -3009,7 +3069,7 @@ window.__ModuleLoader__.load({
                 if (typeof props.onRequestDelete === "function") props.onRequestDelete();
               }
             }, t("delete"))
-            : null,
+              : null),
           h("div", { className: "mcpm-modalFooterEnd" },
             h(Button, { variant: "outline", size: "sm", disabled: saving, onClick: close }, t("cancel")),
             h(Button, {
