@@ -14,13 +14,13 @@
 - 同一配置以 `type: "sse"` 走插件 JSON 导入路径：`imported: 1`、`transport: sse`、`status: connected`、113 个工具。
 - `npm test` / `npm run test:manager` / `npm run ci-check` 全部通过。
 
-## 安装 / 升级（发布后）
+## 安装 / 升级
 
 ```bash
 dsh plugin --profile web add dsh-mcp-tools      # Web
 dsh plugin --profile desktop add dsh-mcp-tools  # Desktop
 ```
 
-装好后重启 `dsh web` / DSH Desktop 生效。
+已发布到 npm：**`dsh-mcp-tools@1.1.0`**（<https://www.npmjs.com/package/dsh-mcp-tools>，`latest`）。装好后重启 `dsh web` / DSH Desktop 生效；已装旧版本的 profile 重新执行上面的 add 即可升级。
 
 **Full Changelog**: https://github.com/hxlog/dsh-mcp-tools/compare/v1.0.3...v1.1.0
