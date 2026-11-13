@@ -36,7 +36,7 @@
 
 | 能力 | 说明 |
 | --- | --- |
-| **服务器管理** | 两种传输：`streamable-http`（URL + 请求头）与 `stdio`（命令 / 参数 / 环境变量 / 工作目录）；分字段填写，或直接粘贴 `{"mcpServers": { ... }}` 一次导入多个。 |
+| **服务器管理** | 三种传输：`streamable-http`（URL + 请求头）、`sse`（旧版 HTTP+SSE，先建 event-stream 再 POST）与 `stdio`（命令 / 参数 / 环境变量 / 工作目录）；分字段填写，或直接粘贴 `{"mcpServers": { ... }}` 一次导入多个（`type: "sse"` 也能识别）。 |
 | **像 Postman 一样填密钥** | 请求头是键值对行而不是 JSON 文本框，默认带一行 `x-mcp-key`；值默认掩码、可逐行显示；名称重复就地报错。 |
 | **真正的逐工具控制** | 每个工具是一个 chip，点击即从模型工具列表消失（不是注册了再报错）；支持搜索 / 全选 / 反选 / 全部停用，悬停查看完整描述。 |
 | **连通性测试与工具发现** | 临时建连 `initialize → tools/list → 关闭`，回报耗时 / 协议版本 / 工具数；**服务器停用时同样可以测试连接、刷新并整理工具**，不影响运行中的实例；「最近事件」记录连接、重载、测试与失败。 |
@@ -119,14 +119,15 @@ DeepSeek Harness Web (dsh web)
 - **运行环境**：DeepSeek Harness **0.2.x**（Web `dsh web` 或 DSH Desktop），**Node.js ≥ 22.13**
 - **支持平台**：DSH Web（`--profile web`）、DSH Desktop（`--profile desktop`）；已在 DSH 0.2.1-rc.2 实机验证
 - **文件访问**：仅读写插件自身状态文件 `~/.dsh/dsh-mcp-tools/state.json`
-- **网络**：仅访问你自己填写的 MCP 端点（streamable-http 服务器与「测试连接」）；**无遥测、不上报任何数据**
+- **网络**：仅访问你自己填写的 MCP 端点（`streamable-http` / `sse` 服务器与「测试连接」）；**无遥测、不上报任何数据**
 - **进程**：仅当你显式添加 `stdio` 服务器时，由 MCP 客户端启动你填写的命令（参数、环境变量、工作目录均由你填写）
 - **UI 注入**：设置页「设置 → MCP」面板，依赖 `@deepseek-ai/dsh-client-ui-settings` 与 `@deepseek-ai/dsh-client-locale`
 
 **已知限制**
 
 - MCP 请求头以**明文**保存在 `state.json`（尚未接入系统钥匙串），备份/同步时请自行加密
-- 仅支持 `streamable-http` 与 `stdio` 两种传输，不支持旧版 SSE
+- 支持 `streamable-http`、`sse`（旧版 HTTP+SSE）与 `stdio`；SSE 已属旧协议，能选 `streamable-http` 时优先用它
+- 部分旧服务端的 `tools/list` 会无限返回 `nextCursor`：插件按页抓取并做去重 / 无进展即停，最多 32 页 / 2000 个工具
 - 只管理当前 DSH profile 里的 MCP 服务器；切换 profile 需在对应 profile 重新添加
 - 没有后台自动健康检查，需要时手动点「测试连接」
 - 停用状态下的「测试连接 / 刷新工具」会临时建立一次连接（stdio 服务器会启动一次进程），只用于发现工具，不会注册给模型
@@ -159,7 +160,7 @@ mklink /J "C:\Users\<你>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 | --- | --- |
 | 设置里没有 MCP 分区 | 多半是 bundle 未启用：插件页确认并刷新，必要时重启 `dsh web`。 |
 | 会话里看不到工具 | 确认服务器开关已打开、对应工具 chip 也已启用；停用的工具不会被注册。 |
-| 测试连接失败 | 检查 URL、服务器是否使用 `streamable-http`（而非普通 SSE）、请求头名称是否与服务端要求一致；网络 / 代理问题也会在这里暴露。 |
+| 测试连接失败 | 检查 URL、传输方式（`streamable-http` 还是 `sse`）、请求头名称是否与服务端要求一致；网络 / 代理问题也会在这里暴露。 |
 | 状态文件在哪 | `~/.dsh/dsh-mcp-tools/state.json`；删除即重置为空，下次启动自动重建。 |
 
 ## 📄 License

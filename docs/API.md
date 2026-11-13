@@ -13,9 +13,9 @@
   "id": "srv_xxx",                 // 服务端生成，稳定不变
   "name": "demo-mcp",        // 用户输入，唯一；同时是工具命名空间 mcp__<name>__<tool>
                                    // 约束 ^[A-Za-z0-9_-]{1,32}$
-  "transport": "streamable-http",  // "streamable-http" | "stdio"
-  "url": "https://…",              // http 传输必填
-  "headers": { "x-mcp-key": "…" }, // http 传输可选
+  "transport": "streamable-http",  // "streamable-http" | "sse" | "stdio"
+  "url": "https://…",              // http / sse 传输必填
+  "headers": { "x-mcp-key": "…" }, // http / sse 传输可选；sse 同时用于 event-stream 与 POST
   "command": "npx",                // stdio 传输必填
   "args": ["-y", "…"],             // stdio 可选
   "env": { "K": "V" },             // stdio 可选
@@ -146,7 +146,7 @@
 ### POST `/mcp-tools/api/import`
 `{ "json": "{ \"mcpServers\": { \"demo-mcp\": { \"url\": \"https://…\", \"headers\": { \"x-mcp-key\": \"…\" } } } }" }`
 或直接传对象 `{ "json": { "mcpServers": { … } } }`。
-- 兼容 `{ "mcpServers": { name: { transport?, url?, headers?, command?, args?, env?, note? } } }`；缺少 transport 时按有无 url 推断（url→streamable-http，command→stdio）。
+- 兼容 `{ "mcpServers": { name: { transport?, type?, url?, headers?, command?, args?, env?, note? } } }`；`type: "sse"` 等同 `transport: "sse"`；缺少声明时按有无 url 推断（url→streamable-http，command→stdio）。
 - 同名服务器已存在 → 覆盖更新（保留 id 与工具开关），响应里 `updated` 列出。
 - → `{ "ok": true, "imported": 1, "updated": 0, "servers": [ServerView], "errors": [] }`
 

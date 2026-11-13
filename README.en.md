@@ -35,7 +35,7 @@
 
 | Capability | Details |
 | --- | --- |
-| **Server management** | Two transports: `streamable-http` (URL + headers) and `stdio` (command / args / env / cwd); fill fields or paste `{"mcpServers": { ... }}` to import many at once. |
+| **Server management** | Three transports: `streamable-http` (URL + headers), `sse` (legacy HTTP+SSE: open the event stream, then POST) and `stdio` (command / args / env / cwd); fill fields or paste `{"mcpServers": { ... }}` to import many at once (`type: "sse"` is understood too). |
 | **Postman-style secrets** | Headers are key/value rows, not a JSON textarea; a default `x-mcp-key` row is provided, values are masked and can be revealed per row, duplicate names error inline. |
 | **Real per-tool control** | Every tool is a chip; disable it and it disappears from the model's tool list entirely (not "registered then errors"). Search, select all, invert, disable all — hover for the full description. |
 | **Connectivity test & tool discovery** | Temporary connection: `initialize → tools/list → close`, reporting latency / protocol version / tool count. **A disabled server can still be tested, refreshed and curated** without touching a live instance; the "Recent events" log records connects, reloads, tests and failures. |
@@ -118,14 +118,15 @@ Reviewed directories (e.g. dshplugins.com) ask plugins to document their runtime
 - **Runtime**: DeepSeek Harness **0.2.x** (Web `dsh web` or DSH Desktop), **Node.js ≥ 22.13**
 - **Platforms**: DSH Web (`--profile web`) and DSH Desktop (`--profile desktop`); verified on DSH 0.2.1-rc.2
 - **File access**: only its own state file `~/.dsh/dsh-mcp-tools/state.json`
-- **Network**: only the MCP endpoints you configure (streamable-http servers and the connectivity test); **no telemetry, nothing is uploaded**
+- **Network**: only the MCP endpoints you configure (`streamable-http` / `sse` servers and the connectivity test); **no telemetry, nothing is uploaded**
 - **Processes**: a `stdio` server command is spawned by the MCP client only when you explicitly add one (command, args, env and cwd are all yours)
 - **UI**: adds the MCP panel under Settings, depends on `@deepseek-ai/dsh-client-ui-settings` and `@deepseek-ai/dsh-client-locale`
 
 **Known limitations**
 
 - MCP request headers are stored in **plaintext** in `state.json` (no OS keychain yet) — encrypt your backups
-- Only `streamable-http` and `stdio` transports are supported; legacy SSE is not
+- `streamable-http`, `sse` (legacy HTTP+SSE) and `stdio` are supported; prefer `streamable-http` when the server offers it
+- Some older servers never stop returning a `nextCursor`; the plugin walks pages itself with de-duplication and a no-progress stop (max 32 pages / 2000 tools)
 - Manages MCP servers for the current DSH profile only; other profiles need their own setup
 - No background health check; use the connectivity test when needed
 - Testing / refreshing a disabled server opens one temporary connection (a stdio server is spawned once) to discover tools; nothing is registered for the model
@@ -158,7 +159,7 @@ mklink /J "C:\Users\<you>\.dsh\profiles\web\node_modules\dsh-mcp-tools" "D:\path
 | --- | --- |
 | No MCP section in Settings | The bundle is probably not enabled — confirm on the Plugins page, refresh, restart `dsh web` if needed. |
 | Tools missing in a session | Make sure the server switch is on and the tool chips are enabled; disabled tools are never registered. |
-| Connection test fails | Check the URL, that the server speaks `streamable-http` (not plain SSE), and the header names; network/proxy problems surface here too. |
+| Connection test fails | Check the URL, the transport (`streamable-http` vs `sse`), and the header names; network/proxy problems surface here too. |
 | Where is the state file? | `~/.dsh/dsh-mcp-tools/state.json`; delete it to reset to empty — it is recreated on next start. |
 
 

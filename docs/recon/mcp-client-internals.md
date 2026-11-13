@@ -316,3 +316,8 @@
 - 作用域：`<PKG>/dsh-scope/README.zh.md:29-46, 60-76`；`<PKG>/dsh-agent/lib/types/runtime-types.d.ts:148-149, 214-231`；`<PKG>/dsh-subagent/lib/types/descriptor.d.ts:78`、`dsh-subagent/lib/index.js:395`
 - 资源：`<PKG>/dsh-mcp-resources/README.zh.md:34, 57, 90, 98, 121`
 - 用户 profile：`<PROFILE>/cordis.yml`、`<PROFILE>/cordis.patch.yml`（mcp-pharmcube 行；`:342` selectedDefault: ptc）、`<PROFILE>/package.json`
+
+## SSE transport (v1.1.0)
+
+- `SSEClientTransport(new URL(server.url), { requestInit: { headers } })` — the SDK adds those headers to the event-stream GET and to every POST.
+- `tools/list` pagination: the SDK's aggregate walk throws after `listMaxPages` (64); `listToolsResilient` walks pages itself (32 pages / 2000 tools cap, de-dupe by name, stop on empty cursor or a page with no new tools).

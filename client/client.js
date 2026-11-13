@@ -1391,7 +1391,9 @@ window.__ModuleLoader__.load({
 
     function transportLabel(server) {
       if (!server || typeof server !== "object") return "";
-      return server.transport === "stdio" ? "stdio" : "streamable-http";
+      if (server.transport === "stdio") return "stdio";
+      if (server.transport === "sse") return "sse";
+      return "streamable-http";
     }
 
     function serverDescription(server) {
@@ -1426,7 +1428,8 @@ window.__ModuleLoader__.load({
         if (asArray(server.args).length) entry.args = asArray(server.args);
         if (server.env && typeof server.env === "object" && Object.keys(server.env).length) entry.env = server.env;
       } else {
-        entry.transport = server.transport || "streamable-http";
+        entry.transport = server.transport === "sse" ? "sse" : "streamable-http";
+        if (entry.transport === "sse") entry.type = "sse";
         entry.url = server.url || "";
         if (server.headers && typeof server.headers === "object" && Object.keys(server.headers).length) entry.headers = server.headers;
       }
@@ -1553,7 +1556,10 @@ window.__ModuleLoader__.load({
           }
         }
         if (!name && typeof entry.name === "string") name = entry.name.trim();
-        var transport = typeof entry.transport === "string" && entry.transport !== "" ? entry.transport : "streamable-http";
+        var declared = typeof entry.transport === "string" && entry.transport !== ""
+          ? entry.transport
+          : (typeof entry.type === "string" && entry.type !== "" ? entry.type : "streamable-http");
+        var transport = declared === "sse" ? "sse" : (declared === "stdio" ? "stdio" : "streamable-http");
         var url = "";
         if (typeof entry.url === "string" && entry.url !== "") url = entry.url;
         else if (typeof entry.baseUrl === "string" && entry.baseUrl !== "") url = entry.baseUrl;
@@ -2632,7 +2638,7 @@ window.__ModuleLoader__.load({
       var [form, setForm] = useState(function () {
         return {
           name: typeof initial.name === "string" ? initial.name : "",
-          transport: initial.transport === "stdio" ? "stdio" : "streamable-http",
+          transport: initial.transport === "stdio" ? "stdio" : (initial.transport === "sse" ? "sse" : "streamable-http"),
           url: typeof initial.url === "string" ? initial.url : "",
           command: typeof initial.command === "string" ? initial.command : "",
           argsText: asArray(initial.args).join("\n"),
@@ -2927,6 +2933,7 @@ window.__ModuleLoader__.load({
           h(InlineTabs, {
             items: [
               { value: "streamable-http", label: "streamable-http", id: dialogId + "-tab-http" },
+              { value: "sse", label: "sse", id: dialogId + "-tab-sse" },
               { value: "stdio", label: "stdio", id: dialogId + "-tab-stdio" }
             ],
             value: form.transport,
@@ -2935,6 +2942,9 @@ window.__ModuleLoader__.load({
               update("transport", value);
             }
           })),
+        form.transport === "sse"
+          ? h("span", { className: "mcpm-hint" }, "SSE：先建立 event-stream 连接，再通过 POST 发送消息；请求头同时用于两者。端点通常以 /sse 结尾。")
+          : null,
         form.transport === "stdio"
           ? field(dialogId + "-command", t("fieldCommand"), textInput(dialogId + "-command", "command", "npx"), t("fieldCommandHint"), errors.command, { required: true })
           : null,
